@@ -8,8 +8,8 @@ class ImageDisplay extends Component {
         const image = require(`../images/${this.props.image}`).default
 
         return (
-            <Row>
-                <Col md={{ space: 6, offset: 3 }} className="w-50 my-4">
+            <Row className="justify-content-center">
+                <Col xs={7} lg={5} className="image-display my-4">
                     <Row>
                         <img src={image} alt='portrait' />
                     </Row>

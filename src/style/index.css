@@ -17,10 +17,10 @@ code {
 
 .menu {
   width: 100vw;
-  height: 100vh;
+  height: 105vh;
   z-index: 1;
   background-color: rgba(255, 255, 255, 1);
-  position: absolute;
+  position: fixed;
   top: 0px;
   left: 0px;
 }
@@ -67,9 +67,13 @@ code {
 }
 
 .menu-link:hover {
-  color:rgba(150, 150, 150, 1)
+  color: rgba(150, 150, 150, 1)
 }
 
 .menu-row {
   height: 100vh;
+}
+
+.gallery {
+  margin-top: 80px;
 }

@@ -12,7 +12,7 @@ class Gallery extends Component {
             <Fragment>
                 <MenuButton />
 
-                <Col>
+                <Col className="gallery">
                     <ImageDisplay image="image1.png" />
                     <ImageDisplay image="image2.png" />
                     <ImageDisplay image="image3.png" />
