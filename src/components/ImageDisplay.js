@@ -14,7 +14,13 @@ class ImageDisplay extends Component {
                         <img src={image} alt='portrait' />
                     </Row>
                     <Row>
-                        <p className="text-center">Image</p>
+                        <p className="text-center mb-0">
+                            <b>{this.props.label}</b>
+                            , {this.props.year}
+                        </p>
+                    </Row>
+                    <Row>
+                        <p className="text-center">{this.props.description}</p>
                     </Row>
                 </Col>
             </Row>
