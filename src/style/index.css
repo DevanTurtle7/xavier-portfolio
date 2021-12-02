@@ -6,7 +6,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, p {
+h1, p, .menu-link {
   font-family: 'Source Code Pro', monospace;
 }
 
@@ -28,7 +28,7 @@ code {
 .icon-btn {
   background-color: rgba(255, 255, 255, 0);
   border: 0;
-  font-size: 1.75em;
+  font-size: 1.25em;
   text-align: center;
   margin: 0px;
   width: 44px;
@@ -56,4 +56,20 @@ code {
   position: absolute;
   top: 20px;
   right: 30px;
+}
+
+.menu-link, .menu-link:visited {
+  color: black;
+  font-size: 1em;
+  transition: color .1s;
+  text-decoration: none;
+  text-align: center;
+}
+
+.menu-link:hover {
+  color:rgba(150, 150, 150, 1)
+}
+
+.menu-row {
+  height: 100vh;
 }

@@ -1,10 +1,12 @@
 import { Component } from 'react';
 import {
-    Col
+    Col,
+    Row
 } from 'reactstrap';
 import IconButton from './IconButton';
 import { MdClose } from "react-icons/md"
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import MenuLink from './MenuLink';
 
 class Menu extends Component {
     render() {
@@ -17,17 +19,13 @@ class Menu extends Component {
                     <MdClose />
                 </IconButton>
 
-                <Col>
-                    <NavLink className="navbar-brand" to="/gallery">
-                        Gallery
-                    </NavLink>
-                    <NavLink className="navbar-brand" to="/other">
-                        Other
-                    </NavLink>
-                    <NavLink className="navbar-brand" to="/contact">
-                        Contact
-                    </NavLink>
-                </Col>
+                <Row className="d-flex align-content-center menu-row">
+                    <Col>
+                        <MenuLink link='/gallery' label='Gallery' />
+                        <MenuLink link='/contact' label='Contact' />
+                        <MenuLink link='/other' label='Other' />
+                    </Col>
+                </Row>
             </div>
         )
     }
