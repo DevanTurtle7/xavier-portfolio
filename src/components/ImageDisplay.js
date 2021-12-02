@@ -9,7 +9,7 @@ class ImageDisplay extends Component {
 
         return (
             <Row className="justify-content-center">
-                <Col xs={7} lg={5} className="image-display my-4">
+                <Col xs={9} md={7} lg={5} className="image-display my-4">
                     <Row>
                         <img src={image} alt='portrait' />
                     </Row>
