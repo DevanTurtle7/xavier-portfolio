@@ -2,7 +2,8 @@ import { Component } from 'react';
 import {
     Col
 } from 'reactstrap';
-import MenuCloseButton from './MenuCloseButton';
+import IconButton from './IconButton';
+import { MdClose } from "react-icons/md"
 
 class Menu extends Component {
     render() {
@@ -12,7 +13,9 @@ class Menu extends Component {
         return (
             <div className={classNames}>
                 <Col>
-                    <MenuCloseButton onClick={this.props.onClose}/>
+                    <IconButton onClick={this.props.onClose} className="menu-close-btn">
+                        <MdClose />
+                    </IconButton>
                     {this.props.children}
                 </Col>
             </div>

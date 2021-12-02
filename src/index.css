@@ -22,10 +22,7 @@ code {
   left: 0px;
 }
 
-.menu-close-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+.icon-btn {
   background-color: rgba(255, 255, 255, 0);
   border: 0;
   font-size: 1.5em;
@@ -39,4 +36,10 @@ code {
 .menu-closed {
   background-color: rgba(255, 255, 255, 0);
   visibility: hidden;
+}
+
+.menu-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
