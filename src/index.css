@@ -25,7 +25,12 @@ code {
 .icon-btn {
   background-color: rgba(255, 255, 255, 0);
   border: 0;
-  font-size: 1.5em;
+  font-size: 1.75em;
+  text-align: center;
+  margin: 0px;
+  width: 44px;
+  height: 44px;
+  padding: 0px;
 }
 
 .menu-open {
@@ -40,6 +45,12 @@ code {
 
 .menu-close-btn {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 30px;
+  right: 30px;
+}
+
+.menu-btn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
 }

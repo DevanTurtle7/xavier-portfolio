@@ -2,7 +2,9 @@ import { Component } from 'react';
 import {
     Button
 } from 'reactstrap';
+import IconButton from './IconButton';
 import Menu from './Menu';
+import { MdMenu } from "react-icons/md"
 
 class MenuButton extends Component {
     constructor(props) {
@@ -24,7 +26,9 @@ class MenuButton extends Component {
     render() {
         return (
             <div>
-                <Button onClick={this.onClick}>Menu</Button>
+                <IconButton onClick={this.onClick} className="menu-btn">
+                    <MdMenu />
+                </IconButton>
                 <Menu open={this.state.open} onClose={this.onClose}><p>This is some test</p></Menu>
             </div>
         )

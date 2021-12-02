@@ -1,7 +1,4 @@
 import { Component } from 'react';
-import {
-    Button
-} from 'reactstrap';
 
 class IconButton extends Component {
     onClick = () => {
