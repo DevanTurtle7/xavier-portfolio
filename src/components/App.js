@@ -3,7 +3,7 @@ import { Component } from 'react';
 import Gallery from './Gallery';
 import Other from './Other';
 import Contact from './Contact';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 class App extends Component {
   render() {
