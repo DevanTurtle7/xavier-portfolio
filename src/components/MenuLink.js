@@ -2,8 +2,6 @@ import { Component } from 'react';
 import {
     Col
 } from 'reactstrap';
-import IconButton from './IconButton';
-import { MdClose } from "react-icons/md"
 import { Link } from "react-router-dom";
 
 class MenuLink extends Component {
