@@ -44,11 +44,11 @@ class Art extends Component {
             let current = this.images[i]
 
             imageDisplays.push(<ImageDisplay
-                id={i}
                 image={current.image}
                 label={current.label}
                 year={current.year}
                 description={current.description}
+                key={i}
             />)
         }
 
@@ -56,7 +56,7 @@ class Art extends Component {
             <Fragment>
                <Navbar/>
 
-                <Col className="Art">
+                <Col className="art">
                     {imageDisplays}
                 </Col>
             </Fragment>
