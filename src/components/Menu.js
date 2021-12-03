@@ -6,18 +6,12 @@ import {
 import IconButton from './IconButton';
 import { MdClose } from "react-icons/md"
 import MenuLink from './MenuLink';
+import Modal from './Modal';
 
 class Menu extends Component {
     render() {
-        let classNames = "menu"
-        classNames += this.props.open ? " menu-open" : " menu-closed"
-
         return (
-            <div className={classNames}>
-                <IconButton onClick={this.props.onClose} className="menu-close-btn">
-                    <MdClose />
-                </IconButton>
-
+            <Modal open={this.props.open} onClose={this.props.onClose}>
                 <Row className="d-flex align-content-center menu-row">
                     <Col>
                         <MenuLink link='/art' label='Art' />
@@ -25,7 +19,7 @@ class Menu extends Component {
                         <MenuLink link='/contact' label='Contact' />
                     </Col>
                 </Row>
-            </div>
+            </Modal>
         )
     }
 }
