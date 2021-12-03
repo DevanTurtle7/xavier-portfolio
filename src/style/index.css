@@ -7,7 +7,6 @@ body {
 }
 
 #root {
-  overflow-x: hidden;
 }
 
 h1, p, .menu-link {
@@ -29,7 +28,7 @@ code {
   left: 0px;
 }
 
-.icon-btn {
+.icon-btn, .icon-btn:visited {
   background-color: rgba(255, 255, 255, 0);
   border: 0;
   font-size: 1.25em;
@@ -56,11 +55,13 @@ code {
   right: 30px;
 }
 
+/*
 .menu-btn {
   position: absolute;
   top: 20px;
   right: 30px;
 }
+*/
 
 .menu-link, .menu-link:visited {
   color: black;
@@ -101,4 +102,9 @@ code {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.image-display {
+  margin-left: -12px;
+  margin-right: -12px;
 }

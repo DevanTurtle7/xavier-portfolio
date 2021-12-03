@@ -37,7 +37,7 @@ class Blackout extends Component {
             for (let i = 0; i < this.props.text.length; i++) {
                 let char = this.props.text[i]
 
-                if (char !== " " && i != 0) {
+                if (char !== " " && i !== 0) {
                     indexes.add(i)
                 }
             }
