@@ -118,4 +118,5 @@ code {
 .fullscreen-image {
   display: block;
   margin: auto;
+  max-height: 85vh;
 }
