@@ -89,3 +89,7 @@ code {
 .blackout-text {
   color: black
 }
+
+.blackout-text:hover {
+  cursor: pointer;
+}

@@ -36,20 +36,11 @@ class Blackout extends Component {
         for (let i = 0; i < this.props.text.length; i++) {
             let char = this.props.text[i]
 
-            if (char != " ") {
+            if (char !== " " && i != 0) {
                 indexes.add(i)
             }
 
-            this.chars.push(
-                <BlackoutChar
-                    char={char}
-                    enabled={this.state.enabled}
-                    index={i}
-                    key={i}
-                />
-            )
-
-            this.setState({ indexes: indexes })
+            this.setState({ indexes: indexes, running: true, enabled: new Set() })
         }
     }
 
@@ -72,7 +63,6 @@ class Blackout extends Component {
 
     componentDidMount() {
         this.setup()
-        this.setState({ running: true })
     }
 
     sleep = (milliseconds) => {
@@ -84,7 +74,6 @@ class Blackout extends Component {
         console.log(indexes)
 
         if (this.state.running) {
-            console.log("running!")
             if (indexes.size > 0) {
                 let enabled = this.state.enabled
                 let drawn = this.drawFromSet(indexes)
@@ -103,7 +92,7 @@ class Blackout extends Component {
     render() {
         this.renderChars()
         return (
-            <p className="blackout-text">{this.chars}</p>
+            <p className="blackout-text" onClick={this.setup}>{this.chars}</p>
         )
     }
 }

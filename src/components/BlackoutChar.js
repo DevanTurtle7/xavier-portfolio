@@ -8,8 +8,7 @@ class BlackoutChar extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
-        console.log('hi')
+    componentDidUpdate() {
         let index = this.props.index
         let enabled = this.props.enabled.has(index)
 
