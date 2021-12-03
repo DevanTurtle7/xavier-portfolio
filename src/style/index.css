@@ -37,6 +37,7 @@ code {
 }
 
 .menu-btn {
+  color: black;
   position: absolute;
   top: 20px;
   right: 30px
@@ -53,6 +54,7 @@ code {
 }
 
 .menu-close-btn {
+  color: black;
   position: absolute;
   top: 20px;
   right: 30px;
