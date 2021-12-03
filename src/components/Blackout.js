@@ -95,7 +95,7 @@ class Blackout extends Component {
         this.renderChars()
 
         return (
-            <p className="blackout-text" onClick={this.setup}>{this.chars}</p>
+            <p className="blackout-text noselect" onClick={this.setup}>{this.chars}</p>
         )
     }
 }
