@@ -52,9 +52,7 @@ class ImageDisplay extends Component {
                 <Modal open={this.state.open} onClose={this.onClose}>
                     <Row className="justify-content-center align-content-center fullscreen-row">
                         <Col>
-                            <Container>
                                 <img src={image} alt={this.props.description} className="fullscreen-image" />
-                            </Container>
                         </Col>
                     </Row>
                 </Modal>
