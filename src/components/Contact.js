@@ -3,6 +3,7 @@ import {
     Col
 } from 'reactstrap';
 import MenuButton from './MenuButton';
+import Blackout from './Blackout';
 
 class Contact extends Component {
     render() {
@@ -10,6 +11,7 @@ class Contact extends Component {
             <Col>
                 <MenuButton />
                 <h1>Contact</h1>
+                <Blackout text="Xavier Sylvia-Jackson"/>
             </Col>
         )
     }

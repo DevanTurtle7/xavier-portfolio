@@ -81,3 +81,11 @@ code {
 .gallery {
   margin-top: 80px;
 }
+
+.blackout {
+  background-color: black;
+}
+
+.blackout-text {
+  color: black
+}
