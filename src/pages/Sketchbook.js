@@ -1,16 +1,14 @@
-import { Component } from 'react';
-import {
-    Col
-} from 'reactstrap';
-import MenuButton from '../components/MenuButton';
+import { Component, Fragment } from 'react';
+import Navbar from '../components/Navbar'
 
 class Sketchbook extends Component {
     render() {
         return (
-            <Col>
-                <MenuButton />
+            <Fragment>
+               <Navbar/>
+
                 <h1>Sketchbook</h1>
-            </Col>
+            </Fragment>
         )
     }
 }

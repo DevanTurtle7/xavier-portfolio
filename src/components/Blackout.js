@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import BlackoutChar from './BlackoutChar';
 
-const INIT_TIME = 1000;
+const INIT_TIME = 300;
 const STEP_TIME = 40;
 
 class Blackout extends Component {

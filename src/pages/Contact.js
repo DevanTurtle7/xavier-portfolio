@@ -1,18 +1,14 @@
-import { Component } from 'react';
-import {
-    Col
-} from 'reactstrap';
-import MenuButton from '../components/MenuButton';
-import Blackout from '../components/Blackout';
+import { Component, Fragment } from 'react';
+import Navbar from '../components/Navbar'
 
 class Contact extends Component {
     render() {
         return (
-            <Col>
-                <MenuButton />
+            <Fragment>
+               <Navbar/>
+
                 <h1>Contact</h1>
-                <Blackout text="Xavier Sylvia-Jackson"/>
-            </Col>
+            </Fragment>
         )
     }
 }
