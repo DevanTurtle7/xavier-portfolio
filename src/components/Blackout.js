@@ -1,18 +1,18 @@
 import { Component } from 'react';
 import BlackoutChar from './BlackoutChar';
 
+const INIT_TIME = 1000;
+const STEP_TIME = 40;
+
 class Blackout extends Component {
     constructor(props) {
         super(props)
+
         this.state = {
             running: true,
             enabled: new Set(),
             indexes: new Set()
         }
-
-        let test = new Set()
-        test.add(1)
-        this.setState({ enabled: test })
     }
 
     drawFromSet = (set) => {
@@ -39,9 +39,9 @@ class Blackout extends Component {
             if (char !== " " && i != 0) {
                 indexes.add(i)
             }
-
-            this.setState({ indexes: indexes, running: true, enabled: new Set() })
         }
+
+        this.setState({ indexes: indexes, running: true, enabled: new Set() })
     }
 
     renderChars = () => {
@@ -62,7 +62,9 @@ class Blackout extends Component {
     }
 
     componentDidMount() {
-        this.setup()
+        this.sleep(INIT_TIME).then(r => {
+            this.setup()
+        })
     }
 
     sleep = (milliseconds) => {
@@ -71,16 +73,14 @@ class Blackout extends Component {
 
     componentDidUpdate() {
         let indexes = this.state.indexes
-        console.log(indexes)
 
         if (this.state.running) {
             if (indexes.size > 0) {
                 let enabled = this.state.enabled
                 let drawn = this.drawFromSet(indexes)
-                console.log(drawn)
 
                 enabled.add(drawn)
-                this.sleep(40).then(r => {
+                this.sleep(STEP_TIME).then(r => {
                     this.setState({ enabled: enabled, indexes: indexes })
                 })
             } else {
@@ -91,6 +91,7 @@ class Blackout extends Component {
 
     render() {
         this.renderChars()
+
         return (
             <p className="blackout-text" onClick={this.setup}>{this.chars}</p>
         )
