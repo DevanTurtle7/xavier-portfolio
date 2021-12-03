@@ -2,17 +2,17 @@ import { Component } from 'react';
 import {
     Col
 } from 'reactstrap';
-import MenuButton from './MenuButton';
+import MenuButton from '../components/MenuButton';
 
-class Other extends Component {
+class Sketchbook extends Component {
     render() {
         return (
             <Col>
                 <MenuButton />
-                <h1>Other</h1>
+                <h1>Sketchbook</h1>
             </Col>
         )
     }
 }
 
-export default Other;
+export default Sketchbook;

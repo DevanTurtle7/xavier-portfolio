@@ -2,16 +2,16 @@ import { Component, Fragment } from 'react';
 import {
     Col,
 } from 'reactstrap';
-import ImageDisplay from './ImageDisplay';
-import Navbar from './Navbar'
+import ImageDisplay from '../components/ImageDisplay';
+import Navbar from '../components/Navbar'
 
-class Gallery extends Component {
+class Art extends Component {
     render() {
         return (
             <Fragment>
                <Navbar/>
 
-                <Col className="gallery">
+                <Col className="Art">
                     <ImageDisplay image="image1.png" label="Image Title" year={2021} description="Description" />
                     <ImageDisplay image="image2.png" label="Painting" year={2020} description="Mixed media" />
                     <ImageDisplay image="image3.png" label="Another One" year={2019} description="Acrylic painting" />
@@ -22,4 +22,4 @@ class Gallery extends Component {
     }
 }
 
-export default Gallery;
+export default Art;

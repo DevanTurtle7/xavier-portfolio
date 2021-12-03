@@ -2,8 +2,8 @@ import { Component } from 'react';
 import {
     Col
 } from 'reactstrap';
-import MenuButton from './MenuButton';
-import Blackout from './Blackout';
+import MenuButton from '../components/MenuButton';
+import Blackout from '../components/Blackout';
 
 class Contact extends Component {
     render() {

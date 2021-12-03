@@ -20,9 +20,9 @@ class Menu extends Component {
 
                 <Row className="d-flex align-content-center menu-row">
                     <Col>
-                        <MenuLink link='/gallery' label='Gallery' />
+                        <MenuLink link='/art' label='Art' />
+                        <MenuLink link='/sketchbook' label='Sketchbook' />
                         <MenuLink link='/contact' label='Contact' />
-                        <MenuLink link='/other' label='Other' />
                     </Col>
                 </Row>
             </div>
