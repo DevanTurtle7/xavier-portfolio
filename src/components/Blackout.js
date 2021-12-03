@@ -9,7 +9,7 @@ class Blackout extends Component {
         super(props)
 
         this.state = {
-            running: true,
+            running: false,
             enabled: new Set(),
             indexes: new Set()
         }
@@ -30,18 +30,20 @@ class Blackout extends Component {
     }
 
     setup = () => {
-        this.chars = []
-        let indexes = new Set()
+        if (!this.state.running) {
+            this.chars = []
+            let indexes = new Set()
 
-        for (let i = 0; i < this.props.text.length; i++) {
-            let char = this.props.text[i]
+            for (let i = 0; i < this.props.text.length; i++) {
+                let char = this.props.text[i]
 
-            if (char !== " " && i != 0) {
-                indexes.add(i)
+                if (char !== " " && i != 0) {
+                    indexes.add(i)
+                }
             }
-        }
 
-        this.setState({ indexes: indexes, running: true, enabled: new Set() })
+            this.setState({ indexes: indexes, running: true, enabled: new Set() })
+        }
     }
 
     renderChars = () => {
