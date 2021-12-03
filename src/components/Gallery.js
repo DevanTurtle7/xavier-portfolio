@@ -1,25 +1,15 @@
 import { Component, Fragment } from 'react';
 import {
     Col,
-    Row,
-    Container
 } from 'reactstrap';
-import Blackout from './Blackout';
 import ImageDisplay from './ImageDisplay';
-import MenuButton from './MenuButton';
+import Navbar from './Navbar'
 
 class Gallery extends Component {
     render() {
         return (
             <Fragment>
-                <Row className="justify-content-between mx-auto">
-                    <Col xs={11}>
-                        <Blackout text="Xavier Sylvia-Jackson" />
-                    </Col>
-                    <Col xs={1}>
-                        <MenuButton />
-                    </Col>
-                </Row>
+               <Navbar/>
 
                 <Col className="gallery">
                     <ImageDisplay image="image1.png" label="Image Title" year={2021} description="Description" />

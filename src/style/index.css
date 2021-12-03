@@ -6,9 +6,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
-}
-
 h1, p, .menu-link {
   font-family: 'Source Code Pro', monospace;
 }
@@ -39,6 +36,12 @@ code {
   padding: 0px;
 }
 
+.menu-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px
+}
+
 .menu-open {
   background-color: rgba(255, 255, 255, 1);
   visibility: visible;
@@ -54,14 +57,6 @@ code {
   top: 20px;
   right: 30px;
 }
-
-/*
-.menu-btn {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-}
-*/
 
 .menu-link, .menu-link:visited {
   color: black;
@@ -88,7 +83,7 @@ code {
 }
 
 .blackout-text {
-  color: black
+  color: black;
 }
 
 .blackout-text:hover {
@@ -107,4 +102,9 @@ code {
 .image-display {
   margin-left: -12px;
   margin-right: -12px;
+}
+
+.navbar {
+  padding-top: 30px !important;
+  padding-left: 30px !important
 }
