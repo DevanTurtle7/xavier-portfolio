@@ -9,12 +9,12 @@ import MenuLink from './MenuLink';
 
 class Modal extends Component {
     render() {
-        let classNames = "menu"
-        classNames += this.props.open ? " menu-open" : " menu-closed"
+        let classNames = "modal-view"
+        classNames += this.props.open ? " modal-open" : " modal-closed"
 
         return (
             <div className={classNames}>
-                <IconButton onClick={this.props.onClose} className="menu-close-btn">
+                <IconButton onClick={this.props.onClose} className="modal-close-btn">
                     <MdClose />
                 </IconButton>
 
