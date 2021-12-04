@@ -68,7 +68,7 @@ code {
   text-align: center;
 }
 
-.menu-link:hover {
+.menu-link:hover, .icon-btn:hover {
   color: rgba(150, 150, 150, 1)
 }
 
