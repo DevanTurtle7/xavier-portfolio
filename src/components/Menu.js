@@ -3,8 +3,6 @@ import {
     Col,
     Row
 } from 'reactstrap';
-import IconButton from './IconButton';
-import { MdClose } from "react-icons/md"
 import MenuLink from './MenuLink';
 import Modal from './Modal';
 
