@@ -2,7 +2,6 @@ import { Component, Fragment } from 'react';
 import {
     Col,
     Row,
-    Container
 } from 'reactstrap';
 import Modal from './Modal';
 
