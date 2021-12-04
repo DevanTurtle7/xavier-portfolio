@@ -26,6 +26,8 @@ class Admin extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            email: null,
+            password: null,
             user: null,
             file: null,
             url: ""
@@ -33,11 +35,11 @@ class Admin extends Component {
     }
 
     componentDidMount() {
+        this.signOut()
         auth.onAuthStateChanged(this.updateUserState)
     }
 
     updateUserState = (user) => {
-        console.log("hello")
         this.setState({ user: user })
     }
 
@@ -55,6 +57,8 @@ class Admin extends Component {
     }
 
     signIn = () => {
+        let email = this.state.email
+        let password = this.state.password
 
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -90,6 +94,15 @@ class Admin extends Component {
         });
     }
 
+    emailChanged = (e) => {
+        let email = e.target.value
+        this.setState({ email: email })
+    }
+
+    passwordChanged = (e) => {
+        let password = e.target.value
+        this.setState({ password: password })
+    }
 
     render() {
         if (this.state.user == null) {
@@ -99,6 +112,8 @@ class Admin extends Component {
 
                     <h1>Admin</h1>
                     <Button onClick={this.signIn}>Sign In</Button>
+                    <Input type="text" placeholder="Email" onChange={this.emailChanged}></Input>
+                    <Input type="password" placeholder="Password" onChange={this.passwordChanged}></Input>
                 </Fragment>
             )
         } else {
