@@ -1,10 +1,11 @@
 import { Component, Fragment } from 'react';
 import Navbar from '../components/Navbar'
+import { Button, Input } from 'reactstrap';
+
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { collection, addDoc } from "firebase/firestore";
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
-import { Button } from 'reactstrap';
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyA1O3ZZUuxv0-PGJPZI9UffooMkAHdyjZw",
@@ -19,14 +20,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 const auth = getAuth();
-
-
+const storage = getStorage(app);
 
 class Admin extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            user: null
+            user: null,
+            file: null,
+            url: ""
         }
     }
 
@@ -74,6 +76,21 @@ class Admin extends Component {
         });
     }
 
+    imageChanged = (e) => {
+        const file = e.target.files[0]
+        this.setState({ file: file })
+    }
+
+    uploadImage = (e) => {
+        let file = this.state.file
+        const storageRef = ref(storage, file.name);
+
+        uploadBytes(storageRef, file).then((snapshot) => {
+            console.log('Uploaded a blob or file!');
+        });
+    }
+
+
     render() {
         if (this.state.user == null) {
             return (
@@ -91,6 +108,12 @@ class Admin extends Component {
 
                     <h1>Admin</h1>
                     <Button onClick={this.signOut}>Sign Out</Button>
+                    <Button onClick={this.test}>Edit db</Button>
+                    <Input
+                        type="file"
+                        onChange={this.imageChanged}
+                    />
+                    <Button onClick={this.uploadImage}>Upload</Button>
                 </Fragment>
             )
         }
