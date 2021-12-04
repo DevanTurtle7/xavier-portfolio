@@ -66,7 +66,6 @@ class Admin extends Component {
                 console.log(user)
             })
             .catch((error) => {
-                const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorMessage)
             });
@@ -74,7 +73,6 @@ class Admin extends Component {
 
     signOut = async () => {
         signOut(auth).then(() => {
-            console.log('signed out')
         }).catch((error) => {
             console.log(error)
         });
