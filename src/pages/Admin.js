@@ -3,7 +3,8 @@ import Navbar from '../components/Navbar'
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import { Button } from 'reactstrap';
 
 const firebaseConfig = {
     apiKey: "AIzaSyA1O3ZZUuxv0-PGJPZI9UffooMkAHdyjZw",
@@ -17,8 +18,27 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore();
+const auth = getAuth();
+
+
 
 class Admin extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            user: null
+        }
+    }
+
+    componentDidMount() {
+        auth.onAuthStateChanged(this.updateUserState)
+    }
+
+    updateUserState = (user) => {
+        console.log("hello")
+        this.setState({ user: user })
+    }
+
     test = async () => {
         try {
             const docRef = await addDoc(collection(db, "users"), {
@@ -32,15 +52,12 @@ class Admin extends Component {
         }
     }
 
-    login = () => {
-        const auth = getAuth();
+    signIn = () => {
 
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Signed in 
                 const user = userCredential.user;
                 console.log(user)
-                // ...
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -49,25 +66,34 @@ class Admin extends Component {
             });
     }
 
-    signOut = () => {
-        const auth = getAuth();
+    signOut = async () => {
         signOut(auth).then(() => {
-            // Sign-out successful.
+            console.log('signed out')
         }).catch((error) => {
-            // An error happened.
+            console.log(error)
         });
     }
 
     render() {
-        //this.test()
-        this.login()
-        return (
-            <Fragment>
-                <Navbar />
+        if (this.state.user == null) {
+            return (
+                <Fragment>
+                    <Navbar />
 
-                <h1>Admin</h1>
-            </Fragment>
-        )
+                    <h1>Admin</h1>
+                    <Button onClick={this.signIn}>Sign In</Button>
+                </Fragment>
+            )
+        } else {
+            return (
+                <Fragment>
+                    <Navbar />
+
+                    <h1>Admin</h1>
+                    <Button onClick={this.signOut}>Sign Out</Button>
+                </Fragment>
+            )
+        }
     }
 }
 
