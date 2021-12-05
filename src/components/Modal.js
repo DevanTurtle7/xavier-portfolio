@@ -2,14 +2,28 @@ import { Component } from 'react';
 import IconButton from './IconButton';
 import { MdClose } from "react-icons/md"
 
+const safeDocument = typeof document !== 'undefined' ? document : {};
+const html = safeDocument.documentElement;
+
 class Modal extends Component {
+    onClose = () => {
+        html.style.overflow = 'visible'
+        this.props.onClose();
+    }
+
     render() {
         let classNames = "modal-view"
-        classNames += this.props.open ? " modal-open" : " modal-closed"
+
+        if (this.props.open) {
+            html.style.overflow = 'hidden';
+            classNames += " modal-open"
+        } else {
+            classNames += " modal-closed"
+        }
 
         return (
             <div className={classNames}>
-                <IconButton onClick={this.props.onClose} className="modal-close-btn">
+                <IconButton onClick={this.onClose} className="modal-close-btn">
                     <MdClose />
                 </IconButton>
 
