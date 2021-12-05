@@ -35,6 +35,7 @@ class ImageDisplay extends Component {
                                 alt={this.props.description}
                                 onClick={this.onClick}
                                 className="clickable"
+                                draggable="false"
                             />
                         </Row>
                         <Row className="mx-auto">
@@ -51,7 +52,12 @@ class ImageDisplay extends Component {
                 <Modal open={this.state.open} onClose={this.onClose}>
                     <Row className="justify-content-center align-content-center fullscreen-row">
                         <Col>
-                                <img src={image} alt={this.props.description} className="fullscreen-image" />
+                                <img
+                                    src={image}
+                                    alt={this.props.description}
+                                    className="fullscreen-image"
+                                    draggable="false"
+                                />
                         </Col>
                     </Row>
                 </Modal>
