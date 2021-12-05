@@ -118,6 +118,8 @@ code {
 .fullscreen-image {
   display: block;
   margin: auto;
+  width: 85vw;
   max-height: 85vh;
   max-width: 85vw;
+  object-fit: contain;
 }
