@@ -3,25 +3,7 @@ import Navbar from '../components/Navbar'
 import { Button, Input } from 'reactstrap';
 import GalleryList from './components/GalleryList';
 
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyA1O3ZZUuxv0-PGJPZI9UffooMkAHdyjZw",
-    authDomain: "fir-2e91f.firebaseapp.com",
-    databaseURL: "https://fir-2e91f.firebaseio.com",
-    projectId: "fir-2e91f",
-    storageBucket: "fir-2e91f.appspot.com",
-    messagingSenderId: "352914266642",
-    appId: "1:352914266642:web:7b8ee0cd82b397e3c296cb"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore();
-const auth = getAuth();
-const storage = getStorage(app);
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 class Admin extends Component {
     constructor(props) {
@@ -31,11 +13,15 @@ class Admin extends Component {
             password: null,
             user: null,
         }
+
+        this.auth = this.props.auth
+        this.storage = this.props.storage
+        this.db = this.props.db
     }
 
     componentDidMount() {
         this.signOut()
-        auth.onAuthStateChanged(this.updateUserState)
+        this.auth.onAuthStateChanged(this.updateUserState)
     }
 
     updateUserState = (user) => {
@@ -46,7 +32,7 @@ class Admin extends Component {
         let email = this.state.email
         let password = this.state.password
 
-        signInWithEmailAndPassword(auth, email, password)
+        signInWithEmailAndPassword(this.auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
                 console.log(user)
@@ -58,7 +44,7 @@ class Admin extends Component {
     }
 
     signOut = async () => {
-        signOut(auth).then(() => {
+        signOut(this.auth).then(() => {
         }).catch((error) => {
             console.log(error)
         });
@@ -93,7 +79,7 @@ class Admin extends Component {
 
                     <h1>Admin</h1>
                     <Button onClick={this.signOut}>Sign Out</Button>
-                    <GalleryList/>
+                    <GalleryList storage={this.storage} db={this.db}/>
                 </Fragment>
             )
         }

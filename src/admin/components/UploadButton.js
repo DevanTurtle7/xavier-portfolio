@@ -1,50 +1,32 @@
 import { Component, Fragment } from 'react';
 import {
     Button,
-    Col,
     Input,
     Modal,
     ModalBody,
     ModalFooter,
-    FormFeedback,
-    FormGroup,
     ModalHeader
 } from 'reactstrap';
 
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { nextUntil } from 'dom-helpers';
-import { MdNoCell } from 'react-icons/md';
-
-const firebaseConfig = {
-    apiKey: "AIzaSyA1O3ZZUuxv0-PGJPZI9UffooMkAHdyjZw",
-    authDomain: "fir-2e91f.firebaseapp.com",
-    databaseURL: "https://fir-2e91f.firebaseio.com",
-    projectId: "fir-2e91f",
-    storageBucket: "fir-2e91f.appspot.com",
-    messagingSenderId: "352914266642",
-    appId: "1:352914266642:web:7b8ee0cd82b397e3c296cb"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore();
-const auth = getAuth();
-const storage = getStorage(app);
 
 class UploadButton extends Component {
     constructor(props) {
         super(props)
+
         this.state = {
             file: null,
-            url: "",
             modalOpen: false,
             title: "",
             year: null,
             medium: "",
             images: []
         }
+
+        this.storage = this.props.storage
+        this.db = this.props.db
     }
 
     imageChanged = (e) => {
@@ -59,7 +41,6 @@ class UploadButton extends Component {
     closeModal = () => {
         this.setState({
             file: null,
-            url: "",
             modalOpen: false,
             title: "",
             year: null,
@@ -83,12 +64,12 @@ class UploadButton extends Component {
             let medium = this.state.medium
             let name = file.name
 
-            const storageRef = ref(storage, name);
+            const storageRef = ref(this.storage, name);
 
             uploadBytes(storageRef, file).then(async (snapshot) => {
                 console.log(snapshot)
                 try {
-                    const docRef = await addDoc(collection(db, "art"), {
+                    const docRef = await addDoc(collection(this.db, "art"), {
                         filename: name,
                         title: title,
                         year: year,
@@ -117,7 +98,7 @@ class UploadButton extends Component {
     }
 
     validField = (field) => {
-        return field != "" && field != null
+        return field !== "" && field !== null
     }
 
     validData = () => {
@@ -130,40 +111,12 @@ class UploadButton extends Component {
             && this.validField(year) && this.validField(medium)
     }
 
-    download = async () => {
-        const querySnapshot = await getDocs(collection(db, "art"));
-        querySnapshot.forEach((doc) => {
-            let data = doc.data();
-            let filename = data.filename;
-
-            getDownloadURL(ref(storage, filename))
-            .then((url) => {
-                let images = this.state.images;
-                images.push(url)
-  
-                this.setState({ images: images })
-            })
-            .catch((error) => {
-              console.log(error)
-            });
-        });
-    }
-
     render() {
-        let valid = this.validData();
-        let images = []
-
-        for (var i = 0; i < this.state.images.length; i++) {
-            let url = this.state.images[i]
-
-            images.push(<img src={url} />)
-        }
+        let valid = this.validData()
 
         return (
             <Fragment>
                 <Button onClick={this.openModal}>Upload</Button>
-                <Button onClick={this.download}>Download</Button>
-                {images}
 
                 <Modal isOpen={this.state.modalOpen}>
                     <ModalHeader toggle={this.toggleModal}>
@@ -176,7 +129,7 @@ class UploadButton extends Component {
                         <Input type="text" placeholder="Medium" className="m-2" onChange={this.mediumChanged} />
                     </ModalBody>
                     <ModalFooter>
-                        <Button onClick={this.upload} color="primary" disabled={!this.validData()}>Upload</Button>
+                        <Button onClick={this.upload} color="primary" disabled={!valid}>Upload</Button>
                     </ModalFooter>
                 </Modal>
             </Fragment>

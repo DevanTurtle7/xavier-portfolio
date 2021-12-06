@@ -5,8 +5,8 @@ import {
 import ImageDisplay from '../components/ImageDisplay';
 import Navbar from '../components/Navbar'
 
-import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { collection, getDocs } from "firebase/firestore";
+import { ref, getDownloadURL } from "firebase/storage";
 
 class Art extends Component {
     constructor (props) {

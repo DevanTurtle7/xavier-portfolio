@@ -7,9 +7,9 @@ import Admin from './admin/Admin';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1O3ZZUuxv0-PGJPZI9UffooMkAHdyjZw",
@@ -22,6 +22,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
 const db = getFirestore();
 const auth = getAuth();
 const storage = getStorage(app);
@@ -35,7 +36,7 @@ class App extends Component {
           <Route exact path='/art' element={<Art db={db} storage={storage}/>} />
           <Route exact path='/contact' element={<Contact />} />
           <Route exact path='/sketchbook' element={<Sketchbook />} />
-          <Route exact path='/admin' element={<Admin />} />
+          <Route exact path='/admin' element={<Admin db={db} storage={storage} auth={auth}/>} />
         </Routes>
       </Router>
     );
