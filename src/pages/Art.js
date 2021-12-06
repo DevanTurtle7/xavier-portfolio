@@ -9,10 +9,10 @@ import { collection, getDocs } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 
 class Art extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props)
         this.state = {
-            images: []
+            images: [],
         }
 
         this.db = this.props.db
@@ -21,6 +21,7 @@ class Art extends Component {
 
     getArt = async () => {
         const querySnapshot = await getDocs(collection(this.db, "art"));
+
         querySnapshot.forEach((doc) => {
             let data = doc.data();
             let filename = data.filename;
@@ -29,24 +30,22 @@ class Art extends Component {
             let medium = data.medium;
 
             getDownloadURL(ref(this.storage, filename))
-            .then((url) => {
-                let images = this.state.images;
+                .then((url) => {
+                    let images = this.state.images;
 
-                let current = {
-                    url: url,
-                    title: title,
-                    year: year,
-                    medium: medium
-                }
+                    let current = {
+                        url: url,
+                        title: title,
+                        year: year,
+                        medium: medium
+                    }
 
-                console.log(current)
-
-                images.push(current)
-                this.setState({ images: images })
-            })
-            .catch((error) => {
-              console.log(error)
-            });
+                    images.push(current)
+                    this.setState({ images: images })
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
         });
     }
 
@@ -72,8 +71,7 @@ class Art extends Component {
 
         return (
             <Fragment>
-               <Navbar/>
-
+                <Navbar />
                 <Col className="art">
                     {imageDisplays}
                 </Col>

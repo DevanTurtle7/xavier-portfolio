@@ -121,3 +121,12 @@ code {
   max-height: 85vh;
   max-width: 85vw;
 }
+
+.fade-in-start {
+  opacity: 0;
+}
+
+.fade-in-end {
+  opacity: 1;
+  transition: opacity 1s;
+}
