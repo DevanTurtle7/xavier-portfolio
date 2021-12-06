@@ -4,7 +4,6 @@ import {
     Row,
 } from 'reactstrap';
 import Modal from './Modal';
-import { TransitionGroup } from 'react-transition-group'
 
 class ImageDisplay extends Component {
     constructor(props) {

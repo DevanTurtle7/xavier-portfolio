@@ -18,7 +18,6 @@ code {
 .modal-view {
   width: 100vw;
   height: 105vh;
-  z-index: 1;
   background-color: rgba(255, 255, 255, 1);
   position: fixed;
   top: 0px;
@@ -44,13 +43,15 @@ code {
 }
 
 .modal-open {
-  background-color: rgba(255, 255, 255, 1);
   visibility: visible;
+  opacity: 1;
+  transition: opacity .25s;
 }
 
 .modal-closed {
-  background-color: rgba(255, 255, 255, 0);
   visibility: hidden;
+  opacity: 0;
+  transition: opacity .25s, visibility 0s .25s;
 }
 
 .modal-close-btn {
@@ -128,5 +129,5 @@ code {
 
 .fade-in-end {
   opacity: 1;
-  transition: opacity 1s;
+  transition: opacity .75s;
 }
