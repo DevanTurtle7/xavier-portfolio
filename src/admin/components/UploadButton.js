@@ -8,9 +8,8 @@ import {
     ModalHeader
 } from 'reactstrap';
 
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { collection, addDoc } from "firebase/firestore";
+import { ref, uploadBytes } from "firebase/storage";
 
 class UploadButton extends Component {
     constructor(props) {

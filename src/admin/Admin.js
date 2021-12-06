@@ -1,6 +1,6 @@
 import { Component, Fragment } from 'react';
 import Navbar from '../components/Navbar'
-import { Button, Input } from 'reactstrap';
+import { Button, Input, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import GalleryList from './components/GalleryList';
 
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
@@ -12,6 +12,7 @@ class Admin extends Component {
             email: null,
             password: null,
             user: null,
+            activeTab: "1"
         }
 
         this.auth = this.props.auth
@@ -60,6 +61,10 @@ class Admin extends Component {
         this.setState({ password: password })
     }
 
+    switchTab = (id) => {
+        this.setState({ activeTab: id})
+    }
+
     render() {
         if (this.state.user == null) {
             return (
@@ -79,7 +84,27 @@ class Admin extends Component {
 
                     <h1>Admin</h1>
                     <Button onClick={this.signOut}>Sign Out</Button>
-                    <GalleryList storage={this.storage} db={this.db}/>
+
+                    <Nav tabs>
+                        <NavItem>
+                            <NavLink active={this.state.activeTab === "1"} onClick={() => this.switchTab("1")}>
+                                Art
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink active={this.state.activeTab === "2"} onClick={() => this.switchTab("2")}>
+                                Sketchbook
+                            </NavLink>
+                        </NavItem>
+                    </Nav>
+                    <TabContent activeTab={this.state.activeTab}>
+                        <TabPane tabId="1">
+                            <GalleryList storage={this.storage} db={this.db} />
+                        </TabPane>
+                        <TabPane tabId="2">
+                            <h1>Sketchbook</h1>
+                        </TabPane>
+                    </TabContent>
                 </Fragment>
             )
         }
