@@ -8,7 +8,7 @@ import {
     ModalHeader
 } from 'reactstrap';
 
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 
 class UploadButton extends Component {
@@ -66,19 +66,35 @@ class UploadButton extends Component {
             const storageRef = ref(this.storage, name);
 
             uploadBytes(storageRef, file).then(async (snapshot) => {
-                console.log(snapshot)
-                try {
-                    const docRef = await addDoc(collection(this.db, "art"), {
-                        filename: name,
-                        title: title,
-                        year: year,
-                        medium: medium
-                    });
+                let contentType = snapshot.metadata.contentType
+                let tokens = contentType.split("/")
+                let fileType = tokens[0]
 
-                    console.log("Document written with ID: ", docRef.id);
+                if (fileType === "image" || fileType === "video") {
+                    try {
+                        let collectionRef = collection(this.db, "art")
+                        let docs = await getDocs(collectionRef)
+                        let size = docs.size
+                        
+                        console.log(size)
+
+                        const docRef = await addDoc(collectionRef, {
+                            filename: name,
+                            type: fileType,
+                            title: title,
+                            year: year,
+                            medium: medium,
+                            order: size
+                        });
+
+                        console.log("Document written with ID: ", docRef.id);
+                        this.closeModal()
+                    } catch (e) {
+                        console.error("Error adding document: ", e);
+                    }
+                } else {
+                    console.log("File is not an image or video")
                     this.closeModal()
-                } catch (e) {
-                    console.error("Error adding document: ", e);
                 }
             });
         }
