@@ -5,49 +5,67 @@ import {
 import ImageDisplay from '../components/ImageDisplay';
 import Navbar from '../components/Navbar'
 
+import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 class Art extends Component {
     constructor (props) {
         super(props)
+        this.state = {
+            images: []
+        }
 
-        this.images = [
-            {
-                image: "image1.png",
-                label: "Image Title",
-                year: 2021,
-                description: "Description"
-            },
-            {
-                image: "image2.png",
-                label: "Painting",
-                year: 2020,
-                description: "Description"
-            },
-            {
-                image: "image3.png",
-                label: "Another One",
-                year: 2019,
-                description: "Description"
-            },
-            {
-                image: "image4.png",
-                label: "Final",
-                year: 2020,
-                description: "Sculpture"
-            }
-        ]
+        this.db = this.props.db
+        this.storage = this.props.storage
+    }
+
+    getArt = async () => {
+        const querySnapshot = await getDocs(collection(this.db, "art"));
+        querySnapshot.forEach((doc) => {
+            let data = doc.data();
+            let filename = data.filename;
+            let title = data.title
+            let year = data.year;
+            let medium = data.medium;
+
+            getDownloadURL(ref(this.storage, filename))
+            .then((url) => {
+                let images = this.state.images;
+
+                let current = {
+                    url: url,
+                    title: title,
+                    year: year,
+                    medium: medium
+                }
+
+                console.log(current)
+
+                images.push(current)
+                this.setState({ images: images })
+            })
+            .catch((error) => {
+              console.log(error)
+            });
+        });
+    }
+
+    componentDidMount() {
+        this.getArt();
     }
 
     render() {
         let imageDisplays = []
+        let images = this.state.images;
 
-        for (var i = 0; i < this.images.length; i++) {
-            let current = this.images[i]
+        for (var i = 0; i < images.length; i++) {
+            let current = images[i]
 
             imageDisplays.push(<ImageDisplay
-                image={current.image}
-                label={current.label}
+                url={current.url}
+                title={current.title}
                 year={current.year}
-                description={current.description}
+                medium={current.medium}
                 key={i}
             />)
         }

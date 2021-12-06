@@ -23,7 +23,7 @@ class ImageDisplay extends Component {
     }
 
     render() {
-        const image = require(`../images/${this.props.image}`).default
+        //const image = require(`../images/${this.props.image}`).default
 
         return (
             <Fragment>
@@ -31,19 +31,19 @@ class ImageDisplay extends Component {
                     <Col xs={9} md={7} lg={5} className="image-display my-4">
                         <Row className="mx-auto">
                             <img
-                                src={image}
-                                alt={this.props.description}
+                                src={this.props.url}
+                                alt={this.props.medium}
                                 onClick={this.onClick}
                                 className="clickable"
                             />
                         </Row>
                         <Row className="mx-auto">
                             <p className="image-description mb-0 mt-2">
-                                {this.props.label}, {this.props.year}
+                                {this.props.title}, {this.props.year}
                             </p>
                         </Row>
                         <Row className="image-description mx-auto">
-                            <p>{this.props.description}</p>
+                            <p>{this.props.medium}</p>
                         </Row>
                     </Col>
                 </Row>
@@ -51,7 +51,7 @@ class ImageDisplay extends Component {
                 <Modal open={this.state.open} onClose={this.onClose}>
                     <Row className="justify-content-center align-content-center fullscreen-row">
                         <Col>
-                                <img src={image} alt={this.props.description} className="fullscreen-image" />
+                                <img src={this.props.url} alt={this.props.description} className="fullscreen-image" />
                         </Col>
                     </Row>
                 </Modal>

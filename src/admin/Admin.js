@@ -1,6 +1,7 @@
 import { Component, Fragment } from 'react';
 import Navbar from '../components/Navbar'
 import { Button, Input } from 'reactstrap';
+import GalleryList from './components/GalleryList';
 
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
@@ -29,8 +30,6 @@ class Admin extends Component {
             email: null,
             password: null,
             user: null,
-            file: null,
-            url: ""
         }
     }
 
@@ -41,19 +40,6 @@ class Admin extends Component {
 
     updateUserState = (user) => {
         this.setState({ user: user })
-    }
-
-    test = async () => {
-        try {
-            const docRef = await addDoc(collection(db, "users"), {
-                first: "Ada",
-                last: "Lovelace",
-                born: 1815
-            });
-            console.log("Document written with ID: ", docRef.id);
-        } catch (e) {
-            console.error("Error adding document: ", e);
-        }
     }
 
     signIn = () => {
@@ -75,20 +61,6 @@ class Admin extends Component {
         signOut(auth).then(() => {
         }).catch((error) => {
             console.log(error)
-        });
-    }
-
-    imageChanged = (e) => {
-        const file = e.target.files[0]
-        this.setState({ file: file })
-    }
-
-    uploadImage = (e) => {
-        let file = this.state.file
-        const storageRef = ref(storage, file.name);
-
-        uploadBytes(storageRef, file).then((snapshot) => {
-            console.log('Uploaded a blob or file!');
         });
     }
 
@@ -121,12 +93,7 @@ class Admin extends Component {
 
                     <h1>Admin</h1>
                     <Button onClick={this.signOut}>Sign Out</Button>
-                    <Button onClick={this.test}>Edit db</Button>
-                    <Input
-                        type="file"
-                        onChange={this.imageChanged}
-                    />
-                    <Button onClick={this.uploadImage}>Upload</Button>
+                    <GalleryList/>
                 </Fragment>
             )
         }
