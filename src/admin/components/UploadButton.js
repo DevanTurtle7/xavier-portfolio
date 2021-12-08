@@ -21,7 +21,8 @@ class UploadButton extends Component {
             title: "",
             year: null,
             medium: "",
-            images: []
+            images: [],
+            uploading: false
         }
 
         this.storage = this.props.storage
@@ -43,7 +44,8 @@ class UploadButton extends Component {
             modalOpen: false,
             title: "",
             year: null,
-            medium: ""
+            medium: "",
+            uploading: false
         })
     }
 
@@ -56,6 +58,8 @@ class UploadButton extends Component {
     }
 
     upload = async () => {
+        this.setState({ uploading: true })
+
         if (this.validData()) {
             let file = this.state.file
             let title = this.state.title
@@ -91,6 +95,7 @@ class UploadButton extends Component {
                         this.closeModal()
                     } catch (e) {
                         console.error("Error adding document: ", e);
+                        this.setState({ uploading: false })
                     }
                 } else {
                     console.log("File is not an image or video")
@@ -127,7 +132,7 @@ class UploadButton extends Component {
     }
 
     render() {
-        let valid = this.validData()
+        let valid = this.validData() && !this.state.uploading
 
         return (
             <Fragment>
