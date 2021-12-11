@@ -28,6 +28,8 @@ class Art extends Component {
             let title = data.title
             let year = data.year;
             let medium = data.medium;
+            let type = data.type;
+            let order = data.order;
 
             getDownloadURL(ref(this.storage, filename))
                 .then((url) => {
@@ -37,16 +39,29 @@ class Art extends Component {
                         url: url,
                         title: title,
                         year: year,
-                        medium: medium
+                        medium: medium,
+                        order: order,
+                        type: type
                     }
 
                     images.push(current)
+
+                    images.sort((first, second) => {
+                        if (first.order < second.order) {
+                            return -1
+                        } else if (first.order > second.order) {
+                            return 1
+                        } else {
+                            return 0
+                        }
+                    })
+
                     this.setState({ images: images })
                 })
                 .catch((error) => {
                     console.log(error)
                 });
-        });
+        })
     }
 
     componentDidMount() {

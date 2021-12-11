@@ -82,7 +82,7 @@ class Admin extends Component {
                     <Navbar />
 
                     <h1>Admin</h1>
-                    <Button onClick={this.signOut}>Sign Out</Button>
+                    <Button onClick={this.signOut} className="m-2">Sign Out</Button>
 
                     <Nav tabs>
                         <NavItem>
