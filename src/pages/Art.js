@@ -2,7 +2,7 @@ import { Component, Fragment } from 'react';
 import {
     Col,
 } from 'reactstrap';
-import ImageDisplay from '../components/ImageDisplay';
+import MediaDisplay from '../components/MediaDisplay';
 import Navbar from '../components/Navbar'
 
 import { collection, getDocs } from "firebase/firestore";
@@ -96,17 +96,14 @@ class Art extends Component {
     }
 
     render() {
-        let imageDisplays = []
+        let mediaDisplays = []
         let images = this.state.images;
 
         for (var i = 0; i < images.length; i++) {
             let current = images[i]
 
-            imageDisplays.push(<ImageDisplay
-                url={current.url}
-                title={current.title}
-                year={current.year}
-                medium={current.medium}
+            mediaDisplays.push(<MediaDisplay
+                data={current}
                 key={i}
             />)
         }
@@ -115,7 +112,7 @@ class Art extends Component {
             <Fragment>
                 <Navbar />
                 <Col className="art">
-                    {imageDisplays}
+                    {mediaDisplays}
                 </Col>
             </Fragment>
         )

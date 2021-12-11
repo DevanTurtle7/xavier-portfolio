@@ -93,7 +93,7 @@ class GalleryList extends Component {
             let type = current.type
 
             media.push(<MediaDisplay
-                clubData={current}
+                data={current}
                 type={type}
                 key={i}
             />)

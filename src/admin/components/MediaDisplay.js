@@ -12,9 +12,9 @@ import EditButton from './EditButton';
 
 class MediaDisplay extends Component {
     render() {
-        let clubData = this.props.clubData
-        let title = clubData.title
-        let url = clubData.url
+        let data = this.props.data
+        let title = data.title
+        let url = data.url
         let type = this.props.type
 
         let mediaDisplay = (<div>invalid type</div>);
@@ -39,7 +39,7 @@ class MediaDisplay extends Component {
                         </Row>
                     </CardBody>
                     <CardFooter>
-                        <EditButton clubData={clubData} />
+                        <EditButton data={data} />
                         <Button color="danger">Delete</Button>
                     </CardFooter>
                 </Card>

@@ -5,7 +5,7 @@ import {
 } from 'reactstrap';
 import Modal from './Modal';
 
-class ImageDisplay extends Component {
+class MediaDisplay extends Component {
     constructor(props) {
         super(props)
 
@@ -40,15 +40,21 @@ class ImageDisplay extends Component {
     }
 
     render() {
+        let data = this.props.data
+        let url = data.url
+        let medium = data.medium
+        let title = data.title
+        let year = data.year
+
         return (
             <Fragment>
                 <Row className={"justify-content-center mx-auto " + this.state.fadeInClass}>
                     <Col xs={9} md={7} lg={5} className="image-display my-4">
                         <Row className="mx-auto">
                             <img
-                                src={this.props.url}
+                                src={url}
                                 ref={this.image}
-                                alt={this.props.medium}
+                                alt={medium}
                                 onClick={this.onClick}
                                 onLoad={this.handleImageLoaded}
                                 className="clickable"
@@ -56,11 +62,11 @@ class ImageDisplay extends Component {
                         </Row>
                         <Row className="mx-auto">
                             <p className="image-description mb-0 mt-2">
-                                {this.props.title}, {this.props.year}
+                                {title}, {year}
                             </p>
                         </Row>
                         <Row className="image-description mx-auto">
-                            <p>{this.props.medium}</p>
+                            <p>{medium}</p>
                         </Row>
                     </Col>
                 </Row>
@@ -68,7 +74,7 @@ class ImageDisplay extends Component {
                 <Modal open={this.state.open} onClose={this.onClose}>
                     <Row className="justify-content-center align-content-center fullscreen-row">
                         <Col>
-                            <img src={this.props.url} alt={this.props.description} className="fullscreen-image" />
+                            <img src={url} alt={medium} className="fullscreen-image" />
                         </Col>
                     </Row>
                 </Modal>
@@ -78,4 +84,4 @@ class ImageDisplay extends Component {
     }
 }
 
-export default ImageDisplay;
+export default MediaDisplay;
