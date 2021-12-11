@@ -86,6 +86,12 @@ class Admin extends Component {
         return this.validField(this.state.email) && this.validField(this.state.password)
     }
 
+    onKeyPress = (event) => {
+        if (event.charCode === 13 && this.validData()) {
+            this.signIn()
+        }
+    }
+
     render() {
         if (this.state.user == null) {
             let valid = this.validData()
@@ -104,6 +110,7 @@ class Admin extends Component {
                                     type="text"
                                     placeholder="Email"
                                     invalid={invalidLogin}
+                                    onKeyPress={this.onKeyPress}
                                     onChange={this.emailChanged}/>
 
                                 <Input
@@ -111,6 +118,7 @@ class Admin extends Component {
                                     type="password"
                                     placeholder="Password"
                                     invalid={invalidLogin}
+                                    onKeyPress={this.onKeyPress}
                                     onChange={this.passwordChanged}/>
 
                                 <FormFeedback>
