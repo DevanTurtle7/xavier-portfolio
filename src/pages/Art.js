@@ -19,6 +19,22 @@ class Art extends Component {
         this.storage = this.props.storage
     }
 
+    sortByOrder = () => {
+        let images = this.state.images
+
+        images.sort((first, second) => {
+            if (first.order < second.order) {
+                return -1
+            } else if (first.order > second.order) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+
+        this.setState({ images: images })
+    }
+
     getArt = async () => {
         const querySnapshot = await getDocs(collection(this.db, "art"));
 
@@ -45,18 +61,9 @@ class Art extends Component {
                     }
 
                     images.push(current)
-
-                    images.sort((first, second) => {
-                        if (first.order < second.order) {
-                            return -1
-                        } else if (first.order > second.order) {
-                            return 1
-                        } else {
-                            return 0
-                        }
-                    })
-
                     this.setState({ images: images })
+
+                    this.sortByOrder()
                 })
                 .catch((error) => {
                     console.log(error)
