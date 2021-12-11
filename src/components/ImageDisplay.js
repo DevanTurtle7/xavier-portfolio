@@ -21,7 +21,6 @@ class ImageDisplay extends Component {
 
         img.onload = () => {
             this.setState({ loaded: true, fadeInClass: 'fade-in-end'})
-            console.log(img)
         }
 
         img.src = this.props.url

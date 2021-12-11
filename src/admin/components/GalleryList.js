@@ -4,9 +4,9 @@ import {
     Row
 } from 'reactstrap';
 import UploadButton from './UploadButton';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
-import ImageDisplay from './ImageDisplay';
+import MediaDisplay from './MediaDisplay';
 
 class GalleryList extends Component {
     constructor(props) {
@@ -21,7 +21,9 @@ class GalleryList extends Component {
     }
 
     getArt = async () => {
-        const querySnapshot = await getDocs(collection(this.db, "art"));
+        this.setState({ files: [] })
+        let artQuery = query(collection(this.db, "art"), orderBy("order"))
+        const querySnapshot = await getDocs(artQuery);
 
         querySnapshot.forEach((doc) => {
             let data = doc.data();
@@ -31,6 +33,7 @@ class GalleryList extends Component {
             let medium = data.medium;
             let order = data.order;
             let type = data.type;
+            console.log(order)
 
             getDownloadURL(ref(this.storage, filename))
                 .then((url) => {
@@ -66,25 +69,15 @@ class GalleryList extends Component {
         let files = this.state.files;
         let media = []
 
-        console.log(files.length)
-
         for (let i = 0; i < files.length; i++) {
             let current = files[i]
             let type = current.type
-            let url = current.url
-            let title = current.title
 
-            if (type === "image") {
-                media.push(<ImageDisplay
-                    url={url}
-                    title={title}
-                    key={i}
-                />)
-            } else if (type === "video") {
-                media.push(<video src={url}>
-
-                </video>)
-            }
+            media.push(<MediaDisplay
+                clubData={current}
+                type={type}
+                key={i}
+            />)
         }
 
 
@@ -93,7 +86,7 @@ class GalleryList extends Component {
                 <Col className="p-2">
                     <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpload} />
                 </Col>
-                <Row>
+                <Row className="mx-auto">
                     {media}
                 </Row>
             </Col>
