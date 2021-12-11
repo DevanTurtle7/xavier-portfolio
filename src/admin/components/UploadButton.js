@@ -81,8 +81,6 @@ class UploadButton extends Component {
                         let countSnap = await getDoc(countRef)
                         let size = countSnap.data().count
 
-                        console.log(size)
-
                         const docRef = await addDoc(collectionRef, {
                             filename: name,
                             type: fileType,
@@ -98,6 +96,7 @@ class UploadButton extends Component {
 
                         console.log("Document written with ID: ", docRef.id);
                         this.closeModal()
+                        this.props.onUpload()
                     } catch (e) {
                         console.error("Error adding document: ", e);
                         this.setState({ uploading: false })
@@ -141,7 +140,7 @@ class UploadButton extends Component {
 
         return (
             <Fragment>
-                <Button onClick={this.openModal}>Upload</Button>
+                <Button onClick={this.openModal} color="primary">Upload</Button>
 
                 <Modal isOpen={this.state.modalOpen}>
                     <ModalHeader toggle={this.toggleModal}>

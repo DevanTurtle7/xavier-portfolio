@@ -131,3 +131,8 @@ code {
   opacity: 1;
   transition: opacity .75s;
 }
+
+.admin-image-display {
+  height: 200px;
+  object-fit: contain;
+}
