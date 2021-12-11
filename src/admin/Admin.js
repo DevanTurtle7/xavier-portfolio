@@ -134,10 +134,10 @@ class Admin extends Component {
                 <Fragment>
                     <Navbar />
 
-                    <h1>Admin</h1>
-                    <Button onClick={this.signOut} className="m-2">Sign Out</Button>
+                    <h1 className="mx-4">Admin</h1>
+                    <Button onClick={this.signOut} className="mx-4 mt-2 mb-4">Sign Out</Button>
 
-                    <Nav tabs>
+                    <Nav tabs className="mx-4">
                         <NavItem>
                             <NavLink active={this.state.activeTab === "1"} onClick={() => this.switchTab("1")}>
                                 Art
@@ -149,7 +149,7 @@ class Admin extends Component {
                             </NavLink>
                         </NavItem>
                     </Nav>
-                    <TabContent activeTab={this.state.activeTab}>
+                    <TabContent activeTab={this.state.activeTab} className="mx-4">
                         <TabPane tabId="1">
                             <GalleryList storage={this.storage} db={this.db} />
                         </TabPane>

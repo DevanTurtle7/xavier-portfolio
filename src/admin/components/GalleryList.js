@@ -32,7 +32,6 @@ class GalleryList extends Component {
             let medium = data.medium;
             let order = data.order;
             let type = data.type;
-            console.log(order)
 
             getDownloadURL(ref(this.storage, filename))
                 .then((url) => {
@@ -103,7 +102,7 @@ class GalleryList extends Component {
 
         return (
             <Col>
-                <Col className="p-2">
+                <Col className="py-3 px-2">
                     <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpload} />
                 </Col>
                 <Row className="mx-auto">

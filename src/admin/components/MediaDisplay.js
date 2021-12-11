@@ -28,8 +28,8 @@ class MediaDisplay extends Component {
         }
 
         return (
-            <Col xs={4}>
-                <Card>
+            <Col xs={12} sm={6} md={4} lg={3} xl={2}>
+                <Card className="mb-4">
                     <CardHeader>
                         {title}
                     </CardHeader>
