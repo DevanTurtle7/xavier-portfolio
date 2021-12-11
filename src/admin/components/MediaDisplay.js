@@ -9,6 +9,7 @@ import {
     Row
 } from 'reactstrap';
 import EditButton from './EditButton';
+import DeleteButton from './DeleteButton';
 
 class MediaDisplay extends Component {
     render() {
@@ -40,7 +41,7 @@ class MediaDisplay extends Component {
                     </CardBody>
                     <CardFooter>
                         <EditButton data={data} />
-                        <Button color="danger">Delete</Button>
+                        <DeleteButton data={data} />
                     </CardFooter>
                 </Card>
             </Col>
