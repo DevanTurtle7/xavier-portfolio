@@ -12,6 +12,10 @@ import EditButton from './EditButton';
 import DeleteButton from './DeleteButton';
 
 class MediaDisplay extends Component {
+    updateData = () => {
+        this.props.onUpdate()
+    }
+
     render() {
         let data = this.props.data
         let title = data.title
@@ -40,8 +44,8 @@ class MediaDisplay extends Component {
                         </Row>
                     </CardBody>
                     <CardFooter>
-                        <EditButton data={data} />
-                        <DeleteButton data={data} />
+                        <EditButton data={data} onEditSaved={this.updateData}/>
+                        <DeleteButton data={data} onDelete={this.updateData}/>
                     </CardFooter>
                 </Card>
             </Col>

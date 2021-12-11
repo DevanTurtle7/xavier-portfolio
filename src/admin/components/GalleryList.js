@@ -95,6 +95,7 @@ class GalleryList extends Component {
             media.push(<MediaDisplay
                 data={current}
                 type={type}
+                onUpdate={this.getArt}
                 key={i}
             />)
         }
