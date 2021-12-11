@@ -8,7 +8,7 @@ import {
     ModalHeader
 } from 'reactstrap';
 
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc, getDoc, increment } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 
 class UploadButton extends Component {
@@ -77,9 +77,10 @@ class UploadButton extends Component {
                 if (fileType === "image" || fileType === "video") {
                     try {
                         let collectionRef = collection(this.db, "art")
-                        let docs = await getDocs(collectionRef)
-                        let size = docs.size
-                        
+                        let countRef = doc(this.db, "counts", "art")
+                        let countSnap = await getDoc(countRef)
+                        let size = countSnap.data().count
+
                         console.log(size)
 
                         const docRef = await addDoc(collectionRef, {
@@ -89,7 +90,11 @@ class UploadButton extends Component {
                             year: year,
                             medium: medium,
                             order: size
-                        });
+                        })
+
+                        await updateDoc(countRef, {
+                            count: increment(1)
+                        })
 
                         console.log("Document written with ID: ", docRef.id);
                         this.closeModal()
