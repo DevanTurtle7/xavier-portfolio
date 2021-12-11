@@ -60,10 +60,29 @@ class Art extends Component {
                         type: type
                     }
 
-                    images.push(current)
-                    this.setState({ images: images })
+                    let numImages = images.length;
 
-                    this.sortByOrder()
+                    if (numImages > 0) {
+                        // Insert sorted
+                        let i = 0;
+                        let indexFound = false;
+
+                        while (i < numImages && !indexFound) {
+                            let currentOrder = images[i].order
+
+                            if (currentOrder >= order) {
+                                indexFound = true
+                            } else {
+                                i += 1
+                            }
+                        }
+
+                        images.splice(i, 0, current)
+                    } else {
+                        images.push(current)
+                    }
+
+                    this.setState({ images: images })
                 })
                 .catch((error) => {
                     console.log(error)
