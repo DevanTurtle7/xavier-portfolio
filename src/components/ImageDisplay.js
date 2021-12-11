@@ -5,7 +5,7 @@ import {
 } from 'reactstrap';
 import Modal from './Modal';
 
-class MediaDisplay extends Component {
+class ImageDisplay extends Component {
     constructor(props) {
         super(props)
 
@@ -80,8 +80,7 @@ class MediaDisplay extends Component {
                 </Modal>
             </Fragment>
         )
-
     }
 }
 
-export default MediaDisplay;
+export default ImageDisplay;
