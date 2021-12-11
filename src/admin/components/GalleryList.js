@@ -48,7 +48,28 @@ class GalleryList extends Component {
                         type: type
                     }
 
-                    files.push(current)
+                    let numFiles = files.length;
+
+                    if (numFiles > 0) {
+                        // Insert sorted
+                        let i = 0;
+                        let indexFound = false;
+
+                        while (i < numFiles && !indexFound) {
+                            let currentOrder = files[i].order
+
+                            if (currentOrder >= order) {
+                                indexFound = true
+                            } else {
+                                i += 1
+                            }
+                        }
+
+                        files.splice(i, 0, current)
+                    } else {
+                        files.push(current)
+                    }
+
                     this.setState({ files: files })
                 })
                 .catch((error) => {
