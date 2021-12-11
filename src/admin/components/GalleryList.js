@@ -4,7 +4,7 @@ import {
     Row
 } from 'reactstrap';
 import UploadButton from './UploadButton';
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import MediaDisplay from './MediaDisplay';
 
@@ -22,8 +22,7 @@ class GalleryList extends Component {
 
     getArt = async () => {
         this.setState({ files: [] })
-        let artQuery = query(collection(this.db, "art"), orderBy("order"))
-        const querySnapshot = await getDocs(artQuery);
+        const querySnapshot = await getDocs(collection(this.db, "art"));
 
         querySnapshot.forEach((doc) => {
             let data = doc.data();
