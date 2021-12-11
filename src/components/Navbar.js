@@ -11,7 +11,7 @@ class Navbar extends Component {
         return (
             <Row className="justify-content-between mx-auto navbar">
                 <Col xs={11}>
-                    <Blackout text="Xavier Sylvia-Jackson" />
+                    <Blackout text="xavier Sylvia-Jackson" />
                 </Col>
                 <Col xs={1}>
                     <MenuButton />
