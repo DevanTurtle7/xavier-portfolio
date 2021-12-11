@@ -36,6 +36,7 @@ class Art extends Component {
     }
 
     getArt = async () => {
+        this.setState({ files: [] })
         const querySnapshot = await getDocs(collection(this.db, "art"));
 
         querySnapshot.forEach((doc) => {
