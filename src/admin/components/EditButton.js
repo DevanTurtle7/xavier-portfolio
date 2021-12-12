@@ -21,13 +21,15 @@ class EditButton extends Component {
             title: "",
             year: "",
             medium: "",
-            order: ""
+            order: "",
+            updating: false
         }
 
         this.db = this.props.db
     }
 
     saveChanges = async () => {
+        this.setState({ updating: true })
         const querySnapshot = await getDocs(collection(this.db, "art"));
         let oldOrder = this.props.data.order
         let newOrder = this.state.order
@@ -81,12 +83,13 @@ class EditButton extends Component {
             title: data.title,
             year: data.year,
             medium: data.medium,
-            order: data.order
+            order: data.order,
+            updating: false
         })
     }
 
     closeModal = () => {
-        this.setState({ modalOpen: false })
+        this.setState({ modalOpen: false, updating: false })
     }
 
     toggle = () => {
@@ -131,7 +134,7 @@ class EditButton extends Component {
         let year = data.year
         let medium = data.medium
         let order = data.order
-        let valid = this.validData()
+        let valid = this.validData() && !this.state.updating
         let validOrderInput = this.validOrder()
 
         return (
