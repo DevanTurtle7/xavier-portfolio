@@ -29,11 +29,11 @@ img {
 .modal-view {
   width: 100vw;
   height: 105vh;
-  z-index: 1;
   background-color: rgba(255, 255, 255, 1);
   position: fixed;
   top: 0px;
   left: 0px;
+  z-index: 100;
 }
 
 .icon-btn, .icon-btn:visited {
@@ -55,13 +55,15 @@ img {
 }
 
 .modal-open {
-  background-color: rgba(255, 255, 255, 1);
   visibility: visible;
+  opacity: 1;
+  transition: opacity .25s;
 }
 
 .modal-closed {
-  background-color: rgba(255, 255, 255, 0);
   visibility: hidden;
+  opacity: 0;
+  transition: opacity .25s, visibility 0s .25s;
 }
 
 .modal-close-btn {
@@ -132,5 +134,19 @@ img {
   width: 85vw;
   max-height: 85vh;
   max-width: 85vw;
+  object-fit: contain;
+}
+
+.fade-in-start {
+  opacity: 0;
+}
+
+.fade-in-end {
+  opacity: 1;
+  transition: opacity .75s;
+}
+
+.admin-media-display {
+  height: 200px;
   object-fit: contain;
 }

@@ -1,4 +1,4 @@
-import { Component, Fragment } from 'react';
+import { Component, Fragment, createRef } from 'react';
 import {
     Col,
     Row,
@@ -10,8 +10,25 @@ class ImageDisplay extends Component {
         super(props)
 
         this.state = {
-            open: false
+            open: false,
+            loaded: false,
+            fadeInClass: "fade-in-start"
         }
+
+        this.handleImageLoaded = this.handleImageLoaded.bind(this)
+        this.image = createRef();
+    }
+
+    componentDidMount() {
+        const img = this.image.current
+
+        if (img && img.complete) {
+            this.handleImageLoaded()
+        }
+    }
+
+    handleImageLoaded = () => {
+        this.setState({ loaded: true, fadeInClass: 'fade-in-end' })
     }
 
     onClose = () => {
@@ -23,28 +40,34 @@ class ImageDisplay extends Component {
     }
 
     render() {
-        const image = require(`../images/${this.props.image}`).default
+        let data = this.props.data
+        let url = data.url
+        let medium = data.medium
+        let title = data.title
+        let year = data.year
 
         return (
             <Fragment>
-                <Row className="justify-content-center mx-auto">
+                <Row className={"justify-content-center mx-auto " + this.state.fadeInClass}>
                     <Col xs={9} md={7} lg={5} className="image-display my-4">
                         <Row className="mx-auto">
                             <img
-                                src={image}
-                                alt={this.props.description}
+                                src={url}
+                                ref={this.image}
+                                alt={medium}
                                 onClick={this.onClick}
+                                onLoad={this.handleImageLoaded}
                                 className="clickable"
                                 draggable="false"
                             />
                         </Row>
                         <Row className="mx-auto">
                             <p className="image-description mb-0 mt-2">
-                                {this.props.label}, {this.props.year}
+                                {title}, {year}
                             </p>
                         </Row>
                         <Row className="image-description mx-auto">
-                            <p>{this.props.description}</p>
+                            <p>{medium}</p>
                         </Row>
                     </Col>
                 </Row>
@@ -52,12 +75,7 @@ class ImageDisplay extends Component {
                 <Modal open={this.state.open} onClose={this.onClose}>
                     <Row className="justify-content-center align-content-center fullscreen-row">
                         <Col>
-                                <img
-                                    src={image}
-                                    alt={this.props.description}
-                                    className="fullscreen-image"
-                                    draggable="false"
-                                />
+                            <img src={url} alt={medium} className="fullscreen-image" draggable="false"/>
                         </Col>
                     </Row>
                 </Modal>
