@@ -24,9 +24,11 @@ class MediaDisplay extends Component {
 
     render() {
         let data = this.props.data
+        let type = this.props.type
         let title = data.title
         let url = data.url
-        let type = this.props.type
+        let filename = data.filename
+        let docId = data.docId
 
         let mediaDisplay = (<div>invalid type</div>);
 
@@ -50,10 +52,15 @@ class MediaDisplay extends Component {
                         </Row>
                     </CardBody>
                     <CardFooter>
-                        <EditButton data={data} onEditSaved={this.updateData} db={this.db} storage={this.storage}/>
+                        <EditButton
+                            data={data}
+                            onEditSaved={this.updateData}
+                            db={this.db}
+                            storage={this.storage}
+                        />
                         <DeleteButton
-                            filename={this.props.filename}
-                            docId={this.props.docId}
+                            filename={filename}
+                            docId={docId}
                             onDelete={this.updateData}
                             db={this.db}
                             storage={this.storage}

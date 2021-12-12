@@ -65,7 +65,19 @@ class UploadButton extends Component {
             let title = this.state.title
             let year = this.state.year
             let medium = this.state.medium
-            let name = file.name
+
+            // Generate unique name
+            let tokens = file.name.split(".")
+            let numTokens = tokens.length
+            let filetype = tokens[numTokens-1]
+            let time = new Date().getTime()
+            let name = ""
+
+            for (let i = 0; i < numTokens - 1; i++) {
+                name += tokens[i]
+            }
+
+            name += + "_" + time + "." + filetype
 
             const storageRef = ref(this.storage, name);
 

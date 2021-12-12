@@ -97,8 +97,6 @@ class GalleryList extends Component {
             media.push(<MediaDisplay
                 data={current}
                 type={type}
-                filename={current.filename}
-                docId={current.docId}
                 onUpdate={this.getArt}
                 db={this.db}
                 storage={this.storage}

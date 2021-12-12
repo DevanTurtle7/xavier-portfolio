@@ -48,7 +48,7 @@ class Admin extends Component {
 
         signInWithEmailAndPassword(this.auth, email, password)
             .then((userCredential) => {
-                const user = userCredential.user;
+                //const user = userCredential.user;
             })
             .catch((error) => {
                 const errorMessage = error.message;
