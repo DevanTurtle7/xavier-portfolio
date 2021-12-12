@@ -36,11 +36,13 @@ class DeleteButton extends Component {
 
         // Update orders
         querySnapshot.forEach(async (docSnap) => {
-            if (docSnap.data().order > order) {
+            let currentOrder = docSnap.data().order
+
+            if (currentOrder > order) {
                 let currentRef = doc(this.db, "art", docSnap.id)
 
                 await updateDoc(currentRef, {
-                    order: increment(-1)
+                    order: currentOrder - 1
                 })
             }
         })
