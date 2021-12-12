@@ -1,12 +1,15 @@
 import { Component } from 'react';
 import {
+    Button,
     Col,
+    Container,
     Row
 } from 'reactstrap';
 import UploadButton from './UploadButton';
 import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import MediaDisplay from './MediaDisplay';
+import { MdRefresh } from "react-icons/md"
 
 class GalleryList extends Component {
     constructor(props) {
@@ -124,7 +127,12 @@ class GalleryList extends Component {
         return (
             <Col>
                 <Col className="py-3 px-2">
-                    <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpdate} />
+                    <Row>
+                        <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpdate} />
+                        <Button color="primary" className="fit-content" onClick={this.onUpdate}>
+                            <MdRefresh />
+                        </Button>
+                    </Row>
                 </Col>
                 <Row className="mx-auto">
                     {media}
