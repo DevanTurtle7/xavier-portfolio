@@ -43,7 +43,9 @@ class GalleryList extends Component {
                         year: year,
                         medium: medium,
                         order: order,
-                        type: type
+                        type: type,
+                        filename: filename,
+                        docId: doc.id
                     }
 
                     let numFiles = files.length;
@@ -95,7 +97,11 @@ class GalleryList extends Component {
             media.push(<MediaDisplay
                 data={current}
                 type={type}
+                filename={current.filename}
+                docId={current.docId}
                 onUpdate={this.getArt}
+                db={this.db}
+                storage={this.storage}
                 key={i}
             />)
         }

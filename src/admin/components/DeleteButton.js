@@ -4,8 +4,9 @@ import {
     Modal,
     ModalHeader,
     ModalBody,
-    ModalFooter
 } from 'reactstrap';
+import { deleteDoc, doc } from "firebase/firestore";
+import { deleteObject, ref } from 'firebase/storage';
 
 class DeleteButton extends Component {
     constructor(props) {
@@ -14,9 +15,17 @@ class DeleteButton extends Component {
         this.state = {
             modalOpen: false
         }
+
+        this.db = this.props.db
+        this.storage = this.props.storage
     }
 
-    delete = () => {
+    delete = async () => {
+        let docId = this.props.docId
+        let filename = this.props.filename
+
+        await deleteDoc(doc(this.db, "art", docId))
+        await deleteObject(ref(this.storage, filename))
         this.props.onDelete()
     }
 
