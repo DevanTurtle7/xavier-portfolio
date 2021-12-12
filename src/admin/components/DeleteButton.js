@@ -5,7 +5,7 @@ import {
     ModalHeader,
     ModalBody,
 } from 'reactstrap';
-import { deleteDoc, doc, updateDoc, increment } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc, increment, getDocs, collection } from "firebase/firestore";
 import { deleteObject, ref } from 'firebase/storage';
 
 class DeleteButton extends Component {
@@ -23,13 +23,26 @@ class DeleteButton extends Component {
     delete = async () => {
         let docId = this.props.docId
         let filename = this.props.filename
+        let order = this.props.order
         let countRef = doc(this.db, "counts", "art")
+        const querySnapshot = await getDocs(collection(this.db, "art"));
 
         await deleteDoc(doc(this.db, "art", docId))
         await deleteObject(ref(this.storage, filename))
 
         await updateDoc(countRef, {
             count: increment(-1)
+        })
+
+        // Update orders
+        querySnapshot.forEach(async (docSnap) => {
+            if (docSnap.data().order > order) {
+                let currentRef = doc(this.db, "art", docSnap.id)
+
+                await updateDoc(currentRef, {
+                    order: increment(-1)
+                })
+            }
         })
 
         this.props.onDelete()

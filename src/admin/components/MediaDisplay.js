@@ -29,6 +29,7 @@ class MediaDisplay extends Component {
         let url = data.url
         let filename = data.filename
         let docId = data.docId
+        let order = data.order
 
         let mediaDisplay = (<div>invalid type</div>);
 
@@ -61,6 +62,7 @@ class MediaDisplay extends Component {
                         <DeleteButton
                             filename={filename}
                             docId={docId}
+                            order={order}
                             onDelete={this.updateData}
                             db={this.db}
                             storage={this.storage}
