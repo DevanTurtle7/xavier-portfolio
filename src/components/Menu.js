@@ -13,7 +13,7 @@ class Menu extends Component {
                 <Row className="d-flex align-content-center fullscreen-row">
                     <Col>
                         <MenuLink link='/art' label='art' />
-                        <MenuLink link='/sketchbook' label='aketchbook' />
+                        <MenuLink link='/sketchbook' label='sketchbook' />
                         <MenuLink link='/contact' label='contact' />
                     </Col>
                 </Row>
