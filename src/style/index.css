@@ -150,3 +150,8 @@ img {
   height: 200px;
   object-fit: contain;
 }
+
+.fit-content {
+  width: fit-content !important;
+  block-size: fit-content !important;
+}
