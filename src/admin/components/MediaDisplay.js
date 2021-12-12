@@ -5,7 +5,6 @@ import {
     CardBody,
     CardHeader,
     CardFooter,
-    Button,
     Row
 } from 'reactstrap';
 import EditButton from './EditButton';

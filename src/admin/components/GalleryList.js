@@ -106,7 +106,6 @@ class GalleryList extends Component {
             />)
         }
 
-
         return (
             <Col>
                 <Col className="py-3 px-2">
