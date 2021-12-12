@@ -1,3 +1,4 @@
+import { doc, updateDoc } from 'firebase/firestore';
 import { Component, Fragment } from 'react';
 import {
     Button,
@@ -17,11 +18,25 @@ class EditButton extends Component {
             modalOpen: false,
             title: "",
             year: "",
-            medium: ""
+            medium: "",
+            order: ""
         }
+
+        this.db = this.props.db
     }
 
-    onEditSaved = () => {
+    saveChanges = async () => {
+        let docId = this.props.data.docId
+        let docRef = doc(this.db, "art", docId)
+
+        await updateDoc(docRef, {
+            title: this.state.title,
+            year: this.state.year,
+            medium: this.state.medium,
+            order: this.state.order
+        })
+
+        this.closeModal()
         this.props.onEditSaved()
     }
 
@@ -33,6 +48,7 @@ class EditButton extends Component {
             title: data.title,
             year: data.year,
             medium: data.medium,
+            order: data.order
         })
     }
 
@@ -45,15 +61,19 @@ class EditButton extends Component {
     }
 
     titleChanged = (e) => {
-        this.setState({title: e.target.value})
+        this.setState({ title: e.target.value })
     }
 
     yearChanged = (e) => {
-        this.setState({year: e.target.value})
+        this.setState({ year: e.target.value })
     }
 
     mediumChanged = (e) => {
-        this.setState({medium: e.target.value})
+        this.setState({ medium: e.target.value })
+    }
+
+    orderChanged = (e) => {
+        this.setState({ order: e.target.value })
     }
 
     validField = (field) => {
@@ -62,8 +82,9 @@ class EditButton extends Component {
 
     validData = () => {
         return this.validField(this.state.title) &&
-                this.validField(this.state.year) &&
-                this.validField(this.state.medium)
+            this.validField(this.state.year) &&
+            this.validField(this.state.medium)
+            //this.validField(this.state.order)
     }
 
     render() {
@@ -71,6 +92,7 @@ class EditButton extends Component {
         let title = data.title
         let year = data.year
         let medium = data.medium
+        let order = data.order
         let valid = this.validData()
 
         return (
@@ -83,15 +105,17 @@ class EditButton extends Component {
                     </ModalHeader>
                     <ModalBody>
                         <Label>Title</Label>
-                        <Input type="text" defaultValue={title} onChange={this.titleChanged}/>
+                        <Input type="text" defaultValue={title} onChange={this.titleChanged} />
                         <Label>Year</Label>
-                        <Input type="number" defaultValue={year} onChange={this.yearChanged}/>
+                        <Input type="number" defaultValue={year} onChange={this.yearChanged} />
                         <Label>Medium</Label>
-                        <Input type="text" defaultValue={medium} onChange={this.mediumChanged}/>
+                        <Input type="text" defaultValue={medium} onChange={this.mediumChanged} />
+                        <Label>Order</Label>
+                        <Input type="number" defaultValue={order} onChange={this.orderChanged} disabled={true} />
                     </ModalBody>
                     <ModalFooter>
                         <Button onClick={this.closeModal}>Cancel</Button>
-                        <Button color="primary" disabled={!valid}>Save</Button>
+                        <Button color="primary" disabled={!valid} onClick={this.saveChanges}>Save</Button>
                     </ModalFooter>
                 </Modal>
             </Fragment>
