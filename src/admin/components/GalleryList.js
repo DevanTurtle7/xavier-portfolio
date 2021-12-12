@@ -4,7 +4,7 @@ import {
     Row
 } from 'reactstrap';
 import UploadButton from './UploadButton';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import MediaDisplay from './MediaDisplay';
 
@@ -13,7 +13,8 @@ class GalleryList extends Component {
         super(props)
 
         this.state = {
-            files: []
+            files: [],
+            mediaCount: 0
         }
 
         this.db = this.props.db
@@ -78,12 +79,27 @@ class GalleryList extends Component {
         });
     }
 
-    componentDidMount() {
-        this.getArt();
+    updateMediaCount = async () => {
+        let countRef = doc(this.db, "counts", "art")
+        let countSnap = await getDoc(countRef)
+        let size = countSnap.data().count
+        this.setState({ mediaCount: size })
     }
 
-    onUpload = () => {
+    componentDidMount() {
+        this.getArt();
+        this.updateMediaCount()
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props !== prevProps) {
+            this.updateMediaCount()
+        }
+    }
+
+    onUpdate = () => {
         this.getArt()
+        this.updateMediaCount()
     }
 
     render() {
@@ -97,7 +113,8 @@ class GalleryList extends Component {
             media.push(<MediaDisplay
                 data={current}
                 type={type}
-                onUpdate={this.getArt}
+                mediaCount={this.state.mediaCount}
+                onUpdate={this.onUpdate}
                 db={this.db}
                 storage={this.storage}
                 key={i}
@@ -107,7 +124,7 @@ class GalleryList extends Component {
         return (
             <Col>
                 <Col className="py-3 px-2">
-                    <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpload} />
+                    <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpdate} />
                 </Col>
                 <Row className="mx-auto">
                     {media}
