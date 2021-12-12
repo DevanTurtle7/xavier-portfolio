@@ -18,6 +18,7 @@ class Modal extends Component {
             html.style.overflow = 'hidden';
             classNames += " modal-open"
         } else {
+            html.style.overflow = 'visible';
             classNames += " modal-closed"
         }
 
