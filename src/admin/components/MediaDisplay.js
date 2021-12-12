@@ -55,6 +55,7 @@ class MediaDisplay extends Component {
                     <CardFooter>
                         <EditButton
                             data={data}
+                            mediaCount={this.props.mediaCount}
                             onEditSaved={this.updateData}
                             db={this.db}
                             storage={this.storage}
