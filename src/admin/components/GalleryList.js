@@ -2,7 +2,6 @@ import { Component } from 'react';
 import {
     Button,
     Col,
-    Container,
     Row
 } from 'reactstrap';
 import UploadButton from './UploadButton';
