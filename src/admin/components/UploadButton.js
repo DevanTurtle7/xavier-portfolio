@@ -77,7 +77,7 @@ class UploadButton extends Component {
                 name += tokens[i]
             }
 
-            name += + "_" + time + "." + filetype
+            name += "_" + time + "." + filetype
 
             const storageRef = ref(this.storage, name);
 
