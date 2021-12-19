@@ -20,7 +20,7 @@ class EditButton extends Component {
             modalOpen: false,
             title: "",
             year: "",
-            medium: "",
+            description: "",
             order: "",
             updating: false
         }
@@ -67,7 +67,7 @@ class EditButton extends Component {
         await updateDoc(docRef, {
             title: this.state.title,
             year: this.state.year,
-            medium: this.state.medium,
+            description: this.state.description,
             order: this.state.order
         })
 
@@ -82,7 +82,7 @@ class EditButton extends Component {
             modalOpen: true,
             title: data.title,
             year: data.year,
-            medium: data.medium,
+            description: data.description,
             order: data.order,
             updating: false
         })
@@ -104,8 +104,8 @@ class EditButton extends Component {
         this.setState({ year: e.target.value })
     }
 
-    mediumChanged = (e) => {
-        this.setState({ medium: e.target.value })
+    descriptionChanged = (e) => {
+        this.setState({ description: e.target.value })
     }
 
     orderChanged = (e) => {
@@ -123,7 +123,6 @@ class EditButton extends Component {
     validData = () => {
         return this.validField(this.state.title) &&
             this.validField(this.state.year) &&
-            this.validField(this.state.medium) &&
             this.validField(this.state.order) &&
             this.validOrder()
     }
@@ -132,7 +131,7 @@ class EditButton extends Component {
         let data = this.props.data
         let title = data.title
         let year = data.year
-        let medium = data.medium
+        let description = data.description
         let order = data.order
         let valid = this.validData() && !this.state.updating
         let validOrderInput = this.validOrder()
@@ -150,8 +149,8 @@ class EditButton extends Component {
                         <Input type="text" defaultValue={title} onChange={this.titleChanged} />
                         <Label>Year</Label>
                         <Input type="number" defaultValue={year} onChange={this.yearChanged} />
-                        <Label>Medium</Label>
-                        <Input type="text" defaultValue={medium} onChange={this.mediumChanged} />
+                        <Label>Description</Label>
+                        <Input type="text" defaultValue={description} onChange={this.descriptionChanged} />
                         <FormGroup>
                             <Label>Order</Label>
                             <Input type="number" defaultValue={order} onChange={this.orderChanged} invalid={!validOrderInput}/>

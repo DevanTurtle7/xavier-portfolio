@@ -42,7 +42,7 @@ class ImageDisplay extends Component {
     render() {
         let data = this.props.data
         let url = data.url
-        let medium = data.medium
+        let description = data.description
         let title = data.title
         let year = data.year
 
@@ -54,7 +54,7 @@ class ImageDisplay extends Component {
                             <img
                                 src={url}
                                 ref={this.image}
-                                alt={medium}
+                                alt={description}
                                 onClick={this.onClick}
                                 onLoad={this.handleImageLoaded}
                                 className="clickable"
@@ -67,7 +67,7 @@ class ImageDisplay extends Component {
                             </p>
                         </Row>
                         <Row className="image-description mx-auto">
-                            <p>{medium}</p>
+                            <p>{description}</p>
                         </Row>
                     </Col>
                 </Row>
@@ -75,7 +75,7 @@ class ImageDisplay extends Component {
                 <Modal open={this.state.open} onClose={this.onClose}>
                     <Row className="justify-content-center align-content-center fullscreen-row">
                         <Col>
-                            <img src={url} alt={medium} className="fullscreen-image" draggable="false"/>
+                            <img src={url} alt={description} className="fullscreen-image" draggable="false"/>
                         </Col>
                     </Row>
                 </Modal>

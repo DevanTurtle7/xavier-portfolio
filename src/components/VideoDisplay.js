@@ -20,7 +20,7 @@ class VideoDisplay extends Component {
     render() {
         let data = this.props.data
         let url = data.url
-        let medium = data.medium
+        let description = data.description
         let title = data.title
         let year = data.year
 
@@ -39,7 +39,7 @@ class VideoDisplay extends Component {
                             </p>
                         </Row>
                         <Row className="image-description mx-auto">
-                            <p>{medium}</p>
+                            <p>{description}</p>
                         </Row>
                     </Col>
                 </Row>

@@ -32,7 +32,7 @@ class GalleryList extends Component {
             let filename = data.filename;
             let title = data.title
             let year = data.year;
-            let medium = data.medium;
+            let description = data.description;
             let order = data.order;
             let type = data.type;
 
@@ -44,7 +44,7 @@ class GalleryList extends Component {
                         url: url,
                         title: title,
                         year: year,
-                        medium: medium,
+                        description: description,
                         order: order,
                         type: type,
                         filename: filename,

@@ -45,7 +45,7 @@ class Art extends Component {
             let filename = data.filename;
             let title = data.title
             let year = data.year;
-            let medium = data.medium;
+            let description = data.description;
             let type = data.type;
             let order = data.order;
 
@@ -57,7 +57,7 @@ class Art extends Component {
                         url: url,
                         title: title,
                         year: year,
-                        medium: medium,
+                        description: description,
                         order: order,
                         type: type
                     }

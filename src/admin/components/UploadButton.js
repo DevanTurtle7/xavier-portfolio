@@ -20,7 +20,7 @@ class UploadButton extends Component {
             modalOpen: false,
             title: "",
             year: null,
-            medium: "",
+            description: "",
             images: [],
             uploading: false
         }
@@ -44,7 +44,7 @@ class UploadButton extends Component {
             modalOpen: false,
             title: "",
             year: null,
-            medium: "",
+            description: "",
             uploading: false
         })
     }
@@ -64,7 +64,7 @@ class UploadButton extends Component {
             let file = this.state.file
             let title = this.state.title
             let year = this.state.year
-            let medium = this.state.medium
+            let description = this.state.description
 
             // Generate unique name
             let tokens = file.name.split(".")
@@ -98,7 +98,7 @@ class UploadButton extends Component {
                             type: fileType,
                             title: title,
                             year: year,
-                            medium: medium,
+                            description: description,
                             order: size
                         })
 
@@ -129,8 +129,8 @@ class UploadButton extends Component {
         this.setState({ year: e.target.value })
     }
 
-    mediumChanged = (e) => {
-        this.setState({ medium: e.target.value })
+    descriptionChanged = (e) => {
+        this.setState({ description: e.target.value })
     }
 
     validField = (field) => {
@@ -141,10 +141,9 @@ class UploadButton extends Component {
         let file = this.state.file;
         let title = this.state.title;
         let year = this.state.year;
-        let medium = this.state.medium;
 
         return this.validField(file) && this.validField(title)
-            && this.validField(year) && this.validField(medium)
+            && this.validField(year)
     }
 
     render() {
@@ -162,7 +161,7 @@ class UploadButton extends Component {
                         <Input type="file" onChange={this.imageChanged} className="m-2" />
                         <Input type="text" placeholder="Title" className="m-2" onChange={this.titleChanged} />
                         <Input type="number" placeholder="Year" className="m-2" onChange={this.yearChanged} />
-                        <Input type="text" placeholder="Medium" className="m-2" onChange={this.mediumChanged} />
+                        <Input type="text" placeholder="description" className="m-2" onChange={this.descriptionChanged} />
                     </ModalBody>
                     <ModalFooter>
                         <Button onClick={this.upload} color="primary" disabled={!valid}>Upload</Button>
