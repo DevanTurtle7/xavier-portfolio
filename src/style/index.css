@@ -39,7 +39,7 @@ img {
 .icon-btn, .icon-btn:visited {
   background-color: rgba(255, 255, 255, 0);
   border: 0;
-  font-size: 1.25em;
+  font-size: 20px;
   text-align: center;
   margin: 0px;
   width: 44px;
@@ -75,7 +75,7 @@ img {
 
 .menu-link, .menu-link:visited {
   color: black;
-  font-size: 1em;
+  font-size: 16px;
   transition: color .1s;
   text-decoration: none;
   text-align: center;
@@ -120,8 +120,16 @@ img {
   padding-left: 30px !important
 }
 
-.image-description {
-  font-size: .75em;
+@media (max-device-width: 800px){
+  .image-description {
+    font-size: 12px;
+  }
+}
+
+@media (min-device-width: 800px){
+  .image-description {
+    font-size: 16px;
+  }
 }
 
 .clickable:hover {
