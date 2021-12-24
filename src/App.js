@@ -32,14 +32,14 @@ class App extends Component {
     super(props)
 
     this.state = {
-      images: []
+      media: []
     }
   }
 
   sortByOrder = () => {
-    let images = this.state.images
+    let media = this.state.media
 
-    images.sort((first, second) => {
+    media.sort((first, second) => {
       if (first.order < second.order) {
         return -1
       } else if (first.order > second.order) {
@@ -49,7 +49,7 @@ class App extends Component {
       }
     })
 
-    this.setState({ images: images })
+    this.setState({ media: media })
   }
 
   getArt = async () => {
@@ -68,7 +68,7 @@ class App extends Component {
 
       getDownloadURL(ref(storage, filename))
         .then((url) => {
-          let images = this.state.images;
+          let media = this.state.media;
 
           let current = {
             url: url,
@@ -79,15 +79,15 @@ class App extends Component {
             type: type
           }
 
-          let numImages = images.length;
+          let mediaCount = media.length;
 
-          if (numImages > 0) {
+          if (mediaCount > 0) {
             // Insert sorted
             let i = 0;
             let indexFound = false;
 
-            while (i < numImages && !indexFound) {
-              let currentOrder = images[i].order
+            while (i < mediaCount && !indexFound) {
+              let currentOrder = media[i].order
 
               if (currentOrder >= order) {
                 indexFound = true
@@ -96,12 +96,12 @@ class App extends Component {
               }
             }
 
-            images.splice(i, 0, current)
+            media.splice(i, 0, current)
           } else {
-            images.push(current)
+            media.push(current)
           }
 
-          this.setState({ images: images })
+          this.setState({ media: media })
         })
         .catch((error) => {
           console.log(error)
@@ -117,8 +117,8 @@ class App extends Component {
     return (
       <Router>
         <Routes> {/* The Switch decides which component to show based on the current URL.*/}
-          <Route exact path='/' element={<Art images={this.state.images}/>} />
-          <Route exact path='/art' element={<Art images={this.state.images} />} />
+          <Route exact path='/' element={<Art media={this.state.media}/>} />
+          <Route exact path='/art' element={<Art media={this.state.media} />} />
           <Route exact path='/contact' element={<Contact />} />
           <Route exact path='/sketchbook' element={<Sketchbook />} />
           <Route exact path='/admin' element={<Admin db={db} storage={storage} auth={auth} />} />

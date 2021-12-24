@@ -9,10 +9,10 @@ import Navbar from '../components/Navbar'
 class Art extends Component {
     render() {
         let mediaDisplays = []
-        let images = this.props.images;
+        let media = this.props.media;
 
-        for (var i = 0; i < images.length; i++) {
-            let current = images[i]
+        for (var i = 0; i < media.length; i++) {
+            let current = media[i]
             let type = current.type
 
             if (type === "image") {
