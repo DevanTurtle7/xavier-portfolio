@@ -1,14 +1,17 @@
 import { Component, Fragment } from 'react';
+import { Col, Row } from 'reactstrap';
 import Navbar from '../components/Navbar'
 
 class Contact extends Component {
     render() {
         return (
-            <Fragment>
-               <Navbar/>
+            <Col>
+                <Navbar />
 
-                <h1>Contact</h1>
-            </Fragment>
+                <a className="email" href="mailto: xaviersylviajackson@gmail.com">
+                    xaviersylviajackson@gmail.com
+                </a>
+            </Col>
         )
     }
 }

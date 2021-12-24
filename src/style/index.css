@@ -6,7 +6,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, p, .menu-link {
+h1, p, .menu-link, a {
   font-family: 'Source Code Pro', monospace;
 }
 
@@ -85,7 +85,7 @@ img {
   color: rgba(150, 150, 150, 1)
 }
 
-.fullscreen-row {
+.fullscreen-row, .fullscreen-col {
   height: 100vh;
 }
 
@@ -162,4 +162,14 @@ img {
 .fit-content {
   width: fit-content !important;
   block-size: fit-content !important;
+}
+
+.email, .email:visited, .email:hover {
+  position: absolute;
+  top: 50vh;
+  width: 100vw;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: black
 }
