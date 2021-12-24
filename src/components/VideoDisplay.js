@@ -1,49 +1,17 @@
-import { Component, Fragment } from 'react';
-import {
-    Col,
-    Row,
-} from 'reactstrap';
+import { Component } from 'react';
 
 class VideoDisplay extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            fadeInClass: "fade-in-start"
-        }
-    }
-
     onLoad = () => {
-        this.setState({fadeInClass: "fade-in-end"})
+        this.props.callback()
     }
 
     render() {
-        let data = this.props.data
-        let url = data.url
-        let description = data.description
-        let title = data.title
-        let year = data.year
+        let url = this.props.url
 
         return (
-            <Fragment>
-                <Row className={"justify-content-center mx-auto " + this.state.fadeInClass}>
-                    <Col xs={9} md={7} lg={5} className="image-display my-4">
-                        <Row className="mx-auto">
-                            <video controls onLoadedData={this.onLoad}>
-                                <source src={url}/>
-                            </video>
-                        </Row>
-                        <Row className="mx-auto">
-                            <p className="image-description mb-0 mt-2">
-                                {title}, {year}
-                            </p>
-                        </Row>
-                        <Row className="image-description mx-auto">
-                            <p>{description}</p>
-                        </Row>
-                    </Col>
-                </Row>
-            </Fragment>
+            <video controls onLoadedData={this.onLoad}>
+                <source src={url} />
+            </video>
         )
     }
 }

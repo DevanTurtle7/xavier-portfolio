@@ -11,8 +11,6 @@ class ImageDisplay extends Component {
 
         this.state = {
             open: false,
-            loaded: false,
-            fadeInClass: "fade-in-start"
         }
 
         this.handleImageLoaded = this.handleImageLoaded.bind(this)
@@ -28,7 +26,7 @@ class ImageDisplay extends Component {
     }
 
     handleImageLoaded = () => {
-        this.setState({ loaded: true, fadeInClass: 'fade-in-end' })
+        this.props.callback()
     }
 
     onClose = () => {
@@ -40,42 +38,25 @@ class ImageDisplay extends Component {
     }
 
     render() {
-        let data = this.props.data
-        let url = data.url
-        let description = data.description
-        let title = data.title
-        let year = data.year
+        let url = this.props.url
+        let alt = this.props.alt
 
         return (
             <Fragment>
-                <Row className={"justify-content-center mx-auto " + this.state.fadeInClass}>
-                    <Col xs={9} md={7} lg={5} className="image-display my-4">
-                        <Row className="mx-auto">
-                            <img
-                                src={url}
-                                ref={this.image}
-                                alt={description}
-                                onClick={this.onClick}
-                                onLoad={this.handleImageLoaded}
-                                className="clickable"
-                                draggable="false"
-                            />
-                        </Row>
-                        <Row className="mx-auto">
-                            <p className="image-description mb-0 mt-2">
-                                {title}, {year}
-                            </p>
-                        </Row>
-                        <Row className="image-description mx-auto">
-                            <p>{description}</p>
-                        </Row>
-                    </Col>
-                </Row>
+                <img
+                    src={url}
+                    ref={this.image}
+                    alt={alt}
+                    onClick={this.onClick}
+                    onLoad={this.handleImageLoaded}
+                    className="clickable"
+                    draggable="false"
+                />
 
                 <Modal open={this.state.open} onClose={this.onClose}>
                     <Row className="justify-content-center align-content-center fullscreen-row">
                         <Col>
-                            <img src={url} alt={description} className="fullscreen-image" draggable="false"/>
+                            <img src={url} alt={alt} className="fullscreen-image" draggable="false" />
                         </Col>
                     </Row>
                 </Modal>

@@ -2,8 +2,7 @@ import { Component, Fragment } from 'react';
 import {
     Col,
 } from 'reactstrap';
-import ImageDisplay from '../components/ImageDisplay';
-import VideoDisplay from '../components/VideoDisplay';
+import MediaDisplay from '../components/MediaDisplay';
 import Navbar from '../components/Navbar'
 
 import { collection, getDocs } from "firebase/firestore";
@@ -103,7 +102,8 @@ class Art extends Component {
         for (var i = 0; i < images.length; i++) {
             let current = images[i]
             let type = current.type
-
+            
+            /*
             if (type === "image") {
                 mediaDisplays.push(<ImageDisplay
                     data={current}
@@ -115,6 +115,12 @@ class Art extends Component {
                     key={i}
                 />)
             }
+            */
+           mediaDisplays.push(<MediaDisplay
+                type={type}
+                data={current}
+                key={i}
+            />)
         }
 
         return (
