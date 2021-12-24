@@ -81,7 +81,7 @@ img {
   text-align: center;
 }
 
-.menu-link:hover, .icon-btn:hover {
+.menu-link:hover, .icon-btn:hover, .email:hover {
   color: rgba(150, 150, 150, 1)
 }
 
@@ -164,12 +164,25 @@ img {
   block-size: fit-content !important;
 }
 
-.email, .email:visited, .email:hover {
+.contact-container {
   position: absolute;
-  top: 50vh;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.email, .email:visited {
   width: 100vw;
   text-align: center;
   margin: 0;
   padding: 0;
   color: black
+}
+
+.instagram-button {
+  font-size: 24px;
+}
+
+.instagram-row {
+  text-align: center;
 }
