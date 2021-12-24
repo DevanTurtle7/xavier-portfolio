@@ -117,8 +117,8 @@ class App extends Component {
     return (
       <Router>
         <Routes> {/* The Switch decides which component to show based on the current URL.*/}
-          <Route exact path='/' element={<Art db={db} storage={storage} />} />
-          <Route exact path='/art' element={<Art db={db} storage={storage} images={this.state.images} />} />
+          <Route exact path='/' element={<Art images={this.state.images}/>} />
+          <Route exact path='/art' element={<Art images={this.state.images} />} />
           <Route exact path='/contact' element={<Contact />} />
           <Route exact path='/sketchbook' element={<Sketchbook />} />
           <Route exact path='/admin' element={<Admin db={db} storage={storage} auth={auth} />} />
