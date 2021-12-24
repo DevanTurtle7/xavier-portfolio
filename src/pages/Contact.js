@@ -1,5 +1,5 @@
-import { Component, Fragment } from 'react';
-import { Col, Row } from 'reactstrap';
+import { Component } from 'react';
+import { Col } from 'reactstrap';
 import IconButton from '../components/IconButton';
 import Navbar from '../components/Navbar'
 import { AiOutlineInstagram } from "react-icons/ai"
