@@ -121,13 +121,13 @@ img {
 }
 
 @media (max-device-width: 800px){
-  .image-description {
+  .image-description, .carousel-count{
     font-size: 12px;
   }
 }
 
 @media (min-device-width: 800px){
-  .image-description {
+  .image-description, .carousel-count {
     font-size: 16px;
   }
 }
@@ -162,4 +162,8 @@ img {
 .fit-content {
   width: fit-content !important;
   block-size: fit-content !important;
+}
+
+.carousel-count {
+  text-align: center;
 }

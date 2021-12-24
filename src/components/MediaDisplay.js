@@ -44,6 +44,11 @@ class MediaDisplay extends Component {
                             {media}
                         </Row>
                         <Row className="mx-auto">
+                            <p className="carousel-count mb-0 mt-2">
+                            1/5
+                            </p>
+                        </Row>
+                        <Row className="mx-auto">
                             <p className="image-description mb-0 mt-2">
                                 {title}, {year}
                             </p>
