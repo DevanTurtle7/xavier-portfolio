@@ -103,19 +103,6 @@ class Art extends Component {
             let current = images[i]
             let type = current.type
             
-            /*
-            if (type === "image") {
-                mediaDisplays.push(<ImageDisplay
-                    data={current}
-                    key={i}
-                />)
-            } else if (type === "video") {
-                mediaDisplays.push(<VideoDisplay
-                    data={current}
-                    key={i}
-                />)
-            }
-            */
            mediaDisplays.push(<MediaDisplay
                 type={type}
                 data={current}

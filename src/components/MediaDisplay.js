@@ -28,9 +28,9 @@ class MediaDisplay extends Component {
         let year = data.year
         let media;
 
-        if (type == "image") {
+        if (type === "image") {
             media = (<ImageDisplay url={url} callback={this.onLoad} alt={description}/>)
-        } else if (type == "video") {
+        } else if (type === "video") {
             media = (<VideoDisplay url={url} callback={this.onLoad}/>)
         } else {
             media = (<div>Invalid media display type</div>)
