@@ -22,7 +22,7 @@ class Contact extends Component {
                     </Col>
                     <div className="instagram-row">
                         <IconButton className="instagram-button" onClick={this.openInstagram}>
-                            <AiOutlineInstagram stroke="black"/>
+                            <AiOutlineInstagram />
                         </IconButton>
                     </div>
                 </div>

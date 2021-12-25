@@ -37,6 +37,7 @@ img {
 }
 
 .icon-btn, .icon-btn:visited {
+  color: black;
   background-color: rgba(255, 255, 255, 0);
   fill: rgba(255, 255, 255, 0);
   stroke: rgba(255, 255, 255, 0);
@@ -50,7 +51,6 @@ img {
 }
 
 .menu-btn {
-  color: black;
   position: absolute;
   top: 20px;
   right: 30px
