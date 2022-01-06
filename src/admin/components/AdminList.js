@@ -11,7 +11,7 @@ import { ref, getDownloadURL } from "firebase/storage";
 import MediaDisplay from './MediaDisplay';
 import { MdRefresh } from "react-icons/md"
 
-class GalleryList extends Component {
+class AdminList extends Component {
     constructor(props) {
         super(props)
 
@@ -143,4 +143,4 @@ class GalleryList extends Component {
     }
 }
 
-export default GalleryList;
+export default AdminList;
