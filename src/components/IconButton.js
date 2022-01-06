@@ -6,10 +6,14 @@ class IconButton extends Component {
     }
 
     render() {
-        let classNames = this.props.className + " icon-btn";
+        let classProp = this.props.className
+        let classNames = classProp === undefined ? "" : classProp
+        classNames += " icon-btn"
+
+        let fontSize = this.props.fontSize === undefined ? '20px' : this.props.fontSize.toString() + "px"
 
         return (
-            <button onClick={this.onClick} className={classNames}>
+            <button onClick={this.onClick} className={classNames} style={{'font-size': fontSize}}>
                 {this.props.children}
             </button>
         )

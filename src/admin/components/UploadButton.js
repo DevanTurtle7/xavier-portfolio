@@ -112,7 +112,7 @@ class UploadButton extends Component {
 
                 const storageRef = ref(this.storage, name);
 
-                uploadBytes(storageRef, file).then(async (snapshot) => {
+                await uploadBytes(storageRef, file).then(async (snapshot) => {
                     let contentType = snapshot.metadata.contentType
                     let tokens = contentType.split("/")
                     let fileType = tokens[0]
@@ -145,6 +145,9 @@ class UploadButton extends Component {
                             this.setState({ uploading: false })
                         }
                     } else {
+                        let current = {filename: name, type: fileType}
+                        content.push(current)
+
                         if (i === numFiles - 1) {
                             console.log("creating...")
                             try {
@@ -173,11 +176,6 @@ class UploadButton extends Component {
                                 console.error("Error adding document: ", e);
                                 this.setState({ uploading: false })
                             }
-                        } else {
-                            let current = {filename: name, type: fileType}
-                            content.push(current)
-                            console.log(current)
-                            console.log(content)
                         }
                     }
                 });
