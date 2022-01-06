@@ -86,15 +86,17 @@ class UploadButton extends Component {
 
     upload = async () => {
         this.setState({ uploading: true })
+        let files = this.state.files
+        let numFiles = files.length
 
-        if (this.validData() && this.validFile() && this.state.files.length > 0) {
-            let files = this.state.files
+        if (this.validData() && this.validFile() && numFiles > 0) {
             let title = this.state.title
             let year = this.state.year
             let description = this.state.description
+            let content = []
 
             // Generate unique name
-            for (let i = 0; i < files.length; i++) {
+            for (let i = 0; i < numFiles; i++) {
                 let file = files[i]
                 let tokens = file.name.split(".")
                 let numTokens = tokens.length
@@ -115,8 +117,36 @@ class UploadButton extends Component {
                     let tokens = contentType.split("/")
                     let fileType = tokens[0]
 
-                    if (files.length === 1) {
-                        if (fileType === "image" || fileType === "video") {
+                    if (numFiles === 1) {
+                        try {
+                            let collectionRef = collection(this.db, "art")
+                            let countRef = doc(this.db, "counts", "art")
+                            let countSnap = await getDoc(countRef)
+                            let size = countSnap.data().count
+
+                            const docRef = await addDoc(collectionRef, {
+                                filename: name,
+                                type: fileType,
+                                title: title,
+                                year: year,
+                                description: description,
+                                order: size
+                            })
+
+                            await updateDoc(countRef, {
+                                count: increment(1)
+                            })
+
+                            console.log("Document written with ID: ", docRef.id);
+                            this.closeModal()
+                            this.props.onUpload()
+                        } catch (e) {
+                            console.error("Error adding document: ", e);
+                            this.setState({ uploading: false })
+                        }
+                    } else {
+                        if (i === numFiles - 1) {
+                            console.log("creating...")
                             try {
                                 let collectionRef = collection(this.db, "art")
                                 let countRef = doc(this.db, "counts", "art")
@@ -124,12 +154,12 @@ class UploadButton extends Component {
                                 let size = countSnap.data().count
 
                                 const docRef = await addDoc(collectionRef, {
-                                    filename: name,
-                                    type: fileType,
+                                    type: "carousel",
                                     title: title,
                                     year: year,
                                     description: description,
-                                    order: size
+                                    order: size,
+                                    content: content
                                 })
 
                                 await updateDoc(countRef, {
@@ -144,11 +174,11 @@ class UploadButton extends Component {
                                 this.setState({ uploading: false })
                             }
                         } else {
-                            console.log("File is not an image or video")
-                            this.closeModal()
+                            let current = {filename: name, type: fileType}
+                            content.push(current)
+                            console.log(current)
+                            console.log(content)
                         }
-                    } else {
-
                     }
                 });
             }
