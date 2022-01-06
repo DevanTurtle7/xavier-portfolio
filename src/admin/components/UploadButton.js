@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 
 import { collection, addDoc, updateDoc, doc, getDoc, increment } from "firebase/firestore";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
 
 class UploadButton extends Component {
     constructor(props) {
@@ -23,7 +23,8 @@ class UploadButton extends Component {
             title: "",
             year: null,
             description: "",
-            uploading: false
+            uploading: false,
+            progress: 0
         }
 
         this.storage = this.props.storage
@@ -72,7 +73,8 @@ class UploadButton extends Component {
             title: "",
             year: null,
             description: "",
-            uploading: false
+            uploading: false,
+            progress: 0
         })
     }
 
@@ -112,7 +114,16 @@ class UploadButton extends Component {
 
                 const storageRef = ref(this.storage, name);
 
-                await uploadBytes(storageRef, file).then(async (snapshot) => {
+                const uploadTask = uploadBytesResumable(storageRef, file)
+
+                uploadTask.on('state_changed', (snapshot) => {
+                    let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    progress = progress.toFixed(1)
+
+                    this.setState({ progress: progress })
+                })
+
+                await uploadTask.then(async (snapshot) => {
                     let contentType = snapshot.metadata.contentType
                     let tokens = contentType.split("/")
                     let fileType = tokens[0]
@@ -145,7 +156,7 @@ class UploadButton extends Component {
                             this.setState({ uploading: false })
                         }
                     } else {
-                        let current = {filename: name, type: fileType}
+                        let current = { filename: name, type: fileType }
                         content.push(current)
 
                         if (i === numFiles - 1) {
@@ -234,7 +245,10 @@ class UploadButton extends Component {
                         <Input type="text" placeholder="Description" className="m-2" onChange={this.descriptionChanged} />
                     </ModalBody>
                     <ModalFooter>
+                    <div className="upload-footer-row">
                         <Button onClick={this.upload} color="primary" disabled={!valid}>Upload</Button>
+                        <p className='my-auto' hidden={!this.state.uploading}>Uploading {this.state.progress}% done</p>
+                    </div>
                     </ModalFooter>
                 </Modal>
             </Fragment>

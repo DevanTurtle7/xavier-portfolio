@@ -206,3 +206,11 @@ img {
 .carousel-btn-col-next {
   margin-right: -24px;
 }
+
+.upload-footer-row {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+}
