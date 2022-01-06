@@ -33,7 +33,11 @@ class MediaDisplay extends Component {
         } else if (type === "video") {
             media = (<VideoDisplay url={url} callback={this.onLoad}/>)
         } else {
-            media = (<div>Invalid media display type</div>)
+            media = (<p>Invalid media display type</p>)
+
+            if (this.state.fadeInClass === "fade-in-start") {
+                this.setState({fadeInClass: "fade-in-end"})
+            }
         }
 
         return (
@@ -42,11 +46,6 @@ class MediaDisplay extends Component {
                     <Col xs={9} md={7} lg={5} className="image-display my-4">
                         <Row className="mx-auto">
                             {media}
-                        </Row>
-                        <Row className="mx-auto">
-                            <p className="carousel-count mb-0 mt-2">
-                            1/5
-                            </p>
                         </Row>
                         <Row className="mx-auto">
                             <p className="image-description mb-0 mt-2">

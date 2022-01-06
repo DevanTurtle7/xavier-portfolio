@@ -139,7 +139,7 @@ class App extends Component {
         this.setState({ media: media })
       }
     })
-    console.log(this.state.media)
+    console.log("Art retrieved")
   }
 
   componentDidMount() {
