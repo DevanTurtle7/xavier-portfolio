@@ -1,6 +1,8 @@
 import { Component, Fragment } from 'react';
 import {
     Button,
+    FormFeedback,
+    FormGroup,
     Input,
     Modal,
     ModalBody,
@@ -16,12 +18,11 @@ class UploadButton extends Component {
         super(props)
 
         this.state = {
-            file: null,
+            files: [],
             modalOpen: false,
             title: "",
             year: null,
             description: "",
-            images: [],
             uploading: false
         }
 
@@ -30,8 +31,34 @@ class UploadButton extends Component {
     }
 
     imageChanged = (e) => {
-        const file = e.target.files[0]
-        this.setState({ file: file })
+        let files = []
+
+        for (let i = 0; i < e.target.files.length; i++) {
+            let file = e.target.files[i]
+            files.push(file)
+        }
+
+        this.setState({ files: files })
+    }
+
+    validFile = () => {
+        let files = this.state.files
+
+        if (files === []) {
+            return true
+        } else {
+            for (let i = 0; i < files.length; i++) {
+                let file = files[i]
+                let tokens = file.type.split("/")
+                let fileType = tokens[0]
+
+                if (fileType !== "image" && fileType !== "video") {
+                    return false
+                }
+            }
+
+            return true
+        }
     }
 
     openModal = () => {
@@ -60,64 +87,71 @@ class UploadButton extends Component {
     upload = async () => {
         this.setState({ uploading: true })
 
-        if (this.validData()) {
-            let file = this.state.file
+        if (this.validData() && this.validFile() && this.state.files.length > 0) {
+            let files = this.state.files
             let title = this.state.title
             let year = this.state.year
             let description = this.state.description
 
             // Generate unique name
-            let tokens = file.name.split(".")
-            let numTokens = tokens.length
-            let filetype = tokens[numTokens-1]
-            let time = new Date().getTime()
-            let name = ""
+            for (let i = 0; i < files.length; i++) {
+                let file = files[i]
+                let tokens = file.name.split(".")
+                let numTokens = tokens.length
+                let filetype = tokens[numTokens - 1]
+                let time = new Date().getTime()
+                let name = ""
 
-            for (let i = 0; i < numTokens - 1; i++) {
-                name += tokens[i]
-            }
-
-            name += "_" + time + "." + filetype
-
-            const storageRef = ref(this.storage, name);
-
-            uploadBytes(storageRef, file).then(async (snapshot) => {
-                let contentType = snapshot.metadata.contentType
-                let tokens = contentType.split("/")
-                let fileType = tokens[0]
-
-                if (fileType === "image" || fileType === "video") {
-                    try {
-                        let collectionRef = collection(this.db, "art")
-                        let countRef = doc(this.db, "counts", "art")
-                        let countSnap = await getDoc(countRef)
-                        let size = countSnap.data().count
-
-                        const docRef = await addDoc(collectionRef, {
-                            filename: name,
-                            type: fileType,
-                            title: title,
-                            year: year,
-                            description: description,
-                            order: size
-                        })
-
-                        await updateDoc(countRef, {
-                            count: increment(1)
-                        })
-
-                        console.log("Document written with ID: ", docRef.id);
-                        this.closeModal()
-                        this.props.onUpload()
-                    } catch (e) {
-                        console.error("Error adding document: ", e);
-                        this.setState({ uploading: false })
-                    }
-                } else {
-                    console.log("File is not an image or video")
-                    this.closeModal()
+                for (let i = 0; i < numTokens - 1; i++) {
+                    name += tokens[i]
                 }
-            });
+
+                name += "_" + time + "." + filetype
+
+                const storageRef = ref(this.storage, name);
+
+                uploadBytes(storageRef, file).then(async (snapshot) => {
+                    let contentType = snapshot.metadata.contentType
+                    let tokens = contentType.split("/")
+                    let fileType = tokens[0]
+
+                    if (files.length === 1) {
+                        if (fileType === "image" || fileType === "video") {
+                            try {
+                                let collectionRef = collection(this.db, "art")
+                                let countRef = doc(this.db, "counts", "art")
+                                let countSnap = await getDoc(countRef)
+                                let size = countSnap.data().count
+
+                                const docRef = await addDoc(collectionRef, {
+                                    filename: name,
+                                    type: fileType,
+                                    title: title,
+                                    year: year,
+                                    description: description,
+                                    order: size
+                                })
+
+                                await updateDoc(countRef, {
+                                    count: increment(1)
+                                })
+
+                                console.log("Document written with ID: ", docRef.id);
+                                this.closeModal()
+                                this.props.onUpload()
+                            } catch (e) {
+                                console.error("Error adding document: ", e);
+                                this.setState({ uploading: false })
+                            }
+                        } else {
+                            console.log("File is not an image or video")
+                            this.closeModal()
+                        }
+                    } else {
+
+                    }
+                });
+            }
         }
     }
 
@@ -138,30 +172,38 @@ class UploadButton extends Component {
     }
 
     validData = () => {
-        let file = this.state.file;
         let title = this.state.title;
         let year = this.state.year;
 
-        return this.validField(file) && this.validField(title)
-            && this.validField(year)
+        return this.validField(title) && this.validField(year)
     }
 
     render() {
         let valid = this.validData() && !this.state.uploading
+        let validFileType = this.validFile()
 
         return (
             <Fragment>
-                <Button onClick={this.openModal} color="primary" className="fit-content mx-3">Upload</Button>
+                <Button onClick={this.openModal} color="primary" className="fit-content ms-3 me-2">Upload</Button>
 
                 <Modal isOpen={this.state.modalOpen}>
                     <ModalHeader toggle={this.toggleModal}>
                         Upload
                     </ModalHeader>
                     <ModalBody>
-                        <Input type="file" onChange={this.imageChanged} className="m-2" />
+                        <FormGroup>
+                            <Input
+                                type="file"
+                                onChange={this.imageChanged}
+                                className="m-2"
+                                invalid={!validFileType}
+                                multiple
+                            />
+                            <FormFeedback>Invalid file type</FormFeedback>
+                        </FormGroup>
                         <Input type="text" placeholder="Title" className="m-2" onChange={this.titleChanged} />
                         <Input type="number" placeholder="Year" className="m-2" onChange={this.yearChanged} />
-                        <Input type="text" placeholder="description" className="m-2" onChange={this.descriptionChanged} />
+                        <Input type="text" placeholder="Description" className="m-2" onChange={this.descriptionChanged} />
                     </ModalBody>
                     <ModalFooter>
                         <Button onClick={this.upload} color="primary" disabled={!valid}>Upload</Button>

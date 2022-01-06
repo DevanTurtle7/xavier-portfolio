@@ -7,9 +7,9 @@ import Admin from './admin/Admin';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { ref, getDownloadURL, getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1O3ZZUuxv0-PGJPZI9UffooMkAHdyjZw",
@@ -28,15 +28,100 @@ const auth = getAuth();
 const storage = getStorage(app);
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      media: []
+    }
+  }
+
+  sortByOrder = () => {
+    let media = this.state.media
+
+    media.sort((first, second) => {
+      if (first.order < second.order) {
+        return -1
+      } else if (first.order > second.order) {
+        return 1
+      } else {
+        return 0
+      }
+    })
+
+    this.setState({ media: media })
+  }
+
+  getArt = async () => {
+    console.log("Retrieving art...")
+    this.setState({ files: [] })
+    const querySnapshot = await getDocs(collection(db, "art"));
+
+    querySnapshot.forEach((doc) => {
+      let data = doc.data();
+      let filename = data.filename;
+      let title = data.title
+      let year = data.year;
+      let description = data.description;
+      let type = data.type;
+      let order = data.order;
+
+      getDownloadURL(ref(storage, filename))
+        .then((url) => {
+          let media = this.state.media;
+
+          let current = {
+            url: url,
+            title: title,
+            year: year,
+            description: description,
+            order: order,
+            type: type
+          }
+
+          let mediaCount = media.length;
+
+          if (mediaCount > 0) {
+            // Insert sorted
+            let i = 0;
+            let indexFound = false;
+
+            while (i < mediaCount && !indexFound) {
+              let currentOrder = media[i].order
+
+              if (currentOrder >= order) {
+                indexFound = true
+              } else {
+                i += 1
+              }
+            }
+
+            media.splice(i, 0, current)
+          } else {
+            media.push(current)
+          }
+
+          this.setState({ media: media })
+        })
+        .catch((error) => {
+          console.log(error)
+        });
+    })
+  }
+
+  componentDidMount() {
+    this.getArt()
+  }
+
   render() {
     return (
       <Router>
         <Routes> {/* The Switch decides which component to show based on the current URL.*/}
-          <Route exact path='/' element={<Art db={db} storage={storage}/>} />
-          <Route exact path='/art' element={<Art db={db} storage={storage}/>} />
+          <Route exact path='/' element={<Art media={this.state.media}/>} />
+          <Route exact path='/art' element={<Art media={this.state.media} />} />
           <Route exact path='/contact' element={<Contact />} />
           <Route exact path='/sketchbook' element={<Sketchbook />} />
-          <Route exact path='/admin' element={<Admin db={db} storage={storage} auth={auth}/>} />
+          <Route exact path='/admin' element={<Admin db={db} storage={storage} auth={auth} />} />
         </Routes>
       </Router>
     );
