@@ -5,6 +5,7 @@ import {
     Row
 } from 'reactstrap';
 import UploadButton from './UploadButton';
+import UploadCarouselButton from './UploadCarouselButton';
 import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import MediaDisplay from './MediaDisplay';
@@ -128,6 +129,7 @@ class GalleryList extends Component {
                 <Col className="py-3 px-2">
                     <Row>
                         <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpdate} />
+                        <UploadCarouselButton db={this.db} storage={this.storage} onUpload={this.onUpdate} />
                         <Button color="primary" className="fit-content" onClick={this.onUpdate}>
                             <MdRefresh />
                         </Button>

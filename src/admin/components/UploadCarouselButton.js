@@ -1,8 +1,6 @@
 import { Component, Fragment } from 'react';
 import {
     Button,
-    FormFeedback,
-    FormGroup,
     Input,
     Modal,
     ModalBody,
@@ -13,7 +11,7 @@ import {
 import { collection, addDoc, updateDoc, doc, getDoc, increment } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 
-class UploadButton extends Component {
+class UploadCarouselButton extends Component {
     constructor(props) {
         super(props)
 
@@ -32,20 +30,8 @@ class UploadButton extends Component {
 
     imageChanged = (e) => {
         const file = e.target.files[0]
+        console.log(e.target.files)
         this.setState({ file: file })
-    }
-
-    validFile = () => {
-        let file = this.state.file
-
-        if (file === null) {
-            return true
-        } else {
-            let tokens = file.type.split("/")
-            let fileType = tokens[0]
-
-            return fileType === "image" || fileType === "video"
-        }
     }
 
     openModal = () => {
@@ -83,7 +69,7 @@ class UploadButton extends Component {
             // Generate unique name
             let tokens = file.name.split(".")
             let numTokens = tokens.length
-            let filetype = tokens[numTokens - 1]
+            let filetype = tokens[numTokens-1]
             let time = new Date().getTime()
             let name = ""
 
@@ -162,21 +148,17 @@ class UploadButton extends Component {
 
     render() {
         let valid = this.validData() && !this.state.uploading
-        let validFileType = this.validFile()
 
         return (
             <Fragment>
-                <Button onClick={this.openModal} color="primary" className="fit-content ms-3">Upload</Button>
+                <Button onClick={this.openModal} color="primary" className="fit-content mx-3">Upload Carousel</Button>
 
                 <Modal isOpen={this.state.modalOpen}>
                     <ModalHeader toggle={this.toggleModal}>
-                        Upload
+                        Upload Carousel
                     </ModalHeader>
                     <ModalBody>
-                        <FormGroup>
-                            <Input type="file" onChange={this.imageChanged} className="m-2" invalid={!validFileType} />
-                            <FormFeedback>Invalid file type</FormFeedback>
-                        </FormGroup>
+                        <Input type="file" onChange={this.imageChanged} className="m-2" />
                         <Input type="text" placeholder="Title" className="m-2" onChange={this.titleChanged} />
                         <Input type="number" placeholder="Year" className="m-2" onChange={this.yearChanged} />
                         <Input type="text" placeholder="description" className="m-2" onChange={this.descriptionChanged} />
@@ -190,4 +172,4 @@ class UploadButton extends Component {
     }
 }
 
-export default UploadButton;
+export default UploadCarouselButton;
