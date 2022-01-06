@@ -39,7 +39,6 @@ class UploadButton extends Component {
         }
 
         this.setState({ files: files })
-        console.log(files)
     }
 
     validFile = () => {
@@ -52,10 +51,6 @@ class UploadButton extends Component {
                 let file = files[i]
                 let tokens = file.type.split("/")
                 let fileType = tokens[0]
-
-                console.log(fileType)
-                console.log(fileType === "image")
-                console.log(fileType === "video")
 
                 if (fileType !== "image" && fileType !== "video") {
                     return false
@@ -92,7 +87,7 @@ class UploadButton extends Component {
     upload = async () => {
         this.setState({ uploading: true })
 
-        if (this.validData() && this.validFile() && this.state.files > 0) {
+        if (this.validData() && this.validFile() && this.state.files.length > 0) {
             let files = this.state.files
             let title = this.state.title
             let year = this.state.year
@@ -153,7 +148,7 @@ class UploadButton extends Component {
                             this.closeModal()
                         }
                     } else {
-                        
+
                     }
                 });
             }
@@ -186,7 +181,6 @@ class UploadButton extends Component {
     render() {
         let valid = this.validData() && !this.state.uploading
         let validFileType = this.validFile()
-        console.log(validFileType)
 
         return (
             <Fragment>
