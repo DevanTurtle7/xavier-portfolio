@@ -52,21 +52,23 @@ class CarouselDisplay extends Component {
             <Fragment>
                 <Row className={"justify-content-center mx-auto " + this.state.fadeInClass}>
                     <Col xs={9} md={7} lg={5} className="image-display my-4">
-                        <div className="carousel-row">
-                            <div className="carousel-btn-col">
+                        <Row className="carousel-row">
+                            <div className="carousel-btn-col carousel-btn-col-prev">
                                 <IconButton classNames="carousel-btn" fontSize={24}>
                                     <MdNavigateBefore />
                                 </IconButton>
                             </div>
-                            <Row className="mx-auto">
-                            {media}
-                            </Row>
-                            <div className="carousel-btn-col">
+                            <Col className="g-0">
+                                <Row>
+                                    {media}
+                                </Row>
+                            </Col>
+                            <div className="carousel-btn-col carousel-btn-col-next">
                                 <IconButton classNames="carousel-btn" fontSize={24}>
                                     <MdNavigateNext />
                                 </IconButton>
                             </div>
-                        </div>
+                        </Row>
                         <Row className="mx-auto">
                             <p className="carousel-count mb-0 mt-2">
                                 {num}/{numContent}
