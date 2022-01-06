@@ -13,7 +13,7 @@ class IconButton extends Component {
         let fontSize = this.props.fontSize === undefined ? '20px' : this.props.fontSize.toString() + "px"
 
         return (
-            <button onClick={this.onClick} className={classNames} style={{'font-size': fontSize}}>
+            <button onClick={this.onClick} className={classNames} style={{'fontSize': fontSize}}>
                 {this.props.children}
             </button>
         )

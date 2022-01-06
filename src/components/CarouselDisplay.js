@@ -22,8 +22,40 @@ class CarouselDisplay extends Component {
             fadeInClass: "fade-in-start",
             url: url,
             type: type,
-            num: 1,
+            num: 0,
             numContent: content.length
+        }
+    }
+
+    next = () => {
+        let num = this.state.num
+        let content = this.props.data.content
+
+        if (num < this.state.numContent - 1) {
+            num += 1
+            let current = content[num]
+
+            this.setState({
+                num: num,
+                url: current.url,
+                type: current.type
+            })
+        }
+    }
+
+    prev = () => {
+        let num = this.state.num
+        let content = this.props.data.content
+
+        if (num - 1 >= 0) {
+            num -= 1
+            let current = content[num]
+
+            this.setState({
+                num: num,
+                url: current.url,
+                type: current.type
+            })
         }
     }
 
@@ -38,9 +70,13 @@ class CarouselDisplay extends Component {
         let year = data.year
         let url = this.state.url
         let type = this.state.type
-        let num = this.state.num
+        let num = this.state.num + 1
         let numContent = this.state.numContent
         let media;
+
+        console.log("rendering")
+        console.log(type)
+        console.log(url)
 
         if (type === "image") {
             media = (<ImageDisplay url={url} callback={this.onLoad} alt={description} />)
@@ -54,7 +90,7 @@ class CarouselDisplay extends Component {
                     <Col xs={9} md={7} lg={5} className="image-display my-4">
                         <Row className="carousel-row">
                             <div className="carousel-btn-col carousel-btn-col-prev">
-                                <IconButton classNames="carousel-btn" fontSize={24}>
+                                <IconButton classNames="carousel-btn" fontSize={24} onClick={this.prev}>
                                     <MdNavigateBefore />
                                 </IconButton>
                             </div>
@@ -64,7 +100,7 @@ class CarouselDisplay extends Component {
                                 </Row>
                             </Col>
                             <div className="carousel-btn-col carousel-btn-col-next">
-                                <IconButton classNames="carousel-btn" fontSize={24}>
+                                <IconButton classNames="carousel-btn" fontSize={24} onClick={this.next}>
                                     <MdNavigateNext />
                                 </IconButton>
                             </div>
