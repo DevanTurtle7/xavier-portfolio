@@ -36,48 +36,52 @@ class ArtList extends Component {
             let order = data.order;
             let type = data.type;
 
-            getDownloadURL(ref(this.storage, filename))
-                .then((url) => {
-                    let files = this.state.files;
+            if (type === "carousel") {
 
-                    let current = {
-                        url: url,
-                        title: title,
-                        year: year,
-                        description: description,
-                        order: order,
-                        type: type,
-                        filename: filename,
-                        docId: doc.id
-                    }
+            } else {
+                getDownloadURL(ref(this.storage, filename))
+                    .then((url) => {
+                        let files = this.state.files;
 
-                    let numFiles = files.length;
-
-                    if (numFiles > 0) {
-                        // Insert sorted
-                        let i = 0;
-                        let indexFound = false;
-
-                        while (i < numFiles && !indexFound) {
-                            let currentOrder = files[i].order
-
-                            if (currentOrder >= order) {
-                                indexFound = true
-                            } else {
-                                i += 1
-                            }
+                        let current = {
+                            url: url,
+                            title: title,
+                            year: year,
+                            description: description,
+                            order: order,
+                            type: type,
+                            filename: filename,
+                            docId: doc.id
                         }
 
-                        files.splice(i, 0, current)
-                    } else {
-                        files.push(current)
-                    }
+                        let numFiles = files.length;
 
-                    this.setState({ files: files })
-                })
-                .catch((error) => {
-                    console.log(error)
-                });
+                        if (numFiles > 0) {
+                            // Insert sorted
+                            let i = 0;
+                            let indexFound = false;
+
+                            while (i < numFiles && !indexFound) {
+                                let currentOrder = files[i].order
+
+                                if (currentOrder >= order) {
+                                    indexFound = true
+                                } else {
+                                    i += 1
+                                }
+                            }
+
+                            files.splice(i, 0, current)
+                        } else {
+                            files.push(current)
+                        }
+
+                        this.setState({ files: files })
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    });
+            }
         });
     }
 
