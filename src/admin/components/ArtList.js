@@ -9,6 +9,7 @@ import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import MediaDisplay from './MediaDisplay';
 import { MdRefresh } from "react-icons/md"
+import CarouselDisplay from './CarouselDisplay';
 
 class ArtList extends Component {
     constructor(props) {
@@ -142,6 +143,16 @@ class ArtList extends Component {
             let type = current.type
 
             if (type === "carousel") {
+                console.log(current)
+                media.push(<CarouselDisplay
+                    data={current}
+                    type="carousel"
+                    mediaCount={this.state.mediaCount}
+                    onUpdate={this.onUpdate}
+                    db={this.db}
+                    storage={this.storage}
+                    key={i}
+                />)
             } else {
                 media.push(<MediaDisplay
                     data={current}
