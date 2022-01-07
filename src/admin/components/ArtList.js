@@ -10,7 +10,7 @@ import { ref, getDownloadURL } from "firebase/storage";
 import MediaDisplay from './MediaDisplay';
 import { MdRefresh } from "react-icons/md"
 
-class AdminList extends Component {
+class ArtList extends Component {
     constructor(props) {
         super(props)
 
@@ -141,4 +141,4 @@ class AdminList extends Component {
     }
 }
 
-export default AdminList;
+export default ArtList;
