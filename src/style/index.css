@@ -218,19 +218,24 @@ img {
 .carousel-items-row {
   display: flex;
   flex-flow: row;
-  height: 100px;
   overflow-x: scroll;
   white-space: nowrap;
 }
 
 .admin-carousel-item {
-  display: inline-block;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
   float: none;
   padding-right: 10px;
 }
 
 .admin-carousel-item img, .admin-carousel-item video {
-  max-width: 100%;
-  max-height: 100%;
+  max-height: 150px;
   object-fit: contain;
+}
+
+.carousel-dropdown {
+  max-height: 150px;
+  overflow-y: scroll;
 }

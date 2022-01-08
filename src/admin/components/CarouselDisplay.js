@@ -8,7 +8,7 @@ import {
     Row
 } from 'reactstrap';
 import CarouselEditButton from './CarouselEditButton';
-import DeleteButton from './DeleteButton';
+import CarouselDeleteButton from './CarouselDeleteButton';
 
 class CarouselDisplay extends Component {
     constructor(props) {
@@ -26,7 +26,6 @@ class CarouselDisplay extends Component {
         let data = this.props.data
         let content = data.content
         let title = data.title
-        let filename = data.filename
         let docId = data.docId
         let order = data.order
         let first = content[0]
@@ -62,8 +61,8 @@ class CarouselDisplay extends Component {
                             db={this.db}
                             storage={this.storage}
                         />
-                        <DeleteButton
-                            filename={filename}
+                        <CarouselDeleteButton
+                            files={content}
                             docId={docId}
                             order={order}
                             onDelete={this.updateData}

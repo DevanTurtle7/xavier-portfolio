@@ -20,6 +20,7 @@ class CarouselEditButton extends Component {
         super(props)
 
         this.state = {
+            content: [],
             modalOpen: false,
             title: "",
             year: "",
@@ -64,14 +65,24 @@ class CarouselEditButton extends Component {
             })
         }
 
+        console.log(this.props.data)
         let docId = this.props.data.docId
+        console.log(docId)
         let docRef = doc(this.db, "art", docId)
+
+        let content = this.state.content
+
+        for (let i = 0; i < content.length; i++) {
+            let current = content[i]
+            content[i] = {filename: current.filename, type: current.type}
+        }
 
         await updateDoc(docRef, {
             title: this.state.title,
             year: this.state.year,
             description: this.state.description,
-            order: this.state.order
+            order: this.state.order,
+            content: content
         })
 
         this.closeModal()
@@ -82,6 +93,7 @@ class CarouselEditButton extends Component {
         let data = this.props.data
 
         this.setState({
+            content: data.content,
             modalOpen: true,
             title: data.title,
             year: data.year,
@@ -130,6 +142,14 @@ class CarouselEditButton extends Component {
             this.validOrder()
     }
 
+    changeOrder = (currentIndex, newIndex) => {
+        let content = this.state.content
+        let current = content.splice(currentIndex, 1)[0] // Remove the item
+        content.splice(newIndex, 0, current) // Insert the item at the new index
+
+        this.setState({content: content})
+    }
+
     render() {
         let data = this.props.data
         let title = data.title
@@ -138,15 +158,19 @@ class CarouselEditButton extends Component {
         let order = data.order
         let valid = this.validData() && !this.state.updating
         let validOrderInput = this.validOrder()
-        let content = data.content
+        let content = this.state.content
         let items = []
+        let numItems = content.length
 
-        for (let i = 0; i < content.length; i++) {
+        for (let i = 0; i < numItems; i++) {
             let current = content[i]
             
             items.push(<CarouselItem
                 url={current.url}
                 type={current.type}
+                index={i}
+                numItems={numItems}
+                callback={this.changeOrder}
                 key={i}
             />)
         }
