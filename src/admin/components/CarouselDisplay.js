@@ -7,7 +7,7 @@ import {
     CardFooter,
     Row
 } from 'reactstrap';
-import EditButton from './EditButton';
+import CarouselEditButton from './CarouselEditButton';
 import DeleteButton from './DeleteButton';
 
 class CarouselDisplay extends Component {
@@ -55,7 +55,7 @@ class CarouselDisplay extends Component {
                         </Row>
                     </CardBody>
                     <CardFooter>
-                        <EditButton
+                        <CarouselEditButton
                             data={data}
                             mediaCount={this.props.mediaCount}
                             onEditSaved={this.updateData}

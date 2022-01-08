@@ -117,7 +117,17 @@ class UploadButton extends Component {
                 const uploadTask = uploadBytesResumable(storageRef, file)
 
                 uploadTask.on('state_changed', (snapshot) => {
-                    let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    let progress;
+                    let currentProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+                    if (numFiles === 1) {
+                        progress = currentProgress
+                    } else {
+                        let percentPer = 100 / (numFiles)
+                        let completed = i * percentPer
+                        progress = completed + (currentProgress / numFiles)
+                    }
+                    
                     progress = progress.toFixed(1)
 
                     this.setState({ progress: progress })
@@ -245,10 +255,10 @@ class UploadButton extends Component {
                         <Input type="text" placeholder="Description" className="m-2" onChange={this.descriptionChanged} />
                     </ModalBody>
                     <ModalFooter>
-                    <div className="upload-footer-row">
-                        <Button onClick={this.upload} color="primary" disabled={!valid}>Upload</Button>
-                        <p className='my-auto' hidden={!this.state.uploading}>Uploading {this.state.progress}% done</p>
-                    </div>
+                        <div className="upload-footer-row">
+                            <Button onClick={this.upload} color="primary" disabled={!valid}>Upload</Button>
+                            <p className='my-auto' hidden={!this.state.uploading}>Uploading {this.state.progress}% done</p>
+                        </div>
                     </ModalFooter>
                 </Modal>
             </Fragment>

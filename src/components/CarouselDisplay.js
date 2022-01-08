@@ -74,10 +74,6 @@ class CarouselDisplay extends Component {
         let numContent = this.state.numContent
         let media;
 
-        console.log("rendering")
-        console.log(type)
-        console.log(url)
-
         if (type === "image") {
             media = (<ImageDisplay url={url} callback={this.onLoad} alt={description} />)
         } else if (type === "video") {

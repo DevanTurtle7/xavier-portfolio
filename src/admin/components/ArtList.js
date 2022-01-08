@@ -42,8 +42,6 @@ class ArtList extends Component {
                 let currentContent = []
                 let content = data.content;
 
-                console.log(content)
-
                 for (let i = 0; i < content.length; i++) {
                     let fileInfo = content[i]
                     let filename = fileInfo.filename
@@ -143,7 +141,6 @@ class ArtList extends Component {
             let type = current.type
 
             if (type === "carousel") {
-                console.log(current)
                 media.push(<CarouselDisplay
                     data={current}
                     type="carousel"
