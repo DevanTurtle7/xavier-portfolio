@@ -52,61 +52,93 @@ class App extends Component {
     this.setState({ media: media })
   }
 
+  insertMediaSorted = (media) => {
+
+  }
+
   getArt = async () => {
     console.log("Retrieving art...")
     this.setState({ files: [] })
     const querySnapshot = await getDocs(collection(db, "art"));
 
-    querySnapshot.forEach((doc) => {
+    querySnapshot.forEach(async (doc) => {
       let data = doc.data();
-      let filename = data.filename;
       let title = data.title
       let year = data.year;
       let description = data.description;
       let type = data.type;
       let order = data.order;
+      let current;
 
-      getDownloadURL(ref(storage, filename))
-        .then((url) => {
-          let media = this.state.media;
+      if (type === "carousel") {
+        let currentContent = []
+        let content = data.content;
 
-          let current = {
-            url: url,
-            title: title,
-            year: year,
-            description: description,
-            order: order,
-            type: type
-          }
+        for (let i = 0; i < content.length; i++) {
+          let fileInfo = content[i]
+          let filename = fileInfo.filename
+          let fileType = fileInfo.type
 
-          let mediaCount = media.length;
+          await getDownloadURL(ref(storage, filename)).then((url) => {
+            currentContent.push({ url: url, type: fileType })
+          })
+        }
 
-          if (mediaCount > 0) {
-            // Insert sorted
-            let i = 0;
-            let indexFound = false;
+        current = {
+          title: title,
+          year: year,
+          description: description,
+          order: order,
+          type: type,
+          content: currentContent
+        }
+      } else {
+        let filename = data.filename;
 
-            while (i < mediaCount && !indexFound) {
-              let currentOrder = media[i].order
-
-              if (currentOrder >= order) {
-                indexFound = true
-              } else {
-                i += 1
-              }
+        await getDownloadURL(ref(storage, filename))
+          .then((url) => {
+            current = {
+              url: url,
+              title: title,
+              year: year,
+              description: description,
+              order: order,
+              type: type
             }
+          })
+          .catch((error) => {
+            console.log(error)
+          });
+      }
 
-            media.splice(i, 0, current)
-          } else {
-            media.push(current)
+      if (current !== undefined) {
+        let media = this.state.media;
+        let mediaCount = media.length;
+
+        if (mediaCount > 0) {
+          // Insert sorted
+          let i = 0;
+          let indexFound = false;
+
+          while (i < mediaCount && !indexFound) {
+            let currentOrder = media[i].order
+
+            if (currentOrder >= order) {
+              indexFound = true
+            } else {
+              i += 1
+            }
           }
 
-          this.setState({ media: media })
-        })
-        .catch((error) => {
-          console.log(error)
-        });
+          media.splice(i, 0, current)
+        } else {
+          media.push(current)
+        }
+
+        this.setState({ media: media })
+      }
     })
+    console.log("Art retrieved")
   }
 
   componentDidMount() {
@@ -117,7 +149,7 @@ class App extends Component {
     return (
       <Router>
         <Routes> {/* The Switch decides which component to show based on the current URL.*/}
-          <Route exact path='/' element={<Art media={this.state.media}/>} />
+          <Route exact path='/' element={<Art media={this.state.media} />} />
           <Route exact path='/art' element={<Art media={this.state.media} />} />
           <Route exact path='/contact' element={<Contact />} />
           <Route exact path='/sketchbook' element={<Sketchbook />} />

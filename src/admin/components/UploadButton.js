@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 
 import { collection, addDoc, updateDoc, doc, getDoc, increment } from "firebase/firestore";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytesResumable } from "firebase/storage";
 
 class UploadButton extends Component {
     constructor(props) {
@@ -23,7 +23,8 @@ class UploadButton extends Component {
             title: "",
             year: null,
             description: "",
-            uploading: false
+            uploading: false,
+            progress: 0
         }
 
         this.storage = this.props.storage
@@ -72,7 +73,8 @@ class UploadButton extends Component {
             title: "",
             year: null,
             description: "",
-            uploading: false
+            uploading: false,
+            progress: 0
         })
     }
 
@@ -86,15 +88,17 @@ class UploadButton extends Component {
 
     upload = async () => {
         this.setState({ uploading: true })
+        let files = this.state.files
+        let numFiles = files.length
 
-        if (this.validData() && this.validFile() && this.state.files.length > 0) {
-            let files = this.state.files
+        if (this.validData() && this.validFile() && numFiles > 0) {
             let title = this.state.title
             let year = this.state.year
             let description = this.state.description
+            let content = []
 
             // Generate unique name
-            for (let i = 0; i < files.length; i++) {
+            for (let i = 0; i < numFiles; i++) {
                 let file = files[i]
                 let tokens = file.name.split(".")
                 let numTokens = tokens.length
@@ -110,13 +114,63 @@ class UploadButton extends Component {
 
                 const storageRef = ref(this.storage, name);
 
-                uploadBytes(storageRef, file).then(async (snapshot) => {
+                const uploadTask = uploadBytesResumable(storageRef, file)
+
+                uploadTask.on('state_changed', (snapshot) => {
+                    let progress;
+                    let currentProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+                    if (numFiles === 1) {
+                        progress = currentProgress
+                    } else {
+                        let percentPer = 100 / (numFiles)
+                        let completed = i * percentPer
+                        progress = completed + (currentProgress / numFiles)
+                    }
+                    
+                    progress = progress.toFixed(1)
+
+                    this.setState({ progress: progress })
+                })
+
+                await uploadTask.then(async (snapshot) => {
                     let contentType = snapshot.metadata.contentType
                     let tokens = contentType.split("/")
                     let fileType = tokens[0]
 
-                    if (files.length === 1) {
-                        if (fileType === "image" || fileType === "video") {
+                    if (numFiles === 1) {
+                        try {
+                            let collectionRef = collection(this.db, "art")
+                            let countRef = doc(this.db, "counts", "art")
+                            let countSnap = await getDoc(countRef)
+                            let size = countSnap.data().count
+
+                            const docRef = await addDoc(collectionRef, {
+                                filename: name,
+                                type: fileType,
+                                title: title,
+                                year: year,
+                                description: description,
+                                order: size
+                            })
+
+                            await updateDoc(countRef, {
+                                count: increment(1)
+                            })
+
+                            console.log("Document written with ID: ", docRef.id);
+                            this.closeModal()
+                            this.props.onUpload()
+                        } catch (e) {
+                            console.error("Error adding document: ", e);
+                            this.setState({ uploading: false })
+                        }
+                    } else {
+                        let current = { filename: name, type: fileType }
+                        content.push(current)
+
+                        if (i === numFiles - 1) {
+                            console.log("creating...")
                             try {
                                 let collectionRef = collection(this.db, "art")
                                 let countRef = doc(this.db, "counts", "art")
@@ -124,12 +178,12 @@ class UploadButton extends Component {
                                 let size = countSnap.data().count
 
                                 const docRef = await addDoc(collectionRef, {
-                                    filename: name,
-                                    type: fileType,
+                                    type: "carousel",
                                     title: title,
                                     year: year,
                                     description: description,
-                                    order: size
+                                    order: size,
+                                    content: content
                                 })
 
                                 await updateDoc(countRef, {
@@ -143,12 +197,7 @@ class UploadButton extends Component {
                                 console.error("Error adding document: ", e);
                                 this.setState({ uploading: false })
                             }
-                        } else {
-                            console.log("File is not an image or video")
-                            this.closeModal()
                         }
-                    } else {
-
                     }
                 });
             }
@@ -206,7 +255,10 @@ class UploadButton extends Component {
                         <Input type="text" placeholder="Description" className="m-2" onChange={this.descriptionChanged} />
                     </ModalBody>
                     <ModalFooter>
-                        <Button onClick={this.upload} color="primary" disabled={!valid}>Upload</Button>
+                        <div className="upload-footer-row">
+                            <Button onClick={this.upload} color="primary" disabled={!valid}>Upload</Button>
+                            <p className='my-auto' hidden={!this.state.uploading}>Uploading {this.state.progress}% done</p>
+                        </div>
                     </ModalFooter>
                 </Modal>
             </Fragment>

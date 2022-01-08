@@ -2,8 +2,8 @@ import { Component, Fragment } from 'react';
 import {
     Col,
 } from 'reactstrap';
-import ImageDisplay from '../components/ImageDisplay';
-import VideoDisplay from '../components/VideoDisplay';
+import MediaDisplay from '../components/MediaDisplay';
+import CarouselDisplay from '../components/CarouselDisplay';
 import Navbar from '../components/Navbar'
 
 class Art extends Component {
@@ -15,13 +15,14 @@ class Art extends Component {
             let current = media[i]
             let type = current.type
 
-            if (type === "image") {
-                mediaDisplays.push(<ImageDisplay
+            if (type === "carousel") {
+                mediaDisplays.push(<CarouselDisplay
                     data={current}
                     key={i}
                 />)
-            } else if (type === "video") {
-                mediaDisplays.push(<VideoDisplay
+            } else {
+                mediaDisplays.push(<MediaDisplay
+                    type={type}
                     data={current}
                     key={i}
                 />)

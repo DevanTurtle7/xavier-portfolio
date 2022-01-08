@@ -13,7 +13,7 @@ import {
     FormGroup,
     FormFeedback
 } from 'reactstrap';
-import AdminList from './components/AdminList';
+import ArtList from './components/ArtList';
 
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 
@@ -159,7 +159,7 @@ class Admin extends Component {
                     </Nav>
                     <TabContent activeTab={this.state.activeTab} className="mx-4">
                         <TabPane tabId="1">
-                            <AdminList storage={this.storage} db={this.db} />
+                            <ArtList storage={this.storage} db={this.db} />
                         </TabPane>
                         <TabPane tabId="2">
                             <h1>Sketchbook</h1>
