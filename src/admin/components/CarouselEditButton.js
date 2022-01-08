@@ -65,11 +65,8 @@ class CarouselEditButton extends Component {
             })
         }
 
-        console.log(this.props.data)
         let docId = this.props.data.docId
-        console.log(docId)
         let docRef = doc(this.db, "art", docId)
-
         let content = this.state.content
 
         for (let i = 0; i < content.length; i++) {

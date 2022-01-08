@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 
 class CarouselItem extends Component {
     constructor(props) {

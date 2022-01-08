@@ -47,16 +47,9 @@ class ArtList extends Component {
                     let filename = fileInfo.filename
                     let fileType = fileInfo.type
 
-                    try {
-
                     await getDownloadURL(ref(this.storage, filename)).then((url) => {
                         currentContent.push({ url: url, type: fileType, filename: filename })
                     })
-                    } catch (e){
-                        console.log(title)
-                        console.log(filename)
-                        console.log("this one is being weird")
-                    }
                 }
 
                 current = {
@@ -85,7 +78,6 @@ class ArtList extends Component {
                         }
                     })
                     .catch((error) => {
-                        console.log("nope this")
                         console.log(error)
                     });
             }

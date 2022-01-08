@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 
 import { collection, addDoc, updateDoc, doc, getDoc, increment } from "firebase/firestore";
-import { ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
+import { ref, uploadBytesResumable } from "firebase/storage";
 
 class UploadButton extends Component {
     constructor(props) {
