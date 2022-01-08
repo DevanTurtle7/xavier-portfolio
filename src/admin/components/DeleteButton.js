@@ -13,7 +13,8 @@ class DeleteButton extends Component {
         super(props)
 
         this.state = {
-            modalOpen: false
+            modalOpen: false,
+            deleting: false
         }
 
         this.db = this.props.db
@@ -21,6 +22,7 @@ class DeleteButton extends Component {
     }
 
     delete = async () => {
+        this.setState({deleting: true})
         let docId = this.props.docId
         let filename = this.props.filename
         let order = this.props.order
@@ -48,6 +50,7 @@ class DeleteButton extends Component {
         })
 
         this.props.onDelete()
+        this.setState({deleting: false})
     }
 
     openModal = () => {
@@ -71,7 +74,7 @@ class DeleteButton extends Component {
                         Are you sure?
                     </ModalHeader>
                     <ModalBody>
-                        <Button color="success" className="mx-2" onClick={this.delete}>Yes</Button>
+                        <Button color="success" className="mx-2" onClick={this.delete} disabled={this.state.deleting}>Yes</Button>
                         <Button color="danger" className="mx-2" onClick={this.closeModal}>No</Button>
                     </ModalBody>
                 </Modal>

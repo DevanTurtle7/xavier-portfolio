@@ -13,7 +13,8 @@ class CarouselDeleteButton extends Component {
         super(props)
 
         this.state = {
-            modalOpen: false
+            modalOpen: false,
+            deleting: false
         }
 
         this.db = this.props.db
@@ -21,6 +22,7 @@ class CarouselDeleteButton extends Component {
     }
 
     delete = async () => {
+        this.setState({deleting: true})
         let docId = this.props.docId
         let order = this.props.order
         let files = this.props.files
@@ -53,6 +55,7 @@ class CarouselDeleteButton extends Component {
         })
 
         this.props.onDelete()
+        this.setState({deleting: false})
     }
 
     openModal = () => {
@@ -76,7 +79,7 @@ class CarouselDeleteButton extends Component {
                         Are you sure?
                     </ModalHeader>
                     <ModalBody>
-                        <Button color="success" className="mx-2" onClick={this.delete}>Yes</Button>
+                        <Button color="success" className="mx-2" onClick={this.delete} disabled={this.state.deleting}>Yes</Button>
                         <Button color="danger" className="mx-2" onClick={this.closeModal}>No</Button>
                     </ModalBody>
                 </Modal>
