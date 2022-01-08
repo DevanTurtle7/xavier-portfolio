@@ -10,7 +10,6 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { ref, getDownloadURL, getStorage } from "firebase/storage";
-import { MdContentCopy } from 'react-icons/md';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1O3ZZUuxv0-PGJPZI9UffooMkAHdyjZw",
