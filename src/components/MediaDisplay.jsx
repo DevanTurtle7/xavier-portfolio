@@ -7,7 +7,7 @@ import ImageDisplay from './ImageDisplay';
 import VideoDisplay from './VideoDisplay';
 import CarouselControls from './CarouselControls';
 
-class CarouselDisplay extends Component {
+class MediaDisplay extends Component {
     constructor(props) {
         super(props)
 
@@ -72,4 +72,4 @@ class CarouselDisplay extends Component {
     }
 }
 
-export default CarouselDisplay;
+export default MediaDisplay;

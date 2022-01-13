@@ -172,7 +172,7 @@ class EditButton extends Component {
                         {carouselOrganizer}
 
                         <Label>Description</Label>
-                        <Input type="text" defaultValue={description} onChange={this.descriptionChanged} />
+                        <Input type="textarea" defaultValue={description} onChange={this.descriptionChanged} />
                         <FormGroup>
                             <Label>Order</Label>
                             <Input type="number" defaultValue={order} onChange={this.orderChanged} invalid={!validOrderInput} />

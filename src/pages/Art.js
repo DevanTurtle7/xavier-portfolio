@@ -3,7 +3,6 @@ import {
     Col,
 } from 'reactstrap';
 import MediaDisplay from '../components/MediaDisplay';
-import CarouselDisplay from '../components/CarouselDisplay';
 import Navbar from '../components/Navbar'
 
 class Art extends Component {
@@ -11,12 +10,10 @@ class Art extends Component {
         let mediaDisplays = []
         let media = this.props.media;
 
-        console.log(media)
-
         for (var i = 0; i < media.length; i++) {
             let current = media[i]
 
-            mediaDisplays.push(<CarouselDisplay
+            mediaDisplays.push(<MediaDisplay
                 data={current}
                 key={i}
             />)
