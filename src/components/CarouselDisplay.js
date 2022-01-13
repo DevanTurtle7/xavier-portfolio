@@ -19,21 +19,13 @@ class CarouselDisplay extends Component {
 
         this.state = {
             fadeInClass: "fade-in-start",
-            url: url,
-            type: type,
             num: 0,
-            numContent: content.length
         }
     }
 
     onChange = (num) => {
-        let content = this.props.data.content
-        let current = content[num]
-
         this.setState({
             num: num,
-            url: current.url,
-            type: current.type
         })
     }
 
@@ -43,10 +35,13 @@ class CarouselDisplay extends Component {
 
     render() {
         let data = this.props.data
+        let content = data.content
         let description = data.description
-        let url = this.state.url
-        let type = this.state.type
-        let numContent = this.state.numContent
+        let num = this.state.num
+        let current = content[num]
+        let url = current.url
+        let type = current.type
+        let numContent = content.length
         let media;
 
         if (type === "image") {

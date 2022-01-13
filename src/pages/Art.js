@@ -11,6 +11,8 @@ class Art extends Component {
         let mediaDisplays = []
         let media = this.props.media;
 
+        console.log(media)
+
         for (var i = 0; i < media.length; i++) {
             let current = media[i]
 
