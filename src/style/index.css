@@ -62,7 +62,7 @@ img {
   border: 0;
   text-align: center;
   margin: 0px;
-  width: 44px;
+  width: 44px !important;
   height: 44px;
   padding: 0px;
 }
@@ -257,4 +257,12 @@ img {
 .carousel-dropdown {
   max-height: 150px;
   overflow-y: scroll;
+}
+
+.fit-width {
+  width: fit-content !important;
+}
+
+.fit-height {
+  height: fit-content;
 }

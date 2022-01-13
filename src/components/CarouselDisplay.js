@@ -7,6 +7,7 @@ import ImageDisplay from './ImageDisplay';
 import VideoDisplay from './VideoDisplay';
 import IconButton from './IconButton';
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md"
+import CarouselControls from './CarouselControls';
 
 class CarouselDisplay extends Component {
     constructor(props) {
@@ -27,36 +28,15 @@ class CarouselDisplay extends Component {
         }
     }
 
-    next = () => {
-        let num = this.state.num
+    onChange = (num) => {
         let content = this.props.data.content
+        let current = content[num]
 
-        if (num < this.state.numContent - 1) {
-            num += 1
-            let current = content[num]
-
-            this.setState({
-                num: num,
-                url: current.url,
-                type: current.type
-            })
-        }
-    }
-
-    prev = () => {
-        let num = this.state.num
-        let content = this.props.data.content
-
-        if (num - 1 >= 0) {
-            num -= 1
-            let current = content[num]
-
-            this.setState({
-                num: num,
-                url: current.url,
-                type: current.type
-            })
-        }
+        this.setState({
+            num: num,
+            url: current.url,
+            type: current.type
+        })
     }
 
     onLoad = () => {
@@ -80,32 +60,16 @@ class CarouselDisplay extends Component {
             media = (<VideoDisplay url={url} callback={this.onLoad} />)
         }
 
+        let carouselControls = (<CarouselControls numContent={numContent} onChange={this.onChange} />)
+
         return (
             <Fragment>
                 <Row className={"justify-content-center mx-auto " + this.state.fadeInClass}>
                     <Col xs={9} md={7} lg={5} className="image-display my-4">
-                        <Row className="carousel-row">
-                            <div className="carousel-btn-col carousel-btn-col-prev">
-                                <IconButton classNames="carousel-btn" fontSize={24} onClick={this.prev}>
-                                    <MdNavigateBefore />
-                                </IconButton>
-                            </div>
-                            <Col className="g-0">
-                                <Row>
-                                    {media}
-                                </Row>
-                            </Col>
-                            <div className="carousel-btn-col carousel-btn-col-next">
-                                <IconButton classNames="carousel-btn" fontSize={24} onClick={this.next}>
-                                    <MdNavigateNext />
-                                </IconButton>
-                            </div>
-                        </Row>
                         <Row className="mx-auto">
-                            <p className="carousel-count mb-0 mt-2">
-                                {num}/{numContent}
-                            </p>
+                            {media}
                         </Row>
+                        {carouselControls}
                         <Row className="mx-auto">
                             <p className="image-description mb-0 mt-2">
                                 {title}, {year}
