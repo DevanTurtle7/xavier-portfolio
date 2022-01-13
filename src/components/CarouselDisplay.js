@@ -5,8 +5,6 @@ import {
 } from 'reactstrap'
 import ImageDisplay from './ImageDisplay';
 import VideoDisplay from './VideoDisplay';
-import IconButton from './IconButton';
-import { MdNavigateNext, MdNavigateBefore } from "react-icons/md"
 import CarouselControls from './CarouselControls';
 
 class CarouselDisplay extends Component {
@@ -50,7 +48,6 @@ class CarouselDisplay extends Component {
         let year = data.year
         let url = this.state.url
         let type = this.state.type
-        let num = this.state.num + 1
         let numContent = this.state.numContent
         let media;
 
