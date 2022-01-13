@@ -7,10 +7,10 @@ import {
     CardFooter,
     Row
 } from 'reactstrap';
-import CarouselEditButton from './CarouselEditButton';
-import CarouselDeleteButton from './CarouselDeleteButton';
+import EditButton from './EditButton';
+import DeleteButton from './DeleteButton';
 
-class CarouselDisplay extends Component {
+class MediaDisplay extends Component {
     constructor(props) {
         super(props)
 
@@ -50,14 +50,14 @@ class CarouselDisplay extends Component {
                         </Row>
                     </CardBody>
                     <CardFooter>
-                        <CarouselEditButton
+                        <EditButton
                             data={data}
                             mediaCount={this.props.mediaCount}
                             onEditSaved={this.updateData}
                             db={this.db}
                             storage={this.storage}
                         />
-                        <CarouselDeleteButton
+                        <DeleteButton
                             files={content}
                             docId={docId}
                             order={order}
@@ -72,4 +72,4 @@ class CarouselDisplay extends Component {
     }
 }
 
-export default CarouselDisplay;
+export default MediaDisplay;

@@ -15,7 +15,7 @@ import {
 } from 'reactstrap';
 import CarouselItem from './CarouselItem';
 
-class CarouselEditButton extends Component {
+class EditButton extends Component {
     constructor(props) {
         super(props)
 
@@ -191,4 +191,4 @@ class CarouselEditButton extends Component {
     }
 }
 
-export default CarouselEditButton;
+export default EditButton;

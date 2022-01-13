@@ -8,7 +8,7 @@ import UploadButton from './UploadButton';
 import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { MdRefresh } from "react-icons/md"
-import CarouselDisplay from './CarouselDisplay';
+import MediaDisplay from './MediaDisplay';
 
 class ArtList extends Component {
     constructor(props) {
@@ -114,7 +114,7 @@ class ArtList extends Component {
         for (let i = 0; i < files.length; i++) {
             let current = files[i]
 
-            media.push(<CarouselDisplay
+            media.push(<MediaDisplay
                 data={current}
                 mediaCount={this.state.mediaCount}
                 onUpdate={this.onUpdate}

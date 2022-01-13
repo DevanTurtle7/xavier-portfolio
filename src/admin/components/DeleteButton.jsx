@@ -8,7 +8,7 @@ import {
 import { deleteDoc, doc, updateDoc, increment, getDocs, collection } from "firebase/firestore";
 import { deleteObject, ref } from 'firebase/storage';
 
-class CarouselDeleteButton extends Component {
+class DeleteButton extends Component {
     constructor(props) {
         super(props)
 
@@ -88,4 +88,4 @@ class CarouselDeleteButton extends Component {
     }
 }
 
-export default CarouselDeleteButton;
+export default DeleteButton;
