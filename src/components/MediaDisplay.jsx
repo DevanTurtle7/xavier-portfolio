@@ -51,8 +51,8 @@ class MediaDisplay extends Component {
         return (
             <Fragment>
                 <Row className={"justify-content-center mx-auto " + this.state.fadeInClass}>
-                    <Col xs={9} md={7} lg={5} className="image-display my-4">
-                        <Row className="mx-auto">
+                    <Col xs={9} md={5} lg={4} className="image-display my-4">
+                        <Row className="mx-auto pb-2">
                             {media}
                         </Row>
                         {carouselControls}

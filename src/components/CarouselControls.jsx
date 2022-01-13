@@ -45,7 +45,7 @@ class CarouselControls extends Component {
                 <IconButton classNames="carousel-btn" fontSize={24} onClick={this.prev}>
                     <MdNavigateBefore />
                 </IconButton>
-                <p className="carousel-count mb-0 mt-2 fit-width pt-1">
+                <p className="carousel-count mb-0 mt-2 fit-width">
                     {num + 1}/{numContent}
                 </p>
                 <IconButton classNames="carousel-btn" fontSize={24} onClick={this.next}>
