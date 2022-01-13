@@ -25,7 +25,6 @@ class CarouselDisplay extends Component {
     render() {
         let data = this.props.data
         let content = data.content
-        let title = data.title
         let docId = data.docId
         let order = data.order
         let first = content[0]
@@ -45,9 +44,6 @@ class CarouselDisplay extends Component {
         return (
             <Col xs={12} sm={6} md={4} lg={3} xl={2}>
                 <Card className="mb-4">
-                    <CardHeader>
-                        {title} - <b>Carousel</b>
-                    </CardHeader>
                     <CardBody>
                         <Row className="mx-auto">
                             {mediaDisplay}

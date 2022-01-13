@@ -69,7 +69,7 @@ class CarouselEditButton extends Component {
 
         for (let i = 0; i < content.length; i++) {
             let current = content[i]
-            content[i] = {filename: current.filename, type: current.type}
+            content[i] = { filename: current.filename, type: current.type }
         }
 
         await updateDoc(docRef, {
@@ -128,7 +128,7 @@ class CarouselEditButton extends Component {
         let current = content.splice(currentIndex, 1)[0] // Remove the item
         content.splice(newIndex, 0, current) // Insert the item at the new index
 
-        this.setState({content: content})
+        this.setState({ content: content })
     }
 
     render() {
@@ -138,20 +138,26 @@ class CarouselEditButton extends Component {
         let valid = this.validData() && !this.state.updating
         let validOrderInput = this.validOrder()
         let content = this.state.content
-        let items = []
         let numItems = content.length
+        let carouselOrganizer = (null)
 
-        for (let i = 0; i < numItems; i++) {
-            let current = content[i]
-            
-            items.push(<CarouselItem
-                url={current.url}
-                type={current.type}
-                index={i}
-                numItems={numItems}
-                callback={this.changeOrder}
-                key={i}
-            />)
+        if (numItems > 1) {
+            let items = []
+
+            for (let i = 0; i < numItems; i++) {
+                let current = content[i]
+
+                items.push(<CarouselItem
+                    url={current.url}
+                    type={current.type}
+                    index={i}
+                    numItems={numItems}
+                    callback={this.changeOrder}
+                    key={i}
+                />)
+
+                carouselOrganizer = (<div className="carousel-items-row">{items}</div>)
+            }
         }
 
         return (
@@ -160,16 +166,16 @@ class CarouselEditButton extends Component {
 
                 <Modal isOpen={this.state.modalOpen}>
                     <ModalHeader toggle={this.toggle}>
-                    Edit
+                        Edit
                     </ModalHeader>
                     <ModalBody>
-                        <div className="carousel-items-row">{items}</div>
+                        {carouselOrganizer}
 
                         <Label>Description</Label>
                         <Input type="text" defaultValue={description} onChange={this.descriptionChanged} />
                         <FormGroup>
                             <Label>Order</Label>
-                            <Input type="number" defaultValue={order} onChange={this.orderChanged} invalid={!validOrderInput}/>
+                            <Input type="number" defaultValue={order} onChange={this.orderChanged} invalid={!validOrderInput} />
                             <FormFeedback>
                                 Order must be between 0 and {this.props.mediaCount - 1}
                             </FormFeedback>
