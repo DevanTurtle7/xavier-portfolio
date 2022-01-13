@@ -13,20 +13,12 @@ class Art extends Component {
 
         for (var i = 0; i < media.length; i++) {
             let current = media[i]
-            let type = current.type
 
-            if (type === "carousel") {
-                mediaDisplays.push(<CarouselDisplay
-                    data={current}
-                    key={i}
-                />)
-            } else {
-                mediaDisplays.push(<MediaDisplay
-                    type={type}
-                    data={current}
-                    key={i}
-                />)
-            }
+            mediaDisplays.push(<CarouselDisplay
+                data={current}
+                key={i}
+            />)
+
         }
 
         return (

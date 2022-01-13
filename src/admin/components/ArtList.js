@@ -28,89 +28,62 @@ class ArtList extends Component {
         console.log("Retrieving art...")
         this.setState({ files: [] })
         const querySnapshot = await getDocs(collection(this.db, "art"));
-
+    
         querySnapshot.forEach(async (doc) => {
-            let data = doc.data();
-            let title = data.title
-            let year = data.year;
-            let description = data.description;
-            let type = data.type;
-            let order = data.order;
-            let current;
-
-            if (type === "carousel") {
-                let currentContent = []
-                let content = data.content;
-
-                for (let i = 0; i < content.length; i++) {
-                    let fileInfo = content[i]
-                    let filename = fileInfo.filename
-                    let fileType = fileInfo.type
-
-                    await getDownloadURL(ref(this.storage, filename)).then((url) => {
-                        currentContent.push({ url: url, type: fileType, filename: filename })
-                    })
-                }
-
-                current = {
-                    title: title,
-                    year: year,
-                    description: description,
-                    order: order,
-                    type: type,
-                    content: currentContent,
-                    docId: doc.id,
-                }
-            } else {
-                let filename = data.filename;
-
-                await getDownloadURL(ref(this.storage, filename))
-                    .then((url) => {
-                        current = {
-                            url: url,
-                            title: title,
-                            year: year,
-                            description: description,
-                            order: order,
-                            type: type,
-                            docId: doc.id,
-                            filename: filename,
-                        }
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    });
+          let data = doc.data();
+          let description = data.description;
+          let order = data.order;
+          let current;
+    
+            let currentContent = []
+            let content = data.content;
+    
+            for (let i = 0; i < content.length; i++) {
+              let fileInfo = content[i]
+              let filename = fileInfo.filename
+              let fileType = fileInfo.type
+    
+              await getDownloadURL(ref(this.storage, filename)).then((url) => {
+                currentContent.push({ url: url, type: fileType, filename: filename })
+              })
             }
-
-            if (current !== undefined) {
-                let files = this.state.files;
-                let mediaCount = files.length;
-
-                if (mediaCount > 0) {
-                    // Insert sorted
-                    let i = 0;
-                    let indexFound = false;
-
-                    while (i < mediaCount && !indexFound) {
-                        let currentOrder = files[i].order
-
-                        if (currentOrder >= order) {
-                            indexFound = true
-                        } else {
-                            i += 1
-                        }
-                    }
-
-                    files.splice(i, 0, current)
+    
+            current = {
+              description: description,
+              order: order,
+              content: currentContent,
+              docId: doc.id
+            }
+    
+          if (current !== undefined) {
+            let files = this.state.files;
+            let mediaCount = files.length;
+    
+            if (mediaCount > 0) {
+              // Insert sorted
+              let i = 0;
+              let indexFound = false;
+    
+              while (i < mediaCount && !indexFound) {
+                let currentOrder = files[i].order
+    
+                if (currentOrder >= order) {
+                  indexFound = true
                 } else {
-                    files.push(current)
+                  i += 1
                 }
-
-                this.setState({ files: files })
+              }
+    
+              files.splice(i, 0, current)
+            } else {
+              files.push(current)
             }
+    
+            this.setState({ files: files })
+          }
         })
         console.log("Art retrieved")
-    }
+      }
 
     updateMediaCount = async () => {
         let countRef = doc(this.db, "counts", "art")
@@ -141,12 +114,11 @@ class ArtList extends Component {
 
         for (let i = 0; i < files.length; i++) {
             let current = files[i]
-            let type = current.type
+            let numFiles = current.content.length
 
-            if (type === "carousel") {
+            if (numFiles > 1) {
                 media.push(<CarouselDisplay
                     data={current}
-                    type="carousel"
                     mediaCount={this.state.mediaCount}
                     onUpdate={this.onUpdate}
                     db={this.db}
@@ -156,7 +128,6 @@ class ArtList extends Component {
             } else {
                 media.push(<MediaDisplay
                     data={current}
-                    type={type}
                     mediaCount={this.state.mediaCount}
                     onUpdate={this.onUpdate}
                     db={this.db}

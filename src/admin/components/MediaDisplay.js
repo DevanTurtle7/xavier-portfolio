@@ -23,11 +23,14 @@ class MediaDisplay extends Component {
     }
 
     render() {
+        console.log(this.props.data)
         let data = this.props.data
-        let type = this.props.type
-        let title = data.title
-        let url = data.url
-        let filename = data.filename
+        let content = data.content
+        let current = content[0]
+        let type = current.type
+        let title = "REMOVE ME"
+        let url = current.url
+        let filename = current.filename
         let docId = data.docId
         let order = data.order
 
@@ -37,7 +40,7 @@ class MediaDisplay extends Component {
             mediaDisplay = (<img src={url} className="admin-media-display" alt="art" />)
         } else if (type === "video") {
             mediaDisplay = (<video controls className='admin-media-display'>
-                <source src={url}/>
+                <source src={url} />
             </video>)
         }
 

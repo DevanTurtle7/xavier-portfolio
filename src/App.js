@@ -81,11 +81,8 @@ class App extends Component {
         }
 
         current = {
-          title: "REMOVE ME",
-          year: "REMOVE ME",
           description: description,
           order: order,
-          type: "carousel",
           content: currentContent
         }
 

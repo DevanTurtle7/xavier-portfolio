@@ -20,8 +20,6 @@ class UploadButton extends Component {
         this.state = {
             files: [],
             modalOpen: false,
-            title: "",
-            year: null,
             description: "",
             uploading: false,
             progress: 0
@@ -70,8 +68,6 @@ class UploadButton extends Component {
         this.setState({
             file: null,
             modalOpen: false,
-            title: "",
-            year: null,
             description: "",
             uploading: false,
             progress: 0
@@ -91,9 +87,7 @@ class UploadButton extends Component {
         let files = this.state.files
         let numFiles = files.length
 
-        if (this.validData() && this.validFile() && numFiles > 0) {
-            let title = this.state.title
-            let year = this.state.year
+        if (this.validFile() && numFiles > 0) {
             let description = this.state.description
             let content = []
 
@@ -127,7 +121,7 @@ class UploadButton extends Component {
                         let completed = i * percentPer
                         progress = completed + (currentProgress / numFiles)
                     }
-                    
+
                     progress = progress.toFixed(1)
 
                     this.setState({ progress: progress })
@@ -138,7 +132,11 @@ class UploadButton extends Component {
                     let tokens = contentType.split("/")
                     let fileType = tokens[0]
 
-                    if (numFiles === 1) {
+                    let current = { filename: name, type: fileType }
+                    content.push(current)
+
+                    if (i === numFiles - 1) {
+                        console.log("creating...")
                         try {
                             let collectionRef = collection(this.db, "art")
                             let countRef = doc(this.db, "counts", "art")
@@ -146,12 +144,9 @@ class UploadButton extends Component {
                             let size = countSnap.data().count
 
                             const docRef = await addDoc(collectionRef, {
-                                filename: name,
-                                type: fileType,
-                                title: title,
-                                year: year,
                                 description: description,
-                                order: size
+                                order: size,
+                                content: content
                             })
 
                             await updateDoc(countRef, {
@@ -165,70 +160,18 @@ class UploadButton extends Component {
                             console.error("Error adding document: ", e);
                             this.setState({ uploading: false })
                         }
-                    } else {
-                        let current = { filename: name, type: fileType }
-                        content.push(current)
-
-                        if (i === numFiles - 1) {
-                            console.log("creating...")
-                            try {
-                                let collectionRef = collection(this.db, "art")
-                                let countRef = doc(this.db, "counts", "art")
-                                let countSnap = await getDoc(countRef)
-                                let size = countSnap.data().count
-
-                                const docRef = await addDoc(collectionRef, {
-                                    type: "carousel",
-                                    title: title,
-                                    year: year,
-                                    description: description,
-                                    order: size,
-                                    content: content
-                                })
-
-                                await updateDoc(countRef, {
-                                    count: increment(1)
-                                })
-
-                                console.log("Document written with ID: ", docRef.id);
-                                this.closeModal()
-                                this.props.onUpload()
-                            } catch (e) {
-                                console.error("Error adding document: ", e);
-                                this.setState({ uploading: false })
-                            }
-                        }
                     }
                 });
             }
         }
     }
 
-    titleChanged = (e) => {
-        this.setState({ title: e.target.value })
-    }
-
-    yearChanged = (e) => {
-        this.setState({ year: e.target.value })
-    }
-
     descriptionChanged = (e) => {
         this.setState({ description: e.target.value })
     }
 
-    validField = (field) => {
-        return field !== "" && field !== null
-    }
-
-    validData = () => {
-        let title = this.state.title;
-        let year = this.state.year;
-
-        return this.validField(title) && this.validField(year)
-    }
-
     render() {
-        let valid = this.validData() && !this.state.uploading
+        let valid = !this.state.uploading
         let validFileType = this.validFile()
 
         return (
@@ -250,8 +193,6 @@ class UploadButton extends Component {
                             />
                             <FormFeedback>Invalid file type</FormFeedback>
                         </FormGroup>
-                        <Input type="text" placeholder="Title" className="m-2" onChange={this.titleChanged} />
-                        <Input type="number" placeholder="Year" className="m-2" onChange={this.yearChanged} />
                         <Input type="text" placeholder="Description" className="m-2" onChange={this.descriptionChanged} />
                     </ModalBody>
                     <ModalFooter>

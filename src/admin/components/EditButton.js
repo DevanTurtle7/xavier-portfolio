@@ -18,8 +18,6 @@ class EditButton extends Component {
 
         this.state = {
             modalOpen: false,
-            title: "",
-            year: "",
             description: "",
             order: "",
             updating: false
@@ -65,8 +63,6 @@ class EditButton extends Component {
         let docRef = doc(this.db, "art", docId)
 
         await updateDoc(docRef, {
-            title: this.state.title,
-            year: this.state.year,
             description: this.state.description,
             order: this.state.order
         })
@@ -80,8 +76,6 @@ class EditButton extends Component {
 
         this.setState({
             modalOpen: true,
-            title: data.title,
-            year: data.year,
             description: data.description,
             order: data.order,
             updating: false
@@ -94,14 +88,6 @@ class EditButton extends Component {
 
     toggle = () => {
         this.setState({ modalOpen: !this.state.modalOpen })
-    }
-
-    titleChanged = (e) => {
-        this.setState({ title: e.target.value })
-    }
-
-    yearChanged = (e) => {
-        this.setState({ year: e.target.value })
     }
 
     descriptionChanged = (e) => {
@@ -121,16 +107,12 @@ class EditButton extends Component {
     }
 
     validData = () => {
-        return this.validField(this.state.title) &&
-            this.validField(this.state.year) &&
-            this.validField(this.state.order) &&
+        return this.validField(this.state.order) &&
             this.validOrder()
     }
 
     render() {
         let data = this.props.data
-        let title = data.title
-        let year = data.year
         let description = data.description
         let order = data.order
         let valid = this.validData() && !this.state.updating
@@ -142,13 +124,9 @@ class EditButton extends Component {
 
                 <Modal isOpen={this.state.modalOpen}>
                     <ModalHeader toggle={this.toggle}>
-                        {title}
+                    Edit
                     </ModalHeader>
                     <ModalBody>
-                        <Label>Title</Label>
-                        <Input type="text" defaultValue={title} onChange={this.titleChanged} />
-                        <Label>Year</Label>
-                        <Input type="number" defaultValue={year} onChange={this.yearChanged} />
                         <Label>Description</Label>
                         <Input type="text" defaultValue={description} onChange={this.descriptionChanged} />
                         <FormGroup>

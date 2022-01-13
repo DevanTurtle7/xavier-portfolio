@@ -22,8 +22,6 @@ class CarouselEditButton extends Component {
         this.state = {
             content: [],
             modalOpen: false,
-            title: "",
-            year: "",
             description: "",
             order: "",
             updating: false
@@ -75,8 +73,6 @@ class CarouselEditButton extends Component {
         }
 
         await updateDoc(docRef, {
-            title: this.state.title,
-            year: this.state.year,
             description: this.state.description,
             order: this.state.order,
             content: content
@@ -92,8 +88,6 @@ class CarouselEditButton extends Component {
         this.setState({
             content: data.content,
             modalOpen: true,
-            title: data.title,
-            year: data.year,
             description: data.description,
             order: data.order,
             updating: false
@@ -106,14 +100,6 @@ class CarouselEditButton extends Component {
 
     toggle = () => {
         this.setState({ modalOpen: !this.state.modalOpen })
-    }
-
-    titleChanged = (e) => {
-        this.setState({ title: e.target.value })
-    }
-
-    yearChanged = (e) => {
-        this.setState({ year: e.target.value })
     }
 
     descriptionChanged = (e) => {
@@ -133,9 +119,7 @@ class CarouselEditButton extends Component {
     }
 
     validData = () => {
-        return this.validField(this.state.title) &&
-            this.validField(this.state.year) &&
-            this.validField(this.state.order) &&
+        return this.validField(this.state.order) &&
             this.validOrder()
     }
 
@@ -149,8 +133,6 @@ class CarouselEditButton extends Component {
 
     render() {
         let data = this.props.data
-        let title = data.title
-        let year = data.year
         let description = data.description
         let order = data.order
         let valid = this.validData() && !this.state.updating
@@ -178,15 +160,11 @@ class CarouselEditButton extends Component {
 
                 <Modal isOpen={this.state.modalOpen}>
                     <ModalHeader toggle={this.toggle}>
-                        {title}
+                    Edit
                     </ModalHeader>
                     <ModalBody>
                         <div className="carousel-items-row">{items}</div>
 
-                        <Label>Title</Label>
-                        <Input type="text" defaultValue={title} onChange={this.titleChanged} />
-                        <Label>Year</Label>
-                        <Input type="number" defaultValue={year} onChange={this.yearChanged} />
                         <Label>Description</Label>
                         <Input type="text" defaultValue={description} onChange={this.descriptionChanged} />
                         <FormGroup>
