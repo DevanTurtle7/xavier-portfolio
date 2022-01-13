@@ -44,8 +44,6 @@ class CarouselDisplay extends Component {
     render() {
         let data = this.props.data
         let description = data.description
-        let title = data.title
-        let year = data.year
         let url = this.state.url
         let type = this.state.type
         let numContent = this.state.numContent
@@ -57,7 +55,9 @@ class CarouselDisplay extends Component {
             media = (<VideoDisplay url={url} callback={this.onLoad} />)
         }
 
-        let carouselControls = (<CarouselControls numContent={numContent} onChange={this.onChange} />)
+        let carouselControls = numContent > 1 ?
+            (<CarouselControls numContent={numContent} onChange={this.onChange} />)
+            : (null)
 
         return (
             <Fragment>
@@ -67,11 +67,6 @@ class CarouselDisplay extends Component {
                             {media}
                         </Row>
                         {carouselControls}
-                        <Row className="mx-auto">
-                            <p className="image-description mb-0 mt-2">
-                                {title}, {year}
-                            </p>
-                        </Row>
                         <Row className="image-description mx-auto">
                             <p>{description}</p>
                         </Row>
