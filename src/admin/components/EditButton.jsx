@@ -15,15 +15,13 @@ import {
 } from 'reactstrap';
 import CarouselItem from './CarouselItem';
 
-class CarouselEditButton extends Component {
+class EditButton extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             content: [],
             modalOpen: false,
-            title: "",
-            year: "",
             description: "",
             order: "",
             updating: false
@@ -71,12 +69,10 @@ class CarouselEditButton extends Component {
 
         for (let i = 0; i < content.length; i++) {
             let current = content[i]
-            content[i] = {filename: current.filename, type: current.type}
+            content[i] = { filename: current.filename, type: current.type }
         }
 
         await updateDoc(docRef, {
-            title: this.state.title,
-            year: this.state.year,
             description: this.state.description,
             order: this.state.order,
             content: content
@@ -92,8 +88,6 @@ class CarouselEditButton extends Component {
         this.setState({
             content: data.content,
             modalOpen: true,
-            title: data.title,
-            year: data.year,
             description: data.description,
             order: data.order,
             updating: false
@@ -106,14 +100,6 @@ class CarouselEditButton extends Component {
 
     toggle = () => {
         this.setState({ modalOpen: !this.state.modalOpen })
-    }
-
-    titleChanged = (e) => {
-        this.setState({ title: e.target.value })
-    }
-
-    yearChanged = (e) => {
-        this.setState({ year: e.target.value })
     }
 
     descriptionChanged = (e) => {
@@ -133,9 +119,7 @@ class CarouselEditButton extends Component {
     }
 
     validData = () => {
-        return this.validField(this.state.title) &&
-            this.validField(this.state.year) &&
-            this.validField(this.state.order) &&
+        return this.validField(this.state.order) &&
             this.validOrder()
     }
 
@@ -144,32 +128,36 @@ class CarouselEditButton extends Component {
         let current = content.splice(currentIndex, 1)[0] // Remove the item
         content.splice(newIndex, 0, current) // Insert the item at the new index
 
-        this.setState({content: content})
+        this.setState({ content: content })
     }
 
     render() {
         let data = this.props.data
-        let title = data.title
-        let year = data.year
         let description = data.description
         let order = data.order
         let valid = this.validData() && !this.state.updating
         let validOrderInput = this.validOrder()
         let content = this.state.content
-        let items = []
         let numItems = content.length
+        let carouselOrganizer = (null)
 
-        for (let i = 0; i < numItems; i++) {
-            let current = content[i]
-            
-            items.push(<CarouselItem
-                url={current.url}
-                type={current.type}
-                index={i}
-                numItems={numItems}
-                callback={this.changeOrder}
-                key={i}
-            />)
+        if (numItems > 1) {
+            let items = []
+
+            for (let i = 0; i < numItems; i++) {
+                let current = content[i]
+
+                items.push(<CarouselItem
+                    url={current.url}
+                    type={current.type}
+                    index={i}
+                    numItems={numItems}
+                    callback={this.changeOrder}
+                    key={i}
+                />)
+
+                carouselOrganizer = (<div className="carousel-items-row">{items}</div>)
+            }
         }
 
         return (
@@ -178,20 +166,16 @@ class CarouselEditButton extends Component {
 
                 <Modal isOpen={this.state.modalOpen}>
                     <ModalHeader toggle={this.toggle}>
-                        {title}
+                        Edit
                     </ModalHeader>
                     <ModalBody>
-                        <div className="carousel-items-row">{items}</div>
+                        {carouselOrganizer}
 
-                        <Label>Title</Label>
-                        <Input type="text" defaultValue={title} onChange={this.titleChanged} />
-                        <Label>Year</Label>
-                        <Input type="number" defaultValue={year} onChange={this.yearChanged} />
                         <Label>Description</Label>
-                        <Input type="text" defaultValue={description} onChange={this.descriptionChanged} />
+                        <Input type="textarea" defaultValue={description} onChange={this.descriptionChanged} />
                         <FormGroup>
                             <Label>Order</Label>
-                            <Input type="number" defaultValue={order} onChange={this.orderChanged} invalid={!validOrderInput}/>
+                            <Input type="number" defaultValue={order} onChange={this.orderChanged} invalid={!validOrderInput} />
                             <FormFeedback>
                                 Order must be between 0 and {this.props.mediaCount - 1}
                             </FormFeedback>
@@ -207,4 +191,4 @@ class CarouselEditButton extends Component {
     }
 }
 
-export default CarouselEditButton;
+export default EditButton;

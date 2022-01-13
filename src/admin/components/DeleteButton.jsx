@@ -24,13 +24,18 @@ class DeleteButton extends Component {
     delete = async () => {
         this.setState({deleting: true})
         let docId = this.props.docId
-        let filename = this.props.filename
         let order = this.props.order
+        let files = this.props.files
         let countRef = doc(this.db, "counts", "art")
         const querySnapshot = await getDocs(collection(this.db, "art"));
 
         await deleteDoc(doc(this.db, "art", docId))
-        await deleteObject(ref(this.storage, filename))
+
+        for (let i = 0; i < files.length; i++) {
+            let current = files[i]
+            let filename = current.filename
+            await deleteObject(ref(this.storage, filename))
+        }
 
         await updateDoc(countRef, {
             count: increment(-1)

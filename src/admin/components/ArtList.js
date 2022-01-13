@@ -7,9 +7,8 @@ import {
 import UploadButton from './UploadButton';
 import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
-import MediaDisplay from './MediaDisplay';
 import { MdRefresh } from "react-icons/md"
-import CarouselDisplay from './CarouselDisplay';
+import MediaDisplay from './MediaDisplay';
 
 class ArtList extends Component {
     constructor(props) {
@@ -31,55 +30,28 @@ class ArtList extends Component {
 
         querySnapshot.forEach(async (doc) => {
             let data = doc.data();
-            let title = data.title
-            let year = data.year;
             let description = data.description;
-            let type = data.type;
             let order = data.order;
             let current;
 
-            if (type === "carousel") {
-                let currentContent = []
-                let content = data.content;
+            let currentContent = []
+            let content = data.content;
 
-                for (let i = 0; i < content.length; i++) {
-                    let fileInfo = content[i]
-                    let filename = fileInfo.filename
-                    let fileType = fileInfo.type
+            for (let i = 0; i < content.length; i++) {
+                let fileInfo = content[i]
+                let filename = fileInfo.filename
+                let fileType = fileInfo.type
 
-                    await getDownloadURL(ref(this.storage, filename)).then((url) => {
-                        currentContent.push({ url: url, type: fileType, filename: filename })
-                    })
-                }
+                await getDownloadURL(ref(this.storage, filename)).then((url) => {
+                    currentContent.push({ url: url, type: fileType, filename: filename })
+                })
+            }
 
-                current = {
-                    title: title,
-                    year: year,
-                    description: description,
-                    order: order,
-                    type: type,
-                    content: currentContent,
-                    docId: doc.id,
-                }
-            } else {
-                let filename = data.filename;
-
-                await getDownloadURL(ref(this.storage, filename))
-                    .then((url) => {
-                        current = {
-                            url: url,
-                            title: title,
-                            year: year,
-                            description: description,
-                            order: order,
-                            type: type,
-                            docId: doc.id,
-                            filename: filename,
-                        }
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    });
+            current = {
+                description: description,
+                order: order,
+                content: currentContent,
+                docId: doc.id
             }
 
             if (current !== undefined) {
@@ -141,29 +113,16 @@ class ArtList extends Component {
 
         for (let i = 0; i < files.length; i++) {
             let current = files[i]
-            let type = current.type
 
-            if (type === "carousel") {
-                media.push(<CarouselDisplay
-                    data={current}
-                    type="carousel"
-                    mediaCount={this.state.mediaCount}
-                    onUpdate={this.onUpdate}
-                    db={this.db}
-                    storage={this.storage}
-                    key={i}
-                />)
-            } else {
-                media.push(<MediaDisplay
-                    data={current}
-                    type={type}
-                    mediaCount={this.state.mediaCount}
-                    onUpdate={this.onUpdate}
-                    db={this.db}
-                    storage={this.storage}
-                    key={i}
-                />)
-            }
+            media.push(<MediaDisplay
+                data={current}
+                mediaCount={this.state.mediaCount}
+                onUpdate={this.onUpdate}
+                db={this.db}
+                storage={this.storage}
+                key={i}
+            />)
+
         }
 
         return (

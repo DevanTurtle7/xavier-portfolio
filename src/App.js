@@ -63,14 +63,10 @@ class App extends Component {
 
     querySnapshot.forEach(async (doc) => {
       let data = doc.data();
-      let title = data.title
-      let year = data.year;
       let description = data.description;
-      let type = data.type;
       let order = data.order;
       let current;
 
-      if (type === "carousel") {
         let currentContent = []
         let content = data.content;
 
@@ -85,31 +81,10 @@ class App extends Component {
         }
 
         current = {
-          title: title,
-          year: year,
           description: description,
           order: order,
-          type: type,
           content: currentContent
         }
-      } else {
-        let filename = data.filename;
-
-        await getDownloadURL(ref(storage, filename))
-          .then((url) => {
-            current = {
-              url: url,
-              title: title,
-              year: year,
-              description: description,
-              order: order,
-              type: type
-            }
-          })
-          .catch((error) => {
-            console.log(error)
-          });
-      }
 
       if (current !== undefined) {
         let media = this.state.media;
