@@ -11,12 +11,6 @@ class MediaDisplay extends Component {
     constructor(props) {
         super(props)
 
-        let data = this.props.data
-        let content = data.content
-        let first = content[0]
-        let url = first.url
-        let type = first.type
-
         this.state = {
             fadeInClass: "fade-in-start",
             num: 0,
