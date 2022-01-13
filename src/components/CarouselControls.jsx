@@ -1,11 +1,5 @@
-import { Component, Fragment } from 'react';
-import {
-    CarouselControl,
-    Col,
-    Row,
-} from 'reactstrap'
-import ImageDisplay from './ImageDisplay';
-import VideoDisplay from './VideoDisplay';
+import { Component } from 'react';
+import { Row } from 'reactstrap'
 import IconButton from './IconButton';
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md"
 
@@ -52,7 +46,7 @@ class CarouselControls extends Component {
                     <MdNavigateBefore />
                 </IconButton>
                 <p className="carousel-count mb-0 mt-2 fit-width pt-1">
-                    {num+1}/{numContent}
+                    {num + 1}/{numContent}
                 </p>
                 <IconButton classNames="carousel-btn" fontSize={24} onClick={this.next}>
                     <MdNavigateNext />
