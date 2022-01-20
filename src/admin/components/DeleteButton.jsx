@@ -26,10 +26,10 @@ class DeleteButton extends Component {
         let docId = this.props.docId
         let order = this.props.order
         let files = this.props.files
-        let countRef = doc(this.db, "counts", "art")
-        const querySnapshot = await getDocs(collection(this.db, "art"));
+        let countRef = doc(this.db, "counts", this.props.collection)
+        const querySnapshot = await getDocs(collection(this.db, this.props.collection));
 
-        await deleteDoc(doc(this.db, "art", docId))
+        await deleteDoc(doc(this.db, this.props.collection, docId))
 
         for (let i = 0; i < files.length; i++) {
             let current = files[i]
@@ -46,7 +46,7 @@ class DeleteButton extends Component {
             let currentOrder = docSnap.data().order
 
             if (currentOrder > order) {
-                let currentRef = doc(this.db, "art", docSnap.id)
+                let currentRef = doc(this.db, this.props.collection, docSnap.id)
 
                 await updateDoc(currentRef, {
                     order: currentOrder - 1

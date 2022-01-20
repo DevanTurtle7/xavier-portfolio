@@ -32,7 +32,7 @@ class EditButton extends Component {
 
     saveChanges = async () => {
         this.setState({ updating: true })
-        const querySnapshot = await getDocs(collection(this.db, "art"));
+        const querySnapshot = await getDocs(collection(this.db, this.props.collection));
         let oldOrder = this.props.data.order
         let newOrder = this.state.order
 
@@ -42,7 +42,7 @@ class EditButton extends Component {
                 const currentOrder = docSnap.data().order
 
                 if (currentOrder >= newOrder && currentOrder < oldOrder) {
-                    const currentRef = doc(this.db, "art", docSnap.id)
+                    const currentRef = doc(this.db, this.props.collection, docSnap.id)
 
                     await updateDoc(currentRef, {
                         order: currentOrder + 1
@@ -54,7 +54,7 @@ class EditButton extends Component {
                 const currentOrder = docSnap.data().order
 
                 if (currentOrder > oldOrder && currentOrder <= newOrder) {
-                    const currentRef = doc(this.db, "art", docSnap.id)
+                    const currentRef = doc(this.db, this.props.collection, docSnap.id)
 
                     await updateDoc(currentRef, {
                         order: currentOrder - 1
@@ -64,7 +64,7 @@ class EditButton extends Component {
         }
 
         let docId = this.props.data.docId
-        let docRef = doc(this.db, "art", docId)
+        let docRef = doc(this.db, this.props.collection, docId)
         let content = this.state.content
 
         for (let i = 0; i < content.length; i++) {

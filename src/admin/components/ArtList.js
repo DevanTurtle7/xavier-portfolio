@@ -2,13 +2,18 @@ import { Component } from 'react';
 import {
     Button,
     Col,
-    Row
+    Row,
+    Dropdown,
+    DropdownToggle,
+    DropdownItem,
+    DropdownMenu
 } from 'reactstrap';
 import UploadButton from './UploadButton';
 import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { MdRefresh } from "react-icons/md"
 import MediaDisplay from './MediaDisplay';
+import CollectionDropdown from './CollectionDropdown';
 
 class ArtList extends Component {
     constructor(props) {
@@ -16,17 +21,17 @@ class ArtList extends Component {
 
         this.state = {
             files: [],
-            mediaCount: 0
+            mediaCount: 0,
         }
 
         this.db = this.props.db
         this.storage = this.props.storage
     }
 
-    getArt = async () => {
-        console.log("Retrieving art...")
+    getData = async () => {
+        console.log("Retrieving data...")
         this.setState({ files: [] })
-        const querySnapshot = await getDocs(collection(this.db, "art"));
+        const querySnapshot = await getDocs(collection(this.db, this.props.collection));
 
         querySnapshot.forEach(async (doc) => {
             let data = doc.data();
@@ -81,30 +86,38 @@ class ArtList extends Component {
                 this.setState({ files: files })
             }
         })
-        console.log("Art retrieved")
+        console.log("Data retrieved")
     }
 
     updateMediaCount = async () => {
-        let countRef = doc(this.db, "counts", "art")
+        let countRef = doc(this.db, "counts", this.props.collection)
         let countSnap = await getDoc(countRef)
         let size = countSnap.data().count
         this.setState({ mediaCount: size })
     }
 
     componentDidMount() {
-        this.getArt();
+        this.getData();
         this.updateMediaCount()
     }
 
     componentDidUpdate(prevProps) {
         if (this.props !== prevProps) {
             this.updateMediaCount()
+
+            if (this.props.collection !== prevProps.collection) {
+                this.getData()
+            }
         }
     }
 
     onUpdate = () => {
-        this.getArt()
+        this.getData()
         this.updateMediaCount()
+    }
+
+    collectionChanged = (collection) => {
+        this.props.collectionChanged(collection)
     }
 
     render() {
@@ -120,6 +133,7 @@ class ArtList extends Component {
                 onUpdate={this.onUpdate}
                 db={this.db}
                 storage={this.storage}
+                collection={this.props.collection}
                 key={i}
             />)
 
@@ -129,7 +143,12 @@ class ArtList extends Component {
             <Col>
                 <Col className="py-3 px-2">
                     <Row>
-                        <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpdate} />
+                        <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpdate} collection={this.props.collection}/>
+                        <CollectionDropdown
+                            callback={this.collectionChanged}
+                            collections={this.props.collections}
+                            collection={this.props.collection}
+                        />
                         <Button color="primary" className="fit-content" onClick={this.onUpdate}>
                             <MdRefresh />
                         </Button>

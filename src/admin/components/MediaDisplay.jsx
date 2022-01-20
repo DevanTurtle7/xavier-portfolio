@@ -56,6 +56,7 @@ class MediaDisplay extends Component {
                             onEditSaved={this.updateData}
                             db={this.db}
                             storage={this.storage}
+                            collection={this.props.collection}
                         />
                         <DeleteButton
                             files={content}
@@ -64,6 +65,7 @@ class MediaDisplay extends Component {
                             onDelete={this.updateData}
                             db={this.db}
                             storage={this.storage}
+                            collection={this.props.collection}
                         />
                     </CardFooter>
                 </Card>

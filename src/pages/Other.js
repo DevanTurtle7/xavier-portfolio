@@ -1,11 +1,9 @@
 import { Component, Fragment } from 'react';
-import {
-    Col,
-} from 'reactstrap';
-import MediaDisplay from '../components/MediaDisplay';
+import { Col } from 'reactstrap';
 import Navbar from '../components/Navbar'
+import MediaDisplay from '../components/MediaDisplay';
 
-class Art extends Component {
+class Other extends Component {
     render() {
         let mediaDisplays = []
         let media = this.props.media;
@@ -17,12 +15,13 @@ class Art extends Component {
                 data={current}
                 key={i}
             />)
+
         }
 
         return (
             <Fragment>
                 <Navbar />
-                <Col className="art">
+                <Col className="other">
                     {mediaDisplays}
                 </Col>
             </Fragment>
@@ -30,4 +29,4 @@ class Art extends Component {
     }
 }
 
-export default Art;
+export default Other;
