@@ -138,8 +138,8 @@ class UploadButton extends Component {
                     if (i === numFiles - 1) {
                         console.log("creating...")
                         try {
-                            let collectionRef = collection(this.db, "art")
-                            let countRef = doc(this.db, "counts", "art")
+                            let collectionRef = collection(this.db, this.props.collection)
+                            let countRef = doc(this.db, "counts", this.props.collection)
                             let countSnap = await getDoc(countRef)
                             let size = countSnap.data().count
 

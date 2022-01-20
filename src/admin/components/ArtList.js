@@ -133,6 +133,7 @@ class ArtList extends Component {
                 onUpdate={this.onUpdate}
                 db={this.db}
                 storage={this.storage}
+                collection={this.props.collection}
                 key={i}
             />)
 
@@ -142,7 +143,7 @@ class ArtList extends Component {
             <Col>
                 <Col className="py-3 px-2">
                     <Row>
-                        <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpdate} />
+                        <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpdate} collection={this.props.collection}/>
                         <CollectionDropdown
                             callback={this.collectionChanged}
                             collections={this.props.collections}
