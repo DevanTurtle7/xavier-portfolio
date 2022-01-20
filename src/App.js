@@ -1,7 +1,7 @@
 import './style/App.css';
 import { Component } from 'react';
 import Art from './pages/Art';
-import Sketchbook from './pages/Sketchbook';
+import Other from './pages/Other';
 import Contact from './pages/Contact';
 import Admin from './admin/Admin';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
@@ -127,7 +127,7 @@ class App extends Component {
           <Route exact path='/' element={<Art media={this.state.media} />} />
           <Route exact path='/art' element={<Art media={this.state.media} />} />
           <Route exact path='/contact' element={<Contact />} />
-          <Route exact path='/sketchbook' element={<Sketchbook />} />
+          <Route exact path='/other' element={<Other />} />
           <Route exact path='/admin' element={<Admin db={db} storage={storage} auth={auth} />} />
         </Routes>
       </Router>

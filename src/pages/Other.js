@@ -1,16 +1,16 @@
 import { Component, Fragment } from 'react';
 import Navbar from '../components/Navbar'
 
-class Sketchbook extends Component {
+class Other extends Component {
     render() {
         return (
             <Fragment>
                <Navbar/>
 
-                <h1>Sketchbook</h1>
+                <h1>Other</h1>
             </Fragment>
         )
     }
 }
 
-export default Sketchbook;
+export default Other;

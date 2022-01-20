@@ -20,12 +20,22 @@ import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 class Admin extends Component {
     constructor(props) {
         super(props)
+
+        this.collections = [{
+            name: "Art",
+            value: "art"
+        }, {
+            name: "Other",
+            value: "other"
+        }]
+
         this.state = {
             email: null,
             password: null,
             user: null,
             activeTab: "1",
             invalidLogin: false,
+            collection: this.collections[0].value
         }
 
         this.auth = this.props.auth
@@ -92,6 +102,11 @@ class Admin extends Component {
         }
     }
 
+    collectionChanged = (collection) => {
+        this.setState({collection: collection})
+        console.log(collection)
+    }
+
     render() {
         if (this.state.user == null) {
             let valid = this.validData()
@@ -153,16 +168,22 @@ class Admin extends Component {
                         </NavItem>
                         <NavItem>
                             <NavLink active={this.state.activeTab === "2"} onClick={() => this.switchTab("2")}>
-                                Sketchbook
+                                Other
                             </NavLink>
                         </NavItem>
                     </Nav>
                     <TabContent activeTab={this.state.activeTab} className="mx-4">
                         <TabPane tabId="1">
-                            <ArtList storage={this.storage} db={this.db} />
+                            <ArtList
+                                storage={this.storage}
+                                db={this.db}
+                                collection={this.state.collection}
+                                collectionChanged={this.collectionChanged}
+                                collections={this.collections}
+                                />
                         </TabPane>
                         <TabPane tabId="2">
-                            <h1>Sketchbook</h1>
+                            <h1>Other</h1>
                         </TabPane>
                     </TabContent>
                 </Fragment>
