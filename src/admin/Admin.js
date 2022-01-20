@@ -3,11 +3,6 @@ import Navbar from '../components/Navbar'
 import {
     Button,
     Input,
-    Nav,
-    NavItem,
-    NavLink,
-    TabContent,
-    TabPane,
     Col,
     Row,
     FormGroup,
@@ -103,7 +98,7 @@ class Admin extends Component {
     }
 
     collectionChanged = (collection) => {
-        this.setState({collection: collection})
+        this.setState({ collection: collection })
         console.log(collection)
     }
 
@@ -126,15 +121,15 @@ class Admin extends Component {
                                     placeholder="Email"
                                     invalid={invalidLogin}
                                     onKeyPress={this.onKeyPress}
-                                    onChange={this.emailChanged}/>
+                                    onChange={this.emailChanged} />
 
                                 <Input
-                                className="m-2"
+                                    className="m-2"
                                     type="password"
                                     placeholder="Password"
                                     invalid={invalidLogin}
                                     onKeyPress={this.onKeyPress}
-                                    onChange={this.passwordChanged}/>
+                                    onChange={this.passwordChanged} />
 
                                 <FormFeedback>
                                     Invalid username or password
@@ -160,32 +155,14 @@ class Admin extends Component {
                     <h1 className="mx-4">Admin</h1>
                     <Button onClick={this.signOut} className="mx-4 mt-2 mb-4">Sign Out</Button>
 
-                    <Nav tabs className="mx-4">
-                        <NavItem>
-                            <NavLink active={this.state.activeTab === "1"} onClick={() => this.switchTab("1")}>
-                                Art
-                            </NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink active={this.state.activeTab === "2"} onClick={() => this.switchTab("2")}>
-                                Other
-                            </NavLink>
-                        </NavItem>
-                    </Nav>
-                    <TabContent activeTab={this.state.activeTab} className="mx-4">
-                        <TabPane tabId="1">
-                            <ArtList
-                                storage={this.storage}
-                                db={this.db}
-                                collection={this.state.collection}
-                                collectionChanged={this.collectionChanged}
-                                collections={this.collections}
-                                />
-                        </TabPane>
-                        <TabPane tabId="2">
-                            <h1>Other</h1>
-                        </TabPane>
-                    </TabContent>
+                    <ArtList
+                        storage={this.storage}
+                        db={this.db}
+                        collection={this.state.collection}
+                        collectionChanged={this.collectionChanged}
+                        collections={this.collections}
+                    />
+
                 </Fragment>
             )
         }

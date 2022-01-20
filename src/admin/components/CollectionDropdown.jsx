@@ -46,8 +46,8 @@ class ArtList extends Component {
         }
 
         return (
-            <Dropdown isOpen={this.state.open} toggle={this.toggle}>
-                <DropdownToggle caret>
+            <Dropdown isOpen={this.state.open} toggle={this.toggle} className="fit-content">
+                <DropdownToggle color="primary" caret>
                 {collectionName}
                 </DropdownToggle>
                 <DropdownMenu>
