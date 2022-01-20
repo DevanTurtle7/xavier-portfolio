@@ -32,36 +32,18 @@ class App extends Component {
     super(props)
 
     this.state = {
-      media: []
+      artData: [],
+      otherData: []
     }
   }
 
-  sortByOrder = () => {
-    let media = this.state.media
+  getData = async (collectionName) => {
+    console.log("Retrieving data...")
+    const querySnapshot = await getDocs(collection(db, collectionName));
+    let media = []
 
-    media.sort((first, second) => {
-      if (first.order < second.order) {
-        return -1
-      } else if (first.order > second.order) {
-        return 1
-      } else {
-        return 0
-      }
-    })
-
-    this.setState({ media: media })
-  }
-
-  insertMediaSorted = (media) => {
-
-  }
-
-  getArt = async () => {
-    console.log("Retrieving art...")
-    this.setState({ files: [] })
-    const querySnapshot = await getDocs(collection(db, "art"));
-
-    querySnapshot.forEach(async (doc) => {
+    for (let i = 0; i < querySnapshot.docs.length; i++) {
+      let doc = querySnapshot.docs[i]
       let data = doc.data();
       let description = data.description;
       let order = data.order;
@@ -87,7 +69,6 @@ class App extends Component {
         }
 
       if (current !== undefined) {
-        let media = this.state.media;
         let mediaCount = media.length;
 
         if (mediaCount > 0) {
@@ -109,25 +90,39 @@ class App extends Component {
         } else {
           media.push(current)
         }
-
-        this.setState({ media: media })
       }
-    })
-    console.log("Art retrieved")
+    }
+
+    console.log("Data retrieved")
+    return media;
+  }
+
+  updateArtData = async () => {
+    let artData = await this.getData("art")
+    this.setState({artData: artData})
+  }
+
+  updateOtherData = async() => {
+    let otherData = await this.getData("other")
+    this.setState({otherData: otherData})
   }
 
   componentDidMount() {
-    this.getArt()
+    this.updateArtData()
+    this.updateOtherData()
   }
 
   render() {
+    let artData = this.state.artData
+    let otherData = this.state.otherData
+
     return (
       <Router>
         <Routes> {/* The Switch decides which component to show based on the current URL.*/}
-          <Route exact path='/' element={<Art media={this.state.media} />} />
-          <Route exact path='/art' element={<Art media={this.state.media} />} />
+          <Route exact path='/' element={<Art media={artData} />} />
+          <Route exact path='/art' element={<Art media={artData} />} />
           <Route exact path='/contact' element={<Contact />} />
-          <Route exact path='/other' element={<Other />} />
+          <Route exact path='/other' element={<Other media={otherData}/>} />
           <Route exact path='/admin' element={<Admin db={db} storage={storage} auth={auth} />} />
         </Routes>
       </Router>

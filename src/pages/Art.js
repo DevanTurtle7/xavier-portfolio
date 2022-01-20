@@ -17,7 +17,6 @@ class Art extends Component {
                 data={current}
                 key={i}
             />)
-
         }
 
         return (
