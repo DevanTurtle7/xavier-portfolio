@@ -176,7 +176,7 @@ class UploadButton extends Component {
 
         return (
             <Fragment>
-                <Button onClick={this.openModal} color="primary" className="fit-content ms-3 me-2">Upload</Button>
+                <Button onClick={this.openModal} color="primary" className="fit-content ms-3">Upload</Button>
 
                 <Modal isOpen={this.state.modalOpen}>
                     <ModalHeader toggle={this.toggleModal}>

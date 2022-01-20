@@ -143,14 +143,14 @@ class ArtList extends Component {
                 <Col className="py-3 px-2">
                     <Row>
                         <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpdate} />
-                        <Button color="primary" className="fit-content" onClick={this.onUpdate}>
-                            <MdRefresh />
-                        </Button>
                         <CollectionDropdown
                             callback={this.collectionChanged}
                             collections={this.props.collections}
                             collection={this.props.collection}
                         />
+                        <Button color="primary" className="fit-content" onClick={this.onUpdate}>
+                            <MdRefresh />
+                        </Button>
                     </Row>
                 </Col>
                 <Row className="mx-auto">
