@@ -6,17 +6,6 @@
     min-height: calc(100vh - 62px);
 }
 
-::-moz-selection {
-    /* Code for Firefox */
-    color: black;
-    background: white;
-}
-
-::selection {
-    color: black;
-    background: white;
-}
-
 .blackout.dark-mode {
     background-color: white;
 }

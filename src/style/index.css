@@ -33,6 +33,17 @@ img {
   -webkit-user-drag: none;
 }
 
+::-moz-selection {
+  /* Code for Firefox */
+  color: white;
+  background: black;
+}
+
+::selection {
+  color: white;
+  background: black;
+}
+
 .modal-view {
   width: 100vw;
   height: 105vh;
