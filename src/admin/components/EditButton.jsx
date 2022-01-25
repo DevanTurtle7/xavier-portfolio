@@ -10,8 +10,6 @@ import {
     Label,
     FormGroup,
     FormFeedback,
-    Row,
-    Col,
 } from 'reactstrap';
 import CarouselItem from './CarouselItem';
 

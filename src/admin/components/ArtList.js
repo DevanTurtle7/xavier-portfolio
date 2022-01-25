@@ -3,10 +3,6 @@ import {
     Button,
     Col,
     Row,
-    Dropdown,
-    DropdownToggle,
-    DropdownItem,
-    DropdownMenu
 } from 'reactstrap';
 import UploadButton from './UploadButton';
 import { collection, getDocs, getDoc, doc } from "firebase/firestore";

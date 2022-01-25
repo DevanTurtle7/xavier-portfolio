@@ -4,6 +4,7 @@ import { Col } from 'reactstrap';
 import Navbar from '../components/Navbar'
 import MediaDisplay from '../components/MediaDisplay';
 import SideLine from '../components/SideLine';
+import MetaTags from 'react-meta-tags';
 
 class Other extends Component {
     render() {
@@ -25,6 +26,10 @@ class Other extends Component {
 
         return (
             <Fragment>
+                <MetaTags>
+                    <meta name="theme-color" content="#000000" />
+                </MetaTags>
+
                 <Navbar darkMode />
 
                 <Col className="other">

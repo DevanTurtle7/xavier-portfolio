@@ -4,6 +4,7 @@ import { Col } from 'reactstrap';
 import IconButton from '../components/IconButton';
 import Navbar from '../components/Navbar'
 import { AiOutlineInstagram } from "react-icons/ai"
+import MetaTags from 'react-meta-tags';
 
 class Contact extends Component {
     openInstagram = () => {
@@ -15,6 +16,10 @@ class Contact extends Component {
 
         return (
             <Col>
+                <MetaTags>
+                    <meta name="theme-color" content="#ffffff" />
+                </MetaTags>
+
                 <Navbar />
 
                 <div className="contact-container">

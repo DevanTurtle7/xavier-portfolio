@@ -4,7 +4,8 @@ import {
     Col,
 } from 'reactstrap';
 import MediaDisplay from '../components/MediaDisplay';
-import Navbar from '../components/Navbar'
+import Navbar from '../components/Navbar';
+import MetaTags from 'react-meta-tags';
 
 class Art extends Component {
     render() {
@@ -24,6 +25,10 @@ class Art extends Component {
 
         return (
             <Fragment>
+                <MetaTags>
+                    <meta name="theme-color" content="#ffffff" />
+                </MetaTags>
+
                 <Navbar />
                 <Col className="art">
                     {mediaDisplays}
