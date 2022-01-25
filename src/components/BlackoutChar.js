@@ -21,6 +21,10 @@ class BlackoutChar extends Component {
     render() {
         let className = this.state.enabled ? "blackout" : ""
 
+        if (this.props.darkMode) {
+            className += " dark-mode"
+        }
+
         return (
             <span className={className}>{this.props.char}</span>
         )

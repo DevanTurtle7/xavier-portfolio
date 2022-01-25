@@ -21,9 +21,11 @@ class MenuButton extends Component {
     }
 
     render() {
+        let darkMode = this.props.darkMode === true;
+
         return (
             <div>
-                <IconButton onClick={this.onClick} className="menu-btn">
+                <IconButton onClick={this.onClick} className="menu-btn" darkMode={this.props.darkMode}>
                     <MdMenu />
                 </IconButton>
                 <Menu open={this.state.open} onClose={this.onClose}/>

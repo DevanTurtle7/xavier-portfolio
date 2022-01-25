@@ -1,0 +1,38 @@
+.other, .navbar.dark-mode {
+    background-color: black;
+}
+
+.other {
+    min-height: calc(100vh - 62px);
+}
+
+::-moz-selection {
+    /* Code for Firefox */
+    color: black;
+    background: white;
+}
+
+::selection {
+    color: black;
+    background: white;
+}
+
+.blackout.dark-mode {
+    background-color: white;
+}
+
+.blackout-text.dark-mode {
+    color: white;
+}
+
+.image-description.dark-mode {
+    color: white;
+}
+
+.icon-btn.dark-mode, .icon-btn.dark-mode:visited {
+    color: white;
+}
+
+.icon-btn.dark-mode:hover {
+    color: rgb(175, 175, 175)
+}

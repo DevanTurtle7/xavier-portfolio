@@ -1,3 +1,4 @@
+import '../style/LightStyle.css';
 import { Component } from 'react';
 import { Col } from 'reactstrap';
 import IconButton from '../components/IconButton';

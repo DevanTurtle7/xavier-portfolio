@@ -8,13 +8,20 @@ import MenuButton from './MenuButton';
 
 class Navbar extends Component {
     render() {
+        let darkMode = this.props.darkMode === true
+        let classNames = "justify-content-between mx-auto navbar"
+
+        if (darkMode) {
+            classNames += " dark-mode"
+        }
+
         return (
-            <Row className="justify-content-between mx-auto navbar">
+            <Row className={classNames}>
                 <Col xs={11}>
-                    <Blackout text="xavier sylvia-jackson" />
+                    <Blackout text="xavier sylvia-jackson" darkMode={darkMode}/>
                 </Col>
                 <Col xs={1}>
-                    <MenuButton />
+                    <MenuButton darkMode={darkMode} />
                 </Col>
             </Row>
         )

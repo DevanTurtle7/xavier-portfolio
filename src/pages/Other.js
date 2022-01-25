@@ -1,3 +1,4 @@
+import '../style/Other.css';
 import { Component, Fragment } from 'react';
 import { Col } from 'reactstrap';
 import Navbar from '../components/Navbar'
@@ -13,6 +14,7 @@ class Other extends Component {
 
             mediaDisplays.push(<MediaDisplay
                 data={current}
+                darkMode
                 key={i}
             />)
 
@@ -20,7 +22,7 @@ class Other extends Component {
 
         return (
             <Fragment>
-                <Navbar />
+                <Navbar darkMode />
                 <Col className="other">
                     {mediaDisplays}
                 </Col>

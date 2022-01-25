@@ -37,6 +37,12 @@ class MediaDisplay extends Component {
         let type = current.type
         let numContent = content.length
         let media;
+        let darkMode = this.props.darkMode === true
+        let descriptionClassNames = "image-description mx-auto"
+
+        if (darkMode) {
+            descriptionClassNames += " dark-mode"
+        }
 
         if (type === "image") {
             media = (<ImageDisplay url={url} callback={this.onLoad} alt={description} />)
@@ -56,7 +62,7 @@ class MediaDisplay extends Component {
                             {media}
                         </Row>
                         {carouselControls}
-                        <Row className="image-description mx-auto">
+                        <Row className={descriptionClassNames}>
                             <p>{description}</p>
                         </Row>
                     </Col>
