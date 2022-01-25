@@ -22,6 +22,14 @@
     color: white;
 }
 
-.icon-btn.dark-mode:hover {
+.icon-btn.dark-mode:hover, .menu-link.dark-mode:hover {
     color: rgb(175, 175, 175)
+}
+
+.modal-view.dark-mode {
+    background-color: black;
+}
+
+.menu-link.dark-mode {
+    color: white;
 }

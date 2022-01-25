@@ -13,6 +13,7 @@ class Modal extends Component {
 
     render() {
         let classNames = "modal-view"
+        let darkMode = this.props.darkMode === true
 
         if (this.props.open) {
             html.style.overflow = 'hidden';
@@ -22,9 +23,13 @@ class Modal extends Component {
             classNames += " modal-closed"
         }
 
+        if (darkMode) {
+            classNames += " dark-mode"
+        }
+
         return (
             <div className={classNames}>
-                <IconButton onClick={this.onClose} className="modal-close-btn">
+                <IconButton onClick={this.onClose} className="modal-close-btn" darkMode={darkMode}>
                     <MdClose />
                 </IconButton>
 

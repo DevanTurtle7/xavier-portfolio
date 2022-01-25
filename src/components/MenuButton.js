@@ -25,10 +25,10 @@ class MenuButton extends Component {
 
         return (
             <div>
-                <IconButton onClick={this.onClick} className="menu-btn" darkMode={this.props.darkMode}>
+                <IconButton onClick={this.onClick} className="menu-btn" darkMode={darkMode}>
                     <MdMenu />
                 </IconButton>
-                <Menu open={this.state.open} onClose={this.onClose}/>
+                <Menu open={this.state.open} onClose={this.onClose} darkMode={darkMode}/>
             </div>
         )
     }

@@ -45,7 +45,7 @@ class MediaDisplay extends Component {
         }
 
         if (type === "image") {
-            media = (<ImageDisplay url={url} callback={this.onLoad} alt={description} />)
+            media = (<ImageDisplay url={url} callback={this.onLoad} alt={description} darkMode={darkMode}/>)
         } else if (type === "video") {
             media = (<VideoDisplay url={url} callback={this.onLoad} />)
         }
