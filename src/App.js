@@ -37,7 +37,7 @@ class App extends Component {
     }
   }
 
-  getData = async (collectionName) => {
+  getData = async (collectionName, onEachLoad) => {
     console.log("Retrieving data...")
     const querySnapshot = await getDocs(collection(db, collectionName));
     let media = []
@@ -49,24 +49,24 @@ class App extends Component {
       let order = data.order;
       let current;
 
-        let currentContent = []
-        let content = data.content;
+      let currentContent = []
+      let content = data.content;
 
-        for (let i = 0; i < content.length; i++) {
-          let fileInfo = content[i]
-          let filename = fileInfo.filename
-          let fileType = fileInfo.type
+      for (let i = 0; i < content.length; i++) {
+        let fileInfo = content[i]
+        let filename = fileInfo.filename
+        let fileType = fileInfo.type
 
-          await getDownloadURL(ref(storage, filename)).then((url) => {
-            currentContent.push({ url: url, type: fileType })
-          })
-        }
+        await getDownloadURL(ref(storage, filename)).then((url) => {
+          currentContent.push({ url: url, type: fileType })
+        })
+      }
 
-        current = {
-          description: description,
-          order: order,
-          content: currentContent
-        }
+      current = {
+        description: description,
+        order: order,
+        content: currentContent
+      }
 
       if (current !== undefined) {
         let mediaCount = media.length;
@@ -87,8 +87,10 @@ class App extends Component {
           }
 
           media.splice(i, 0, current)
+          onEachLoad(media)
         } else {
           media.push(current)
+          onEachLoad(media)
         }
       }
     }
@@ -98,13 +100,17 @@ class App extends Component {
   }
 
   updateArtData = async () => {
-    let artData = await this.getData("art")
-    this.setState({artData: artData})
+    await this.getData("art", (media) => {
+      this.setState({ artData: media })
+    })
+    //this.setState({artData: artData})
   }
 
-  updateOtherData = async() => {
-    let otherData = await this.getData("other")
-    this.setState({otherData: otherData})
+  updateOtherData = async () => {
+    await this.getData("other", (media) => {
+      this.setState({ otherData: media })
+    })
+    //this.setState({otherData: otherData})
   }
 
   componentDidMount() {
@@ -122,7 +128,7 @@ class App extends Component {
           <Route exact path='/' element={<Art media={artData} />} />
           <Route exact path='/art' element={<Art media={artData} />} />
           <Route exact path='/contact' element={<Contact />} />
-          <Route exact path='/other' element={<Other media={otherData}/>} />
+          <Route exact path='/other' element={<Other media={otherData} />} />
           <Route exact path='/admin' element={<Admin db={db} storage={storage} auth={auth} />} />
         </Routes>
       </Router>

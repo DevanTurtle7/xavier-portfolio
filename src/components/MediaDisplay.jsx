@@ -23,6 +23,10 @@ class MediaDisplay extends Component {
         })
     }
 
+        sleep = (milliseconds) => {
+            return new Promise(resolve => setTimeout(resolve, milliseconds))
+        }
+
     onLoad = () => {
         this.setState({ fadeInClass: "fade-in-end" })
     }
