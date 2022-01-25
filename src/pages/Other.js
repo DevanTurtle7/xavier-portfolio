@@ -28,8 +28,6 @@ class Other extends Component {
                 <Navbar darkMode />
 
                 <Col className="other">
-                    <SideLine left="40px" />
-                    <SideLine left="50px" desktopOnly />
                     {mediaDisplays}
                 </Col>
             </Fragment>
