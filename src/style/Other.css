@@ -22,7 +22,7 @@
     color: white;
 }
 
-.image-description.dark-mode p::selection, .carousel-count::selection {
+.image-description.dark-mode p::selection, .carousel-count.dark-mode::selection {
     color: black;
     background: white;
   }
