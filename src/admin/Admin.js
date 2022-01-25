@@ -104,6 +104,8 @@ class Admin extends Component {
     }
 
     render() {
+        document.body.style.backgroundColor = "white"
+        
         if (this.state.user == null) {
             let valid = this.validData()
             let invalidLogin = this.state.invalidLogin

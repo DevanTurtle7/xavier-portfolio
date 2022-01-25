@@ -39,16 +39,22 @@ class CarouselControls extends Component {
     render() {
         let num = this.state.num
         let numContent = this.state.numContent
+        let darkMode = this.props.darkMode
+        let counterClassNames = "carousel-count mb-0 mt-2 fit-width"
+
+        if (darkMode) {
+            counterClassNames += " dark-mode"
+        }
 
         return (
             <Row className="mx-auto justify-content-center">
-                <IconButton classNames="carousel-btn" fontSize={24} onClick={this.prev}>
+                <IconButton classNames="carousel-btn" fontSize={24} onClick={this.prev} darkMode={darkMode}>
                     <MdNavigateBefore />
                 </IconButton>
-                <p className="carousel-count mb-0 mt-2 fit-width">
+                <p className={counterClassNames}>
                     {num + 1}/{numContent}
                 </p>
-                <IconButton classNames="carousel-btn" fontSize={24} onClick={this.next}>
+                <IconButton classNames="carousel-btn" fontSize={24} onClick={this.next} darkMode={darkMode}>
                     <MdNavigateNext />
                 </IconButton>
             </Row>

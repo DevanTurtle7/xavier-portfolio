@@ -1,20 +1,8 @@
-.other, .navbar.dark-mode {
-    background-color: black;
-}
-
-.other {
-    min-height: calc(100vh - 62px);
-}
-
 .blackout.dark-mode {
     background-color: white;
 }
 
-.blackout-text.dark-mode {
-    color: white;
-}
-
-.image-description.dark-mode {
+.blackout-text.dark-mode, .carousel-count.dark-mode, .image-description.dark-mode {
     color: white;
 }
 
@@ -33,3 +21,8 @@
 .menu-link.dark-mode {
     color: white;
 }
+
+.image-description.dark-mode p::selection, .carousel-count::selection {
+    color: black;
+    background: white;
+  }

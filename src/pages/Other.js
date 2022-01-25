@@ -6,6 +6,8 @@ import MediaDisplay from '../components/MediaDisplay';
 
 class Other extends Component {
     render() {
+        document.body.style.backgroundColor = "black"
+
         let mediaDisplays = []
         let media = this.props.media;
 

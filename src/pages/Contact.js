@@ -11,6 +11,8 @@ class Contact extends Component {
     }
 
     render() {
+        document.body.style.backgroundColor = "white"
+
         return (
             <Col>
                 <Navbar />

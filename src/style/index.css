@@ -5,6 +5,7 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color .5s;
 }
 
 h1, p, .menu-link, a {

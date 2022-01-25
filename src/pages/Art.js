@@ -8,6 +8,8 @@ import Navbar from '../components/Navbar'
 
 class Art extends Component {
     render() {
+        document.body.style.backgroundColor = "white"
+        
         let mediaDisplays = []
         let media = this.props.media;
 

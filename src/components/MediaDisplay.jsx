@@ -6,6 +6,7 @@ import {
 import ImageDisplay from './ImageDisplay';
 import VideoDisplay from './VideoDisplay';
 import CarouselControls from './CarouselControls';
+import { MdFollowTheSigns } from 'react-icons/md';
 
 class MediaDisplay extends Component {
     constructor(props) {
@@ -13,7 +14,7 @@ class MediaDisplay extends Component {
 
         this.state = {
             fadeInClass: "fade-in-start",
-            num: 0,
+            num: 0
         }
     }
 
@@ -23,11 +24,13 @@ class MediaDisplay extends Component {
         })
     }
 
-        sleep = (milliseconds) => {
-            return new Promise(resolve => setTimeout(resolve, milliseconds))
-        }
+    sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
 
-    onLoad = () => {
+    onLoad = async () => {
+        this.setState({ fadeInClass: "fade-in-start" })
+        await this.sleep(1000)
         this.setState({ fadeInClass: "fade-in-end" })
     }
 
@@ -49,13 +52,15 @@ class MediaDisplay extends Component {
         }
 
         if (type === "image") {
-            media = (<ImageDisplay url={url} callback={this.onLoad} alt={description} darkMode={darkMode}/>)
+            media = (<ImageDisplay url={url} callback={this.onLoad} alt={description} darkMode={darkMode} />)
         } else if (type === "video") {
             media = (<VideoDisplay url={url} callback={this.onLoad} />)
         }
 
         let carouselControls = numContent > 1 ?
-            (<CarouselControls numContent={numContent} onChange={this.onChange} />)
+            (<CarouselControls numContent={numContent} onChange={this.onChange} 
+                darkMode={darkMode}
+            />)
             : (null)
 
         return (
