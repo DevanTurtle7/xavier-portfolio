@@ -3,6 +3,7 @@ import { Component, Fragment } from 'react';
 import { Col } from 'reactstrap';
 import Navbar from '../components/Navbar'
 import MediaDisplay from '../components/MediaDisplay';
+import SideLine from '../components/SideLine';
 
 class Other extends Component {
     render() {
@@ -25,7 +26,10 @@ class Other extends Component {
         return (
             <Fragment>
                 <Navbar darkMode />
+
                 <Col className="other">
+                    <SideLine left="40px" />
+                    <SideLine left="50px" desktopOnly />
                     {mediaDisplays}
                 </Col>
             </Fragment>

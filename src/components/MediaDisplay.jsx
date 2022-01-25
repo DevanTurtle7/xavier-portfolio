@@ -44,6 +44,7 @@ class MediaDisplay extends Component {
         let type = current.type
         let numContent = content.length
         let media;
+        let mediaRow;
         let darkMode = this.props.darkMode === true
         let descriptionClassNames = "image-description mx-auto"
 
@@ -57,8 +58,14 @@ class MediaDisplay extends Component {
             media = (<VideoDisplay url={url} callback={this.onLoad} />)
         }
 
+        if (media !== undefined) {
+            mediaRow = (<Row className="mx-auto pb-2">
+                {media}
+            </Row>)
+        }
+
         let carouselControls = numContent > 1 ?
-            (<CarouselControls numContent={numContent} onChange={this.onChange} 
+            (<CarouselControls numContent={numContent} onChange={this.onChange}
                 darkMode={darkMode}
             />)
             : (null)
@@ -67,9 +74,7 @@ class MediaDisplay extends Component {
             <Fragment>
                 <Row className={"justify-content-center mx-auto " + this.state.fadeInClass}>
                     <Col xs={9} md={5} lg={4} className="image-display my-4">
-                        <Row className="mx-auto pb-2">
-                            {media}
-                        </Row>
+                        {mediaRow}
                         {carouselControls}
                         <Row className={descriptionClassNames}>
                             <p>{description}</p>

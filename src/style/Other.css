@@ -25,4 +25,11 @@
 .image-description.dark-mode p::selection, .carousel-count.dark-mode::selection {
     color: black;
     background: white;
-  }
+}
+
+.side-line {
+    position: absolute;
+    background-color: white;
+    height: 100%;
+    width: 1px;
+}
