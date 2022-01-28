@@ -63,6 +63,7 @@ class MediaDisplay extends Component {
                     active={num === i}
                     tag={this.props.tag}
                     darkMode={darkMode}
+                    key={i}
                 />)
             } else if (type === "video") {
                 media.push(<VideoDisplay url={url} callback={this.onLoad} />)
