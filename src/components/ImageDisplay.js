@@ -34,7 +34,9 @@ class ImageDisplay extends Component {
     }
 
     onClick = () => {
-        this.setState({ open: true })
+        if (this.props.active) {
+            this.setState({ open: true })
+        }
     }
 
     render() {
