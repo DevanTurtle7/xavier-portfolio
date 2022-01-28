@@ -30,6 +30,12 @@
 .side-line {
     position: absolute;
     background-color: white;
-    height: 100%;
     width: 1px;
+    height: 100vh;
+    top: 70px;
+}
+
+.side-line.stick {
+    position: fixed !important;
+    top: 0px !important;
 }
