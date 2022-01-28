@@ -102,9 +102,8 @@ class Blackout extends Component {
     }
 
     render() {
-        return (
-            <title>{this.getString()}</title>
-        )
+        document.title = this.getString()
+        return (null)
     }
 }
 
