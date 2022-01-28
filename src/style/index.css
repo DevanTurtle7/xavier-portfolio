@@ -139,6 +139,12 @@ img {
   justify-content: center;
 }
 
+@media (max-device-width: 800px) {
+  .media-display {
+    width: 60vw;
+  }
+}
+
 .media-display-left {
   margin-left: 85px;
 }
