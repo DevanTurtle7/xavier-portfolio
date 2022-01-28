@@ -74,14 +74,17 @@ class MediaDisplay extends Component {
             : (null)
 
         let rowClassNames = this.state.fadeInClass
+        let mediaDisplayClassNames = "media-display"
 
         if (centered) {
             rowClassNames += " centered-row"
+        } else {
+            mediaDisplayClassNames += " media-display-left"
         }
 
         return (
             <div className={rowClassNames}>
-                <div className='media-display'>
+                <div className={mediaDisplayClassNames}>
                     {media}
                     {carouselControls}
                     <div className={descriptionClassNames}>
