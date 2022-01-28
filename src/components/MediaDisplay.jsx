@@ -68,7 +68,7 @@ class MediaDisplay extends Component {
                     key={i}
                 />)
             } else if (type === "video") {
-                media.push(<VideoDisplay url={url} callback={this.onLoad} />)
+                media.push(<VideoDisplay url={url} callback={this.onLoad} key={i}/>)
             }
         }
 
