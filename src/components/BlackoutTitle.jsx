@@ -1,8 +1,7 @@
 import { Component } from 'react';
-import BlackoutChar from './BlackoutChar';
 
 const INIT_TIME = 300;
-const STEP_TIME = 40;
+const STEP_TIME = 100;
 
 class Blackout extends Component {
     constructor(props) {
@@ -31,11 +30,12 @@ class Blackout extends Component {
 
     setup = () => {
         if (!this.state.running) {
-            this.chars = []
             let indexes = new Set()
+            let text = this.props.text
+            let textLength = text.length
 
-            for (let i = 1; i < this.props.text.length; i++) {
-                let char = this.props.text[i]
+            for (let i = 1; i < textLength && i + 1 < textLength; i += 2) {
+                let char = text[i]
 
                 if (char !== " ") {
                     indexes.add(i)
@@ -46,22 +46,31 @@ class Blackout extends Component {
         }
     }
 
-    renderChars = () => {
-        this.chars = []
+    getString = () => {
+        let result = this.props.text[0]
 
-        for (let i = 0; i < this.props.text.length; i++) {
+        for (let i = 1; i < this.props.text.length; i += 2) {
             let char = this.props.text[i]
+            let next = this.props.text[i + 1]
+            let enabled = this.state.enabled.has(i)
+            let addition;
 
-            this.chars.push(
-                <BlackoutChar
-                    char={char}
-                    enabled={this.state.enabled}
-                    index={i}
-                    darkMode={this.props.darkMode}
-                    key={i}
-                />
-            )
+            if (enabled) {
+                if (char === " ") {
+                    addition = " █"
+                } else if (next === " ") {
+                    addition = "█ "
+                } else {
+                    addition = "█"
+                }
+            } else {
+                addition = char.concat(next)
+            }
+
+            result = result.concat(addition)
         }
+
+        return result;
     }
 
     componentDidMount() {
@@ -93,15 +102,8 @@ class Blackout extends Component {
     }
 
     render() {
-        this.renderChars()
-        let classNames = "blackout-text clickable noselect mb-0"
-
-        if (this.props.darkMode) {
-            classNames += " dark-mode"
-        }
-
         return (
-            <p className={classNames} onClick={this.setup}>{this.chars}</p>
+            <title>{this.getString()}</title>
         )
     }
 }

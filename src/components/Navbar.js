@@ -1,10 +1,11 @@
-import { Component } from 'react';
+import { Component, Fragment } from 'react';
 import {
     Col,
     Row,
 } from 'reactstrap';
 import Blackout from './Blackout';
 import MenuButton from './MenuButton';
+import BlackoutTitle from './BlackoutTitle';
 
 class Navbar extends Component {
     render() {
@@ -16,14 +17,18 @@ class Navbar extends Component {
         }
 
         return (
-            <Row className={classNames}>
-                <Col xs={11}>
-                    <Blackout text="xavier sylvia-jackson" darkMode={darkMode}/>
-                </Col>
-                <Col xs={1}>
-                    <MenuButton darkMode={darkMode} />
-                </Col>
-            </Row>
+            <Fragment>
+                <BlackoutTitle text="xavier sylvia-jackson" />
+
+                <Row className={classNames}>
+                    <Col xs={11}>
+                        <Blackout text="xavier sylvia-jackson" darkMode={darkMode} />
+                    </Col>
+                    <Col xs={1}>
+                        <MenuButton darkMode={darkMode} />
+                    </Col>
+                </Row>
+            </Fragment>
         )
     }
 }
