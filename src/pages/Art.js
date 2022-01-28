@@ -4,12 +4,13 @@ import {
     Col,
 } from 'reactstrap';
 import MediaDisplay from '../components/MediaDisplay';
-import Navbar from '../components/Navbar'
+import Navbar from '../components/Navbar';
+import MetaTags from 'react-meta-tags';
 
 class Art extends Component {
     render() {
         document.body.style.backgroundColor = "white"
-        
+
         let mediaDisplays = []
         let media = this.props.media;
 
@@ -24,6 +25,10 @@ class Art extends Component {
 
         return (
             <Fragment>
+                <MetaTags>
+                    <meta name="theme-color" content="#ffffff" />
+                </MetaTags>
+
                 <Navbar />
                 <Col className="art">
                     {mediaDisplays}

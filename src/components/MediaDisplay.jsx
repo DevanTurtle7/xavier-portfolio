@@ -6,7 +6,6 @@ import {
 import ImageDisplay from './ImageDisplay';
 import VideoDisplay from './VideoDisplay';
 import CarouselControls from './CarouselControls';
-import { MdFollowTheSigns } from 'react-icons/md';
 
 class MediaDisplay extends Component {
     constructor(props) {

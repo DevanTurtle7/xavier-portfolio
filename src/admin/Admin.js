@@ -10,6 +10,7 @@ import {
     FormFeedback
 } from 'reactstrap';
 import ArtList from './components/ArtList';
+import MetaTags from 'react-meta-tags';
 
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 
@@ -105,14 +106,19 @@ class Admin extends Component {
 
     render() {
         document.body.style.backgroundColor = "white"
-        
+
         if (this.state.user == null) {
             let valid = this.validData()
             let invalidLogin = this.state.invalidLogin
 
             return (
                 <Col>
+                    <MetaTags>
+                        <meta name="theme-color" content="#ffffff" />
+                    </MetaTags>
+
                     <Navbar />
+
                     <h1 className="mx-4">Admin</h1>
 
                     <Row className="justify-content-center align-content-center">
