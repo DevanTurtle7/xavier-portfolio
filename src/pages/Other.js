@@ -55,7 +55,7 @@ class Other extends Component {
                 <Navbar darkMode />
 
                 <Col className="other">
-                    <SideLine left="40px" stick={this.state.stick} />
+                    <SideLine left="35px" stick={this.state.stick} />
                     <SideLine left="50px" stick={this.state.stick} desktopOnly />
                     {mediaDisplays}
                 </Col>
