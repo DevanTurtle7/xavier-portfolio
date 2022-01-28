@@ -10,10 +10,6 @@
     color: white;
 }
 
-.icon-btn.dark-mode:hover, .menu-link.dark-mode:hover {
-    color: rgb(175, 175, 175)
-}
-
 .modal-view.dark-mode {
     background-color: black;
 }
@@ -40,12 +36,18 @@
     top: -50px !important;
 }
 
-@media (max-width:600px)  {
+@media (max-width:600px) {
     .desktop-only {
         display: none;
     }
 
     .media-display-left {
         margin-left: 70px;
+    }
+}
+
+@media (hover: hover) {
+    .icon-btn.dark-mode:hover, .menu-link.dark-mode:hover {
+        color: rgb(175, 175, 175)
     }
 }

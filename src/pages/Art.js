@@ -1,4 +1,3 @@
-import '../style/LightStyle.css';
 import { Component, Fragment } from 'react';
 import {
     Col,
@@ -19,6 +18,7 @@ class Art extends Component {
 
             mediaDisplays.push(<MediaDisplay
                 data={current}
+                tag="art"
                 key={i}
             />)
         }

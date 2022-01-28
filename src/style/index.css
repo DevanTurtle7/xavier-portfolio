@@ -139,9 +139,21 @@ img {
   justify-content: center;
 }
 
+.media-display.art {
+  width: 40vw;
+}
+
+.media-display.other {
+  margin-bottom: 26px;
+}
+
 @media (max-device-width: 800px) {
   .media-display {
     width: 60vw;
+  }
+
+  .media-display.art {
+    width: 90vw;
   }
 }
 
@@ -188,7 +200,7 @@ img {
 
 @media (max-device-width: 800px) {
   .image-description, .carousel-count {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 

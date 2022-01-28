@@ -1,4 +1,3 @@
-import './style/App.css';
 import { Component } from 'react';
 import Art from './pages/Art';
 import Other from './pages/Other';

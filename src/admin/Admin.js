@@ -1,4 +1,3 @@
-import '../style/LightStyle.css';
 import { Component, Fragment } from 'react';
 import Navbar from '../components/Navbar'
 import {

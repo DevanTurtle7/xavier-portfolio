@@ -44,6 +44,7 @@ class MediaDisplay extends Component {
         let darkMode = this.props.darkMode === true
         let descriptionClassNames = "image-description"
         let centered = !(this.props.centered === false)
+        let tag = this.props.tag
 
         if (darkMode) {
             descriptionClassNames += " dark-mode"
@@ -60,6 +61,7 @@ class MediaDisplay extends Component {
                     callback={this.onLoad}
                     alt={description}
                     active={num === i}
+                    tag={this.props.tag}
                     darkMode={darkMode}
                 />)
             } else if (type === "video") {
@@ -75,6 +77,10 @@ class MediaDisplay extends Component {
 
         let rowClassNames = this.state.fadeInClass
         let mediaDisplayClassNames = "media-display"
+
+        if (tag) {
+            mediaDisplayClassNames += " " + tag
+        }
 
         if (centered) {
             rowClassNames += " centered-row"
