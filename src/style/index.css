@@ -100,10 +100,6 @@ img {
   text-align: center;
 }
 
-.menu-link:hover, .icon-btn:hover, .email:hover {
-  color: rgba(150, 150, 150, 1)
-}
-
 .fullscreen-row, .fullscreen-col {
   height: 100vh;
 }
@@ -208,10 +204,6 @@ img {
   .image-description, .carousel-count {
     font-size: 16px;
   }
-}
-
-.clickable:hover {
-  cursor: pointer;
 }
 
 .fullscreen-image {
@@ -325,4 +317,14 @@ img {
 
 .fit-height {
   height: fit-content;
+}
+
+@media (hover: hover) {
+  .menu-link:hover, .icon-btn:hover, .email:hover {
+    color: rgba(150, 150, 150, 1)
+  }
+
+  .clickable:hover {
+    cursor: pointer;
+  }
 }
