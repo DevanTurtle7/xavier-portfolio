@@ -84,9 +84,87 @@ class UploadButton extends Component {
     }
 
     upload = async () => {
-        fetch("https://www.flickr.com/services/oauth/authorize&callback=localhost:3000")
-            .then(function (res) { console.log(res) })
-            .catch(function (res) { console.log(res) })
+        this.setState({ uploading: true })
+        let files = this.state.files
+        let numFiles = files.length
+
+        if (this.validFile() && numFiles > 0) {
+            let description = this.state.description
+            let content = []
+
+            // Generate unique name
+            for (let i = 0; i < numFiles; i++) {
+                let file = files[i]
+                let tokens = file.name.split(".")
+                let numTokens = tokens.length
+                let filetype = tokens[numTokens - 1]
+                let time = new Date().getTime()
+                let name = ""
+
+                for (let i = 0; i < numTokens - 1; i++) {
+                    name += tokens[i]
+                }
+
+                name += "_" + time + "." + filetype
+
+                const storageRef = ref(this.storage, name);
+
+                const uploadTask = uploadBytesResumable(storageRef, file)
+
+                uploadTask.on('state_changed', (snapshot) => {
+                    let progress;
+                    let currentProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+                    if (numFiles === 1) {
+                        progress = currentProgress
+                    } else {
+                        let percentPer = 100 / (numFiles)
+                        let completed = i * percentPer
+                        progress = completed + (currentProgress / numFiles)
+                    }
+
+                    progress = progress.toFixed(1)
+
+                    this.setState({ progress: progress })
+                })
+
+                await uploadTask.then(async (snapshot) => {
+                    let contentType = snapshot.metadata.contentType
+                    let tokens = contentType.split("/")
+                    let fileType = tokens[0]
+
+                    let current = { filename: name, type: fileType }
+                    content.push(current)
+
+                    if (i === numFiles - 1) {
+                        console.log("creating...")
+                        try {
+                            let collectionRef = collection(this.db, this.props.collection)
+                            let countRef = doc(this.db, "counts", this.props.collection)
+                            let countSnap = await getDoc(countRef)
+                            let size = countSnap.data().count
+
+                            const docRef = await addDoc(collectionRef, {
+                                description: description,
+                                order: size,
+                                content: content
+                            })
+
+                            await updateDoc(countRef, {
+                                count: increment(1)
+                            })
+
+                            console.log("Document written with ID: ", docRef.id);
+                            this.closeModal()
+                            this.props.onUpload()
+                        } catch (e) {
+                            console.error("Error adding document: ", e);
+                            this.setState({ uploading: false })
+                        }
+                    }
+                });
+            }
+        }
     }
 
     descriptionChanged = (e) => {
