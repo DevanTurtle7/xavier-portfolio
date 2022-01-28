@@ -131,8 +131,36 @@ img {
 }
 
 .media-display {
-  margin-left: -12px;
-  margin-right: -12px;
+  display: grid;
+  width: 40vw;
+  margin-bottom: 40px;
+  align-items: center;
+}
+
+.media-element.inactive {
+  opacity: 0;
+}
+
+.media-element.active {
+  opacity: 1;
+}
+
+.media-element {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.centered-row {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+}
+
+.image-description {
+  margin-top: 6px;
 }
 
 .media-display.uncentered {

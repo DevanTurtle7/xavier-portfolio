@@ -9,7 +9,7 @@ class VideoDisplay extends Component {
         let url = this.props.url
 
         return (
-            <video controls onLoadedData={this.onLoad}>
+            <video controls onLoadedData={this.onLoad} className="media-element">
                 <source src={url} />
             </video>
         )
