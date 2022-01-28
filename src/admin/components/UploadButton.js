@@ -30,7 +30,6 @@ class UploadButton extends Component {
     }
 
     imageChanged = (e) => {
-        console.log(e.target.files)
         let files = []
 
         for (let i = 0; i < e.target.files.length; i++) {
