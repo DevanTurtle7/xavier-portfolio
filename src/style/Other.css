@@ -31,11 +31,11 @@
     position: absolute;
     background-color: white;
     width: 1px;
-    height: 100vh;
+    height: calc(100vh + 100px);
     top: 70px;
 }
 
 .side-line.stick {
     position: fixed !important;
-    top: 0px !important;
+    top: -50px !important;
 }
