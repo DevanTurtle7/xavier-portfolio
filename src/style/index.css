@@ -130,9 +130,13 @@ img {
   user-select: none;
 }
 
-.image-display {
+.media-display {
   margin-left: -12px;
   margin-right: -12px;
+}
+
+.media-display.uncentered {
+  margin-left: 100px;
 }
 
 .navbar {

@@ -38,6 +38,7 @@ class Other extends Component {
 
             mediaDisplays.push(<MediaDisplay
                 data={current}
+                centered={false}
                 darkMode
                 key={i}
             />)
