@@ -45,6 +45,7 @@ class MediaDisplay extends Component {
         let descriptionClassNames = "image-description"
         let centered = !(this.props.centered === false)
         let tag = this.props.tag
+        let viewable = this.props.viewable
 
         if (darkMode) {
             descriptionClassNames += " dark-mode"
@@ -61,8 +62,9 @@ class MediaDisplay extends Component {
                     callback={this.onLoad}
                     alt={description}
                     active={num === i}
-                    tag={this.props.tag}
+                    tag={tag}
                     darkMode={darkMode}
+                    viewable={viewable}
                     key={i}
                 />)
             } else if (type === "video") {

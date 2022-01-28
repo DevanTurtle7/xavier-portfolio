@@ -34,7 +34,9 @@ class ImageDisplay extends Component {
     }
 
     onClick = () => {
-        if (this.props.active) {
+        let viewable = this.props.viewable
+
+        if (this.props.active && (viewable === undefined || viewable === true)) {
             this.setState({ open: true })
         }
     }
@@ -44,7 +46,12 @@ class ImageDisplay extends Component {
         let alt = this.props.alt
         let darkMode = this.props.darkMode
         let active = this.props.active
-        let classNames = "clickable media-element " + (active ? "active" : "inactive")
+        let viewable = this.props.viewable
+        let classNames = "media-element " + (active ? "active" : "inactive")
+    
+        if (viewable === undefined || viewable === true) {
+            classNames += " clickable"
+        }
 
         return (
             <Fragment>

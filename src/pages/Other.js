@@ -41,6 +41,7 @@ class Other extends Component {
                 data={current}
                 centered={false}
                 tag="other"
+                viewable={false}
                 darkMode
                 key={i}
             />)

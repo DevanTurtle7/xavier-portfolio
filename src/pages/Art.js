@@ -19,6 +19,7 @@ class Art extends Component {
             mediaDisplays.push(<MediaDisplay
                 data={current}
                 tag="art"
+                viewable={true}
                 key={i}
             />)
         }
