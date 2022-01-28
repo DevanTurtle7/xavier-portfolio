@@ -34,13 +34,17 @@ class ImageDisplay extends Component {
     }
 
     onClick = () => {
-        this.setState({ open: true })
+        if (this.props.active) {
+            this.setState({ open: true })
+        }
     }
 
     render() {
         let url = this.props.url
         let alt = this.props.alt
         let darkMode = this.props.darkMode
+        let active = this.props.active
+        let classNames = "clickable media-element " + (active ? "active" : "inactive")
 
         return (
             <Fragment>
@@ -50,7 +54,7 @@ class ImageDisplay extends Component {
                     alt={alt}
                     onClick={this.onClick}
                     onLoad={this.handleImageLoaded}
-                    className="clickable"
+                    className={classNames}
                     draggable="false"
                 />
 

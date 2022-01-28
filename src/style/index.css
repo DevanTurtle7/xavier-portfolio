@@ -131,8 +131,44 @@ img {
 }
 
 .media-display {
-  margin-left: -12px;
-  margin-right: -12px;
+  display: grid;
+  width: 40vw;
+  margin-bottom: 32px;
+  margin-top: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-display-left {
+  margin-left: 85px;
+}
+
+.media-element.inactive {
+  opacity: 0;
+  z-index: 0;
+}
+
+.media-element.active {
+  opacity: 1;
+  z-index: 10
+}
+
+.media-element {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.centered-row {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+}
+
+.image-description {
+  margin-top: 6px;
 }
 
 .media-display.uncentered {

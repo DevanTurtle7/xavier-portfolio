@@ -6,6 +6,7 @@ import {
 import ImageDisplay from './ImageDisplay';
 import VideoDisplay from './VideoDisplay';
 import CarouselControls from './CarouselControls';
+import { MdFollowTheSigns } from 'react-icons/md';
 
 class MediaDisplay extends Component {
     constructor(props) {
@@ -38,30 +39,32 @@ class MediaDisplay extends Component {
         let content = data.content
         let description = data.description
         let num = this.state.num
-        let current = content[num]
-        let url = current.url
-        let type = current.type
         let numContent = content.length
-        let media;
-        let mediaRow;
+        let media = [];
         let darkMode = this.props.darkMode === true
-        let descriptionClassNames = "image-description mx-auto"
+        let descriptionClassNames = "image-description"
         let centered = !(this.props.centered === false)
 
         if (darkMode) {
             descriptionClassNames += " dark-mode"
         }
 
-        if (type === "image") {
-            media = (<ImageDisplay url={url} callback={this.onLoad} alt={description} darkMode={darkMode} />)
-        } else if (type === "video") {
-            media = (<VideoDisplay url={url} callback={this.onLoad} />)
-        }
+        for (let i = 0; i < numContent; i++) {
+            let current = content[i]
+            let url = current.url
+            let type = current.type
 
-        if (media !== undefined) {
-            mediaRow = (<Row className="mx-auto pb-2">
-                {media}
-            </Row>)
+            if (type === "image") {
+                media.push(<ImageDisplay
+                    url={url}
+                    callback={this.onLoad}
+                    alt={description}
+                    active={num === i}
+                    darkMode={darkMode}
+                />)
+            } else if (type === "video") {
+                media.push(<VideoDisplay url={url} callback={this.onLoad} />)
+            }
         }
 
         let carouselControls = numContent > 1 ?
@@ -70,31 +73,26 @@ class MediaDisplay extends Component {
             />)
             : (null)
 
-        let mediaDisplay = (
-            <Col xs={9} md={5} lg={4} className="media-display my-4">
-                {mediaRow}
-                {carouselControls}
-                <Row className={descriptionClassNames}>
-                    <p>{description}</p>
-                </Row>
-            </Col>
-        )
+        let rowClassNames = this.state.fadeInClass
+        let mediaDisplayClassNames = "media-display"
 
         if (centered) {
-            return (
-                <Fragment>
-                    <Row className={"justify-content-center mx-auto " + this.state.fadeInClass}>
-                        {mediaDisplay}
-                    </Row>
-                </Fragment>
-            )
+            rowClassNames += " centered-row"
         } else {
-            return (
-                <div className="media-display uncentered">
-                    {mediaDisplay}
-                </div>
-            )
+            mediaDisplayClassNames += " media-display-left"
         }
+
+        return (
+            <div className={rowClassNames}>
+                <div className={mediaDisplayClassNames}>
+                    {media}
+                    {carouselControls}
+                    <div className={descriptionClassNames}>
+                        <p>{description}</p>
+                    </div>
+                </div>
+            </div>
+        )
     }
 }
 
