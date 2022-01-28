@@ -7,6 +7,27 @@ import SideLine from '../components/SideLine';
 import MetaTags from 'react-meta-tags';
 
 class Other extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            stick: false
+        }
+    }
+
+    onScroll = () => {
+        let stick = window.scrollY >= 70
+
+        if (stick != this.state.stick) {
+            this.setState({stick: stick})
+        }
+    }
+
+    componentDidMount() {
+        this.onScroll()
+        window.addEventListener('scroll', this.onScroll);
+    }
+
     render() {
         document.body.style.backgroundColor = "black"
 
@@ -18,6 +39,7 @@ class Other extends Component {
 
             mediaDisplays.push(<MediaDisplay
                 data={current}
+                centered={false}
                 darkMode
                 key={i}
             />)
@@ -33,6 +55,8 @@ class Other extends Component {
                 <Navbar darkMode />
 
                 <Col className="other">
+                    <SideLine left="35px" stick={this.state.stick} />
+                    <SideLine left="50px" stick={this.state.stick} desktopOnly />
                     {mediaDisplays}
                 </Col>
             </Fragment>

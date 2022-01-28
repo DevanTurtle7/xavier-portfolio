@@ -30,6 +30,22 @@
 .side-line {
     position: absolute;
     background-color: white;
-    height: 100%;
     width: 1px;
+    height: calc(100vh + 100px);
+    top: 70px;
+}
+
+.side-line.stick {
+    position: fixed !important;
+    top: -50px !important;
+}
+
+@media (max-width:600px)  {
+    .desktop-only {
+        display: none;
+    }
+
+    .media-display.uncentered {
+        margin-left: 70px;
+    }
 }

@@ -46,6 +46,7 @@ class MediaDisplay extends Component {
         let mediaRow;
         let darkMode = this.props.darkMode === true
         let descriptionClassNames = "image-description mx-auto"
+        let centered = !(this.props.centered === false)
 
         if (darkMode) {
             descriptionClassNames += " dark-mode"
@@ -69,19 +70,31 @@ class MediaDisplay extends Component {
             />)
             : (null)
 
-        return (
-            <Fragment>
-                <Row className={"justify-content-center mx-auto " + this.state.fadeInClass}>
-                    <Col xs={9} md={5} lg={4} className="image-display my-4">
-                        {mediaRow}
-                        {carouselControls}
-                        <Row className={descriptionClassNames}>
-                            <p>{description}</p>
-                        </Row>
-                    </Col>
+        let mediaDisplay = (
+            <Col xs={9} md={5} lg={4} className="media-display my-4">
+                {mediaRow}
+                {carouselControls}
+                <Row className={descriptionClassNames}>
+                    <p>{description}</p>
                 </Row>
-            </Fragment>
+            </Col>
         )
+
+        if (centered) {
+            return (
+                <Fragment>
+                    <Row className={"justify-content-center mx-auto " + this.state.fadeInClass}>
+                        {mediaDisplay}
+                    </Row>
+                </Fragment>
+            )
+        } else {
+            return (
+                <div className="media-display uncentered">
+                    {mediaDisplay}
+                </div>
+            )
+        }
     }
 }
 
