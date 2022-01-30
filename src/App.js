@@ -66,10 +66,19 @@ class App extends Component {
         current = {
           description: description,
           order: order,
-          content: currentContent
+          content: currentContent,
+          type: "media"
         }
       } else if (type === "text") {
-        console.log("downloading text")
+        let content = data.content
+        let text = data.text
+
+        current = {
+          content: content,
+          order: order,
+          type: "text"
+        }
+        console.log(current)
       } else {
         console.log("Invalid type: " + type)
       }
