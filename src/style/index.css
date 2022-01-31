@@ -139,16 +139,20 @@ img {
   width: 40vw;
 }
 
+.text-display.art {
+  width: 60vw;
+}
+
 .media-display.other {
   margin-bottom: 26px;
 }
 
 @media (max-device-width: 800px) {
-  .media-display {
+  .media-display, .text-display.art {
     width: 60vw;
   }
 
-  .media-display.art {
+  .media-display.art, .text-display.art {
     width: 90vw;
   }
 }
@@ -328,8 +332,4 @@ img {
   .clickable:hover {
     cursor: pointer;
   }
-}
-
-.text-display.art {
-  max-width: 60vw;
 }

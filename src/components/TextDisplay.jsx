@@ -1,6 +1,28 @@
 import { Component } from 'react';
 
 class TextDisplay extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            fadeInClass: "fade-in-start"
+        }
+    }
+
+    sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
+    onLoad = async () => {
+        this.setState({ fadeInClass: "fade-in-start" })
+        await this.sleep(1000)
+        this.setState({ fadeInClass: "fade-in-end" })
+    }
+
+    componentDidMount() {
+        this.onLoad()
+    }
+
     render() {
         let data = this.props.data
         let text = data.content
@@ -8,7 +30,8 @@ class TextDisplay extends Component {
         let darkMode = this.props.darkMode === true
         let tag = this.props.tag
         let rowClassNames = ""
-        let displayClassNames = "text-display " + tag
+        let fadeInClass = this.state.fadeInClass
+        let displayClassNames = "text-display " + tag + " " + fadeInClass
 
         if (centered) {
             rowClassNames += "centered-row"

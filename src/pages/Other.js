@@ -53,6 +53,7 @@ class Other extends Component {
                 displays.push(<TextDisplay
                     data={current}
                     tag={pageTag}
+                    centered={false}
                     darkMode
                     key={i}
                 />)
