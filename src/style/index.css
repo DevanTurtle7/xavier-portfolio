@@ -329,3 +329,7 @@ img {
     cursor: pointer;
   }
 }
+
+.text-display.art {
+  max-width: 60vw;
+}

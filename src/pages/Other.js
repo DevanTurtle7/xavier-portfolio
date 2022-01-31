@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar'
 import MediaDisplay from '../components/MediaDisplay';
 import SideLine from '../components/SideLine';
 import MetaTags from 'react-meta-tags';
+import TextDisplay from '../components/TextDisplay';
 
 class Other extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class Other extends Component {
         let stick = window.scrollY >= 70
 
         if (stick != this.state.stick) {
-            this.setState({stick: stick})
+            this.setState({ stick: stick })
         }
     }
 
@@ -31,21 +32,31 @@ class Other extends Component {
     render() {
         document.body.style.backgroundColor = "black"
 
-        let mediaDisplays = []
+        let displays = []
         let media = this.props.media;
+        let pageTag = "other"
 
         for (var i = 0; i < media.length; i++) {
             let current = media[i]
+            let type = current.type
 
-            mediaDisplays.push(<MediaDisplay
-                data={current}
-                centered={false}
-                tag="other"
-                viewable={false}
-                darkMode
-                key={i}
-            />)
-
+            if (type === "media") {
+                displays.push(<MediaDisplay
+                    data={current}
+                    centered={false}
+                    tag={pageTag}
+                    viewable={false}
+                    darkMode
+                    key={i}
+                />)
+            } else if (type === "text") {
+                displays.push(<TextDisplay
+                    data={current}
+                    tag={pageTag}
+                    darkMode
+                    key={i}
+                />)
+            }
         }
 
         return (
@@ -59,7 +70,7 @@ class Other extends Component {
                 <Col className="other">
                     <SideLine left="35px" stick={this.state.stick} />
                     <SideLine left="50px" stick={this.state.stick} desktopOnly />
-                    {mediaDisplays}
+                    {displays}
                 </Col>
             </Fragment>
         )
