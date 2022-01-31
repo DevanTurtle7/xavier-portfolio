@@ -31,28 +31,41 @@ class ArtList extends Component {
 
         querySnapshot.forEach(async (doc) => {
             let data = doc.data();
-            let description = data.description;
-            let order = data.order;
             let current;
+            let order = data.order;
+            let type = data.type
 
-            let currentContent = []
-            let content = data.content;
+            if (type === "media") {
+                let description = data.description;
+                let currentContent = []
+                let content = data.content;
 
-            for (let i = 0; i < content.length; i++) {
-                let fileInfo = content[i]
-                let filename = fileInfo.filename
-                let fileType = fileInfo.type
+                for (let i = 0; i < content.length; i++) {
+                    let fileInfo = content[i]
+                    let filename = fileInfo.filename
+                    let fileType = fileInfo.type
 
-                await getDownloadURL(ref(this.storage, filename)).then((url) => {
-                    currentContent.push({ url: url, type: fileType, filename: filename })
-                })
-            }
+                    await getDownloadURL(ref(this.storage, filename)).then((url) => {
+                        currentContent.push({ url: url, type: fileType, filename: filename })
+                    })
+                }
 
-            current = {
-                description: description,
-                order: order,
-                content: currentContent,
-                docId: doc.id
+                current = {
+                    description: description,
+                    order: order,
+                    content: currentContent,
+                    docId: doc.id
+                }
+            } else if (type === "text") {
+                let content = data.content
+
+                current = {
+                    content: content,
+                    order: order,
+                    type: "text"
+                }
+            } else {
+                console.log("Invalid type: " + type)
             }
 
             if (current !== undefined) {
@@ -139,7 +152,7 @@ class ArtList extends Component {
             <Col>
                 <Col className="py-3 px-2">
                     <Row>
-                        <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpdate} collection={this.props.collection}/>
+                        <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpdate} collection={this.props.collection} />
                         <CollectionDropdown
                             callback={this.collectionChanged}
                             collections={this.props.collections}

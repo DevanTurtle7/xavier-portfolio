@@ -77,7 +77,6 @@ class App extends Component {
           order: order,
           type: "text"
         }
-        console.log(current)
       } else {
         console.log("Invalid type: " + type)
       }
