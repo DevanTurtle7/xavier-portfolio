@@ -10,6 +10,7 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { MdRefresh } from "react-icons/md"
 import MediaDisplay from './MediaDisplay';
 import CollectionDropdown from './CollectionDropdown';
+import TextDisplay from './TextDisplay';
 
 class ArtList extends Component {
     constructor(props) {
@@ -54,7 +55,8 @@ class ArtList extends Component {
                     description: description,
                     order: order,
                     content: currentContent,
-                    docId: doc.id
+                    docId: doc.id,
+                    type: "media"
                 }
             } else if (type === "text") {
                 let content = data.content
@@ -131,21 +133,33 @@ class ArtList extends Component {
 
     render() {
         let files = this.state.files;
-        let media = []
+        let displays = []
 
         for (let i = 0; i < files.length; i++) {
             let current = files[i]
+            let type = current.type
 
-            media.push(<MediaDisplay
-                data={current}
-                mediaCount={this.state.mediaCount}
-                onUpdate={this.onUpdate}
-                db={this.db}
-                storage={this.storage}
-                collection={this.props.collection}
-                key={i}
-            />)
-
+            if (type === "media") {
+                displays.push(<MediaDisplay
+                    data={current}
+                    mediaCount={this.state.mediaCount}
+                    onUpdate={this.onUpdate}
+                    db={this.db}
+                    storage={this.storage}
+                    collection={this.props.collection}
+                    key={i}
+                />)
+            } else if (type === "text") {
+                displays.push(<TextDisplay
+                    data={current}
+                    mediaCount={this.state.mediaCount}
+                    onUpdate={this.onUpdate}
+                    db={this.db}
+                    storage={this.storage}
+                    collection={this.props.collection}
+                    key={i}
+                />)
+            }
         }
 
         return (
@@ -164,7 +178,7 @@ class ArtList extends Component {
                     </Row>
                 </Col>
                 <Row className="mx-auto">
-                    {media}
+                    {displays}
                 </Row>
             </Col>
         )

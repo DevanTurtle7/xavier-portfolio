@@ -333,3 +333,9 @@ img {
     cursor: pointer;
   }
 }
+
+.admin-text-display {
+  overflow-y: scroll;
+  height: 200px;
+  margin: 0px;
+}
