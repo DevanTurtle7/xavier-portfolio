@@ -11,6 +11,7 @@ import { MdRefresh } from "react-icons/md"
 import MediaDisplay from './MediaDisplay';
 import CollectionDropdown from './CollectionDropdown';
 import TextDisplay from './TextDisplay';
+import UploadTextButton from './UploadTextButton';
 
 class ArtList extends Component {
     constructor(props) {
@@ -167,6 +168,7 @@ class ArtList extends Component {
                 <Col className="py-3 px-2">
                     <Row>
                         <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpdate} collection={this.props.collection} />
+                        <UploadTextButton db={this.db} onUpload={this.onUpdate} collection={this.props.collection} />
                         <CollectionDropdown
                             callback={this.collectionChanged}
                             collections={this.props.collections}
