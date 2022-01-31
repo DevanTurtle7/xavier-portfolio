@@ -156,7 +156,6 @@ class ArtList extends Component {
                     mediaCount={this.state.mediaCount}
                     onUpdate={this.onUpdate}
                     db={this.db}
-                    storage={this.storage}
                     collection={this.props.collection}
                     key={i}
                 />)

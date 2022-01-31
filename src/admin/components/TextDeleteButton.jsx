@@ -6,7 +6,6 @@ import {
     ModalBody,
 } from 'reactstrap';
 import { deleteDoc, doc, updateDoc, increment, getDocs, collection } from "firebase/firestore";
-import { deleteObject, ref } from 'firebase/storage';
 
 class TextDeleteButton extends Component {
     constructor(props) {
@@ -18,14 +17,12 @@ class TextDeleteButton extends Component {
         }
 
         this.db = this.props.db
-        this.storage = this.props.storage
     }
 
     delete = async () => {
         this.setState({deleting: true})
         let docId = this.props.docId
         let order = this.props.order
-        console.log(docId)
         let countRef = doc(this.db, "counts", this.props.collection)
         const querySnapshot = await getDocs(collection(this.db, this.props.collection));
 
