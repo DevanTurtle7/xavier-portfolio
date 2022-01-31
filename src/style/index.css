@@ -142,6 +142,7 @@ img {
 .text-display {
   margin-top: 8px;
   margin-bottom: 32px;
+  white-space: pre-wrap;
 }
 
 .text-display.art {
@@ -343,4 +344,5 @@ img {
   overflow-y: scroll;
   height: 200px;
   margin: 0px;
+  white-space: pre-wrap;
 }

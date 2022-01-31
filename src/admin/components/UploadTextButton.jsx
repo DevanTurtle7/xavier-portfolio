@@ -71,6 +71,8 @@ class UploadTextButton extends Component {
                     let countRef = doc(this.db, "counts", this.props.collection)
                     let countSnap = await getDoc(countRef)
                     let size = countSnap.data().count
+                    
+                    text = text.replaceAll("\n", "${n}")
 
                     const docRef = await addDoc(collectionRef, {
                         order: size,

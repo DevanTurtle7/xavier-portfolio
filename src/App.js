@@ -72,6 +72,8 @@ class App extends Component {
       } else if (type === "text") {
         let content = data.content
         let size = data.size
+        
+        content = content.replaceAll("${n}", "\n")
 
         current = {
           content: content,

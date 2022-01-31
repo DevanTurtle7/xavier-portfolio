@@ -111,6 +111,8 @@ class TextEditButton extends Component {
             let content = this.state.text
             let order = this.state.order
             let size = this.state.size
+            
+            content = content.replaceAll("\n", "${n}")
 
             await updateDoc(docRef, {
                 order: order,
