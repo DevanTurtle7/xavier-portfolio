@@ -184,7 +184,7 @@ class UploadButton extends Component {
 
                 <Modal isOpen={this.state.modalOpen}>
                     <ModalHeader toggle={this.toggleModal}>
-                        Upload
+                        Upload Media
                     </ModalHeader>
                     <ModalBody>
                         <FormGroup>
