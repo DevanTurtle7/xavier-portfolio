@@ -21,7 +21,8 @@ class TextEditButton extends Component {
             text: "",
             updating: false,
             validText: true,
-            order: ""
+            order: "",
+            size: ""
         }
 
         this.db = this.props.db
@@ -34,7 +35,8 @@ class TextEditButton extends Component {
             modalOpen: true,
             text: data.content,
             validText: true,
-            order: data.order
+            order: data.order,
+            size: data.size
         })
     }
 
@@ -108,10 +110,12 @@ class TextEditButton extends Component {
             let docRef = doc(this.db, this.props.collection, docId)
             let content = this.state.text
             let order = this.state.order
+            let size = this.state.size
 
             await updateDoc(docRef, {
                 order: order,
-                content: content
+                content: content,
+                size: size
             })
 
             this.closeModal()
@@ -119,13 +123,24 @@ class TextEditButton extends Component {
         }
     }
 
+    validSize = () => {
+        return this.state.size !== "" && this.state.size !== NaN && this.state.size > 0
+    }
+
+    sizeChanged = (e) => {
+        this.setState({ size: parseInt(e.target.value) })
+    }
+
+
     render() {
         let data = this.props.data
         let text = data.content
         let validText = this.state.validText
         let order = data.order
+        let size = data.size
         let validOrderInput = this.validOrder()
-        let valid = !this.state.updating && validText && validOrderInput
+        let validSize = this.validSize()
+        let valid = !this.state.updating && validText && validOrderInput && validSize
 
         return (
             <Fragment>
@@ -144,6 +159,17 @@ class TextEditButton extends Component {
                                 invalid={!validText}
                             />
                             <FormFeedback>Text cannot be empty</FormFeedback>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Font Size (px)</Label>
+                            <Input
+                                type="number"
+                                defaultValue={size}
+                                onChange={this.sizeChanged}
+                                invalid={!validSize}
+                                min={1}
+                            />
+                            <FormFeedback>Font size must be defined and greater than 0.</FormFeedback>
                         </FormGroup>
                         <FormGroup>
                             <Label>Order</Label>

@@ -96,7 +96,6 @@ class UploadTextButton extends Component {
     }
 
     validSize = () => {
-        console.log(this.state.size)
         return this.state.size !== "" && this.state.size !== NaN && this.state.size > 0
     }
 
@@ -106,9 +105,8 @@ class UploadTextButton extends Component {
 
     render() {
         let validText = this.state.validText
-        let valid = !this.state.uploading && validText
         let validSize = this.validSize()
-        console.log(validSize)
+        let valid = !this.state.uploading && validText && validSize
 
         return (
             <Fragment>
