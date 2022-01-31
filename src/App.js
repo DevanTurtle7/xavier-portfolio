@@ -71,7 +71,6 @@ class App extends Component {
         }
       } else if (type === "text") {
         let content = data.content
-        let text = data.text
 
         current = {
           content: content,

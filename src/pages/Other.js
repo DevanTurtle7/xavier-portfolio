@@ -19,7 +19,7 @@ class Other extends Component {
     onScroll = () => {
         let stick = window.scrollY >= 70
 
-        if (stick != this.state.stick) {
+        if (stick !== this.state.stick) {
             this.setState({ stick: stick })
         }
     }
