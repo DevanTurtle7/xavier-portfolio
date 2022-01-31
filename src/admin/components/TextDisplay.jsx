@@ -7,7 +7,7 @@ import {
     Row
 } from 'reactstrap';
 import TextEditButton from './TextEditButton';
-import DeleteButton from './DeleteButton';
+import TextDeleteButton from './TextDeleteButton';
 
 class TextDisplay extends Component {
     constructor(props) {
@@ -44,8 +44,7 @@ class TextDisplay extends Component {
                             storage={this.storage}
                             collection={this.props.collection}
                         />
-                        <DeleteButton
-                            files={content}
+                        <TextDeleteButton
                             docId={docId}
                             order={order}
                             onDelete={this.updateData}

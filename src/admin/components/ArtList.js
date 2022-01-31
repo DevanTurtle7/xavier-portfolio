@@ -64,6 +64,7 @@ class ArtList extends Component {
                 current = {
                     content: content,
                     order: order,
+                    docId: doc.id,
                     type: "text"
                 }
             } else {
