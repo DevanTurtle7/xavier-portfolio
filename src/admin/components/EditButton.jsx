@@ -164,7 +164,7 @@ class EditButton extends Component {
 
                 <Modal isOpen={this.state.modalOpen}>
                     <ModalHeader toggle={this.toggle}>
-                        Edit
+                        Edit Media
                     </ModalHeader>
                     <ModalBody>
                         {carouselOrganizer}

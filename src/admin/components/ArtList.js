@@ -10,6 +10,8 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { MdRefresh } from "react-icons/md"
 import MediaDisplay from './MediaDisplay';
 import CollectionDropdown from './CollectionDropdown';
+import TextDisplay from './TextDisplay';
+import UploadTextButton from './UploadTextButton';
 
 class ArtList extends Component {
     constructor(props) {
@@ -31,28 +33,43 @@ class ArtList extends Component {
 
         querySnapshot.forEach(async (doc) => {
             let data = doc.data();
-            let description = data.description;
-            let order = data.order;
             let current;
+            let order = data.order;
+            let type = data.type
 
-            let currentContent = []
-            let content = data.content;
+            if (type === "media") {
+                let description = data.description;
+                let currentContent = []
+                let content = data.content;
 
-            for (let i = 0; i < content.length; i++) {
-                let fileInfo = content[i]
-                let filename = fileInfo.filename
-                let fileType = fileInfo.type
+                for (let i = 0; i < content.length; i++) {
+                    let fileInfo = content[i]
+                    let filename = fileInfo.filename
+                    let fileType = fileInfo.type
 
-                await getDownloadURL(ref(this.storage, filename)).then((url) => {
-                    currentContent.push({ url: url, type: fileType, filename: filename })
-                })
-            }
+                    await getDownloadURL(ref(this.storage, filename)).then((url) => {
+                        currentContent.push({ url: url, type: fileType, filename: filename })
+                    })
+                }
 
-            current = {
-                description: description,
-                order: order,
-                content: currentContent,
-                docId: doc.id
+                current = {
+                    description: description,
+                    order: order,
+                    content: currentContent,
+                    docId: doc.id,
+                    type: "media"
+                }
+            } else if (type === "text") {
+                let content = data.content
+
+                current = {
+                    content: content,
+                    order: order,
+                    docId: doc.id,
+                    type: "text"
+                }
+            } else {
+                console.log("Invalid type: " + type)
             }
 
             if (current !== undefined) {
@@ -118,28 +135,40 @@ class ArtList extends Component {
 
     render() {
         let files = this.state.files;
-        let media = []
+        let displays = []
 
         for (let i = 0; i < files.length; i++) {
             let current = files[i]
+            let type = current.type
 
-            media.push(<MediaDisplay
-                data={current}
-                mediaCount={this.state.mediaCount}
-                onUpdate={this.onUpdate}
-                db={this.db}
-                storage={this.storage}
-                collection={this.props.collection}
-                key={i}
-            />)
-
+            if (type === "media") {
+                displays.push(<MediaDisplay
+                    data={current}
+                    mediaCount={this.state.mediaCount}
+                    onUpdate={this.onUpdate}
+                    db={this.db}
+                    storage={this.storage}
+                    collection={this.props.collection}
+                    key={i}
+                />)
+            } else if (type === "text") {
+                displays.push(<TextDisplay
+                    data={current}
+                    mediaCount={this.state.mediaCount}
+                    onUpdate={this.onUpdate}
+                    db={this.db}
+                    collection={this.props.collection}
+                    key={i}
+                />)
+            }
         }
 
         return (
             <Col>
                 <Col className="py-3 px-2">
                     <Row>
-                        <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpdate} collection={this.props.collection}/>
+                        <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpdate} collection={this.props.collection} />
+                        <UploadTextButton db={this.db} onUpload={this.onUpdate} collection={this.props.collection} />
                         <CollectionDropdown
                             callback={this.collectionChanged}
                             collections={this.props.collections}
@@ -151,7 +180,7 @@ class ArtList extends Component {
                     </Row>
                 </Col>
                 <Row className="mx-auto">
-                    {media}
+                    {displays}
                 </Row>
             </Col>
         )

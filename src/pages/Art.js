@@ -5,23 +5,34 @@ import {
 import MediaDisplay from '../components/MediaDisplay';
 import Navbar from '../components/Navbar';
 import MetaTags from 'react-meta-tags';
+import TextDisplay from '../components/TextDisplay';
 
 class Art extends Component {
     render() {
         document.body.style.backgroundColor = "white"
 
-        let mediaDisplays = []
+        let displays = []
         let media = this.props.media;
+        let pageTag = "art"
 
         for (var i = 0; i < media.length; i++) {
             let current = media[i]
+            let type = current.type
 
-            mediaDisplays.push(<MediaDisplay
-                data={current}
-                tag="art"
-                viewable={true}
-                key={i}
-            />)
+            if (type === "media") {
+                displays.push(<MediaDisplay
+                    data={current}
+                    tag={pageTag}
+                    viewable={true}
+                    key={i}
+                />)
+            } else if (type === "text") {
+                displays.push(<TextDisplay
+                    data={current}
+                    tag={pageTag}
+                    key={i}
+                />)
+            }
         }
 
         return (
@@ -32,7 +43,7 @@ class Art extends Component {
 
                 <Navbar />
                 <Col className="art">
-                    {mediaDisplays}
+                    {displays}
                 </Col>
             </Fragment>
         )

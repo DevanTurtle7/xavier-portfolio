@@ -1,12 +1,7 @@
-import { Component, Fragment } from 'react';
-import {
-    Col,
-    Row,
-} from 'reactstrap'
+import { Component } from 'react';
 import ImageDisplay from './ImageDisplay';
 import VideoDisplay from './VideoDisplay';
 import CarouselControls from './CarouselControls';
-import { MdFollowTheSigns } from 'react-icons/md';
 
 class MediaDisplay extends Component {
     constructor(props) {

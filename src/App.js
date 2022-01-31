@@ -44,27 +44,41 @@ class App extends Component {
     for (let i = 0; i < querySnapshot.docs.length; i++) {
       let doc = querySnapshot.docs[i]
       let data = doc.data();
-      let description = data.description;
+      let type = data.type;
       let order = data.order;
       let current;
 
-      let currentContent = []
-      let content = data.content;
+      if (type === "media") {
+        let description = data.description;
+        let currentContent = []
+        let content = data.content;
 
-      for (let i = 0; i < content.length; i++) {
-        let fileInfo = content[i]
-        let filename = fileInfo.filename
-        let fileType = fileInfo.type
+        for (let i = 0; i < content.length; i++) {
+          let fileInfo = content[i]
+          let filename = fileInfo.filename
+          let fileType = fileInfo.type
 
-        await getDownloadURL(ref(storage, filename)).then((url) => {
-          currentContent.push({ url: url, type: fileType })
-        })
-      }
+          await getDownloadURL(ref(storage, filename)).then((url) => {
+            currentContent.push({ url: url, type: fileType })
+          })
+        }
 
-      current = {
-        description: description,
-        order: order,
-        content: currentContent
+        current = {
+          description: description,
+          order: order,
+          content: currentContent,
+          type: "media"
+        }
+      } else if (type === "text") {
+        let content = data.content
+
+        current = {
+          content: content,
+          order: order,
+          type: "text"
+        }
+      } else {
+        console.log("Invalid type: " + type)
       }
 
       if (current !== undefined) {

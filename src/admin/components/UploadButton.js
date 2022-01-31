@@ -9,7 +9,7 @@ import {
     ModalFooter,
     ModalHeader
 } from 'reactstrap';
-
+import { MdInsertDriveFile } from 'react-icons/md';
 import { collection, addDoc, updateDoc, doc, getDoc, increment } from "firebase/firestore";
 import { ref, uploadBytesResumable } from "firebase/storage";
 
@@ -146,7 +146,8 @@ class UploadButton extends Component {
                             const docRef = await addDoc(collectionRef, {
                                 description: description,
                                 order: size,
-                                content: content
+                                content: content,
+                                type: "media"
                             })
 
                             await updateDoc(countRef, {
@@ -176,11 +177,14 @@ class UploadButton extends Component {
 
         return (
             <Fragment>
-                <Button onClick={this.openModal} color="primary" className="fit-content ms-3">Upload</Button>
+                <Button onClick={this.openModal} color="primary" className="fit-content ms-3">
+                    <MdInsertDriveFile className="me-1 mb-1" />
+                    Upload Media
+                </Button>
 
                 <Modal isOpen={this.state.modalOpen}>
                     <ModalHeader toggle={this.toggleModal}>
-                        Upload
+                        Upload Media
                     </ModalHeader>
                     <ModalBody>
                         <FormGroup>
