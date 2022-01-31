@@ -7,7 +7,8 @@ import {
     FormGroup,
     Input,
     FormFeedback,
-    ModalFooter
+    ModalFooter,
+    Label
 } from 'reactstrap';
 import { MdOutlineTextFields } from 'react-icons/md';
 import { collection, addDoc, updateDoc, doc, getDoc, increment } from "firebase/firestore";
@@ -20,7 +21,8 @@ class UploadTextButton extends Component {
             modalOpen: false,
             text: "",
             uploading: false,
-            validText: true
+            validText: true,
+            size: 16
         }
 
         this.db = this.props.db
@@ -30,10 +32,11 @@ class UploadTextButton extends Component {
         this.setState({
             modalOpen: true,
             text: "",
-            validText: true
+            validText: true,
+            size: 16
         })
     }
-    
+
     closeModal = () => {
         this.setState({
             modalOpen: false,
@@ -72,7 +75,8 @@ class UploadTextButton extends Component {
                     const docRef = await addDoc(collectionRef, {
                         order: size,
                         content: text,
-                        type: "text"
+                        type: "text",
+                        size: this.state.size
                     })
 
                     await updateDoc(countRef, {
@@ -91,9 +95,18 @@ class UploadTextButton extends Component {
         }
     }
 
+    validSize = () => {
+        return this.state.size !== "" && this.state.size !== NaN && this.state.size > 0
+    }
+
+    sizeChanged = (e) => {
+        this.setState({ size: parseInt(e.target.value) })
+    }
+
     render() {
         let validText = this.state.validText
-        let valid = !this.state.uploading && validText
+        let validSize = this.validSize()
+        let valid = !this.state.uploading && validText && validSize
 
         return (
             <Fragment>
@@ -115,6 +128,17 @@ class UploadTextButton extends Component {
                                 invalid={!validText}
                             />
                             <FormFeedback>Text cannot be empty</FormFeedback>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Font Size (px)</Label>
+                            <Input
+                                type="number"
+                                defaultValue={16}
+                                onChange={this.sizeChanged}
+                                invalid={!validSize}
+                                min={1}
+                            />
+                            <FormFeedback>Font size must be defined and greater than 0.</FormFeedback>
                         </FormGroup>
                     </ModalBody>
                     <ModalFooter>
