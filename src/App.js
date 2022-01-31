@@ -71,11 +71,13 @@ class App extends Component {
         }
       } else if (type === "text") {
         let content = data.content
+        let size = data.size
 
         current = {
           content: content,
           order: order,
-          type: "text"
+          type: "text",
+          size: size
         }
       } else {
         console.log("Invalid type: " + type)

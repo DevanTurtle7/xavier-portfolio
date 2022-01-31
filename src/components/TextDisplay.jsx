@@ -26,6 +26,7 @@ class TextDisplay extends Component {
     render() {
         let data = this.props.data
         let text = data.content
+        let size = data.size
         let centered = !(this.props.centered === false)
         let darkMode = this.props.darkMode === true
         let tag = this.props.tag
@@ -44,7 +45,7 @@ class TextDisplay extends Component {
         return (
             <div className={rowClassNames}>
                 <div className={displayClassNames}>
-                    <p>{text}</p>
+                    <p style={{fontSize: size + "px"}}>{text}</p>
                 </div>
             </div>
         )

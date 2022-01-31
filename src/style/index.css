@@ -139,6 +139,11 @@ img {
   width: 40vw;
 }
 
+.text-display {
+  margin-top: 8px;
+  margin-bottom: 32px;
+}
+
 .text-display.art {
   width: 60vw;
 }
