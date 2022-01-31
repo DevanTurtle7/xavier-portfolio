@@ -1,4 +1,3 @@
-import { doc, updateDoc, getDocs, collection } from 'firebase/firestore';
 import { Component, Fragment } from 'react';
 import {
     Button,
@@ -7,7 +6,6 @@ import {
     ModalBody,
     ModalFooter,
     ModalHeader,
-    Label,
     FormGroup,
     FormFeedback,
 } from 'reactstrap';
