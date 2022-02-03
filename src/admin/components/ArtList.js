@@ -44,12 +44,17 @@ class ArtList extends Component {
 
                 for (let i = 0; i < content.length; i++) {
                     let fileInfo = content[i]
-                    let filename = fileInfo.filename
+                    let fileName = fileInfo.filename
                     let fileType = fileInfo.type
+                    let fileUrl = fileInfo.url
 
-                    await getDownloadURL(ref(this.storage, filename)).then((url) => {
-                        currentContent.push({ url: url, type: fileType, filename: filename })
-                    })
+                    if (fileType === "video") {
+                        await getDownloadURL(ref(this.storage, fileName)).then((url) => {
+                            currentContent.push({ url: url, type: fileType, filename: fileName })
+                        })
+                    } else {
+                        currentContent.push({ url: fileUrl, type: fileType, filename: fileName })
+                    }
                 }
 
                 current = {
