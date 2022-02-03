@@ -55,12 +55,17 @@ class App extends Component {
 
         for (let i = 0; i < content.length; i++) {
           let fileInfo = content[i]
-          let filename = fileInfo.filename
+          let fileName = fileInfo.filename
           let fileType = fileInfo.type
+          let fileUrl = fileInfo.url
 
-          await getDownloadURL(ref(storage, filename)).then((url) => {
-            currentContent.push({ url: url, type: fileType })
-          })
+          if (fileType === "video") {
+            await getDownloadURL(ref(storage, fileName)).then((url) => {
+              currentContent.push({ url: url, type: fileType })
+            })
+          } else {
+            currentContent.push({ url: fileUrl, type: fileType })
+          }
         }
 
         current = {
@@ -72,7 +77,7 @@ class App extends Component {
       } else if (type === "text") {
         let content = data.content
         let size = data.size
-        
+
         content = content.replaceAll("${n}", "\n")
 
         current = {

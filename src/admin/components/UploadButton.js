@@ -177,7 +177,7 @@ class UploadButton extends Component {
 
         return (
             <Fragment>
-                <Button onClick={this.openModal} color="primary" className="fit-content ms-3">
+                <Button onClick={this.openModal} color="primary" className="fit-content ms-3" disabled>
                     <MdInsertDriveFile className="me-1 mb-1" />
                     Upload Media
                 </Button>
