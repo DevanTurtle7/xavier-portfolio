@@ -153,7 +153,7 @@ class ArtList extends Component {
                     db={this.db}
                     storage={this.storage}
                     collection={this.props.collection}
-                    key={i}
+                    key={current.docId}
                 />)
             } else if (type === "text") {
                 displays.push(<TextDisplay
@@ -162,7 +162,7 @@ class ArtList extends Component {
                     onUpdate={this.onUpdate}
                     db={this.db}
                     collection={this.props.collection}
-                    key={i}
+                    key={current.docId}
                 />)
             }
         }

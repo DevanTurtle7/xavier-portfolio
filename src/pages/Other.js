@@ -47,7 +47,7 @@ class Other extends Component {
                     tag={pageTag}
                     viewable={false}
                     darkMode
-                    key={i}
+                    key={current.docId}
                 />)
             } else if (type === "text") {
                 displays.push(<TextDisplay
@@ -55,7 +55,7 @@ class Other extends Component {
                     tag={pageTag}
                     centered={false}
                     darkMode
-                    key={i}
+                    key={current.docId}
                 />)
             }
         }

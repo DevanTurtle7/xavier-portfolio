@@ -24,13 +24,13 @@ class Art extends Component {
                     data={current}
                     tag={pageTag}
                     viewable={true}
-                    key={i}
+                    key={current.docId}
                 />)
             } else if (type === "text") {
                 displays.push(<TextDisplay
                     data={current}
                     tag={pageTag}
-                    key={i}
+                    key={current.docId}
                 />)
             }
         }
