@@ -45,15 +45,16 @@ const UploadButton = () => {
             ContentType: file.type,
             Body: file,
         }
-        myBucket.putObject(params)
-            .on('httpUploadProgress', (evt) => {
-                setProgress(Math.round((evt.loaded / evt.total) * 100))
-            })
-            .send((err) => {
-                if (err) {
-                    console.log(err)
-                }
-            })
+
+        let putObjectPromise = myBucket.putObject(params).on('httpUploadProgress', (evt) => {
+            setProgress(Math.round((evt.loaded / evt.total) * 100))
+        }).promise()
+
+        putObjectPromise.then((data) => {
+            console.log('success!')
+        }).catch((err) => {
+            console.log(err)
+        })
     }
 
     const validFile = () => {
@@ -79,6 +80,10 @@ const UploadButton = () => {
     }
 
     const openModal = () => {
+        setFiles([])
+        setUploading(false)
+        setProgress(0)
+        setDescription("")
         setModalOpen(true)
     }
 
@@ -86,8 +91,60 @@ const UploadButton = () => {
         setModalOpen(!modalOpen)
     }
 
-    const upload = () => {
+    const closeModal = () => {
+        setModalOpen(false)
+    }
 
+    const upload = () => {
+        if (!uploading) {
+            setUploading(true)
+
+            let fileData = []
+            let numFiles = files.length;
+
+            for (let i = 0; i < numFiles; i++) {
+                let file = files[i]
+                let tokens = file.name.split(".")
+                let numTokens = tokens.length
+                let suffix = tokens[numTokens - 1]
+                let time = new Date().getTime()
+                let name = ""
+
+                for (let i = 0; i < numTokens - 1; i++) {
+                    name += tokens[i]
+                }
+
+                name += "_" + time + "." + suffix
+
+                let typeTokens = file.type.split("/")
+                let fileType = typeTokens[0]
+
+                fileData.push({name: name, type: fileType})
+
+                const params = {
+                    ACL: 'public-read',
+                    Key: name,
+                    ContentType: file.type,
+                    Body: file,
+                }
+
+                let putObjectPromise = myBucket.putObject(params).on('httpUploadProgress', (evt) => {
+                    //setProgress(Math.round((evt.loaded / evt.total) * 100))
+                }).promise()
+
+                putObjectPromise.then((data) => {
+                    console.log('success!')
+                    setUploading(false)
+                    closeModal()
+                }).catch((err) => {
+                    console.log(err)
+                    alert("There was an error while uploading")
+                    setUploading(false)
+                })
+            }
+
+            console.log(fileData)
+        }
     }
 
     return (
@@ -116,7 +173,7 @@ const UploadButton = () => {
                 </ModalBody>
                 <ModalFooter>
                     <div className="upload-footer-row">
-                        <Button onClick={upload} color="primary" disabled={!uploading}>Upload</Button>
+                        <Button onClick={upload} color="primary" disabled={uploading}>Upload</Button>
                         <p className='my-auto' hidden={!uploading}>Uploading {progress}% done</p>
                     </div>
                 </ModalFooter>
