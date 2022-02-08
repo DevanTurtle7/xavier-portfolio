@@ -7,6 +7,21 @@ import {
 } from 'reactstrap';
 import { deleteDoc, doc, updateDoc, increment, getDocs, collection } from "firebase/firestore";
 import { deleteObject, ref } from 'firebase/storage';
+import AWS from 'aws-sdk'
+import { getAccessKey, getSecretKey } from '../Credentials';
+
+const S3_BUCKET = 'xavier-portfolio';
+const REGION = 'us-east-2';
+
+AWS.config.update({
+    accessKeyId: getAccessKey(),
+    secretAccessKey: getSecretKey(),
+})
+
+const myBucket = new AWS.S3({
+    params: { Bucket: S3_BUCKET },
+    region: REGION,
+})
 
 class DeleteButton extends Component {
     constructor(props) {
@@ -34,7 +49,20 @@ class DeleteButton extends Component {
         for (let i = 0; i < files.length; i++) {
             let current = files[i]
             let filename = current.filename
-            await deleteObject(ref(this.storage, filename))
+            //await deleteObject(ref(this.storage, filename))
+            let params = {
+                Bucket: 'xavier-portfolio',
+                Key: filename
+            }
+
+            myBucket.deleteObject(params, (err, data) => {
+                if (err) {
+                    console.log('there was an error')
+                    console.log(err)
+                } else {
+                    console.log('data')
+                }
+            })
         }
 
         await updateDoc(countRef, {

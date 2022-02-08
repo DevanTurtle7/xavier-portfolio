@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AWS from 'aws-sdk'
-import { getAccesKey, getSecretKey } from '../Credentials';
+import { getAccessKey, getSecretKey } from '../Credentials';
 import { Component, Fragment } from 'react';
 import {
     Button,
@@ -13,48 +13,30 @@ import {
     ModalHeader
 } from 'reactstrap';
 import { MdInsertDriveFile } from 'react-icons/md';
+import { collection, addDoc, updateDoc, doc, getDoc, increment } from "firebase/firestore";
 
 const S3_BUCKET = 'xavier-portfolio';
 const REGION = 'us-east-2';
 
 AWS.config.update({
-    accessKeyId: getAccesKey(),
+    accessKeyId: getAccessKey(),
     secretAccessKey: getSecretKey(),
 })
 
-const UploadButton = () => {
+const myBucket = new AWS.S3({
+    params: { Bucket: S3_BUCKET },
+    region: REGION,
+})
+
+const UploadButton = (props) => {
     const [files, setFiles] = useState([]);
     const [modalOpen, setModalOpen] = useState(false)
     const [uploading, setUploading] = useState(false)
     const [progress, setProgress] = useState(0)
     const [description, setDescription] = useState("")
-
-    const myBucket = new AWS.S3({
-        params: { Bucket: S3_BUCKET },
-        region: REGION,
-    })
-
+    
     const handleFileInput = (e) => {
         setFiles(e.target.files);
-    }
-
-    const uploadFile = (file) => {
-        const params = {
-            ACL: 'public-read',
-            Key: file.name,
-            ContentType: file.type,
-            Body: file,
-        }
-
-        let putObjectPromise = myBucket.putObject(params).on('httpUploadProgress', (evt) => {
-            setProgress(Math.round((evt.loaded / evt.total) * 100))
-        }).promise()
-
-        putObjectPromise.then((data) => {
-            console.log('success!')
-        }).catch((err) => {
-            console.log(err)
-        })
     }
 
     const validFile = () => {
@@ -95,7 +77,7 @@ const UploadButton = () => {
         setModalOpen(false)
     }
 
-    const upload = () => {
+    const upload = async () => {
         if (!uploading) {
             setUploading(true)
 
@@ -119,7 +101,7 @@ const UploadButton = () => {
                 let typeTokens = file.type.split("/")
                 let fileType = typeTokens[0]
 
-                fileData.push({name: name, type: fileType})
+                fileData.push({filename: name, type: fileType})
 
                 const params = {
                     ACL: 'public-read',
@@ -133,6 +115,7 @@ const UploadButton = () => {
                 }).promise()
 
                 putObjectPromise.then((data) => {
+                    console.log(data)
                     console.log('success!')
                     setUploading(false)
                     closeModal()
@@ -143,7 +126,26 @@ const UploadButton = () => {
                 })
             }
 
-            console.log(fileData)
+            const db = props.db
+            let collectionRef = collection(db, props.collection)
+            let countRef = doc(db, "counts", props.collection)
+            let countSnap = await getDoc(countRef)
+            let size = countSnap.data().count
+            
+            const docRef = await addDoc(collectionRef, {
+                order: size,
+                content: fileData,
+                type: "media",
+                description: description
+            })
+
+            await updateDoc(countRef, {
+                count: increment(1)
+            })
+
+            console.log("Document written with ID: ", docRef.id);
+            closeModal()
+            props.onUpload()
         }
     }
 
