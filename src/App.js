@@ -59,7 +59,6 @@ class App extends Component {
                     let fileInfo = content[i]
                     let fileName = fileInfo.filename
                     let fileType = fileInfo.type
-                    let fileUrl = fileInfo.url
 
                     let url = IMG_URL + fileName
 
