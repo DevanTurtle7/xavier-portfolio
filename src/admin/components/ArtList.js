@@ -13,6 +13,8 @@ import CollectionDropdown from './CollectionDropdown';
 import TextDisplay from './TextDisplay';
 import UploadTextButton from './UploadTextButton';
 
+const IMG_URL = "https://xavier-portfolio.s3.us-east-2.amazonaws.com/";
+
 class ArtList extends Component {
     constructor(props) {
         super(props)
@@ -47,14 +49,9 @@ class ArtList extends Component {
                     let fileName = fileInfo.filename
                     let fileType = fileInfo.type
                     let fileUrl = fileInfo.url
+                    let url = IMG_URL + fileName
 
-                    if (fileType === "video") {
-                        await getDownloadURL(ref(this.storage, fileName)).then((url) => {
-                            currentContent.push({ url: url, type: fileType, filename: fileName })
-                        })
-                    } else {
-                        currentContent.push({ url: fileUrl, type: fileType, filename: fileName })
-                    }
+                    currentContent.push({ url: url, type: fileType, filename: fileName })
                 }
 
                 current = {
@@ -158,7 +155,7 @@ class ArtList extends Component {
                     db={this.db}
                     storage={this.storage}
                     collection={this.props.collection}
-                    key={current.docId}
+                    key={current.docId + i.toString()}
                 />)
             } else if (type === "text") {
                 displays.push(<TextDisplay
@@ -167,7 +164,7 @@ class ArtList extends Component {
                     onUpdate={this.onUpdate}
                     db={this.db}
                     collection={this.props.collection}
-                    key={current.docId}
+                    key={current.docId + i.toString()}
                 />)
             }
         }
