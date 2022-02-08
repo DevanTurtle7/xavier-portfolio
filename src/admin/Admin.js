@@ -35,7 +35,6 @@ class Admin extends Component {
         }
 
         this.auth = this.props.auth
-        this.storage = this.props.storage
         this.db = this.props.db
     }
 
@@ -164,7 +163,6 @@ class Admin extends Component {
                     <Button onClick={this.signOut} className="mx-4 mt-2 mb-4">Sign Out</Button>
 
                     <ArtList
-                        storage={this.storage}
                         db={this.db}
                         collection={this.state.collection}
                         collectionChanged={this.collectionChanged}

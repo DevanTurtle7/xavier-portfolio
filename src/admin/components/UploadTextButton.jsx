@@ -98,7 +98,7 @@ class UploadTextButton extends Component {
     }
 
     validSize = () => {
-        return this.state.size !== "" && this.state.size !== NaN && this.state.size > 0
+        return this.state.size !== "" && !isNaN(this.state.size) && this.state.size > 0
     }
 
     sizeChanged = (e) => {

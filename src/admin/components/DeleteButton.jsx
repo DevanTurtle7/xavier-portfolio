@@ -6,7 +6,6 @@ import {
     ModalBody,
 } from 'reactstrap';
 import { deleteDoc, doc, updateDoc, increment, getDocs, collection } from "firebase/firestore";
-import { deleteObject, ref } from 'firebase/storage';
 import AWS from 'aws-sdk'
 import { getAccessKey, getSecretKey } from '../Credentials';
 
@@ -33,7 +32,6 @@ class DeleteButton extends Component {
         }
 
         this.db = this.props.db
-        this.storage = this.props.storage
     }
 
     delete = async () => {
@@ -49,7 +47,7 @@ class DeleteButton extends Component {
         for (let i = 0; i < files.length; i++) {
             let current = files[i]
             let filename = current.filename
-            //await deleteObject(ref(this.storage, filename))
+            
             let params = {
                 Bucket: 'xavier-portfolio',
                 Key: filename

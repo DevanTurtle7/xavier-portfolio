@@ -8,7 +8,6 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
-import { ref, getDownloadURL, getStorage } from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyA1O3ZZUuxv0-PGJPZI9UffooMkAHdyjZw",
@@ -26,7 +25,6 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 const auth = getAuth();
-const storage = getStorage(app);
 
 class App extends Component {
     constructor(props) {
@@ -148,7 +146,7 @@ class App extends Component {
                     <Route exact path='/art' element={<Art media={artData} />} />
                     <Route exact path='/contact' element={<Contact />} />
                     <Route exact path='/other' element={<Other media={otherData} />} />
-                    <Route exact path='/admin' element={<Admin db={db} storage={storage} auth={auth} />} />
+                    <Route exact path='/admin' element={<Admin db={db} auth={auth} />} />
                 </Routes>
             </Router>
         );

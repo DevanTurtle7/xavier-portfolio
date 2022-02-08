@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AWS from 'aws-sdk'
 import { getAccessKey, getSecretKey } from '../Credentials';
-import { Component, Fragment } from 'react';
+import { Fragment } from 'react';
 import {
     Button,
     FormFeedback,

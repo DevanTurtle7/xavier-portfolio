@@ -6,7 +6,6 @@ import {
 } from 'reactstrap';
 import UploadButton from './UploadButton';
 import { collection, getDocs, getDoc, doc } from "firebase/firestore";
-import { ref, getDownloadURL } from "firebase/storage";
 import { MdRefresh } from "react-icons/md"
 import MediaDisplay from './MediaDisplay';
 import CollectionDropdown from './CollectionDropdown';
@@ -25,7 +24,6 @@ class ArtList extends Component {
         }
 
         this.db = this.props.db
-        this.storage = this.props.storage
     }
 
     getData = async () => {
@@ -152,7 +150,6 @@ class ArtList extends Component {
                     mediaCount={this.state.mediaCount}
                     onUpdate={this.onUpdate}
                     db={this.db}
-                    storage={this.storage}
                     collection={this.props.collection}
                     key={current.docId + i.toString()}
                 />)
@@ -172,7 +169,7 @@ class ArtList extends Component {
             <Col>
                 <Col className="py-3 px-2">
                     <Row>
-                        <UploadButton db={this.db} storage={this.storage} onUpload={this.onUpdate} collection={this.props.collection} />
+                        <UploadButton db={this.db} onUpload={this.onUpdate} collection={this.props.collection} />
                         <UploadTextButton db={this.db} onUpload={this.onUpdate} collection={this.props.collection} />
                         <CollectionDropdown
                             callback={this.collectionChanged}
