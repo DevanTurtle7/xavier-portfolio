@@ -7,6 +7,9 @@ import SideLine from '../components/SideLine';
 import MetaTags from 'react-meta-tags';
 import TextDisplay from '../components/TextDisplay';
 
+const BG_COLOR = "#000"
+const TEXT_COLOR = "#fff"
+
 class Other extends Component {
     constructor(props) {
         super(props);
@@ -30,7 +33,8 @@ class Other extends Component {
     }
 
     render() {
-        document.body.style.backgroundColor = "black"
+        document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
+        document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
 
         let displays = []
         let media = this.props.media;
@@ -46,7 +50,6 @@ class Other extends Component {
                     centered={false}
                     tag={pageTag}
                     viewable={false}
-                    darkMode
                     key={current.docId + i.toString()}
                 />)
             } else if (type === "text") {
@@ -54,7 +57,6 @@ class Other extends Component {
                     data={current}
                     tag={pageTag}
                     centered={false}
-                    darkMode
                     key={current.docId + i.toString()}
                 />)
             }
@@ -66,7 +68,7 @@ class Other extends Component {
                     <meta name="theme-color" content="#000000" />
                 </MetaTags>
 
-                <Navbar darkMode />
+                <Navbar />
 
                 <Col className="other">
                     <SideLine left="35px" stick={this.state.stick} />

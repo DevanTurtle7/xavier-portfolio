@@ -5,14 +5,20 @@ import Navbar from '../components/Navbar'
 import { AiOutlineInstagram } from "react-icons/ai"
 import MetaTags from 'react-meta-tags';
 
+const BG_COLOR = "#fff"
+const TEXT_COLOR = "#000"
+
 class Contact extends Component {
     openInstagram = () => {
         window.open("https://www.instagram.com/sjpencils/", "_blank")
     }
 
-    render() {
-        document.body.style.backgroundColor = "white"
+    componentDidMount() {
+        document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
+        document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
+    }
 
+    render() {
         return (
             <Col>
                 <MetaTags>

@@ -7,9 +7,13 @@ import Navbar from '../components/Navbar';
 import MetaTags from 'react-meta-tags';
 import TextDisplay from '../components/TextDisplay';
 
+const BG_COLOR = "#fff"
+const TEXT_COLOR = "#000"
+
 class Art extends Component {
     render() {
-        document.body.style.backgroundColor = "white"
+        document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
+        document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
 
         let displays = []
         let media = this.props.media;

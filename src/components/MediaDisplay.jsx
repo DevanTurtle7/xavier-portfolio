@@ -36,15 +36,10 @@ class MediaDisplay extends Component {
         let num = this.state.num
         let numContent = content.length
         let media = [];
-        let darkMode = this.props.darkMode === true
         let descriptionClassNames = "image-description"
         let centered = !(this.props.centered === false)
         let tag = this.props.tag
         let viewable = this.props.viewable
-
-        if (darkMode) {
-            descriptionClassNames += " dark-mode"
-        }
 
         for (let i = 0; i < numContent; i++) {
             let current = content[i]
@@ -58,7 +53,6 @@ class MediaDisplay extends Component {
                     alt={description}
                     active={num === i}
                     tag={tag}
-                    darkMode={darkMode}
                     viewable={viewable}
                     key={i}
                 />)
@@ -69,7 +63,6 @@ class MediaDisplay extends Component {
 
         let carouselControls = numContent > 1 ?
             (<CarouselControls numContent={numContent} onChange={this.onChange}
-                darkMode={darkMode}
             />)
             : (null)
 

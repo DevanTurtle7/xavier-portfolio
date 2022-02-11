@@ -57,7 +57,6 @@ class Blackout extends Component {
                     char={char}
                     enabled={this.state.enabled}
                     index={i}
-                    darkMode={this.props.darkMode}
                     key={i}
                 />
             )
@@ -95,10 +94,6 @@ class Blackout extends Component {
     render() {
         this.renderChars()
         let classNames = "blackout-text clickable noselect mb-0"
-
-        if (this.props.darkMode) {
-            classNames += " dark-mode"
-        }
 
         return (
             <p className={classNames} onClick={this.setup}>{this.chars}</p>
