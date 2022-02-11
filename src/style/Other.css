@@ -1,32 +1,6 @@
-.blackout.dark-mode {
-    background-color: white;
-}
-
-.blackout-text.dark-mode, .carousel-count.dark-mode, .image-description.dark-mode {
-    color: white;
-}
-
-.icon-btn.dark-mode, .icon-btn.dark-mode:visited {
-    color: white;
-}
-
-.modal-view.dark-mode {
-    background-color: black;
-}
-
-.menu-link.dark-mode {
-    color: white;
-}
-
-.image-description.dark-mode p::selection, .carousel-count.dark-mode::selection,
-.text-display.dark-mode p::selection {
-    color: black;
-    background: white;
-}
-
 .side-line {
     position: absolute;
-    background-color: white;
+    background-color: var(--bs-body-color);
     width: 1px;
     height: calc(100vh + 100px);
     top: 70px;
@@ -37,13 +11,9 @@
     top: -50px !important;
 }
 
-.text-display.dark-mode {
-    margin-left: 85px;
-    color: white
-}
-
 .text-display.other {
     max-width: 60vw;
+    margin-left: 85px;
 }
 
 @media (max-width:600px) {
@@ -54,11 +24,5 @@
     .media-display-left {
         margin-left: 70px;
         margin-left: 70px;
-    }
-}
-
-@media (hover: hover) {
-    .icon-btn.dark-mode:hover, .menu-link.dark-mode:hover {
-        color: rgb(175, 175, 175)
     }
 }

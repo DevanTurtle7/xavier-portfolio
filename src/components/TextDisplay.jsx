@@ -28,7 +28,6 @@ class TextDisplay extends Component {
         let text = data.content
         let size = data.size
         let centered = !(this.props.centered === false)
-        let darkMode = this.props.darkMode === true
         let tag = this.props.tag
         let rowClassNames = ""
         let fadeInClass = this.state.fadeInClass
@@ -36,10 +35,6 @@ class TextDisplay extends Component {
 
         if (centered) {
             rowClassNames += "centered-row"
-        }
-
-        if (darkMode) {
-            displayClassNames += " dark-mode"
         }
 
         return (

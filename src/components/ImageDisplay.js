@@ -44,7 +44,6 @@ class ImageDisplay extends Component {
     render() {
         let url = this.props.url
         let alt = this.props.alt
-        let darkMode = this.props.darkMode
         let active = this.props.active
         let viewable = this.props.viewable
         let classNames = "media-element " + (active ? "active" : "inactive")
@@ -65,7 +64,7 @@ class ImageDisplay extends Component {
                     draggable="false"
                 />
 
-                <Modal open={this.state.open} onClose={this.onClose} darkMode={darkMode}>
+                <Modal open={this.state.open} onClose={this.onClose}>
                     <Row className="justify-content-center align-content-center fullscreen-row">
                         <Col>
                             <img src={url} alt={alt} className="fullscreen-image" draggable="false" />

@@ -10,10 +10,6 @@ class IconButton extends Component {
         let classNames = classProp === undefined ? "" : classProp
         classNames += " icon-btn"
 
-        if (this.props.darkMode) {
-            classNames += " dark-mode"
-        }
-
         let fontSize = this.props.fontSize === undefined ? '20px' : this.props.fontSize.toString() + "px"
 
         return (

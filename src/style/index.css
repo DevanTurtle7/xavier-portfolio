@@ -36,19 +36,19 @@ img {
 
 ::-moz-selection {
   /* Code for Firefox */
-  color: white;
-  background: black;
+  color: var(--bs-body-bg);
+  background: var(--bs-body-color);
 }
 
 ::selection {
-  color: white;
-  background: black;
+  color: var(--bs-body-bg);
+  background: var(--bs-body-color);
 }
 
 .modal-view {
   width: 100vw;
   height: 105vh;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: var(--bs-body-bg);
   position: fixed;
   top: 0px;
   left: 0px;
@@ -56,7 +56,7 @@ img {
 }
 
 .icon-btn, .icon-btn:visited {
-  color: black;
+  color: var(--bs-body-color);
   background-color: rgba(255, 255, 255, 0);
   border: 0;
   text-align: center;
@@ -86,14 +86,14 @@ img {
 }
 
 .modal-close-btn {
-  color: black;
+  color: var(--bs-body-color);
   position: absolute;
   top: 20px;
   right: 30px;
 }
 
 .menu-link, .menu-link:visited {
-  color: black;
+  color: var(--bs-body-color);
   font-size: 16px;
   transition: color .3s;
   text-decoration: none;
@@ -109,11 +109,11 @@ img {
 }
 
 .blackout {
-  background-color: black;
+  background-color: var(--bs-body-color);
 }
 
 .blackout-text {
-  color: black;
+  color: var(--bs-body-color);
   width: fit-content;
 }
 
@@ -261,7 +261,7 @@ img {
   text-align: center;
   margin: 0;
   padding: 0;
-  color: black;
+  color: var(--bs-body-color);
   transition: color .3s;
 }
 
