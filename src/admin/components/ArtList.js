@@ -11,7 +11,10 @@ import MediaDisplay from './MediaDisplay';
 import CollectionDropdown from './CollectionDropdown';
 import TextDisplay from './TextDisplay';
 import UploadTextButton from './UploadTextButton';
+import AWS from 'aws-sdk'
 
+const S3_BUCKET = 'xavier-portfolio';
+const REGION = 'us-east-2';
 const IMG_URL = "https://xavier-portfolio.s3.us-east-2.amazonaws.com/";
 
 class ArtList extends Component {
@@ -136,6 +139,20 @@ class ArtList extends Component {
         this.props.collectionChanged(collection)
     }
 
+    getAWSBucket = () => {
+        AWS.config.update({
+            accessKeyId: this.props.accessKey,
+            secretAccessKey: this.props.secretKey
+        })
+    
+        const myBucket = new AWS.S3({
+            params: { Bucket: S3_BUCKET },
+            region: REGION,
+        })
+
+        return myBucket
+    }
+
     render() {
         let files = this.state.files;
         let displays = []
@@ -160,6 +177,7 @@ class ArtList extends Component {
                     onUpdate={this.onUpdate}
                     db={this.db}
                     collection={this.props.collection}
+                    bucket={this.getAWSBucket()}
                     key={current.docId + i.toString()}
                 />)
             }
@@ -169,7 +187,7 @@ class ArtList extends Component {
             <Col>
                 <Col className="py-3 px-2">
                     <Row>
-                        <UploadButton db={this.db} onUpload={this.onUpdate} collection={this.props.collection} />
+                        <UploadButton db={this.db} onUpload={this.onUpdate} collection={this.props.collection} bucket={this.getAWSBucket()}/>
                         <UploadTextButton db={this.db} onUpload={this.onUpdate} collection={this.props.collection} />
                         <CollectionDropdown
                             callback={this.collectionChanged}

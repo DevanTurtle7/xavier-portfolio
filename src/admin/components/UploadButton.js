@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import AWS from 'aws-sdk'
-import { getAccessKey, getSecretKey } from '../Credentials';
 import { Fragment } from 'react';
 import {
     Button,
@@ -15,26 +14,13 @@ import {
 import { MdInsertDriveFile } from 'react-icons/md';
 import { collection, addDoc, updateDoc, doc, getDoc, increment } from "firebase/firestore";
 
-const S3_BUCKET = 'xavier-portfolio';
-const REGION = 'us-east-2';
-
-AWS.config.update({
-    accessKeyId: getAccessKey(),
-    secretAccessKey: getSecretKey(),
-})
-
-const myBucket = new AWS.S3({
-    params: { Bucket: S3_BUCKET },
-    region: REGION,
-})
-
-const UploadButton = (props) => {
+function UploadButton(props) {
     const [files, setFiles] = useState([]);
     const [modalOpen, setModalOpen] = useState(false)
     const [uploading, setUploading] = useState(false)
     const [progress, setProgress] = useState(0)
     const [description, setDescription] = useState("")
-    
+
     const handleFileInput = (e) => {
         setFiles(e.target.files);
     }
@@ -101,7 +87,7 @@ const UploadButton = (props) => {
                 let typeTokens = file.type.split("/")
                 let fileType = typeTokens[0]
 
-                fileData.push({filename: name, type: fileType})
+                fileData.push({ filename: name, type: fileType })
 
                 const params = {
                     ACL: 'public-read',
@@ -110,7 +96,8 @@ const UploadButton = (props) => {
                     Body: file,
                 }
 
-                let putObjectPromise = myBucket.putObject(params).on('httpUploadProgress', (evt) => {
+                let bucket = props.bucket
+                let putObjectPromise = bucket.putObject(params).on('httpUploadProgress', (evt) => {
                     //setProgress(Math.round((evt.loaded / evt.total) * 100))
                 }).promise()
 
@@ -131,7 +118,7 @@ const UploadButton = (props) => {
             let countRef = doc(db, "counts", props.collection)
             let countSnap = await getDoc(countRef)
             let size = countSnap.data().count
-            
+
             const docRef = await addDoc(collectionRef, {
                 order: size,
                 content: fileData,

@@ -10,7 +10,7 @@ import {
 } from 'reactstrap';
 import ArtList from './components/ArtList';
 import MetaTags from 'react-meta-tags';
-
+import { getDoc, doc } from "firebase/firestore";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 class Admin extends Component {
@@ -31,7 +31,9 @@ class Admin extends Component {
             user: null,
             activeTab: "1",
             invalidLogin: false,
-            collection: this.collections[0].value
+            collection: this.collections[0].value,
+            accessKey: "",
+            secretKey: ""
         }
 
         this.auth = this.props.auth
@@ -47,6 +49,20 @@ class Admin extends Component {
         this.setState({ user: user })
     }
 
+    getCredentials = async () => {
+        let accessKeyRef = doc(this.db, "secrets", "accessKey")
+        let secretKeyRef = doc(this.db, "secrets", "secretKey")
+        let accessKeySnap = await getDoc(accessKeyRef)
+        let secretKeySnap = await getDoc(secretKeyRef)
+        let accessKey = accessKeySnap.data().key
+        let secretKey = secretKeySnap.data().key
+
+        this.setState({
+            accessKey: accessKey,
+            secretKey: secretKey
+        })
+    }
+
     signIn = () => {
         let email = this.state.email
         let password = this.state.password
@@ -54,6 +70,7 @@ class Admin extends Component {
         signInWithEmailAndPassword(this.auth, email, password)
             .then((userCredential) => {
                 //const user = userCredential.user;
+                this.getCredentials()
             })
             .catch((error) => {
                 const errorMessage = error.message;
@@ -167,6 +184,8 @@ class Admin extends Component {
                         collection={this.state.collection}
                         collectionChanged={this.collectionChanged}
                         collections={this.collections}
+                        accessKey={this.state.accessKey}
+                        secretKey={this.state.secretKey}
                     />
 
                 </Fragment>
