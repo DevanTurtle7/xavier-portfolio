@@ -65,7 +65,7 @@ class ArtList extends Component {
                 let content = data.content
                 let size = data.size
 
-                content = content.replaceAll("${n}", "\n")
+                content = content.replaceAll("$[n]", "\n")
 
                 current = {
                     content: content,

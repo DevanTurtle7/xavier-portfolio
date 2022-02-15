@@ -21,7 +21,7 @@ const firebaseConfig = {
 
 const IMG_URL = "https://xavier-portfolio.s3.us-east-2.amazonaws.com/";
 
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const db = getFirestore();
 const auth = getAuth();
@@ -73,7 +73,7 @@ class App extends Component {
                 let content = data.content
                 let size = data.size
 
-                content = content.replaceAll("${n}", "\n")
+                content = content.replaceAll("$[n]", "\n")
 
                 current = {
                     content: content,

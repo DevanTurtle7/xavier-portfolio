@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import AWS from 'aws-sdk'
 import { Fragment } from 'react';
 import {
     Button,
