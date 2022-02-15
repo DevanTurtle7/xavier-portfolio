@@ -141,8 +141,8 @@ class ArtList extends Component {
 
     getAWSBucket = () => {
         AWS.config.update({
-            accessKeyId: this.props.accessKey,
-            secretAccessKey: this.props.secretKey
+            accessKeyId: this.props.awsAccessKey,
+            secretAccessKey: this.props.awsSecretKey
         })
     
         const myBucket = new AWS.S3({
@@ -168,6 +168,7 @@ class ArtList extends Component {
                     onUpdate={this.onUpdate}
                     db={this.db}
                     collection={this.props.collection}
+                    bucket={this.getAWSBucket()}
                     key={current.docId + i.toString()}
                 />)
             } else if (type === "text") {
@@ -177,7 +178,6 @@ class ArtList extends Component {
                     onUpdate={this.onUpdate}
                     db={this.db}
                     collection={this.props.collection}
-                    bucket={this.getAWSBucket()}
                     key={current.docId + i.toString()}
                 />)
             }

@@ -184,8 +184,8 @@ class Admin extends Component {
                         collection={this.state.collection}
                         collectionChanged={this.collectionChanged}
                         collections={this.collections}
-                        accessKey={this.state.accessKey}
-                        secretKey={this.state.secretKey}
+                        awsAccessKey={this.state.accessKey}
+                        awsSecretKey={this.state.secretKey}
                     />
 
                 </Fragment>

@@ -65,6 +65,7 @@ class DeleteButton extends Component {
                 })
             }
         })
+        console.log(1)
 
         this.props.onDelete()
         this.setState({deleting: false})

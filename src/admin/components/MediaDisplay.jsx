@@ -14,7 +14,6 @@ class MediaDisplay extends Component {
         super(props)
 
         this.db = this.props.db
-        this.storage = this.props.storage
     }
 
     updateData = () => {
@@ -54,7 +53,6 @@ class MediaDisplay extends Component {
                             mediaCount={this.props.mediaCount}
                             onEditSaved={this.updateData}
                             db={this.db}
-                            storage={this.storage}
                             collection={this.props.collection}
                         />
                         <DeleteButton
@@ -63,7 +61,7 @@ class MediaDisplay extends Component {
                             order={order}
                             onDelete={this.updateData}
                             db={this.db}
-                            storage={this.storage}
+                            bucket={this.props.bucket}
                             collection={this.props.collection}
                         />
                     </CardFooter>
