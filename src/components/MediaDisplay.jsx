@@ -82,7 +82,6 @@ class MediaDisplay extends Component {
         return (
             <div className={rowClassNames}>
                 <div className={mediaDisplayClassNames}>
-                    <a className='asterisk noselect'>*</a>
                     {media}
                     {carouselControls}
                     <div className={descriptionClassNames}>
