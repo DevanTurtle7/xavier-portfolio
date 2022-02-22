@@ -334,12 +334,12 @@ img {
     color: var(--bs-body-color);
     text-decoration: none;
     transition: color .3s;
-    font-size: 24px;
-    height: fit-content;
-    width: 24px;
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
     text-align: center;
     position: relative;
-    top: calc(-50% - 4px);
+    top: calc(-50% + 16px);
     left: calc(100%);
     grid-column: 1;
     grid-row: 1;

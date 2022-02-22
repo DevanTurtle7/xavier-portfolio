@@ -68,6 +68,7 @@ class App extends Component {
                     order: order,
                     content: currentContent,
                     type: "media",
+                    link: "google.com"
                 }
             } else if (type === "text") {
                 let content = data.content
