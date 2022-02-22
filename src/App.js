@@ -67,7 +67,7 @@ class App extends Component {
                     description: description,
                     order: order,
                     content: currentContent,
-                    type: "media"
+                    type: "media",
                 }
             } else if (type === "text") {
                 let content = data.content
