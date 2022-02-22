@@ -40,6 +40,7 @@ class MediaDisplay extends Component {
         let centered = !(this.props.centered === false)
         let tag = this.props.tag
         let viewable = this.props.viewable
+        let link = data.link
 
         for (let i = 0; i < numContent; i++) {
             let current = content[i]
@@ -79,9 +80,15 @@ class MediaDisplay extends Component {
             mediaDisplayClassNames += " media-display-left"
         }
 
+        let asterisk = (link !== null && link !== undefined) ?
+                    (<a className='asterisk noselect' href={link} target="_blank">*</a>)
+                    : (null)
+
+
         return (
             <div className={rowClassNames}>
                 <div className={mediaDisplayClassNames}>
+                    {asterisk}
                     {media}
                     {carouselControls}
                     <div className={descriptionClassNames}>
