@@ -1,3 +1,9 @@
+/**
+ * The main page of the site. Routes to other pages
+ * 
+ * @author Devan Kavalchek
+ */
+
 import { Component } from 'react';
 import Art from './pages/Art';
 import Other from './pages/Other';
@@ -36,11 +42,21 @@ class App extends Component {
         }
     }
 
+    /**
+     * Gets all of the data from a given collection in the database
+     * 
+     * @param {*} collectionName The name of the collection
+     * @param {*} onEachLoad  A function that runs after each document is retrieved
+     * @returns An array of JSON objets
+     */
     getData = async (collectionName, onEachLoad) => {
         console.log("Retrieving data...")
+
+        // Get all docs from collection
         const querySnapshot = await getDocs(collection(db, collectionName));
         let media = []
 
+        // Iterate over all of the documents in the collection
         for (let i = 0; i < querySnapshot.docs.length; i++) {
             let doc = querySnapshot.docs[i]
             let data = doc.data();
@@ -53,6 +69,7 @@ class App extends Component {
                 let currentContent = []
                 let content = data.content;
 
+                // Iterate over the content
                 for (let i = 0; i < content.length; i++) {
                     let fileInfo = content[i]
                     let fileName = fileInfo.filename
@@ -60,9 +77,11 @@ class App extends Component {
 
                     let url = IMG_URL + fileName
 
+                    // Save the content to the array
                     currentContent.push({ url: url, type: fileType })
                 }
 
+                // Create a JSON object from this document
                 current = {
                     description: description,
                     order: order,
@@ -76,6 +95,7 @@ class App extends Component {
 
                 content = content.replaceAll("$[n]", "\n")
 
+                // Create a JSON object from this document
                 current = {
                     content: content,
                     order: order,
@@ -88,6 +108,7 @@ class App extends Component {
             }
 
             if (current !== undefined) {
+                // Insert the current object into the list of media in a sorted manner
                 let mediaCount = media.length;
 
                 if (mediaCount > 0) {
@@ -95,6 +116,7 @@ class App extends Component {
                     let i = 0;
                     let indexFound = false;
 
+                    // Linear search
                     while (i < mediaCount && !indexFound) {
                         let currentOrder = media[i].order
 
@@ -118,18 +140,22 @@ class App extends Component {
         return media;
     }
 
+    /**
+     * Updates the media that is displayed on the art page
+     */
     updateArtData = async () => {
         await this.getData("art", (media) => {
             this.setState({ artData: media })
         })
-        //this.setState({artData: artData})
     }
 
+    /**
+     * Updates the media that is displayed on the other page
+     */
     updateOtherData = async () => {
         await this.getData("other", (media) => {
             this.setState({ otherData: media })
         })
-        //this.setState({otherData: otherData})
     }
 
     componentDidMount() {
@@ -143,7 +169,7 @@ class App extends Component {
 
         return (
             <Router>
-                <Routes> {/* The Switch decides which component to show based on the current URL.*/}
+                <Routes>
                     <Route exact path='/' element={<Art media={artData} />} />
                     <Route exact path='/art' element={<Art media={artData} />} />
                     <Route exact path='/contact' element={<Contact />} />
