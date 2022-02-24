@@ -10,7 +10,7 @@ class VideoDisplay extends Component {
 
         return (
             <video controls controlsList="nodownload" onLoadedData={this.onLoad} className="media-element" preload="metadata">
-                <source src={url} />
+                <source src={url + "#t=0.001"} />
             </video>
         )
     }

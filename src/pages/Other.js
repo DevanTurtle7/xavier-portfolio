@@ -47,7 +47,6 @@ class Other extends Component {
             if (type === "media") {
                 displays.push(<MediaDisplay
                     data={current}
-                    centered={false}
                     tag={pageTag}
                     viewable={false}
                     key={current.docId + i.toString()}
@@ -56,7 +55,6 @@ class Other extends Component {
                 displays.push(<TextDisplay
                     data={current}
                     tag={pageTag}
-                    centered={false}
                     key={current.docId + i.toString()}
                 />)
             }
