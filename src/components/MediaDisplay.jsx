@@ -48,7 +48,7 @@ function MediaDisplay(props) {
                     key={i}
                 />)
             } else if (type === "video") {
-                displays.push(<VideoDisplay url={url} callback={onLoad} preload="metadata" key={i} />)
+                displays.push(<VideoDisplay url={url} callback={onLoad} key={i} />)
             }
         }
 
