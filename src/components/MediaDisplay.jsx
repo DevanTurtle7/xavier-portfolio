@@ -1,3 +1,15 @@
+/**
+ * Display a piece of media with a description. Could be an image or a video
+ * 
+ * Props:
+ *  data: The JSON object of data from the database
+ *  tag: A string that identifies which page this display is on
+ *  viewable: True if this can be clicked to expand this display. False otherwise
+ *  centered: True if this display is horizontally centered
+ * 
+ * @author Devan Kavalchek
+ */
+
 import { useEffect, useState } from 'react';
 import ImageDisplay from './ImageDisplay';
 import VideoDisplay from './VideoDisplay';
@@ -7,24 +19,46 @@ function MediaDisplay(props) {
     const [fadeInClass, setFadeInClass] = useState("fade-in-start");
     const [num, setNum] = useState(0)
 
+    // Runs once, when this component is first rendered
     useEffect(() => {
         onLoad()
     }, [])
 
+    /**
+     * A callback for carousel controls. Updates which image is the one that is currently
+     * displayed in the carousel.
+     * 
+     * @param {*} num  The index of the new currently display image (0 to n-1)
+     */
     const onChange = (num) => {
         setNum(num)
     }
 
+    /**
+     * Returns an object that sleeps for a given amount of milliseconds
+     * 
+     * @param {*} milliseconds How long to sleep for
+     * @returns A promise that can be waited on for the given amount of milliseconds
+     */
     const sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
 
+    /**
+     * Fades in this display after 1 second. Updates teh classname, which triggers a
+     * CSS transition
+     */
     const onLoad = async () => {
         setFadeInClass("fade-in-start")
         await sleep(1000)
         setFadeInClass("fade-in-end")
     }
 
+    /**
+     * Creates the media display(s).
+     * 
+     * @returns A list of media displays (ImageDisplay or VideoDisplay)
+     */
     const getMediaDisplays = () => {
         let displays = []
         let data = props.data
@@ -32,6 +66,7 @@ function MediaDisplay(props) {
         let tag = props.tag
         let viewable = props.viewable
 
+        // Iterate over all the content and create a display
         for (let i = 0; i < content.length; i++) {
             let current = content[i]
             let url = current.url
@@ -55,6 +90,10 @@ function MediaDisplay(props) {
         return displays
     }
 
+    /**
+     * Get the classnames of the parent row div
+     * @returns A string of classnames
+     */
     const getRowClassNames = () => {
         let classNames = fadeInClass
         let centered = props.centered === true
@@ -66,6 +105,11 @@ function MediaDisplay(props) {
         return classNames
     }
 
+    /**
+     * Creates carousel controls if they are necessary
+     * 
+     * @returns CarouselControls if there are multiple pieces of media. Null otherwise.
+     */
     const getCarouselControls = () => {
         let data = props.data
         let content = data.content
@@ -78,6 +122,11 @@ function MediaDisplay(props) {
         }
     }
 
+    /**
+     * Creates an asterisk if necessary
+     * 
+     * @returns An asterisk if this display has a link. Null otherwise.
+     */
     const getAsterisk = () => {
         let data = props.data
         let link = data.link
@@ -89,6 +138,11 @@ function MediaDisplay(props) {
         }
     }
 
+    /**
+     * Get the classnames of the media display
+     * 
+     * @returns A string of classnames
+     */
     const getMediaDisplayClassNames = () => {
         let classNames = "media-display"
         let centered = props.centered === true
