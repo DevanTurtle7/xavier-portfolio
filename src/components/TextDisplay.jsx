@@ -28,7 +28,7 @@ class TextDisplay extends Component {
         let link = data.link
 
         return (
-            (link !== null && link !== undefined) ?
+            (link !== null && link !== undefined && link !== "") ?
             (<a className='asterisk noselect' href={link} target="_blank">*</a>)
             : (null))
     }

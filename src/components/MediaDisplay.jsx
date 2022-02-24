@@ -80,7 +80,7 @@ class MediaDisplay extends Component {
             mediaDisplayClassNames += " media-display-left"
         }
 
-        let asterisk = (link !== null && link !== undefined) ?
+        let asterisk = (link !== null && link !== undefined && link !== "") ?
             (<a className='asterisk noselect' href={link} target="_blank">*</a>)
             : (null)
 

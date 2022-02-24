@@ -22,7 +22,8 @@ class TextEditButton extends Component {
             updating: false,
             validText: true,
             order: "",
-            size: ""
+            size: "",
+            link: ""
         }
 
         this.db = this.props.db
@@ -36,7 +37,8 @@ class TextEditButton extends Component {
             text: data.content,
             validText: true,
             order: data.order,
-            size: data.size
+            size: data.size,
+            link: data.link
         })
     }
 
@@ -111,13 +113,15 @@ class TextEditButton extends Component {
             let content = this.state.text
             let order = this.state.order
             let size = this.state.size
-            
+            let link = this.state.link
+
             content = content.replaceAll("\n", "$[n]")
 
             await updateDoc(docRef, {
                 order: order,
                 content: content,
-                size: size
+                size: size,
+                link: link
             })
 
             this.closeModal()
@@ -133,10 +137,14 @@ class TextEditButton extends Component {
         this.setState({ size: parseInt(e.target.value) })
     }
 
+    linkChanged = (e) => {
+        this.setState({ link: e.target.value })
+    }
 
     render() {
         let data = this.props.data
         let text = data.content
+        let link = data.link
         let validText = this.state.validText
         let order = data.order
         let size = data.size
@@ -161,6 +169,10 @@ class TextEditButton extends Component {
                                 invalid={!validText}
                             />
                             <FormFeedback>Text cannot be empty</FormFeedback>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Link</Label>
+                            <Input type="text" placeholder="Link" defaultValue={link} onChange={this.linkChanged} />
                         </FormGroup>
                         <FormGroup>
                             <Label>Font Size (px)</Label>
