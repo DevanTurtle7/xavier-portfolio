@@ -143,10 +143,15 @@ img {
     margin-top: 8px;
     margin-bottom: 32px;
     white-space: pre-wrap;
+    width: fit-content;
 }
 
 .text-display.art {
     width: 60vw;
+}
+
+.text-display.other p{
+    width: fit-content;
 }
 
 .media-display.other {
@@ -181,8 +186,13 @@ img {
     width: 100%;
     height: auto;
     object-fit: contain;
+}
+
+.media-container {
     grid-column: 1;
     grid-row: 1;
+    width: fit-content;
+    height: fit-content;
 }
 
 .centered-row {
@@ -330,13 +340,33 @@ img {
     height: fit-content;
 }
 
+.asterisk {
+    color: var(--bs-body-color);
+    text-decoration: none;
+    transition: color .3s;
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    text-align: center;
+    position: relative;
+    top: 16px;
+    left: calc(100% + 6px);
+    grid-column: 1;
+    grid-row: 1;
+    z-index: 11;
+}
+
+.asterisk:hover {
+    cursor: pointer;
+}
+
 /* FOR MOBILE: Override the default blue color on hover to not change */
-.menu-link:hover, .icon-btn:hover, .email:hover {
+.menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover {
     color: var(--bs-body-color)
 }
 
 @media (hover: hover) {
-    .menu-link:hover, .icon-btn:hover, .email:hover {
+    .menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover {
         color: rgba(150, 150, 150, 1)
     }
 

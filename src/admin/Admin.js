@@ -13,6 +13,9 @@ import MetaTags from 'react-meta-tags';
 import { getDoc, doc } from "firebase/firestore";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 
+const BG_COLOR = "#fff"
+const TEXT_COLOR = "#000"
+
 class Admin extends Component {
     constructor(props) {
         super(props)
@@ -120,7 +123,8 @@ class Admin extends Component {
     }
 
     render() {
-        document.body.style.backgroundColor = "white"
+        document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
+        document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
 
         if (this.state.user == null) {
             let valid = this.validData()
@@ -174,6 +178,10 @@ class Admin extends Component {
         } else {
             return (
                 <Fragment>
+                    <MetaTags>
+                        <meta name="theme-color" content="#ffffff" />
+                    </MetaTags>
+
                     <Navbar />
 
                     <h1 className="mx-4">Admin</h1>

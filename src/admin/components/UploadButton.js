@@ -19,6 +19,7 @@ function UploadButton(props) {
     const [uploading, setUploading] = useState(false)
     const [progress, setProgress] = useState(0)
     const [description, setDescription] = useState("")
+    const [link, setLink] = useState("")
 
     const handleFileInput = (e) => {
         setFiles(e.target.files);
@@ -44,6 +45,10 @@ function UploadButton(props) {
 
     const descriptionChanged = (e) => {
         setDescription(e.target.value)
+    }
+
+    const linkChanged = (e) => {
+        setLink(e.target.value)
     }
 
     const openModal = () => {
@@ -122,7 +127,8 @@ function UploadButton(props) {
                 order: size,
                 content: fileData,
                 type: "media",
-                description: description
+                description: description,
+                link: link
             })
 
             await updateDoc(countRef, {
@@ -157,7 +163,8 @@ function UploadButton(props) {
                         />
                         <FormFeedback>Invalid file type</FormFeedback>
                     </FormGroup>
-                    <Input type="text" placeholder="Description" className="m-2" onChange={descriptionChanged} />
+                    <Input type="textarea" placeholder="Description" className="m-2" onChange={descriptionChanged} />
+                    <Input type="text" placeholder="Link" className="m-2" onChange={linkChanged} />
                 </ModalBody>
                 <ModalFooter>
                     <div className="upload-footer-row">

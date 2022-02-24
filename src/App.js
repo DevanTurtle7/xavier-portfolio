@@ -67,7 +67,8 @@ class App extends Component {
                     description: description,
                     order: order,
                     content: currentContent,
-                    type: "media"
+                    type: "media",
+                    link: data.link
                 }
             } else if (type === "text") {
                 let content = data.content
@@ -79,7 +80,8 @@ class App extends Component {
                     content: content,
                     order: order,
                     type: "text",
-                    size: size
+                    size: size,
+                    link: data.link
                 }
             } else {
                 console.log("Invalid type: " + type)
