@@ -34,6 +34,7 @@ function Art(props) {
             data={data}
             tag={PAGE_TAG}
             viewable={true}
+            centered
             key={key}
         />)
     }
@@ -49,6 +50,7 @@ function Art(props) {
         return (<TextDisplay
             data={data}
             tag={PAGE_TAG}
+            centered
             key={key}
         />)
     }

@@ -37,7 +37,7 @@ class MediaDisplay extends Component {
         let numContent = content.length
         let media = [];
         let descriptionClassNames = "image-description"
-        let centered = !(this.props.centered === false)
+        let centered = this.props.centered === true
         let tag = this.props.tag
         let viewable = this.props.viewable
         let link = data.link
