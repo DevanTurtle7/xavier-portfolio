@@ -7,7 +7,6 @@
  * @author Devan Kavalchek
  */
 
-import { Component } from 'react';
 import { Col } from 'reactstrap';
 import IconButton from '../components/IconButton';
 import Navbar from '../components/Navbar'
@@ -18,6 +17,7 @@ const BG_COLOR = "#fff"
 const TEXT_COLOR = "#000"
 
 function Contact(props) {
+    // Set theme colors
     document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
     document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
 
