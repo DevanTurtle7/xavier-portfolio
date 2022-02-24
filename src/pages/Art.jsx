@@ -1,5 +1,5 @@
 /**
- * The art page of the site
+ * The art page of the site. Contains centered art images with descriptions.
  * 
  * Props:
  *  media: An array of JSON objects that represent media on the page

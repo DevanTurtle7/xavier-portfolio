@@ -1,3 +1,13 @@
+/**
+ * The "other" page of the site. Displays media on the left hand side of the page,
+ * with 2 vertical lines on the far left.
+ * 
+ * Props:
+ *  media: An array of JSON objects that represent media on the page
+ * 
+ * @author Devan Kavalchek
+ */
+
 import '../style/Other.css';
 import { Component, Fragment } from 'react';
 import { Col } from 'reactstrap';
