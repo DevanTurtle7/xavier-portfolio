@@ -22,6 +22,7 @@ class EditButton extends Component {
             modalOpen: false,
             description: "",
             order: "",
+            link: "",
             updating: false
         }
 
@@ -73,7 +74,8 @@ class EditButton extends Component {
         await updateDoc(docRef, {
             description: this.state.description,
             order: this.state.order,
-            content: content
+            content: content,
+            link: this.state.link
         })
 
         this.closeModal()
@@ -88,7 +90,8 @@ class EditButton extends Component {
             modalOpen: true,
             description: data.description,
             order: data.order,
-            updating: false
+            updating: false,
+            link: data.link
         })
     }
 
@@ -102,6 +105,10 @@ class EditButton extends Component {
 
     descriptionChanged = (e) => {
         this.setState({ description: e.target.value })
+    }
+
+    linkChanged = (e) => {
+        this.setState({link: e.target.value})
     }
 
     orderChanged = (e) => {
@@ -132,6 +139,7 @@ class EditButton extends Component {
     render() {
         let data = this.props.data
         let description = data.description
+        let link = data.link
         let order = data.order
         let valid = this.validData() && !this.state.updating
         let validOrderInput = this.validOrder()
@@ -171,6 +179,8 @@ class EditButton extends Component {
 
                         <Label>Description</Label>
                         <Input type="textarea" defaultValue={description} onChange={this.descriptionChanged} />
+                        <Label>Link</Label>
+                        <Input type="text" placeholder="Link" defaultValue={link} onChange={this.linkChanged} />
                         <FormGroup>
                             <Label>Order</Label>
                             <Input type="number" defaultValue={order} onChange={this.orderChanged} invalid={!validOrderInput} />

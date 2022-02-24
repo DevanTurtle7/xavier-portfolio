@@ -23,6 +23,16 @@ class TextDisplay extends Component {
         this.onLoad()
     }
 
+    createLink = () => {
+        let data = this.props.data
+        let link = data.link
+
+        return (
+            (link !== null && link !== undefined && link !== "") ?
+            (<a className='asterisk noselect' href={link} target="_blank">*</a>)
+            : (null))
+    }
+
     render() {
         let data = this.props.data
         let text = data.content
@@ -40,6 +50,7 @@ class TextDisplay extends Component {
         return (
             <div className={rowClassNames}>
                 <div className={displayClassNames}>
+                {this.createLink()}
                     <p style={{fontSize: size + "px"}}>{text}</p>
                 </div>
             </div>

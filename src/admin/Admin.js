@@ -10,8 +10,11 @@ import {
 } from 'reactstrap';
 import ArtList from './components/ArtList';
 import MetaTags from 'react-meta-tags';
-
+import { getDoc, doc } from "firebase/firestore";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+
+const BG_COLOR = "#fff"
+const TEXT_COLOR = "#000"
 
 class Admin extends Component {
     constructor(props) {
@@ -31,7 +34,9 @@ class Admin extends Component {
             user: null,
             activeTab: "1",
             invalidLogin: false,
-            collection: this.collections[0].value
+            collection: this.collections[0].value,
+            accessKey: "",
+            secretKey: ""
         }
 
         this.auth = this.props.auth
@@ -47,6 +52,20 @@ class Admin extends Component {
         this.setState({ user: user })
     }
 
+    getCredentials = async () => {
+        let accessKeyRef = doc(this.db, "secrets", "accessKey")
+        let secretKeyRef = doc(this.db, "secrets", "secretKey")
+        let accessKeySnap = await getDoc(accessKeyRef)
+        let secretKeySnap = await getDoc(secretKeyRef)
+        let accessKey = accessKeySnap.data().key
+        let secretKey = secretKeySnap.data().key
+
+        this.setState({
+            accessKey: accessKey,
+            secretKey: secretKey
+        })
+    }
+
     signIn = () => {
         let email = this.state.email
         let password = this.state.password
@@ -54,6 +73,7 @@ class Admin extends Component {
         signInWithEmailAndPassword(this.auth, email, password)
             .then((userCredential) => {
                 //const user = userCredential.user;
+                this.getCredentials()
             })
             .catch((error) => {
                 const errorMessage = error.message;
@@ -103,7 +123,8 @@ class Admin extends Component {
     }
 
     render() {
-        document.body.style.backgroundColor = "white"
+        document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
+        document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
 
         if (this.state.user == null) {
             let valid = this.validData()
@@ -157,6 +178,10 @@ class Admin extends Component {
         } else {
             return (
                 <Fragment>
+                    <MetaTags>
+                        <meta name="theme-color" content="#ffffff" />
+                    </MetaTags>
+
                     <Navbar />
 
                     <h1 className="mx-4">Admin</h1>
@@ -167,6 +192,8 @@ class Admin extends Component {
                         collection={this.state.collection}
                         collectionChanged={this.collectionChanged}
                         collections={this.collections}
+                        awsAccessKey={this.state.accessKey}
+                        awsSecretKey={this.state.secretKey}
                     />
 
                 </Fragment>

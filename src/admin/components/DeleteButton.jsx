@@ -6,21 +6,6 @@ import {
     ModalBody,
 } from 'reactstrap';
 import { deleteDoc, doc, updateDoc, increment, getDocs, collection } from "firebase/firestore";
-import AWS from 'aws-sdk'
-import { getAccessKey, getSecretKey } from '../Credentials';
-
-const S3_BUCKET = 'xavier-portfolio';
-const REGION = 'us-east-2';
-
-AWS.config.update({
-    accessKeyId: getAccessKey(),
-    secretAccessKey: getSecretKey(),
-})
-
-const myBucket = new AWS.S3({
-    params: { Bucket: S3_BUCKET },
-    region: REGION,
-})
 
 class DeleteButton extends Component {
     constructor(props) {
@@ -41,6 +26,7 @@ class DeleteButton extends Component {
         let files = this.props.files
         let countRef = doc(this.db, "counts", this.props.collection)
         const querySnapshot = await getDocs(collection(this.db, this.props.collection));
+        let bucket = this.props.bucket
 
         await deleteDoc(doc(this.db, this.props.collection, docId))
 
@@ -53,7 +39,7 @@ class DeleteButton extends Component {
                 Key: filename
             }
 
-            myBucket.deleteObject(params, (err, data) => {
+            bucket.deleteObject(params, (err, data) => {
                 if (err) {
                     console.log('there was an error')
                     console.log(err)
@@ -79,6 +65,7 @@ class DeleteButton extends Component {
                 })
             }
         })
+        console.log(1)
 
         this.props.onDelete()
         this.setState({deleting: false})

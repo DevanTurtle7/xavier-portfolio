@@ -21,7 +21,7 @@ const firebaseConfig = {
 
 const IMG_URL = "https://xavier-portfolio.s3.us-east-2.amazonaws.com/";
 
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const db = getFirestore();
 const auth = getAuth();
@@ -67,19 +67,21 @@ class App extends Component {
                     description: description,
                     order: order,
                     content: currentContent,
-                    type: "media"
+                    type: "media",
+                    link: data.link
                 }
             } else if (type === "text") {
                 let content = data.content
                 let size = data.size
 
-                content = content.replaceAll("${n}", "\n")
+                content = content.replaceAll("$[n]", "\n")
 
                 current = {
                     content: content,
                     order: order,
                     type: "text",
-                    size: size
+                    size: size,
+                    link: data.link
                 }
             } else {
                 console.log("Invalid type: " + type)

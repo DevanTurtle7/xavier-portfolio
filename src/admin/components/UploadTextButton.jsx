@@ -22,6 +22,7 @@ class UploadTextButton extends Component {
             text: "",
             uploading: false,
             validText: true,
+            link: "",
             size: 16
         }
 
@@ -33,6 +34,7 @@ class UploadTextButton extends Component {
             modalOpen: true,
             text: "",
             validText: true,
+            link: "",
             size: 16
         })
     }
@@ -72,13 +74,14 @@ class UploadTextButton extends Component {
                     let countSnap = await getDoc(countRef)
                     let size = countSnap.data().count
                     
-                    text = text.replaceAll("\n", "${n}")
+                    text = text.replaceAll("\n", "$[n]")
 
                     const docRef = await addDoc(collectionRef, {
                         order: size,
                         content: text,
                         type: "text",
-                        size: this.state.size
+                        size: this.state.size,
+                        link: this.state.link
                     })
 
                     await updateDoc(countRef, {
@@ -105,10 +108,15 @@ class UploadTextButton extends Component {
         this.setState({ size: parseInt(e.target.value) })
     }
 
+    linkChanged = (e) => {
+        this.setState({link: e.target.value})
+    }
+
     render() {
         let validText = this.state.validText
         let validSize = this.validSize()
         let valid = !this.state.uploading && validText && validSize
+        let link = this.state.link
 
         return (
             <Fragment>
@@ -141,6 +149,10 @@ class UploadTextButton extends Component {
                                 min={1}
                             />
                             <FormFeedback>Font size must be defined and greater than 0.</FormFeedback>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Link</Label>
+                            <Input type="text" placeholder="Link" defaultValue={link} onChange={this.linkChanged} />
                         </FormGroup>
                     </ModalBody>
                     <ModalFooter>
