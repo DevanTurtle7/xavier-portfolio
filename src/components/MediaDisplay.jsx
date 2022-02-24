@@ -58,7 +58,7 @@ class MediaDisplay extends Component {
                     key={i}
                 />)
             } else if (type === "video") {
-                media.push(<VideoDisplay url={url} callback={this.onLoad} key={i}/>)
+                media.push(<VideoDisplay url={url} callback={this.onLoad} key={i} />)
             }
         }
 
@@ -81,15 +81,17 @@ class MediaDisplay extends Component {
         }
 
         let asterisk = (link !== null && link !== undefined) ?
-                    (<a className='asterisk noselect' href={link} target="_blank">*</a>)
-                    : (null)
+            (<a className='asterisk noselect' href={link} target="_blank">*</a>)
+            : (null)
 
 
         return (
             <div className={rowClassNames}>
                 <div className={mediaDisplayClassNames}>
-                    {asterisk}
-                    {media}
+                    <div className="media-container">
+                        {asterisk}
+                        {media}
+                    </div>
                     {carouselControls}
                     <div className={descriptionClassNames}>
                         <p>{description}</p>
