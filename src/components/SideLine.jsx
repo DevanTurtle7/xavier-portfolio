@@ -6,6 +6,8 @@
  *  left: How far from the left of the screen this line is
  *  stick: Whether or not this line is stuck to the top of the page
  *  desktopOnly (OPTIONAL): If true, this line will not render on mobile
+ * 
+ * @author Devan Kavalchek
  */
 
 function SideLine(props) {
