@@ -1,61 +1,120 @@
-import { Component } from 'react';
+/**
+ * A text display
+ * 
+ * Props:
+ *  data: The JSON object of data from the database
+ *  tag: A string that identifies which page this display is on
+ *  centered (OPTIONAL): True if the text display is centered
+ * 
+ * @author Devan Kavalchek
+ */
 
-class TextDisplay extends Component {
-    constructor(props) {
-        super(props)
+import { useEffect } from "react"
+import { useState } from "react"
 
-        this.state = {
-            fadeInClass: "fade-in-start"
-        }
-    }
+function TextDisplay(props) {
+    const [fadeInClass, setFadeInClass] = useState("fade-in-start")
 
-    sleep = (milliseconds) => {
+    // Runs once, when this component is first rendered
+    useEffect(() => {
+        onLoad()
+    }, [])
+
+    /**
+     * Returns an object that sleeps for a given amount of milliseconds
+     * 
+     * @param {*} milliseconds How long to sleep for
+     * @returns A promise that can be waited on for the given amount of milliseconds
+     */
+    const sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
 
-    onLoad = async () => {
-        this.setState({ fadeInClass: "fade-in-start" })
-        await this.sleep(1000)
-        this.setState({ fadeInClass: "fade-in-end" })
+    /**
+     * Fades in this display after 1 second. Updates teh classname, which triggers a
+     * CSS transition
+     */
+    const onLoad = async () => {
+        setFadeInClass("fade-in-start")
+        await sleep(1000)
+        setFadeInClass("fade-in-end")
     }
 
-    componentDidMount() {
-        this.onLoad()
+    /**
+     * Creates an asterisk if necessary
+     * 
+     * @returns An asterisk if this display has a link. Null otherwise.
+     */
+    const getAsterisk = () => {
+        const data = props.data
+        const link = data.link
+
+        if (link !== null && link !== undefined && link !== "") {
+            return (<a className='asterisk noselect' href={link} target="_blank">*</a>)
+        } else {
+            return null
+        }
     }
 
-    createLink = () => {
-        let data = this.props.data
-        let link = data.link
+    /**
+     * Gets the font size of this text display from the database
+     * 
+     * @returns A string formatted for css
+     */
+    const getFontSize = () => {
+        const data = props.data
+        const size = data.size
 
-        return (
-            (link !== null && link !== undefined && link !== "") ?
-            (<a className='asterisk noselect' href={link} target="_blank">*</a>)
-            : (null))
+        return size + "px"
     }
 
-    render() {
-        let data = this.props.data
-        let text = data.content
-        let size = data.size
-        let centered = this.props.centered === true
-        let tag = this.props.tag
-        let rowClassNames = ""
-        let fadeInClass = this.state.fadeInClass
-        let displayClassNames = "text-display " + tag + " " + fadeInClass
+    /**
+     * Gets the text to be displayed
+     * 
+     * @returns A string of text
+     */
+    const getText = () => {
+        const data = props.data
+        const text = data.content
+
+        return text
+    }
+
+    /**
+     * Get the classnames of the parent row div
+     * 
+     * @returns A string of classnames
+     */
+    const getRowClassNames = () => {
+        const data = props.data
+        const centered = props.centered === true
 
         if (centered) {
-            rowClassNames += "centered-row"
+            return "centered-row"
+        } else {
+            return ""
         }
-
-        return (
-            <div className={rowClassNames}>
-                <div className={displayClassNames}>
-                {this.createLink()}
-                    <p style={{fontSize: size + "px"}}>{text}</p>
-                </div>
-            </div>
-        )
     }
+
+    /**
+     * Get the classnames of this text display
+     * 
+     * @returns A string of classnames
+     */
+    const getDisplayClassNames = () => {
+        let tag = props.tag
+
+        return "text-display " + tag + " " + fadeInClass
+    }
+
+    return (
+        <div className={getRowClassNames()}>
+            <div className={getDisplayClassNames()}>
+                {getAsterisk()}
+                <p style={{ fontSize: getFontSize() }}>{getText()}</p>
+            </div>
+        </div>
+    )
 }
 
 export default TextDisplay;

@@ -92,6 +92,7 @@ function MediaDisplay(props) {
 
     /**
      * Get the classnames of the parent row div
+     * 
      * @returns A string of classnames
      */
     const getRowClassNames = () => {
