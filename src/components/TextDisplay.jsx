@@ -86,7 +86,6 @@ function TextDisplay(props) {
      * @returns A string of classnames
      */
     const getRowClassNames = () => {
-        const data = props.data
         const centered = props.centered === true
 
         if (centered) {
@@ -102,7 +101,7 @@ function TextDisplay(props) {
      * @returns A string of classnames
      */
     const getDisplayClassNames = () => {
-        let tag = props.tag
+        const tag = props.tag
 
         return "text-display " + tag + " " + fadeInClass
     }

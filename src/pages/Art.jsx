@@ -62,14 +62,14 @@ function Art(props) {
      * @returns A list of all of the displays
      */
     const getDisplays = () => {
-        let displays = []
-        let media = props.media;
+        const displays = []
+        const media = props.media;
 
         // Iterative over all the media
-        for (var i = 0; i < media.length; i++) {
-            let current = media[i]
-            let type = current.type
-            let key = current.docId + i.toString()
+        for (let i = 0; i < media.length; i++) {
+            const current = media[i]
+            const type = current.type
+            const key = current.docId + i.toString()
 
             // Create a display
             if (type === "media") {
