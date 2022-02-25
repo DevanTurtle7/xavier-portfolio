@@ -10,7 +10,7 @@ import {
     FormFeedback,
     Label
 } from 'reactstrap';
-import { doc, updateDoc, getDocs, collection } from 'firebase/firestore';
+import { doc, updateDoc, getDocs, collection, setDoc } from 'firebase/firestore';
 
 class TextEditButton extends Component {
     constructor(props) {
@@ -115,14 +115,18 @@ class TextEditButton extends Component {
             let size = this.state.size
             let link = this.state.link
 
+            if (link === undefined) {
+                link = ""
+            }
+
             content = content.replaceAll("\n", "$[n]")
 
-            await updateDoc(docRef, {
+            await setDoc(docRef, {
                 order: order,
                 content: content,
                 size: size,
                 link: link
-            })
+            }, {merge: true})
 
             this.closeModal()
             this.props.onEditSaved()
