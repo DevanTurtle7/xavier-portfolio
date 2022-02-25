@@ -160,6 +160,11 @@ function MediaDisplay(props) {
         return classNames
     }
 
+    /**
+     * Gets this image's description
+     * 
+     * @returns A string of the description of this image
+     */
     const getDescription = () => {
         const data = props.data
         const description = data.description
