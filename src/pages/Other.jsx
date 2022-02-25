@@ -34,10 +34,8 @@ function Other(props) {
         window.addEventListener('scroll', onScroll)
 
         return () => {
-            /*
-            When component is unmounted, remove the listener so that there are
-            not multiple listeners after the rerender
-            */
+            // When component is unmounted, remove the listener so that there are
+            // not multiple listeners after the rerender
             window.removeEventListener('scroll', onScroll)
         }
     }, [])
