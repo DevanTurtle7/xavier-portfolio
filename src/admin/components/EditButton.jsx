@@ -1,4 +1,4 @@
-import { doc, updateDoc, getDocs, collection } from 'firebase/firestore';
+import { doc, updateDoc, getDocs, collection, setDoc } from 'firebase/firestore';
 import { Component, Fragment } from 'react';
 import {
     Button,
@@ -71,12 +71,18 @@ class EditButton extends Component {
             content[i] = { filename: current.filename, type: current.type }
         }
 
-        await updateDoc(docRef, {
+        let link = this.state.link
+
+        if (link === undefined) {
+            link = ""
+        }
+
+        await setDoc(docRef, {
             description: this.state.description,
             order: this.state.order,
             content: content,
-            link: this.state.link
-        })
+            link: link
+        }, {merge: true})
 
         this.closeModal()
         this.props.onEditSaved()

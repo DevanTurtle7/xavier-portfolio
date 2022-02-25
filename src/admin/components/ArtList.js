@@ -59,7 +59,8 @@ class ArtList extends Component {
                     order: order,
                     content: currentContent,
                     docId: doc.id,
-                    type: "media"
+                    type: "media",
+                    link: data.link
                 }
             } else if (type === "text") {
                 let content = data.content
@@ -72,10 +73,12 @@ class ArtList extends Component {
                     order: order,
                     docId: doc.id,
                     type: "text",
-                    size: size
+                    size: size,
+                    link: data.link
                 }
             } else {
                 console.log("Invalid type: " + type)
+                console.log(doc.id)
             }
 
             if (current !== undefined) {
