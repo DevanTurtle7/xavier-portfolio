@@ -343,7 +343,6 @@ img {
 
 .asterisk {
     color: var(--bs-body-color);
-    text-decoration: none;
     transition: color .3s;
     font-size: 16px;
     height: 16px;
@@ -354,6 +353,7 @@ img {
     grid-column: 1;
     grid-row: 1;
     z-index: 11;
+    text-decoration: underline;
 }
 
 .text-display .asterisk {

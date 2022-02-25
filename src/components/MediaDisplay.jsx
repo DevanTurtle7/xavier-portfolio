@@ -159,6 +159,13 @@ function MediaDisplay(props) {
         return classNames
     }
 
+    const getDescription = () => {
+        const data = props.data
+        const description = data.description
+
+        return description
+    }
+
     return (
         <div className={getRowClassNames()}>
             <div className={getMediaDisplayClassNames()}>
@@ -168,7 +175,7 @@ function MediaDisplay(props) {
                 </div>
                 {getCarouselControls()}
                 <div className="image-description">
-                    <p>{props.description}</p>
+                    <p>{getDescription()}</p>
                 </div>
             </div>
         </div>
