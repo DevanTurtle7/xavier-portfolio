@@ -1,20 +1,19 @@
-import { Component } from 'react';
+function SideLine(props) {
 
-class SideLine extends Component {
-    render() {
-        let left = this.props.left
-        let stick = this.props.stick
-        let desktopOnly = this.props.desktopOnly
-
+    const getClassNames = () => {
+        const stick = props.stick
+        const desktopOnly = props.desktopOnly
         let classNames = "side-line"
 
-        if (desktopOnly === true) {classNames += " desktop-only"}
-        if (stick) {classNames += " stick"}
+        if (desktopOnly === true) { classNames += " desktop-only" }
+        if (stick) { classNames += " stick" }
 
-        return (
-            <div className={classNames} style={{ left: left }} />
-        )
+        return classNames
     }
+
+    return (
+        <div className={getClassNames()} style={{ left: props.left }} />
+    )
 }
 
 export default SideLine;
