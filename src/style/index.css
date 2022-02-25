@@ -186,11 +186,12 @@ img {
     width: 100%;
     height: auto;
     object-fit: contain;
+    grid-column: 1;
+    grid-row: 1;
 }
 
 .media-container {
-    grid-column: 1;
-    grid-row: 1;
+    display: grid;
     width: fit-content;
     height: fit-content;
 }
