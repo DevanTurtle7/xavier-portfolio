@@ -9,6 +9,9 @@
  */
 
 function VideoDisplay(props) {
+    /**
+     * Calls the callback once the video loads
+     */
     const onLoad = () => {
         props.callback()
     }
