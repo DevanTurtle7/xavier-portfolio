@@ -1,10 +1,13 @@
 /**
  * The main page of the site. Routes to other pages
  * 
+ * Props:
+ *  NONE
+ * 
  * @author Devan Kavalchek
  */
 
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import Art from './pages/Art';
 import Other from './pages/Other';
 import Contact from './pages/Contact';
@@ -32,15 +35,15 @@ initializeApp(firebaseConfig);
 const db = getFirestore();
 const auth = getAuth();
 
-class App extends Component {
-    constructor(props) {
-        super(props)
+function App(props) {
+    const [artData, setArtData] = useState([])
+    const [otherData, setOtherData] = useState([])
 
-        this.state = {
-            artData: [],
-            otherData: []
-        }
-    }
+    // Runs once, when this component is first rendered
+    useEffect(() => {
+        updateArtData()
+        updateOtherData()
+    }, [])
 
     /**
      * Gets all of the data from a given collection in the database
@@ -49,33 +52,33 @@ class App extends Component {
      * @param {*} onEachLoad  A function that runs after each document is retrieved
      * @returns An array of JSON objets
      */
-    getData = async (collectionName, onEachLoad) => {
+    const getData = async (collectionName, onEachLoad) => {
         console.log("Retrieving data...")
 
         // Get all docs from collection
         const querySnapshot = await getDocs(collection(db, collectionName));
-        let media = []
+        const media = []
 
         // Iterate over all of the documents in the collection
         for (let i = 0; i < querySnapshot.docs.length; i++) {
-            let doc = querySnapshot.docs[i]
-            let data = doc.data();
-            let type = data.type;
-            let order = data.order;
+            const doc = querySnapshot.docs[i]
+            const data = doc.data();
+            const type = data.type;
+            const order = data.order;
             let current;
 
             if (type === "media") {
-                let description = data.description;
-                let currentContent = []
-                let content = data.content;
+                const description = data.description;
+                const currentContent = []
+                const content = data.content;
 
                 // Iterate over the content
                 for (let i = 0; i < content.length; i++) {
-                    let fileInfo = content[i]
-                    let fileName = fileInfo.filename
-                    let fileType = fileInfo.type
+                    const fileInfo = content[i]
+                    const fileName = fileInfo.filename
+                    const fileType = fileInfo.type
 
-                    let url = IMG_URL + fileName
+                    const url = IMG_URL + fileName
 
                     // Save the content to the array
                     currentContent.push({ url: url, type: fileType })
@@ -91,7 +94,7 @@ class App extends Component {
                 }
             } else if (type === "text") {
                 let content = data.content
-                let size = data.size
+                const size = data.size
 
                 content = content.replaceAll("$[n]", "\n")
 
@@ -109,7 +112,7 @@ class App extends Component {
 
             if (current !== undefined) {
                 // Insert the current object into the list of media in a sorted manner
-                let mediaCount = media.length;
+                const mediaCount = media.length;
 
                 if (mediaCount > 0) {
                     // Insert sorted
@@ -143,42 +146,32 @@ class App extends Component {
     /**
      * Updates the media that is displayed on the art page
      */
-    updateArtData = async () => {
-        await this.getData("art", (media) => {
-            this.setState({ artData: media })
+    const updateArtData = async () => {
+        await getData("art", (media) => {
+            setArtData(media)
         })
     }
 
     /**
      * Updates the media that is displayed on the other page
      */
-    updateOtherData = async () => {
-        await this.getData("other", (media) => {
-            this.setState({ otherData: media })
+    const updateOtherData = async () => {
+        await getData("other", (media) => {
+            setOtherData(media)
         })
     }
 
-    componentDidMount() {
-        this.updateArtData()
-        this.updateOtherData()
-    }
-
-    render() {
-        let artData = this.state.artData
-        let otherData = this.state.otherData
-
-        return (
-            <Router>
-                <Routes>
-                    <Route exact path='/' element={<Art media={artData} />} />
-                    <Route exact path='/art' element={<Art media={artData} />} />
-                    <Route exact path='/contact' element={<Contact />} />
-                    <Route exact path='/other' element={<Other media={otherData} />} />
-                    <Route exact path='/admin' element={<Admin db={db} auth={auth} />} />
-                </Routes>
-            </Router>
-        );
-    }
+    return (
+        <Router>
+            <Routes>
+                <Route exact path='/' element={<Art media={artData} />} />
+                <Route exact path='/art' element={<Art media={artData} />} />
+                <Route exact path='/contact' element={<Contact />} />
+                <Route exact path='/other' element={<Other media={otherData} />} />
+                <Route exact path='/admin' element={<Admin db={db} auth={auth} />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
