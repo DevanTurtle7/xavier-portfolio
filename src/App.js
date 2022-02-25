@@ -87,7 +87,7 @@ class App extends Component {
                     order: order,
                     content: currentContent,
                     type: "media",
-                    link: "sad"
+                    link: data.link
                 }
             } else if (type === "text") {
                 let content = data.content
@@ -101,7 +101,7 @@ class App extends Component {
                     order: order,
                     type: "text",
                     size: size,
-                    link: "asdas"
+                    link: data.link
                 }
             } else {
                 console.log("Invalid type: " + type)
