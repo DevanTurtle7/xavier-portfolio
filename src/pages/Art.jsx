@@ -9,9 +9,10 @@
 
 import { Fragment } from 'react';
 import { Col } from 'reactstrap';
+import MetaTags from 'react-meta-tags';
+
 import MediaDisplay from '../components/MediaDisplay';
 import Navbar from '../components/Navbar';
-import MetaTags from 'react-meta-tags';
 import TextDisplay from '../components/TextDisplay';
 
 const BG_COLOR = "#fff"

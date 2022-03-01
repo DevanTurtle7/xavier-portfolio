@@ -1,4 +1,5 @@
 import { Component } from 'react';
+
 import BlackoutChar from './BlackoutChar';
 
 const INIT_TIME = 300;

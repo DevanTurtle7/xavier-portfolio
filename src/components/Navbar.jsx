@@ -10,10 +10,8 @@
  */
 
 import { Fragment } from 'react';
-import {
-    Col,
-    Row,
-} from 'reactstrap';
+import { Col, Row } from 'reactstrap';
+
 import Blackout from './Blackout';
 import MenuButton from './MenuButton';
 import BlackoutTitle from './BlackoutTitle';

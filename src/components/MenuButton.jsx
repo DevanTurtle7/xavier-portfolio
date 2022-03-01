@@ -8,9 +8,10 @@
  */
 
 import { useState } from 'react';
+import { MdMenu } from "react-icons/md"
+
 import IconButton from './IconButton';
 import Menu from './Menu';
-import { MdMenu } from "react-icons/md"
 
 function MenuButton(props) {
     const [open, setOpen] = useState(false)

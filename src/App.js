@@ -8,15 +8,16 @@
  */
 
 import { useEffect, useState } from 'react';
-import Art from './pages/Art';
-import Other from './pages/Other';
-import Contact from './pages/Contact';
-import Admin from './admin/Admin';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
+
+import Art from './pages/Art';
+import Other from './pages/Other';
+import Contact from './pages/Contact';
+import Admin from './admin/Admin';
 
 const firebaseConfig = {
     apiKey: "AIzaSyA1O3ZZUuxv0-PGJPZI9UffooMkAHdyjZw",

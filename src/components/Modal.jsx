@@ -10,8 +10,9 @@
  * @author Devan Kavalchek
  */
 
-import IconButton from './IconButton';
 import { MdClose } from "react-icons/md"
+
+import IconButton from './IconButton';
 
 const safeDocument = typeof document !== 'undefined' ? document : {};
 const html = safeDocument.documentElement;

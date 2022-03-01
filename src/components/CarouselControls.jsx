@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import { Row } from 'reactstrap'
-import IconButton from './IconButton';
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md"
+
+import IconButton from './IconButton';
 
 class CarouselControls extends Component {
     constructor(props) {

@@ -11,6 +11,7 @@
  */
 
 import { useEffect, useState } from 'react';
+
 import ImageDisplay from './ImageDisplay';
 import VideoDisplay from './VideoDisplay';
 import CarouselControls from './CarouselControls';

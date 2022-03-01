@@ -8,10 +8,11 @@
  */
 
 import { Col } from 'reactstrap';
-import IconButton from '../components/IconButton';
-import Navbar from '../components/Navbar'
 import { AiOutlineInstagram } from "react-icons/ai"
 import MetaTags from 'react-meta-tags';
+
+import IconButton from '../components/IconButton';
+import Navbar from '../components/Navbar'
 
 const BG_COLOR = "#fff"
 const TEXT_COLOR = "#000"

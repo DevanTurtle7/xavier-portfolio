@@ -9,12 +9,14 @@
  */
 
 import '../style/Other.css';
+
 import { Fragment, useEffect, useState } from 'react';
 import { Col } from 'reactstrap';
+import MetaTags from 'react-meta-tags';
+
 import Navbar from '../components/Navbar'
 import MediaDisplay from '../components/MediaDisplay';
 import SideLine from '../components/SideLine';
-import MetaTags from 'react-meta-tags';
 import TextDisplay from '../components/TextDisplay';
 
 const BG_COLOR = "#000"

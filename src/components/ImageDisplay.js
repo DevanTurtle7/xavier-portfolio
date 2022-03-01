@@ -1,8 +1,6 @@
 import { Component, Fragment, createRef } from 'react';
-import {
-    Col,
-    Row,
-} from 'reactstrap';
+import { Col, Row } from 'reactstrap';
+
 import Modal from './Modal';
 
 class ImageDisplay extends Component {
@@ -47,7 +45,7 @@ class ImageDisplay extends Component {
         let active = this.props.active
         let viewable = this.props.viewable
         let classNames = "media-element " + (active ? "active" : "inactive")
-    
+
         if (viewable === undefined || viewable) {
             classNames += " clickable"
         }
