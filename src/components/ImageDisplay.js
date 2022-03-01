@@ -36,7 +36,7 @@ class ImageDisplay extends Component {
     onClick = () => {
         let viewable = this.props.viewable
 
-        if (this.props.active && (viewable === undefined || viewable === true)) {
+        if (this.props.active && (viewable === undefined || viewable)) {
             this.setState({ open: true })
         }
     }
@@ -48,7 +48,7 @@ class ImageDisplay extends Component {
         let viewable = this.props.viewable
         let classNames = "media-element " + (active ? "active" : "inactive")
     
-        if (viewable === undefined || viewable === true) {
+        if (viewable === undefined || viewable) {
             classNames += " clickable"
         }
 
