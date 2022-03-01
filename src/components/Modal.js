@@ -1,20 +1,31 @@
-import { Component } from 'react';
+/**
+ * A custom modal that displays children in the center of the screen.
+ * 
+ * Props:
+ *  open: A boolean value that is true if the modal is open and false otherwise
+ *  onClose: A function that runs after the modal is closed
+ *  children: Any children that are wrapped inside of this component will be displayed
+ *            when the modal opens.
+ * 
+ * @author Devan Kavalchek
+ */
+
 import IconButton from './IconButton';
 import { MdClose } from "react-icons/md"
 
 const safeDocument = typeof document !== 'undefined' ? document : {};
 const html = safeDocument.documentElement;
 
-class Modal extends Component {
-    onClose = () => {
+function Modal(props) {
+    const onClose = () => {
         html.style.overflow = 'visible'
-        this.props.onClose();
+        props.onClose();
     }
 
-    render() {
+    const getClassNames = () => {
         let classNames = "modal-view"
 
-        if (this.props.open) {
+        if (props.open) {
             html.style.overflow = 'hidden';
             classNames += " modal-open"
         } else {
@@ -22,16 +33,18 @@ class Modal extends Component {
             classNames += " modal-closed"
         }
 
-        return (
-            <div className={classNames}>
-                <IconButton onClick={this.onClose} className="modal-close-btn">
-                    <MdClose />
-                </IconButton>
-
-                {this.props.children}
-            </div>
-        )
+        return classNames
     }
+
+    return (
+        <div className={getClassNames()}>
+            <IconButton onClick={onClose} className="modal-close-btn">
+                <MdClose />
+            </IconButton>
+
+            {props.children}
+        </div>
+    )
 }
 
 export default Modal;

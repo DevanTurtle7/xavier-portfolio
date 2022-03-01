@@ -97,9 +97,8 @@ function MediaDisplay(props) {
      */
     const getRowClassNames = () => {
         let classNames = fadeInClass
-        const centered = props.centered === true
 
-        if (centered) {
+        if (props.centered) {
             classNames += " centered-row"
         }
 
@@ -146,14 +145,13 @@ function MediaDisplay(props) {
      */
     const getMediaDisplayClassNames = () => {
         let classNames = "media-display"
-        const centered = props.centered === true
         const tag = props.tag
 
         if (tag) {
             classNames += " " + tag
         }
 
-        if (!centered) {
+        if (!props.centered) {
             classNames += " media-display-left"
         }
 
