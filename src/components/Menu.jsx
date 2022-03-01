@@ -1,5 +1,11 @@
 /**
+ * A modal that contains link to other pages on the site. A navigation menu.
  * 
+ * Props:
+ *  open: A boolean value that is true if the menu is open and false otherwise
+ *  onClose: A function that runs after the menu is closed
+ * 
+ * @author Devan Kavalchek
  */
 
 import { Col, Row } from 'reactstrap';
