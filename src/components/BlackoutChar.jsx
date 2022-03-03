@@ -35,7 +35,7 @@ function BlackoutChar(props) {
      * @returns A string of class names
      */
     const getClassNames = () => {
-        let className = props.enabled ? "blackout" : ""
+        let className = enabled ? "blackout" : ""
         return className
     }
 
