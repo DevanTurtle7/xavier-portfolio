@@ -38,12 +38,14 @@ function BlackoutTitle(props) {
      * @returns The item that was drawn
      */
     const drawFromSet = (set) => {
+        // Convert set to an array
         const nums = []
 
         for (let num of set) {
             nums.push(num)
         }
 
+        // Get a random item from the array
         const index = Math.floor(Math.random() * nums.length);
         const result = nums[index]
 
