@@ -13,6 +13,7 @@
 function SideLine(props) {
     /**
      * Gets the class names of the sideline
+     * 
      * @returns A string of class names
      */
     const getClassNames = () => {
