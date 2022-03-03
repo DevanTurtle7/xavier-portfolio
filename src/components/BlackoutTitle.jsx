@@ -1,61 +1,61 @@
-import { Component } from 'react';
+import { useEffect } from "react";
+import { useState } from "react";
 
 const INIT_TIME = 300;
-const STEP_TIME = 100;
+const STEP_TIME = 80;
 
-class Blackout extends Component {
-    constructor(props) {
-        super(props)
+function BlackoutTitle(props) {
+    const [running, setRunning] = useState(false)
+    const [enabled, setEnabled] = useState(new Set())
+    const [indexes, setIndexes] = useState(new Set())
+    const [hasSetUp, setHasSetUp] = useState(false)
+    const [beingHandled, setBeingHandled] = useState(false)
 
-        this.state = {
-            running: false,
-            enabled: new Set(),
-            indexes: new Set()
-        }
-    }
-
-    drawFromSet = (set) => {
-        let nums = []
+    const drawFromSet = (set) => {
+        const nums = []
 
         for (let num of set) {
             nums.push(num)
         }
 
-        let index = Math.floor(Math.random() * nums.length);
-        let result = nums[index]
-        set.delete(result)
+        const index = Math.floor(Math.random() * nums.length);
+        const result = nums[index]
 
         return result
     }
 
-    setup = () => {
-        if (!this.state.running) {
-            let indexes = new Set()
-            let text = this.props.text
-            let textLength = text.length
+    const setup = () => {
+        if (!running) {
+            const newIndexes = new Set()
+            const text = props.text
+            const textLength = text.length
 
             for (let i = 1; i < textLength && i + 1 < textLength; i += 2) {
-                let char = text[i]
+                const char = text[i]
 
                 if (char !== " ") {
-                    indexes.add(i)
+                    newIndexes.add(i)
                 }
             }
 
-            this.setState({ indexes: indexes, running: true, enabled: new Set() })
+            console.log(newIndexes.size)
+
+            setIndexes(newIndexes)
+            setRunning(true)
+            setEnabled(new Set())
         }
     }
 
-    getString = () => {
-        let result = this.props.text[0]
+    const getString = () => {
+        let result = props.text[0]
 
-        for (let i = 1; i < this.props.text.length; i += 2) {
-            let char = this.props.text[i]
-            let next = this.props.text[i + 1]
-            let enabled = this.state.enabled.has(i)
+        for (let i = 1; i < props.text.length; i += 2) {
+            const char = props.text[i]
+            const next = props.text[i + 1]
+            const isEnabled = enabled.has(i)
             let addition;
 
-            if (enabled) {
+            if (isEnabled) {
                 if (char === " ") {
                     addition = " █"
                 } else if (next === " ") {
@@ -73,38 +73,41 @@ class Blackout extends Component {
         return result;
     }
 
-    componentDidMount() {
-        this.sleep(INIT_TIME).then(r => {
-            this.setup()
-        })
-    }
+    useEffect(() => {
+        if (!hasSetUp) {
+            setHasSetUp(true)
+            sleep(INIT_TIME).then(r => {
+                setup()
+            })
+        }
 
-    sleep = (milliseconds) => {
+        if (running && hasSetUp) {
+            if (!beingHandled) {
+                console.log('handingling')
+                setBeingHandled(true)
+
+                if (indexes.size > 0) {
+                    const drawn = drawFromSet(indexes)
+
+                    sleep(STEP_TIME).then(r => {
+                        setEnabled(prev => new Set(prev.add(drawn)))
+                        setIndexes(prev => new Set([...prev].filter(x => x !== drawn)))
+                        setBeingHandled(false)
+                    })
+                } else {
+                    setRunning(false)
+                    setBeingHandled(false)
+                }
+            }
+        }
+    }, [beingHandled, running, hasSetUp])
+
+    const sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
 
-    componentDidUpdate() {
-        let indexes = this.state.indexes
-
-        if (this.state.running) {
-            if (indexes.size > 0) {
-                let enabled = this.state.enabled
-                let drawn = this.drawFromSet(indexes)
-
-                enabled.add(drawn)
-                this.sleep(STEP_TIME).then(r => {
-                    this.setState({ enabled: enabled, indexes: indexes })
-                })
-            } else {
-                this.setState({ running: false })
-            }
-        }
-    }
-
-    render() {
-        document.title = this.getString()
-        return (null)
-    }
+    document.title = getString()
+    return (null)
 }
 
-export default Blackout;
+export default BlackoutTitle;
