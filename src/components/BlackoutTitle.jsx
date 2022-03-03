@@ -68,6 +68,7 @@ function BlackoutTitle(props) {
                 }
             }
 
+            // Initialize states
             setIndexes(newIndexes)
             setRunning(true)
             setEnabled(new Set())
