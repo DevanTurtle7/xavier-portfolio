@@ -1,77 +1,60 @@
-import { Component, Fragment, createRef } from 'react';
+import { Fragment, useState } from 'react';
 import { Col, Row } from 'reactstrap';
 
 import Modal from './Modal';
 
-class ImageDisplay extends Component {
-    constructor(props) {
-        super(props)
+function ImageDisplay(props) {
+    const [open, setOpen] = useState(false)
 
-        this.state = {
-            open: false,
-        }
-
-        this.handleImageLoaded = this.handleImageLoaded.bind(this)
-        this.image = createRef();
+    const handleImageLoaded = () => {
+        props.callback()
     }
 
-    componentDidMount() {
-        const img = this.image.current
-
-        if (img && img.complete) {
-            this.handleImageLoaded()
-        }
+    const onClose = () => {
+        setOpen(false)
     }
 
-    handleImageLoaded = () => {
-        this.props.callback()
-    }
+    const onClick = () => {
+        let viewable = props.viewable
 
-    onClose = () => {
-        this.setState({ open: false })
-    }
-
-    onClick = () => {
-        let viewable = this.props.viewable
-
-        if (this.props.active && (viewable === undefined || viewable)) {
-            this.setState({ open: true })
+        if (props.active && (viewable === undefined || viewable)) {
+            setOpen(true)
         }
     }
 
-    render() {
-        let url = this.props.url
-        let alt = this.props.alt
-        let active = this.props.active
-        let viewable = this.props.viewable
+    const getImageClassNames = () => {
+        const active = props.active
+        const viewable = props.viewable
+
         let classNames = "media-element " + (active ? "active" : "inactive")
 
         if (viewable === undefined || viewable) {
             classNames += " clickable"
         }
 
-        return (
-            <Fragment>
-                <img
-                    src={url}
-                    ref={this.image}
-                    alt={alt}
-                    onClick={this.onClick}
-                    onLoad={this.handleImageLoaded}
-                    className={classNames}
-                    draggable="false"
-                />
-
-                <Modal open={this.state.open} onClose={this.onClose}>
-                    <Row className="justify-content-center align-content-center fullscreen-row">
-                        <Col>
-                            <img src={url} alt={alt} className="fullscreen-image" draggable="false" />
-                        </Col>
-                    </Row>
-                </Modal>
-            </Fragment>
-        )
+        return classNames
     }
+
+    return (
+        <Fragment>
+            <img
+                src={props.url}
+                alt={props.alt}
+                onClick={onClick}
+                onLoad={handleImageLoaded}
+                className={getImageClassNames()}
+                draggable="false"
+            />
+
+            <Modal open={open} onClose={onClose}>
+                <Row className="justify-content-center align-content-center fullscreen-row">
+                    <Col>
+                        <img src={props.url} alt={props.alt} className="fullscreen-image" draggable="false" />
+                    </Col>
+                </Row>
+            </Modal>
+        </Fragment>
+    )
 }
 
 export default ImageDisplay;
