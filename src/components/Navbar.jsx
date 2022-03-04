@@ -49,49 +49,31 @@ const INIT_TIME = 3000
 const STEP_TIME = 100
 
 function Navbar(props) {
-    const [beingHandled, setBeingHandled] = useState(false)
     const [hasSetUp, setHasSetUp] = useState(false)
-    const [beingSetUp, setBeingSetUp] = useState(false)
     const [labels, setLabels] = useState(DEFAULT_LABELS)
 
-    /**
-     * Returns an object that sleeps for a given amount of milliseconds
-     * 
-     * @param {*} milliseconds How long to sleep for
-     * @returns A promise that can be waited on for the given amount of milliseconds
-     */
-    const sleep = (milliseconds) => {
-        return new Promise(resolve => setTimeout(resolve, milliseconds))
-    }
-
-    const setup = async () => {
-        setBeingSetUp(true)
-        setLabels(DEFAULT_LABELS)
-        await sleep(INIT_TIME)
-        setHasSetUp(true)
-        setBeingSetUp(false)
-    }
-
     useEffect(() => {
-        let mounted = true
+        let interval;
+        let timeout;
 
-        if (!hasSetUp && !beingSetUp) {
-            setup()
+        if (!hasSetUp) {
+            timeout = setTimeout(() => {
+                setHasSetUp(true)
+            }, INIT_TIME)
         }
 
-        if (!beingHandled && hasSetUp) {
-            setBeingHandled(true)
-
-            sleep(STEP_TIME).then(() => {
+        if (hasSetUp) {
+            interval = setInterval(() => {
                 const index = Math.floor(Math.random() * LABELS.length);
-
-                if (mounted) {
-                    setLabels(LABELS[index])
-                    setBeingHandled(false)
-                }
-            })
+                setLabels(LABELS[index])
+            }, STEP_TIME)
         }
-    })
+
+        return () => {
+            clearInterval(interval)
+            clearTimeout(timeout)
+        }
+    }, [hasSetUp])
 
     return (
         <Fragment>
