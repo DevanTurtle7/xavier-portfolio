@@ -37,7 +37,7 @@ function Contact(props) {
                     </a>
                 </Col>
                 <div className="instagram-row">
-                    <a href="https://www.instagram.com/sjpencils/" target="_blank">
+                    <a href="https://www.instagram.com/sjpencils/" target="_blank" rel="noreferrer">
                         <IconButton className="instagram-button">
                             <AiOutlineInstagram />
                         </IconButton>
