@@ -1,3 +1,12 @@
+/**
+ * A text element that individually blacks out each character (except spaces and the first character)
+ * 
+ * Props:
+ *  text: The text displayed
+ * 
+ * @author Devan Kavalchek
+ */
+
 import { useEffect, useState } from 'react';
 
 import BlackoutChar from './BlackoutChar';
@@ -13,11 +22,11 @@ function Blackout(props) {
     const [beingHandled, setBeingHandled] = useState(false)
 
     /**
- * Returns an object that sleeps for a given amount of milliseconds
- * 
- * @param {*} milliseconds How long to sleep for
- * @returns A promise that can be waited on for the given amount of milliseconds
- */
+     * Returns an object that sleeps for a given amount of milliseconds
+     * 
+     * @param {*} milliseconds How long to sleep for
+     * @returns A promise that can be waited on for the given amount of milliseconds
+     */
     const sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
@@ -69,14 +78,21 @@ function Blackout(props) {
         }
     }
 
+    /**
+     * Creates all of the individual blackout characters
+     * 
+     * @returns A list of character elements
+     */
     const getBlackoutCharacters = () => {
         const chars = []
         const text = props.text
         const textLength = text.length
-        
+
+        // Iterate over all of the characters
         for (let i = 0; i < textLength; i++) {
             let char = text[i]
 
+            // Create and add a character
             chars.push(
                 <BlackoutChar
                     char={char}
