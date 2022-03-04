@@ -73,6 +73,8 @@ function Navbar(props) {
     }
 
     useEffect(() => {
+        let mounted = true
+
         if (!hasSetUp && !beingSetUp) {
             setup()
         }
@@ -83,8 +85,10 @@ function Navbar(props) {
             sleep(STEP_TIME).then(() => {
                 const index = Math.floor(Math.random() * LABELS.length);
 
-                setLabels(LABELS[index])
-                setBeingHandled(false)
+                if (mounted) {
+                    setLabels(LABELS[index])
+                    setBeingHandled(false)
+                }
             })
         }
     })
