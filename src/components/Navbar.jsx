@@ -23,14 +23,9 @@ function Navbar(props) {
         <Fragment>
             <BlackoutTitle text={ARTIST_NAME} />
 
-            <Row className="justify-content-between mx-auto navbar">
-                <Col xs={11}>
-                    <Blackout text={ARTIST_NAME} />
-                </Col>
-                <Col xs={1}>
-                    <MenuButton />
-                </Col>
-            </Row>
+            <div classname="navbar">
+                <Blackout text={ARTIST_NAME} />
+            </div>
         </Fragment>
     )
 }

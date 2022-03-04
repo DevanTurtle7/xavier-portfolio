@@ -212,7 +212,8 @@ img {
 
 .navbar {
     padding-top: 30px !important;
-    padding-left: 30px !important
+    padding-left: 30px !important;
+    width: 100vw;
 }
 
 @media (max-device-width: 800px) {
