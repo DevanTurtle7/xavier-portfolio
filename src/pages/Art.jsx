@@ -23,6 +23,8 @@ function Art(props) {
     // Set theme colors
     document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
     document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
+    
+    console.log('art page loadin')
 
     /**
      * Creates a media display

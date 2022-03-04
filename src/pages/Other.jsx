@@ -30,6 +30,8 @@ function Other(props) {
     document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
     document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
 
+    console.log('other page loadin')
+
     // Runs once, when this component is first rendered
     useEffect(() => {
         onScroll()

@@ -1,0 +1,19 @@
+/**
+ * A link that is used in the navigation bar
+ * 
+ * Props:
+ *  link: The url or path of the page that this link leads to
+ *  label: The text that this link displays
+ * 
+ * @author Devan Kavalchek
+ */
+
+import { Link } from "react-router-dom";
+
+function NavLink(props) {
+    return (
+        <Link to={props.link} className="navigation-link">{props.label}</Link>
+    )
+}
+
+export default NavLink;
