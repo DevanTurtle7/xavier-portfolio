@@ -40,7 +40,7 @@ function Other(props) {
             // not multiple listeners after the rerender
             window.removeEventListener('scroll', onScroll)
         }
-    }, [])
+    }, [stick])
 
     /**
      * Updates the side line stick after each scroll event

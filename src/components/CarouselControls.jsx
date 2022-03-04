@@ -25,8 +25,9 @@ function CarouselControls(props) {
         const numContent = props.numContent
 
         if (num < numContent - 1) {
-            setNum(num + 1)
-            props.onChange(num)
+            const newNum = num + 1
+            setNum(newNum)
+            props.onChange(newNum)
         }
     }
 
@@ -35,8 +36,9 @@ function CarouselControls(props) {
      */
     const prev = () => {
         if (num > 0) {
-            setNum(num - 1)
-            props.onChange(num)
+            const newNum = num - 1
+            setNum(newNum)
+            props.onChange(newNum)
         }
     }
 

@@ -50,7 +50,7 @@ function TextDisplay(props) {
         const link = data.link
 
         if (link !== null && link !== undefined && link !== "") {
-            return (<a className='asterisk noselect' href={link} target="_blank">*</a>)
+            return (<a className='asterisk noselect' href={link} target="_blank" rel="noreferrer">*</a>)
         } else {
             return null
         }
