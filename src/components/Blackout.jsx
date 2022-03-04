@@ -1,5 +1,5 @@
 /**
- * Animates the HTML page title
+ * A text element that individually blacks out each character (except spaces and the first character)
  * 
  * Props:
  *  text: The text displayed
@@ -7,14 +7,14 @@
  * @author Devan Kavalchek
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+
+import BlackoutChar from './BlackoutChar';
 
 const INIT_TIME = 300;
-const STEP_TIME = 80;
-const BLOCK_CHAR = "█"
-const SPACE_CHAR = " "
+const STEP_TIME = 40;
 
-function BlackoutTitle(props) {
+function Blackout(props) {
     const [running, setRunning] = useState(false)
     const [enabled, setEnabled] = useState(new Set())
     const [indexes, setIndexes] = useState(new Set())
@@ -61,8 +61,8 @@ function BlackoutTitle(props) {
             const text = props.text
             const textLength = text.length
 
-            // Add every other index to the set
-            for (let i = 1; i < textLength && i + 1 < textLength; i += 2) {
+            // Add every index to the set
+            for (let i = 1; i < textLength; i++) {
                 const char = text[i]
 
                 if (char !== " ") {
@@ -79,41 +79,31 @@ function BlackoutTitle(props) {
     }
 
     /**
-     * Gets the current title
+     * Creates all of the individual blackout characters
      * 
-     * @returns A string of the page title
+     * @returns A list of character elements
      */
-    const getString = () => {
-        let result = props.text[0]
+    const getBlackoutCharacters = () => {
+        const chars = []
+        const text = props.text
+        const textLength = text.length
 
-        /**
-         * Iterate over every other index
-         */
-        for (let i = 1; i < props.text.length; i += 2) {
-            const char = props.text[i]
-            const next = props.text[i + 1]
-            const isEnabled = enabled.has(i)
-            let addition;
+        // Iterate over all of the characters
+        for (let i = 0; i < textLength; i++) {
+            let char = text[i]
 
-            // Check if this index has been blacked out
-            if (isEnabled) {
-                // Check for spaces and add the appropriate characters
-                if (char === " ") {
-                    addition = SPACE_CHAR + BLOCK_CHAR
-                } else if (next === " ") {
-                    addition = BLOCK_CHAR + SPACE_CHAR
-                } else {
-                    addition = BLOCK_CHAR
-                }
-            } else {
-                // Add this character and the next to the string
-                addition = char.concat(next)
-            }
-
-            result = result.concat(addition)
+            // Create and add a character
+            chars.push(
+                <BlackoutChar
+                    char={char}
+                    enabled={enabled}
+                    index={i}
+                    key={i}
+                />
+            )
         }
 
-        return result;
+        return chars
     }
 
     /**
@@ -149,15 +139,13 @@ function BlackoutTitle(props) {
                 }
             }
         }
-
-        // Update the title after the state has updated
-        return () => {
-            document.title = getString()
-        }
     }, [beingHandled, running, hasSetUp])
 
-    // Don't return any HTML
-    return null
+    return (
+        <p className="blackout-text clickable noselect mb-0" onClick={setup}>
+            {getBlackoutCharacters()}
+        </p>
+    )
 }
 
-export default BlackoutTitle;
+export default Blackout;

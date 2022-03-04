@@ -11,6 +11,7 @@
  */
 
 import { useEffect, useState } from 'react';
+
 import ImageDisplay from './ImageDisplay';
 import VideoDisplay from './VideoDisplay';
 import CarouselControls from './CarouselControls';
@@ -60,17 +61,17 @@ function MediaDisplay(props) {
      * @returns A list of media displays (ImageDisplay or VideoDisplay)
      */
     const getMediaDisplays = () => {
-        let displays = []
-        let data = props.data
-        let content = data.content
-        let tag = props.tag
-        let viewable = props.viewable
+        const displays = []
+        const data = props.data
+        const content = data.content
+        const tag = props.tag
+        const viewable = props.viewable
 
         // Iterate over all the content and create a display
         for (let i = 0; i < content.length; i++) {
-            let current = content[i]
-            let url = current.url
-            let type = current.type
+            const current = content[i]
+            const url = current.url
+            const type = current.type
 
             if (type === "image") {
                 displays.push(<ImageDisplay
@@ -92,13 +93,13 @@ function MediaDisplay(props) {
 
     /**
      * Get the classnames of the parent row div
+     * 
      * @returns A string of classnames
      */
     const getRowClassNames = () => {
         let classNames = fadeInClass
-        let centered = props.centered === true
 
-        if (centered) {
+        if (props.centered) {
             classNames += " centered-row"
         }
 
@@ -111,9 +112,9 @@ function MediaDisplay(props) {
      * @returns CarouselControls if there are multiple pieces of media. Null otherwise.
      */
     const getCarouselControls = () => {
-        let data = props.data
-        let content = data.content
-        let numContent = content.length
+        const data = props.data
+        const content = data.content
+        const numContent = content.length
 
         if (numContent > 1) {
             return (<CarouselControls numContent={numContent} onChange={onChange} />)
@@ -128,11 +129,11 @@ function MediaDisplay(props) {
      * @returns An asterisk if this display has a link. Null otherwise.
      */
     const getAsterisk = () => {
-        let data = props.data
-        let link = data.link
+        const data = props.data
+        const link = data.link
 
         if (link !== null && link !== undefined && link !== "") {
-            return (<a className='asterisk noselect' href={link} target="_blank">*</a>)
+            return (<a className='asterisk noselect' href={link} target="_blank" rel="noreferrer">*</a>)
         } else {
             return null
         }
@@ -145,20 +146,24 @@ function MediaDisplay(props) {
      */
     const getMediaDisplayClassNames = () => {
         let classNames = "media-display"
-        let centered = props.centered === true
-        let tag = props.tag
+        const tag = props.tag
 
         if (tag) {
             classNames += " " + tag
         }
 
-        if (!centered) {
+        if (!props.centered) {
             classNames += " media-display-left"
         }
 
         return classNames
     }
 
+    /**
+     * Gets this image's description
+     * 
+     * @returns A string of the description of this image
+     */
     const getDescription = () => {
         const data = props.data
         const description = data.description
