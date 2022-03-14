@@ -46,7 +46,7 @@ const LABELS = [
 const DEFAULT_LABELS = ["art", "other"]
 
 const INIT_TIME = 2000
-const STEP_TIME = 100
+const STEP_TIME = 1000
 
 function Navbar(props) {
     const [hasSetUp, setHasSetUp] = useState(false)

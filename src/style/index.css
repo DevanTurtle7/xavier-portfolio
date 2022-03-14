@@ -43,6 +43,7 @@ img {
 ::selection {
     color: var(--bs-body-bg);
     background: var(--bs-body-color);
+    -webkit-appearance:none;
 }
 
 .modal-view {
