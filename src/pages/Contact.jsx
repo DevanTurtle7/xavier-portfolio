@@ -13,14 +13,22 @@ import MetaTags from 'react-meta-tags';
 
 import IconButton from '../components/IconButton';
 import Navbar from '../components/Navbar'
+import { useEffect, useState } from 'react';
 
 const BG_COLOR = "#fff"
 const TEXT_COLOR = "#000"
 
 function Contact(props) {
-    // Set theme colors
-    document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
-    document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
+    const [colorsUpdated, setColorsUpdated] = useState(false)
+
+    useEffect(() => {
+        if (!colorsUpdated) {
+            // Set theme colors
+            document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
+            document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
+            setColorsUpdated(true)
+        }
+    })
 
     return (
         <Col>
