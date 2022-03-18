@@ -4,7 +4,7 @@
  * <title> attribute.
  * 
  * Props:
- *  NONE
+ *  tag: A string that identifies which page this display is on
  * 
  * @author Devan Kavalchek
  */
@@ -85,6 +85,11 @@ function Navbar(props) {
         }
     }, [hasSetUp, labels])
 
+    const isActive = (toTag) => {
+        const tag = props.tag
+        return tag === toTag
+    }
+
     return (
         <Fragment>
             <BlackoutTitle text={ARTIST_NAME} />
@@ -96,13 +101,13 @@ function Navbar(props) {
 
                 <div className="nav-items">
                     <div className="nav-item-container right">
-                        <NavLink label={labels[0]} link="/art" />
+                        <NavLink label={labels[0]} link="/art" active={isActive("art")} />
                     </div>
                     <div className='fit-content'>
                         <p>/</p>
                     </div>
                     <div className='nav-item-container left'>
-                        <NavLink label={labels[1]} link="/other" />
+                        <NavLink label={labels[1]} link="/other" active={isActive("other")} />
                     </div>
                 </div>
             </div>

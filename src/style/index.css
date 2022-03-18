@@ -250,6 +250,11 @@ img {
     text-decoration: underline;
 }
 
+.navigation-link.active {
+    background-color: var(--bs-body-color);
+    color: var(--bs-body-bg)
+}
+
 .blackout-container {
     padding-top: 30px;
     padding-left: 30px;

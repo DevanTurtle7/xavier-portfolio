@@ -11,8 +11,18 @@
 import { Link } from "react-router-dom";
 
 function NavLink(props) {
+    const getClassNames = () => {
+        const active = props.active
+        let classNames = "navigation-link"
+
+        if (active) {
+            classNames += " active"
+        }
+
+        return classNames
+    }
     return (
-        <Link to={props.link} className="navigation-link">{props.label}</Link>
+        <Link to={props.link} className={getClassNames()}>{props.label}</Link>
     )
 }
 

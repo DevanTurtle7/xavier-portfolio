@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 
 const BG_COLOR = "#fff"
 const TEXT_COLOR = "#000"
+const PAGE_TAG = "contact"
 
 function Contact(props) {
     const [colorsUpdated, setColorsUpdated] = useState(false)
@@ -36,7 +37,7 @@ function Contact(props) {
                 <meta name="theme-color" content="#ffffff" />
             </MetaTags>
 
-            <Navbar />
+            <Navbar tag={PAGE_TAG} />
 
             <div className="contact-container">
                 <Col>
