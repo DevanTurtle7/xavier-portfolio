@@ -90,16 +90,16 @@ function BlackoutTitle(props) {
                 const newIndexes = new Set()
                 const text = props.text
                 const textLength = text.length
-    
+
                 // Add every other index to the set
                 for (let i = 1; i < textLength && i + 1 < textLength; i += 2) {
                     const char = text[i]
-    
+
                     if (char !== " ") {
                         newIndexes.add(i)
                     }
                 }
-    
+
                 // Initialize states
                 setIndexes(newIndexes)
                 setRunning(true)
@@ -110,17 +110,17 @@ function BlackoutTitle(props) {
         // Check if everything is running and ready
         if (running && hasSetUp) {
             // Check that this state is not already being handled
-                if (indexes.size > 0) {
-                    timeout = setTimeout(() => {
+            if (indexes.size > 0) {
+                timeout = setTimeout(() => {
 
                     const drawn = drawFromSet(indexes)
-                        setIndexes(prev => new Set([...prev].filter(x => x !== drawn)))
-                    }, STEP_TIME)
-                } else {
-                    // Animation has completed
-                    setRunning(false)
-                }
+                    setIndexes(prev => new Set([...prev].filter(x => x !== drawn)))
+                }, STEP_TIME)
+            } else {
+                // Animation has completed
+                setRunning(false)
             }
+        }
 
         // Update the title after the state has updated
         return () => {
