@@ -246,11 +246,8 @@ img {
     justify-content: flex-start;
 }
 
-.navigation-link {
-    text-decoration: underline;
-}
-
 .navigation-link.active {
+    text-decoration: underline;
     background-color: var(--bs-body-color);
     color: var(--bs-body-bg)
 }
