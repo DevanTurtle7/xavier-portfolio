@@ -25,13 +25,16 @@ const PAGE_TAG = "other"
 
 function Other(props) {
     const [stick, setStick] = useState(false)
+    const [colorsUpdated, setColorsUpdated] = useState(false)
 
-    // Set theme colors
-    document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
-    document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
-
-    // Runs once, when this component is first rendered
     useEffect(() => {
+        if (!colorsUpdated) {
+            // Set theme colors
+            document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
+            document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
+            setColorsUpdated(true)
+        }
+
         onScroll()
         window.addEventListener('scroll', onScroll)
 

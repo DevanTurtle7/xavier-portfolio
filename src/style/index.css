@@ -8,7 +8,7 @@ body {
     transition: background-color .5s;
 }
 
-h1, p, .menu-link, a {
+h1, p, .menu-link, a, .navigation-link {
     /*
   font-family: 'Source Code Pro', monospace;
   */
@@ -43,6 +43,7 @@ img {
 ::selection {
     color: var(--bs-body-bg);
     background: var(--bs-body-color);
+    -webkit-appearance:none;
 }
 
 .modal-view {
@@ -92,7 +93,7 @@ img {
     right: 30px;
 }
 
-.menu-link, .menu-link:visited {
+.menu-link, .menu-link:visited, .navigation-link, .navigation-link:visited {
     color: var(--bs-body-color);
     font-size: 16px;
     transition: color .3s;
@@ -210,9 +211,48 @@ img {
     margin-left: 100px;
 }
 
-.navbar {
-    padding-top: 30px !important;
-    padding-left: 30px !important
+.navbar-hdr {
+    width: 100vw;
+}
+
+.nav-items {
+    display: flex;
+    flex-flow: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.nav-items p {
+    margin: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.nav-item-container {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    width: 49%;
+}
+
+.nav-item-container.right {
+    justify-content: flex-end;
+}
+
+.nav-item-container.left {
+    justify-content: flex-start;
+}
+
+.navigation-link {
+    text-decoration: underline;
+}
+
+.blackout-container {
+    padding-top: 30px;
+    padding-left: 30px;
 }
 
 @media (max-device-width: 800px) {
@@ -365,12 +405,12 @@ img {
 }
 
 /* FOR MOBILE: Override the default blue color on hover to not change */
-.menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover {
+.menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover, .navigation-link:hover {
     color: var(--bs-body-color)
 }
 
 @media (hover: hover) {
-    .menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover {
+    .menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover, .navigation-link:hover {
         color: rgba(150, 150, 150, 1)
     }
 

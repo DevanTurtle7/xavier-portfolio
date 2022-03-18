@@ -7,7 +7,7 @@
  * @author Devan Kavalchek
  */
 
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Col } from 'reactstrap';
 import MetaTags from 'react-meta-tags';
 
@@ -20,10 +20,17 @@ const TEXT_COLOR = "#000"
 const PAGE_TAG = "art"
 
 function Art(props) {
-    // Set theme colors
-    document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
-    document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
+    const [colorsUpdated, setColorsUpdated] = useState(false)
 
+    useEffect(() => {
+        if (!colorsUpdated) {
+            // Set theme colors
+            document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
+            document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
+            setColorsUpdated(true)
+        }
+    })
+    
     /**
      * Creates a media display
      * 
