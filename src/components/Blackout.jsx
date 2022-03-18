@@ -108,16 +108,16 @@ function Blackout(props) {
 
         // Run a iteration of the animation
         if (running && hasSetUp) {
-            timeout = setTimeout(() => {
-                if (indexes.size > 0) {
-                    // Enable a new random character
+            if (indexes.size > 0) {
+                // Enable a new random character
+                timeout = setTimeout(() => {
                     const drawn = drawFromSet(indexes)
                     setIndexes(prev => new Set([...prev].filter(x => x !== drawn)))
-                } else {
-                    // All characters have been added
-                    setRunning(false)
-                }
-            }, STEP_TIME)
+                }, STEP_TIME)
+            } else {
+                // All characters have been added
+                setRunning(false)
+            }
         }
 
         return () => { clearTimeout(timeout) }
