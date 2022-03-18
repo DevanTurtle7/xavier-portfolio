@@ -29,7 +29,7 @@ function Art(props) {
             document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
             setColorsUpdated(true)
         }
-    })
+    }, [colorsUpdated])
     
     /**
      * Creates a media display

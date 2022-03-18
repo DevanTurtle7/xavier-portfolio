@@ -10,7 +10,7 @@
 
 import '../style/Other.css';
 
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, useCallback } from 'react';
 import { Col } from 'reactstrap';
 import MetaTags from 'react-meta-tags';
 
@@ -26,6 +26,20 @@ const PAGE_TAG = "other"
 function Other(props) {
     const [stick, setStick] = useState(false)
     const [colorsUpdated, setColorsUpdated] = useState(false)
+
+    /**
+     * Updates the side line stick after each scroll event
+     */
+    const onScroll = useCallback(() => {
+        // Check if the scroll position is past the stick threshold
+        const shouldStick = window.scrollY >= 70
+
+        // Check if stick state needs updated
+        if (shouldStick !== stick) {
+            // Update stick state
+            setStick(shouldStick)
+        }
+    }, [stick])
 
     useEffect(() => {
         if (!colorsUpdated) {
@@ -43,21 +57,7 @@ function Other(props) {
             // not multiple listeners after the rerender
             window.removeEventListener('scroll', onScroll)
         }
-    }, [stick])
-
-    /**
-     * Updates the side line stick after each scroll event
-     */
-    const onScroll = () => {
-        // Check if the scroll position is past the stick threshold
-        const shouldStick = window.scrollY >= 70
-
-        // Check if stick state needs updated
-        if (shouldStick !== stick) {
-            // Update stick state
-            setStick(shouldStick)
-        }
-    }
+    }, [stick, colorsUpdated, onScroll])
 
     /**
      * Creates a media display
