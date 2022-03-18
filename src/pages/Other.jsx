@@ -26,7 +26,6 @@ const PAGE_TAG = "other"
 function Other(props) {
     const [stick, setStick] = useState(false)
     const [colorsUpdated, setColorsUpdated] = useState(false)
-    const [media, setMedia] = useState([])
 
     /**
      * Updates the side line stick after each scroll event
@@ -50,7 +49,6 @@ function Other(props) {
             setColorsUpdated(true)
         }
 
-        setMedia(props.media)
         window.addEventListener('scroll', onScroll)
 
         return () => {
@@ -58,7 +56,7 @@ function Other(props) {
             // not multiple listeners after the rerender
             window.removeEventListener('scroll', onScroll)
         }
-    }, [stick, colorsUpdated, onScroll, props.media, media])
+    }, [stick, colorsUpdated, onScroll, props.media])
 
     /**
      * Creates a media display
@@ -98,6 +96,7 @@ function Other(props) {
      */
     const getDisplays = () => {
         const displays = []
+        const media = props.media
 
         // Iterate over all the media
         for (let i = 0; i < media.length; i++) {
