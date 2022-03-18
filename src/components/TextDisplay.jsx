@@ -20,14 +20,18 @@ function TextDisplay(props) {
 
     // Runs once, when this component is first rendered
     useEffect(() => {
+        let timeout;
+
         if (!loaded) {
             setFadeInClass("fade-in-start")
 
-            setTimeout(() => {
+            timeout = setTimeout(() => {
                 setFadeInClass("fade-in-end")
                 setLoaded(true)
             }, INIT_TIME)
         }
+
+        return () => clearTimeout(timeout)
     }, [loaded])
 
     /**
