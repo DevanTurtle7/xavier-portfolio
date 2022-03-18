@@ -75,7 +75,7 @@ function Navbar(props) {
                         uniqueLabels = true
                     }
                 }
-                setLabels(LABELS[index])
+                setLabels([...LABELS[index]])
             }, STEP_TIME)
         }
 
