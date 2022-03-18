@@ -64,7 +64,17 @@ function Navbar(props) {
 
         if (hasSetUp) {
             interval = setInterval(() => {
-                const index = Math.floor(Math.random() * LABELS.length);
+                let index
+                let uniqueLabels = false
+
+                while (!uniqueLabels) {
+                    index = Math.floor(Math.random() * LABELS.length);
+                    const current = LABELS[index]
+
+                    if (current[0] !== labels[0] && current[1] !== labels[1]) {
+                        uniqueLabels = true
+                    }
+                }
                 setLabels(LABELS[index])
             }, STEP_TIME)
         }
@@ -73,7 +83,7 @@ function Navbar(props) {
             clearInterval(interval)
             clearTimeout(timeout)
         }
-    }, [hasSetUp])
+    }, [hasSetUp, labels])
 
     return (
         <Fragment>

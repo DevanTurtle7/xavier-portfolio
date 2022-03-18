@@ -405,12 +405,12 @@ img {
 }
 
 /* FOR MOBILE: Override the default blue color on hover to not change */
-.menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover, .navigation-link:hover {
+.menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover {
     color: var(--bs-body-color)
 }
 
 @media (hover: hover) {
-    .menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover, .navigation-link:hover {
+    .menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover {
         color: rgba(150, 150, 150, 1)
     }
 
