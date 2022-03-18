@@ -22,7 +22,7 @@ function UploadButton(props) {
     const [link, setLink] = useState("")
 
     const handleFileInput = (e) => {
-        setFiles(e.target.files);
+        setFiles([...e.target.files]);
     }
 
     const validFile = () => {
@@ -52,7 +52,7 @@ function UploadButton(props) {
     }
 
     const openModal = () => {
-        setFiles([])
+        setFiles(...[])
         setUploading(false)
         setProgress(0)
         setDescription("")

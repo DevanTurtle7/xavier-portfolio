@@ -16,14 +16,37 @@ import ImageDisplay from './ImageDisplay';
 import VideoDisplay from './VideoDisplay';
 import CarouselControls from './CarouselControls';
 
+const LOAD_DELAY = 1000
+const MAX_LOAD_TIME = 10000
+
 function MediaDisplay(props) {
     const [fadeInClass, setFadeInClass] = useState("fade-in-start");
     const [num, setNum] = useState(0)
+    const [loaded, setLoaded] = useState(false)
 
     // Runs once, when this component is first rendered
     useEffect(() => {
-        onLoad()
-    }, [])
+        let timeout
+
+        // Fade in animation
+        // Finish is here because after fade-in-class is 
+        if (loaded) {
+            setFadeInClass("fade-in-start")
+
+            timeout = setTimeout(() => {
+                setFadeInClass("fade-in-end")
+            }, LOAD_DELAY)
+        }
+
+        // Force fade in after 10 seconds (incase an event was missed)
+        if (!loaded) {
+            timeout = setTimeout(() => {
+                onLoad()
+            }, MAX_LOAD_TIME)
+        }
+
+        return () => clearTimeout(timeout)
+    }, [loaded])
 
     /**
      * A callback for carousel controls. Updates which image is the one that is currently
@@ -36,23 +59,10 @@ function MediaDisplay(props) {
     }
 
     /**
-     * Returns an object that sleeps for a given amount of milliseconds
-     * 
-     * @param {*} milliseconds How long to sleep for
-     * @returns A promise that can be waited on for the given amount of milliseconds
+     * Starts the loading animation
      */
-    const sleep = (milliseconds) => {
-        return new Promise(resolve => setTimeout(resolve, milliseconds))
-    }
-
-    /**
-     * Fades in this display after 1 second. Updates teh classname, which triggers a
-     * CSS transition
-     */
-    const onLoad = async () => {
-        setFadeInClass("fade-in-start")
-        await sleep(1000)
-        setFadeInClass("fade-in-end")
+    const onLoad = () => {
+        setLoaded(true)
     }
 
     /**

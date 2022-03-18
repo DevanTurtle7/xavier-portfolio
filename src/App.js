@@ -7,7 +7,7 @@
  * @author Devan Kavalchek
  */
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { initializeApp } from "firebase/app";
@@ -37,14 +37,9 @@ const db = getFirestore();
 const auth = getAuth();
 
 function App(props) {
+    const [dataGotten, setDataGotten] = useState(false)
     const [artData, setArtData] = useState([])
     const [otherData, setOtherData] = useState([])
-
-    // Runs once, when this component is first rendered
-    useEffect(() => {
-        updateArtData()
-        updateOtherData()
-    }, [])
 
     /**
      * Gets all of the data from a given collection in the database
@@ -147,20 +142,28 @@ function App(props) {
     /**
      * Updates the media that is displayed on the art page
      */
-    const updateArtData = async () => {
+    const updateArtData = useCallback(async () => {
         await getData("art", (media) => {
-            setArtData(media)
+            setArtData([...media])
         })
-    }
+    }, [])
 
     /**
      * Updates the media that is displayed on the other page
      */
-    const updateOtherData = async () => {
+    const updateOtherData = useCallback(async () => {
         await getData("other", (media) => {
-            setOtherData(media)
+            setOtherData([...media])
         })
-    }
+    }, [])
+
+    useEffect(() => {
+        if (!dataGotten) {
+            updateArtData()
+            updateOtherData()
+            setDataGotten(true)
+        }
+    }, [updateArtData, updateOtherData, dataGotten])
 
     return (
         <Router>

@@ -5,7 +5,6 @@
  * Props:
  *  char: The character being displayed
  *  enabled: If true, character is blacked out. Character is displayed otherwise
- *  index: This characters index in the overall string
  * 
  * @author Devan Kavalchek
  */
@@ -19,15 +18,14 @@ function BlackoutChar(props) {
      * Runs after the state or props are updated
      */
     useEffect(() => {
-        let index = props.index
-        let enabledProp = props.enabled.has(index)
+        let enabledProp = props.enabled
 
         // Check if the prop matches the state
         if (enabledProp !== enabled) {
             // Update the state to match the prop
             setEnabled(enabledProp)
         }
-    }, [props.index, props.enabled, enabled])
+    }, [props.enabled, enabled])
 
     /**
      * Gets the class names of this character
