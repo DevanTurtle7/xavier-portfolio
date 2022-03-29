@@ -1,11 +1,13 @@
+import "../style/PageNotFound.css"
+
 import { Fragment, useState, useEffect } from "react"
 import { MetaTags } from "react-meta-tags"
 import BlackoutTitle from "../components/BlackoutTitle"
 
 const ARTIST_NAME = "xavier sylvia-jackson"
 
-const BG_COLOR = "#fff"
-const TEXT_COLOR = "#000"
+const BG_COLOR = "#000"
+const TEXT_COLOR = "#fff"
 const PAGE_TAG = "page-not-found"
 
 function PageNotFound(props) {
@@ -28,7 +30,9 @@ function PageNotFound(props) {
             <BlackoutTitle text={ARTIST_NAME} />
 
             <div className="page">
-                <h1>Hello</h1>
+                <video autoPlay muted loop id="background-video">
+                    <source src="media/404video.mov"/>
+                </video>
             </div>
         </Fragment>
     )
