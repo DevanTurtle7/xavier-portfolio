@@ -30,8 +30,14 @@ function PageNotFound(props) {
             <BlackoutTitle text={ARTIST_NAME} />
 
             <div className="page">
+                <div className="textbox">
+                    <p>Error 404</p>
+                    <p>Page not found</p>
+                    <p>Turn back now</p>
+                </div>
+
                 <video autoPlay muted loop id="background-video">
-                    <source src="media/404video.mov"/>
+                    <source src="media/404video.mov" />
                 </video>
             </div>
         </Fragment>
