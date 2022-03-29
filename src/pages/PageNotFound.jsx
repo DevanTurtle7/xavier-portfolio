@@ -33,7 +33,7 @@ function PageNotFound(props) {
                 <div className="textbox">
                     <p>Error 404</p>
                     <p>Page not found</p>
-                    <p>Turn back now</p>
+                    <a href="/art">Turn back now</a>
                 </div>
 
                 <video autoPlay muted loop id="background-video">
