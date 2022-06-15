@@ -8,7 +8,7 @@
  */
 
 import { useCallback, useEffect, useState } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
@@ -18,6 +18,7 @@ import Art from './pages/Art';
 import Archive from './pages/Archive';
 import Contact from './pages/Contact';
 import Admin from './admin/Admin';
+import PageNotFound from './pages/PageNotFound';
 
 const firebaseConfig = {
     apiKey: "AIzaSyA1O3ZZUuxv0-PGJPZI9UffooMkAHdyjZw",
@@ -173,6 +174,7 @@ function App(props) {
                 <Route exact path='/contact' element={<Contact />} />
                 <Route exact path='/archive' element={<Archive media={archiveData} />} />
                 <Route exact path='/admin' element={<Admin db={db} auth={auth} />} />
+                <Route path="*" element={<PageNotFound />} />
             </Routes>
         </Router>
     );

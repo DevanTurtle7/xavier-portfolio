@@ -75,6 +75,7 @@ function Archive(props) {
      */
     const getDisplays = () => {
         const displays = []
+        const media = props.media
 
         // Iterate over all the media
         for (let i = 0; i < media.length; i++) {

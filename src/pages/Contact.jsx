@@ -37,11 +37,11 @@ function Contact(props) {
                 <meta name="theme-color" content="#ffffff" />
             </MetaTags>
 
-            <Navbar tag={PAGE_TAG}/>
+            <Navbar tag={PAGE_TAG} />
             <div className="contact-container">
-                    <a className="email" href="mailto: xaviersylviajackson@gmail.com">
-                        xaviersylviajackson@gmail.com
-                    </a>
+                <a className="email" href="mailto: xaviersylviajackson@gmail.com">
+                    xaviersylviajackson@gmail.com
+                </a>
                 <div className="instagram-row">
                     <a href="https://www.instagram.com/sjpencils/" target="_blank" rel="noreferrer">
                         <IconButton className="instagram-button">
@@ -50,7 +50,7 @@ function Contact(props) {
                     </a>
                 </div>
             </div>
-            <Footer tag={PAGE_TAG}/>
+            <Footer tag={PAGE_TAG} />
         </div>
     )
 }

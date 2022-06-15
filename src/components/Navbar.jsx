@@ -4,7 +4,7 @@
  * <title> attribute.
  * 
  * Props:
- *  NONE
+ *  tag: A string that identifies which page this display is on
  * 
  * @author Devan Kavalchek
  */
@@ -26,8 +26,8 @@ function Navbar(props) {
                 <Blackout text={ARTIST_NAME} />
 
                 <div className="nav-items">
-                    <NavLink label="art" link="/art" active={props.tag === "art"}/>
-                    <NavLink label="archive" link="/archive" active={props.tag === "archive"}/>
+                    <NavLink label="art" link="/art" active={props.tag === "art"} />
+                    <NavLink label="archive" link="/archive" active={props.tag === "archive"} />
                 </div>
             </div>
         </Fragment>
