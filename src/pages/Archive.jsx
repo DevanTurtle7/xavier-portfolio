@@ -1,5 +1,5 @@
 /**
- * The "other" page of the site. Displays media on the left hand side of the page,
+ * The archive page of the site. Displays media on the left hand side of the page,
  * with 2 vertical lines on the far left.
  * 
  * Props:
@@ -8,38 +8,23 @@
  * @author Devan Kavalchek
  */
 
-import '../style/Other.css';
+import '../style/archive.css';
 
-import { Fragment, useEffect, useState, useCallback } from 'react';
-import { Col } from 'reactstrap';
+import { Fragment, useEffect, useState } from 'react';
 import MetaTags from 'react-meta-tags';
 
 import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 import MediaDisplay from '../components/MediaDisplay';
-import SideLine from '../components/SideLine';
 import TextDisplay from '../components/TextDisplay';
 
 const BG_COLOR = "#000"
 const TEXT_COLOR = "#fff"
-const PAGE_TAG = "other"
+const PAGE_TAG = "archive"
 
-function Other(props) {
-    const [stick, setStick] = useState(false)
+function Archive(props) {
     const [colorsUpdated, setColorsUpdated] = useState(false)
-
-    /**
-     * Updates the side line stick after each scroll event
-     */
-    const onScroll = useCallback(() => {
-        // Check if the scroll position is past the stick threshold
-        const shouldStick = window.scrollY >= 70
-
-        // Check if stick state needs updated
-        if (shouldStick !== stick) {
-            // Update stick state
-            setStick(shouldStick)
-        }
-    }, [stick])
+    const [media, setMedia] = useState([])
 
     useEffect(() => {
         if (!colorsUpdated) {
@@ -49,14 +34,8 @@ function Other(props) {
             setColorsUpdated(true)
         }
 
-        window.addEventListener('scroll', onScroll)
-
-        return () => {
-            // When component is unmounted, remove the listener so that there are
-            // not multiple listeners after the rerender
-            window.removeEventListener('scroll', onScroll)
-        }
-    }, [stick, colorsUpdated, onScroll, props.media])
+        setMedia(props.media)
+    }, [colorsUpdated, props.media, media])
 
     /**
      * Creates a media display
@@ -123,13 +102,14 @@ function Other(props) {
             </MetaTags>
 
             <Navbar tag={PAGE_TAG} />
-            <Col className={PAGE_TAG}>
-                <SideLine left="35px" stick={stick} />
-                <SideLine left="50px" stick={stick} desktopOnly />
-                {getDisplays()}
-            </Col>
+            <div id={PAGE_TAG}>
+                <div id="displays">
+                    {getDisplays()}
+                </div>
+            </div>
+            <Footer tag={PAGE_TAG} />
         </Fragment>
     )
 }
 
-export default Other;
+export default Archive;

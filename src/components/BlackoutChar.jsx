@@ -32,13 +32,9 @@ function BlackoutChar(props) {
      * 
      * @returns A string of class names
      */
-    const getClassNames = () => {
-        let className = enabled ? "blackout" : ""
-        return className
-    }
 
     return (
-        <span className={getClassNames()}>{props.char}</span>
+        <span>{enabled ? "x" : props.char}</span>
     )
 }
 

@@ -62,7 +62,7 @@ function Blackout(props) {
         // Iterate over all of the characters
         for (let i = 0; i < textLength; i++) {
             const char = text[i]
-            const enabled = (i !== 0 && !indexes.has(i) && char !== " ")
+            const enabled = (i !== 0 && !indexes.has(i))
 
             // Create and add a character
             chars.push(
@@ -92,11 +92,7 @@ function Blackout(props) {
 
                 // Add every index to the set
                 for (let i = 1; i < textLength; i++) {
-                    const char = text[i]
-
-                    if (char !== " ") {
-                        newIndexes.add(i)
-                    }
+                    newIndexes.add(i)
                 }
 
                 // Initialize states
