@@ -10,14 +10,12 @@
 
 import '../style/archive.css';
 
-import { Fragment, useEffect, useState, useCallback, useRef } from 'react';
-import { Col } from 'reactstrap';
+import { Fragment, useEffect, useState } from 'react';
 import MetaTags from 'react-meta-tags';
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import MediaDisplay from '../components/MediaDisplay';
-import SideLine from '../components/SideLine';
 import TextDisplay from '../components/TextDisplay';
 
 const BG_COLOR = "#000"

@@ -9,7 +9,7 @@
  * @author Devan Kavalchek
  */
 
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 
 import Blackout from './Blackout';
 import BlackoutTitle from './BlackoutTitle';
@@ -27,7 +27,7 @@ function Navbar(props) {
 
                 <div className="nav-items">
                     <NavLink label="art" link="/art" active={props.tag === "art"}/>
-                    <NavLink label="archive" link="/archive" active={props.tag == "archive"}/>
+                    <NavLink label="archive" link="/archive" active={props.tag === "archive"}/>
                 </div>
             </div>
         </Fragment>

@@ -9,8 +9,6 @@
  * @author Devan Kavalchek
  */
 
-import { Fragment } from 'react';
-
 import NavLink from './NavLink';
 
 function Footer(props) {
@@ -18,7 +16,7 @@ function Footer(props) {
         <div className="navbar-footer">
             <div className="nav-items">
                 <NavLink label="contact" link="/contact" active={props.tag === "contact"} />
-                <NavLink label="credit" link="/credit" active={props.tag == "credit"} />
+                <NavLink label="credit" link="/credit" active={props.tag === "credit"} />
             </div>
         </div>
     )

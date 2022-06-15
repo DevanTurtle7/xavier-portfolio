@@ -7,7 +7,6 @@
  * @author Devan Kavalchek
  */
 
-import { Col } from 'reactstrap';
 import { AiOutlineInstagram } from "react-icons/ai"
 import MetaTags from 'react-meta-tags';
 
