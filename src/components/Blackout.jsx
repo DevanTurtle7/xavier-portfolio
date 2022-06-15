@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import BlackoutChar from './BlackoutChar';
 
 const INIT_TIME = 300;
-const STEP_TIME = 40;
+const STEP_TIME = 80;
 
 function Blackout(props) {
     const [running, setRunning] = useState(false)
