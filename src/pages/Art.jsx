@@ -7,22 +7,30 @@
  * @author Devan Kavalchek
  */
 
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Col } from 'reactstrap';
 import MetaTags from 'react-meta-tags';
 
 import MediaDisplay from '../components/MediaDisplay';
 import Navbar from '../components/Navbar';
 import TextDisplay from '../components/TextDisplay';
+import Footer from '../components/Footer';
 
 const BG_COLOR = "#fff"
 const TEXT_COLOR = "#000"
 const PAGE_TAG = "art"
 
 function Art(props) {
-    // Set theme colors
-    document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
-    document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
+    const [colorsUpdated, setColorsUpdated] = useState(false)
+
+    useEffect(() => {
+        if (!colorsUpdated) {
+            // Set theme colors
+            document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
+            document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
+            setColorsUpdated(true)
+        }
+    }, [colorsUpdated])
 
     /**
      * Creates a media display
@@ -90,10 +98,11 @@ function Art(props) {
                 <meta name="theme-color" content={BG_COLOR} />
             </MetaTags>
 
-            <Navbar />
+            <Navbar tag={PAGE_TAG} />
             <Col className={PAGE_TAG}>
                 {getDisplays()}
             </Col>
+            <Footer tag={PAGE_TAG} />
         </Fragment>
     )
 }

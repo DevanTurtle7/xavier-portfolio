@@ -9,12 +9,11 @@
  * @author Devan Kavalchek
  */
 
-import { Fragment } from 'react';
-import { Col, Row } from 'reactstrap';
+import { Fragment, useEffect, useState } from 'react';
 
 import Blackout from './Blackout';
-import MenuButton from './MenuButton';
 import BlackoutTitle from './BlackoutTitle';
+import NavLink from './NavLink';
 
 const ARTIST_NAME = "xavier sylvia-jackson"
 
@@ -23,14 +22,14 @@ function Navbar(props) {
         <Fragment>
             <BlackoutTitle text={ARTIST_NAME} />
 
-            <Row className="justify-content-between mx-auto navbar">
-                <Col xs={11}>
-                    <Blackout text={ARTIST_NAME} />
-                </Col>
-                <Col xs={1}>
-                    <MenuButton />
-                </Col>
-            </Row>
+            <div className="navbar-hdr">
+                <Blackout text={ARTIST_NAME} />
+
+                <div className="nav-items">
+                    <NavLink label="art" link="/art" active={props.tag === "art"}/>
+                    <NavLink label="archive" link="/archive" active={props.tag == "archive"}/>
+                </div>
+            </div>
         </Fragment>
     )
 }

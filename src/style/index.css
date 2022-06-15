@@ -8,7 +8,7 @@ body {
     transition: background-color .5s;
 }
 
-h1, p, .menu-link, a {
+h1, p, .menu-link, a, .navigation-link {
     /*
   font-family: 'Source Code Pro', monospace;
   */
@@ -43,6 +43,7 @@ img {
 ::selection {
     color: var(--bs-body-bg);
     background: var(--bs-body-color);
+    -webkit-appearance:none;
 }
 
 .modal-view {
@@ -92,7 +93,7 @@ img {
     right: 30px;
 }
 
-.menu-link, .menu-link:visited {
+.menu-link, .menu-link:visited, .navigation-link, .navigation-link:visited {
     color: var(--bs-body-color);
     font-size: 16px;
     transition: color .3s;
@@ -150,11 +151,11 @@ img {
     width: 60vw;
 }
 
-.text-display.other p{
+.text-display.archive p{
     width: fit-content;
 }
 
-.media-display.other {
+.media-display.archive {
     margin-bottom: 26px;
 }
 
@@ -169,7 +170,7 @@ img {
 }
 
 .media-display-left {
-    margin-left: 85px;
+    margin-left: 0px;
 }
 
 .media-element.inactive {
@@ -210,9 +211,40 @@ img {
     margin-left: 100px;
 }
 
-.navbar {
-    padding-top: 30px !important;
-    padding-left: 30px !important
+.navbar-hdr, .navbar-footer {
+    width: 100vw;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.nav-items {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    width: min(calc(100vw - 70px), 600px);
+}
+
+.navigation-link {
+    text-decoration: underline;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.navigation-link.active {
+    background-color: var(--bs-body-color);
+    color: var(--bs-body-bg);
+    text-decoration: none;
+}
+
+.blackout-container {
+    padding-top: 30px;
+    padding-left: 30px;
 }
 
 @media (max-device-width: 800px) {
@@ -261,10 +293,18 @@ img {
 }
 
 .contact-container {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-root {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
 }
 
 .email, .email:visited {
@@ -365,12 +405,12 @@ img {
 }
 
 /* FOR MOBILE: Override the default blue color on hover to not change */
-.menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover {
+.menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover, .navigation-link:hover {
     color: var(--bs-body-color)
 }
 
 @media (hover: hover) {
-    .menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover {
+    .menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover, .navigation-link:hover {
         color: rgba(150, 150, 150, 1)
     }
 

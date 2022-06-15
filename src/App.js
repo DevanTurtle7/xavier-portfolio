@@ -7,7 +7,7 @@
  * @author Devan Kavalchek
  */
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { initializeApp } from "firebase/app";
@@ -15,7 +15,7 @@ import { getAuth } from "firebase/auth";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 
 import Art from './pages/Art';
-import Other from './pages/Other';
+import Archive from './pages/Archive';
 import Contact from './pages/Contact';
 import Admin from './admin/Admin';
 
@@ -37,14 +37,9 @@ const db = getFirestore();
 const auth = getAuth();
 
 function App(props) {
+    const [dataGotten, setDataGotten] = useState(false)
     const [artData, setArtData] = useState([])
-    const [otherData, setOtherData] = useState([])
-
-    // Runs once, when this component is first rendered
-    useEffect(() => {
-        updateArtData()
-        updateOtherData()
-    }, [])
+    const [archiveData, setArchiveData] = useState([])
 
     /**
      * Gets all of the data from a given collection in the database
@@ -147,20 +142,28 @@ function App(props) {
     /**
      * Updates the media that is displayed on the art page
      */
-    const updateArtData = async () => {
+    const updateArtData = useCallback(async () => {
         await getData("art", (media) => {
-            setArtData(media)
+            setArtData([...media])
         })
-    }
+    }, [])
 
     /**
      * Updates the media that is displayed on the other page
      */
-    const updateOtherData = async () => {
+    const updateArchiveData = useCallback(async () => {
         await getData("other", (media) => {
-            setOtherData(media)
+            setArchiveData([...media])
         })
-    }
+    }, [])
+
+    useEffect(() => {
+        if (!dataGotten) {
+            updateArtData()
+            updateArchiveData()
+            setDataGotten(true)
+        }
+    }, [updateArtData, updateArchiveData, dataGotten])
 
     return (
         <Router>
@@ -168,7 +171,7 @@ function App(props) {
                 <Route exact path='/' element={<Art media={artData} />} />
                 <Route exact path='/art' element={<Art media={artData} />} />
                 <Route exact path='/contact' element={<Contact />} />
-                <Route exact path='/other' element={<Other media={otherData} />} />
+                <Route exact path='/archive' element={<Archive media={archiveData} />} />
                 <Route exact path='/admin' element={<Admin db={db} auth={auth} />} />
             </Routes>
         </Router>

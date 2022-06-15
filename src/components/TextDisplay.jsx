@@ -12,33 +12,27 @@
 import { useEffect } from "react"
 import { useState } from "react"
 
+const INIT_TIME = 1000
+
 function TextDisplay(props) {
     const [fadeInClass, setFadeInClass] = useState("fade-in-start")
+    const [loaded, setLoaded] = useState(false)
 
     // Runs once, when this component is first rendered
     useEffect(() => {
-        onLoad()
-    }, [])
+        let timeout;
 
-    /**
-     * Returns an object that sleeps for a given amount of milliseconds
-     * 
-     * @param {*} milliseconds How long to sleep for
-     * @returns A promise that can be waited on for the given amount of milliseconds
-     */
-    const sleep = (milliseconds) => {
-        return new Promise(resolve => setTimeout(resolve, milliseconds))
-    }
+        if (!loaded) {
+            setFadeInClass("fade-in-start")
 
-    /**
-     * Fades in this display after 1 second. Updates teh classname, which triggers a
-     * CSS transition
-     */
-    const onLoad = async () => {
-        setFadeInClass("fade-in-start")
-        await sleep(1000)
-        setFadeInClass("fade-in-end")
-    }
+            timeout = setTimeout(() => {
+                setFadeInClass("fade-in-end")
+                setLoaded(true)
+            }, INIT_TIME)
+        }
+
+        return () => clearTimeout(timeout)
+    }, [loaded])
 
     /**
      * Creates an asterisk if necessary
