@@ -30,7 +30,7 @@ function Art(props) {
             setColorsUpdated(true)
         }
     }, [colorsUpdated])
-    
+
     /**
      * Creates a media display
      * 
@@ -97,7 +97,7 @@ function Art(props) {
                 <meta name="theme-color" content={BG_COLOR} />
             </MetaTags>
 
-            <Navbar />
+            <Navbar tag={PAGE_TAG} />
             <Col className={PAGE_TAG}>
                 {getDisplays()}
             </Col>

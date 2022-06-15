@@ -3,7 +3,7 @@
     background-color: var(--bs-body-color);
     width: 1px;
     height: calc(100vh + 100px);
-    top: 70px;
+    top: 120px;
 }
 
 .side-line.stick {

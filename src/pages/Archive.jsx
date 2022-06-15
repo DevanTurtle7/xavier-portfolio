@@ -123,7 +123,7 @@ function Archive(props) {
                 <meta name="theme-color" content="#000000" />
             </MetaTags>
 
-            <Navbar />
+            <Navbar tag={PAGE_TAG} />
             <Col className={PAGE_TAG}>
                 <SideLine left="35px" stick={stick} />
                 <SideLine left="50px" stick={stick} desktopOnly />
