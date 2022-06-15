@@ -4,10 +4,10 @@
     margin-left: 100px;
 }
 
-p, a, a:hover {
+.credit, .credit-link, .credit-link:hover {
     color: white;
 }
 
-a {
+.credit-link {
     margin-bottom: 16px;
 }
