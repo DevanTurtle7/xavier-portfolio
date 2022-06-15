@@ -9,7 +9,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-const INIT_TIME = 300;
+const INIT_TIME = 1500;
 const STEP_TIME = 80;
 const X_CHAR = "x"
 

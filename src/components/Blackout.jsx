@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 
 import BlackoutChar from './BlackoutChar';
 
-const INIT_TIME = 300;
+const INIT_TIME = 1500;
 const STEP_TIME = 80;
 
 function Blackout(props) {
@@ -85,20 +85,22 @@ function Blackout(props) {
 
         // Set up for the start of the animation if it hasn't already
         if (!running && !hasSetUp) {
+            const newIndexes = new Set()
+            const text = props.text
+            const textLength = text.length
+
+            // Add every index to the set
+            for (let i = 1; i < textLength; i++) {
+                newIndexes.add(i)
+            }
+
+            setIndexes(newIndexes)
+            setHasSetUp(true)
+
+        } else if (hasSetUp && !running) {
             timeout = setTimeout(() => {
-                const newIndexes = new Set()
-                const text = props.text
-                const textLength = text.length
-
-                // Add every index to the set
-                for (let i = 1; i < textLength; i++) {
-                    newIndexes.add(i)
-                }
-
                 // Initialize states
-                setIndexes(newIndexes)
                 setRunning(true)
-                setHasSetUp(true)
             }, INIT_TIME)
         }
 
