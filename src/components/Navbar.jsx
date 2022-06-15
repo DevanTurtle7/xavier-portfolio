@@ -24,10 +24,10 @@ function Navbar(props) {
 
             <div className="navbar-hdr">
                 <Blackout text={ARTIST_NAME} />
-                
+
                 <div className="nav-items">
-                    <NavLink label="art" link="/art" />
-                    <NavLink label="archive" link="/other" />
+                    <NavLink label="art" link="/art" active={true}/>
+                    <NavLink label="archive" link="/archive" />
                 </div>
             </div>
         </Fragment>

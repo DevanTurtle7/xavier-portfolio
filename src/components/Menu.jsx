@@ -19,7 +19,7 @@ function Menu(props) {
             <Row className="d-flex align-content-center fullscreen-row">
                 <Col>
                     <MenuLink link='/art' label='art' />
-                    <MenuLink link='/other' label='other' />
+                    <MenuLink link='/archive' label='archive' />
                     <MenuLink link='/contact' label='contact' />
                 </Col>
             </Row>

@@ -151,11 +151,11 @@ img {
     width: 60vw;
 }
 
-.text-display.other p{
+.text-display.archive p{
     width: fit-content;
 }
 
-.media-display.other {
+.media-display.archive {
     margin-bottom: 26px;
 }
 
@@ -232,6 +232,14 @@ img {
 
 .navigation-link {
     text-decoration: underline;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.navigation-link.active {
+    background-color: var(--bs-body-color);
+    color: var(--bs-body-bg);
+    text-decoration: none;
 }
 
 .blackout-container {

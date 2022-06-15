@@ -1,5 +1,5 @@
 /**
- * The "other" page of the site. Displays media on the left hand side of the page,
+ * The archive page of the site. Displays media on the left hand side of the page,
  * with 2 vertical lines on the far left.
  * 
  * Props:
@@ -8,7 +8,7 @@
  * @author Devan Kavalchek
  */
 
-import '../style/Other.css';
+import '../style/archive.css';
 
 import { Fragment, useEffect, useState, useCallback } from 'react';
 import { Col } from 'reactstrap';
@@ -21,9 +21,9 @@ import TextDisplay from '../components/TextDisplay';
 
 const BG_COLOR = "#000"
 const TEXT_COLOR = "#fff"
-const PAGE_TAG = "other"
+const PAGE_TAG = "archive"
 
-function Other(props) {
+function Archive(props) {
     const [stick, setStick] = useState(false)
     const [colorsUpdated, setColorsUpdated] = useState(false)
     const [media, setMedia] = useState([])
@@ -133,4 +133,4 @@ function Other(props) {
     )
 }
 
-export default Other;
+export default Archive;
