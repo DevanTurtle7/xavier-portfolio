@@ -16,7 +16,7 @@ function Footer(props) {
         <div className="navbar-footer">
             <div className="nav-items">
                 <NavLink label="contact" link="/contact" active={props.tag === "contact"} />
-                <NavLink label="credit" link="/credit" active={props.tag === "credit"} />
+                <NavLink label="credits" link="/credits" active={props.tag === "credits"} />
             </div>
         </div>
     )

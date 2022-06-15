@@ -1,8 +1,8 @@
 const BG_COLOR = "#000"
 const TEXT_COLOR = "#fff"
-const PAGE_TAG = "credit"
+const PAGE_TAG = "credits"
 
-function Credit(props) {
+function Credits(props) {
     const [colorsUpdated, setColorsUpdated] = useState(false)
 
     useEffect(() => {
@@ -38,4 +38,4 @@ function Credit(props) {
     )
 }
 
-export default Credit;
+export default Credits;
