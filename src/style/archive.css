@@ -39,12 +39,8 @@
 }
 
 @media (max-width:600px) {
-    .desktop-only {
-        display: none;
-    }
-
-    .media-display-left {
-        margin-left: 70px;
-        margin-left: 70px;
+    #archive #displays {
+        box-shadow: none;
+        margin-left: 0px;
     }
 }
