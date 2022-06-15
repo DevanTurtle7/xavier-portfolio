@@ -10,7 +10,7 @@
 
 import '../style/archive.css';
 
-import { Fragment, useEffect, useState, useCallback } from 'react';
+import { Fragment, useEffect, useState, useCallback, useRef } from 'react';
 import { Col } from 'reactstrap';
 import MetaTags from 'react-meta-tags';
 
@@ -25,23 +25,8 @@ const TEXT_COLOR = "#fff"
 const PAGE_TAG = "archive"
 
 function Archive(props) {
-    const [stick, setStick] = useState(false)
     const [colorsUpdated, setColorsUpdated] = useState(false)
     const [media, setMedia] = useState([])
-
-    /**
-     * Updates the side line stick after each scroll event
-     */
-    const onScroll = useCallback(() => {
-        // Check if the scroll position is past the stick threshold
-        const shouldStick = window.scrollY >= 70
-
-        // Check if stick state needs updated
-        if (shouldStick !== stick) {
-            // Update stick state
-            setStick(shouldStick)
-        }
-    }, [stick])
 
     useEffect(() => {
         if (!colorsUpdated) {
@@ -52,14 +37,7 @@ function Archive(props) {
         }
 
         setMedia(props.media)
-        window.addEventListener('scroll', onScroll)
-
-        return () => {
-            // When component is unmounted, remove the listener so that there are
-            // not multiple listeners after the rerender
-            window.removeEventListener('scroll', onScroll)
-        }
-    }, [stick, colorsUpdated, onScroll, props.media, media])
+    }, [colorsUpdated, props.media, media])
 
     /**
      * Creates a media display
@@ -125,11 +103,11 @@ function Archive(props) {
             </MetaTags>
 
             <Navbar tag={PAGE_TAG} />
-            <Col className={PAGE_TAG}>
-                <SideLine left="35px" stick={stick} />
-                <SideLine left="50px" stick={stick} desktopOnly />
-                {getDisplays()}
-            </Col>
+            <div id={PAGE_TAG}>
+                <div id="displays">
+                    {getDisplays()}
+                </div>
+            </div>
             <Footer tag={PAGE_TAG} />
         </Fragment>
     )
