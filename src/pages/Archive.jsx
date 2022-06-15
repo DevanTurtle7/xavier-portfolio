@@ -11,7 +11,6 @@
 import '../style/archive.css';
 
 import { Fragment, useEffect, useState } from 'react';
-import MetaTags from 'react-meta-tags';
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'

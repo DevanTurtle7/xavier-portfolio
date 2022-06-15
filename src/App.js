@@ -17,6 +17,7 @@ import { collection, getDocs, getFirestore } from "firebase/firestore";
 import Art from './pages/Art';
 import Archive from './pages/Archive';
 import Contact from './pages/Contact';
+import Credits from './pages/Credits';
 import Admin from './admin/Admin';
 import PageNotFound from './pages/PageNotFound';
 
@@ -172,6 +173,7 @@ function App(props) {
                 <Route exact path='/' element={<Art media={artData} />} />
                 <Route exact path='/art' element={<Art media={artData} />} />
                 <Route exact path='/contact' element={<Contact />} />
+                <Route exact path='/credits' element={<Credits />} />
                 <Route exact path='/archive' element={<Archive media={archiveData} />} />
                 <Route exact path='/admin' element={<Admin db={db} auth={auth} />} />
                 <Route path="*" element={<PageNotFound />} />

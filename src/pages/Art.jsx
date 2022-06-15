@@ -9,7 +9,6 @@
 
 import { Fragment, useEffect, useState } from 'react';
 import { Col } from 'reactstrap';
-import MetaTags from 'react-meta-tags';
 
 import MediaDisplay from '../components/MediaDisplay';
 import Navbar from '../components/Navbar';

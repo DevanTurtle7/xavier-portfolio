@@ -1,0 +1,13 @@
+.credits-col {
+    display: flex;
+    flex-flow: column;
+    margin-left: 100px;
+}
+
+p, a, a:hover {
+    color: white;
+}
+
+a {
+    margin-bottom: 16px;
+}
