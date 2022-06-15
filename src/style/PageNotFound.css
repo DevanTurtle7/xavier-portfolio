@@ -29,6 +29,7 @@
     font-size: clamp(36px, 2.5vw, 2.5vw);
     font-family: 'Roboto Condensed', sans-serif;
     color: rgb(255, 255, 160);
+    font-weight: 800;
 }
 
 .textbox a {
