@@ -213,37 +213,21 @@ img {
 
 .navbar-hdr {
     width: 100vw;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
 }
 
 .nav-items {
     display: flex;
     flex-flow: row;
-    width: 100%;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     margin-top: 20px;
     margin-bottom: 30px;
-}
-
-.nav-items p {
-    margin: 0;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.nav-item-container {
-    display: flex;
-    flex-flow: row;
-    align-items: center;
-    width: 49%;
-}
-
-.nav-item-container.right {
-    justify-content: flex-end;
-}
-
-.nav-item-container.left {
-    justify-content: flex-start;
+    width: min(calc(100vw - 70px), 600px);
 }
 
 .navigation-link {

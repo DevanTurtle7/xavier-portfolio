@@ -11,8 +11,7 @@ import { useCallback, useEffect, useState } from "react";
 
 const INIT_TIME = 300;
 const STEP_TIME = 80;
-const BLOCK_CHAR = "█"
-const SPACE_CHAR = " "
+const X_CHAR = "x"
 
 function BlackoutTitle(props) {
     const [running, setRunning] = useState(false)
@@ -51,28 +50,10 @@ function BlackoutTitle(props) {
         /**
          * Iterate over every other index
          */
-        for (let i = 1; i < props.text.length; i += 2) {
+        for (let i = 1; i < props.text.length; i++) {
             const char = props.text[i]
-            const next = props.text[i + 1]
             const enabled = !indexes.has(i)
-            let addition;
-
-            // Check if this index has been blacked out
-            if (enabled) {
-                // Check for spaces and add the appropriate characters
-                if (char === " ") {
-                    addition = SPACE_CHAR + BLOCK_CHAR
-                } else if (next === " ") {
-                    addition = BLOCK_CHAR + SPACE_CHAR
-                } else {
-                    addition = BLOCK_CHAR
-                }
-            } else {
-                // Add this character and the next to the string
-                addition = char.concat(next)
-            }
-
-            result = result.concat(addition)
+            result = result.concat(enabled ? X_CHAR : char);
         }
 
         return result;
@@ -92,12 +73,8 @@ function BlackoutTitle(props) {
                 const textLength = text.length
 
                 // Add every other index to the set
-                for (let i = 1; i < textLength && i + 1 < textLength; i += 2) {
-                    const char = text[i]
-
-                    if (char !== " ") {
-                        newIndexes.add(i)
-                    }
+                for (let i = 1; i < textLength && i + 1 < textLength; i++) {
+                    newIndexes.add(i)
                 }
 
                 // Initialize states
