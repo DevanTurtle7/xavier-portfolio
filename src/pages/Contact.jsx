@@ -14,9 +14,11 @@ import MetaTags from 'react-meta-tags';
 import IconButton from '../components/IconButton';
 import Navbar from '../components/Navbar'
 import { useEffect, useState } from 'react';
+import Footer from '../components/Footer';
 
-const BG_COLOR = "#fff"
-const TEXT_COLOR = "#000"
+const BG_COLOR = "#000"
+const TEXT_COLOR = "#fff"
+const PAGE_TAG = "contact"
 
 function Contact(props) {
     const [colorsUpdated, setColorsUpdated] = useState(false)
@@ -31,19 +33,16 @@ function Contact(props) {
     }, [colorsUpdated])
 
     return (
-        <Col>
+        <div className="contact-root">
             <MetaTags>
                 <meta name="theme-color" content="#ffffff" />
             </MetaTags>
 
-            <Navbar />
-
+            <Navbar tag={PAGE_TAG}/>
             <div className="contact-container">
-                <Col>
                     <a className="email" href="mailto: xaviersylviajackson@gmail.com">
                         xaviersylviajackson@gmail.com
                     </a>
-                </Col>
                 <div className="instagram-row">
                     <a href="https://www.instagram.com/sjpencils/" target="_blank" rel="noreferrer">
                         <IconButton className="instagram-button">
@@ -52,7 +51,8 @@ function Contact(props) {
                     </a>
                 </div>
             </div>
-        </Col>
+            <Footer tag={PAGE_TAG}/>
+        </div>
     )
 }
 

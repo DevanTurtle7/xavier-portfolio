@@ -14,6 +14,7 @@ import MetaTags from 'react-meta-tags';
 import MediaDisplay from '../components/MediaDisplay';
 import Navbar from '../components/Navbar';
 import TextDisplay from '../components/TextDisplay';
+import Footer from '../components/Footer';
 
 const BG_COLOR = "#fff"
 const TEXT_COLOR = "#000"
@@ -101,6 +102,7 @@ function Art(props) {
             <Col className={PAGE_TAG}>
                 {getDisplays()}
             </Col>
+            <Footer tag={PAGE_TAG} />
         </Fragment>
     )
 }

@@ -211,7 +211,7 @@ img {
     margin-left: 100px;
 }
 
-.navbar-hdr {
+.navbar-hdr, .navbar-footer {
     width: 100vw;
     display: flex;
     flex-flow: column;
@@ -293,10 +293,18 @@ img {
 }
 
 .contact-container {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-root {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
 }
 
 .email, .email:visited {

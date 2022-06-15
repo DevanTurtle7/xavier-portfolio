@@ -15,6 +15,7 @@ import { Col } from 'reactstrap';
 import MetaTags from 'react-meta-tags';
 
 import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 import MediaDisplay from '../components/MediaDisplay';
 import SideLine from '../components/SideLine';
 import TextDisplay from '../components/TextDisplay';
@@ -129,6 +130,7 @@ function Archive(props) {
                 <SideLine left="50px" stick={stick} desktopOnly />
                 {getDisplays()}
             </Col>
+            <Footer tag={PAGE_TAG} />
         </Fragment>
     )
 }
