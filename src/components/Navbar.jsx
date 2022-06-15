@@ -11,6 +11,8 @@
 
 import { Fragment } from 'react';
 
+import MetaTags from 'react-meta-tags';
+
 import Blackout from './Blackout';
 import BlackoutTitle from './BlackoutTitle';
 import NavLink from './NavLink';
@@ -21,6 +23,10 @@ function Navbar(props) {
     return (
         <Fragment>
             <BlackoutTitle text={ARTIST_NAME} />
+
+            <MetaTags>
+                <meta name="theme-color" content={props.bgColor} />
+            </MetaTags>
 
             <div className="navbar-hdr">
                 <Blackout text={ARTIST_NAME} />

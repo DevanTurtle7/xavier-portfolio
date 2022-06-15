@@ -94,11 +94,7 @@ function Art(props) {
 
     return (
         <Fragment>
-            <MetaTags>
-                <meta name="theme-color" content={BG_COLOR} />
-            </MetaTags>
-
-            <Navbar tag={PAGE_TAG} />
+            <Navbar tag={PAGE_TAG} bgColor={BG_COLOR} />
             <Col className={PAGE_TAG}>
                 {getDisplays()}
             </Col>

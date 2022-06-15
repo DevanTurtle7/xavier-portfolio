@@ -1,24 +1,8 @@
-/**
- * The contact page of the site. Displays contact information.
- * 
- * Props:
- *  NONE
- * 
- * @author Devan Kavalchek
- */
-
-import { AiOutlineInstagram } from "react-icons/ai"
-
-import IconButton from '../components/IconButton';
-import Navbar from '../components/Navbar'
-import { useEffect, useState } from 'react';
-import Footer from '../components/Footer';
-
 const BG_COLOR = "#000"
 const TEXT_COLOR = "#fff"
-const PAGE_TAG = "contact"
+const PAGE_TAG = "credit"
 
-function Contact(props) {
+function Credit(props) {
     const [colorsUpdated, setColorsUpdated] = useState(false)
 
     useEffect(() => {
@@ -32,8 +16,11 @@ function Contact(props) {
 
     return (
         <div className="contact-root">
-            <Navbar tag={PAGE_TAG} bgColor={BG_COLOR} />
-            
+            <MetaTags>
+                <meta name="theme-color" content="#ffffff" />
+            </MetaTags>
+
+            <Navbar tag={PAGE_TAG} />
             <div className="contact-container">
                 <a className="email" href="mailto: xaviersylviajackson@gmail.com">
                     xaviersylviajackson@gmail.com
@@ -51,4 +38,4 @@ function Contact(props) {
     )
 }
 
-export default Contact;
+export default Credit;

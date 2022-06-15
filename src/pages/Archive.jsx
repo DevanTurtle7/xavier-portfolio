@@ -97,11 +97,7 @@ function Archive(props) {
 
     return (
         <Fragment>
-            <MetaTags>
-                <meta name="theme-color" content="#000000" />
-            </MetaTags>
-
-            <Navbar tag={PAGE_TAG} />
+            <Navbar tag={PAGE_TAG} bgColor={BG_COLOR} />
             <div id={PAGE_TAG}>
                 <div id="displays">
                     {getDisplays()}
