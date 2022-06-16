@@ -1,7 +1,7 @@
 .credits-col {
     display: flex;
     flex-flow: column;
-    margin-left: 100px;
+    width: fit-content;
 }
 
 .credit, .credit-link, .credit-link:hover {
@@ -10,4 +10,12 @@
 
 .credit-link {
     margin-bottom: 16px;
+}
+
+#credits-root {
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
 }

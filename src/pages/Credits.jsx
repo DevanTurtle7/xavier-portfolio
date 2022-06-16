@@ -53,7 +53,7 @@ function Credits(props) {
     }
 
     return (
-        <div>
+        <div id="credits-root">
             <Navbar tag={PAGE_TAG} />
             <div className="credits-col">
                 {getCredits()}

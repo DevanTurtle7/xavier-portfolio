@@ -8,7 +8,6 @@ const ARTIST_NAME = "xavier sylvia-jackson"
 
 const BG_COLOR = "#000"
 const TEXT_COLOR = "#fff"
-const PAGE_TAG = "page-not-found"
 
 function PageNotFound(props) {
     const [colorsUpdated, setColorsUpdated] = useState(false)
