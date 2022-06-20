@@ -43,7 +43,7 @@ function Credits(props) {
             var link = names[name];
 
             if (link !== "") {
-                elements.push(<a href={link} className="credit-link">{name}</a>)
+                elements.push(<a href={link} className="credit-link" target="_blank" rel="noreferrer">{name}</a>)
             } else {
                 elements.push(<p className="credit">{name}</p>)
             }
