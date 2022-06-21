@@ -12,4 +12,4 @@ Live at https://xaviersylviajackson.com
 
 ## Images
 ![Screenshot](./docs/artScreenshot.png?raw=true)
-![Screenshot](./docs/otherScreenshot.png?raw=true)
+![Screenshot](./docs/archiveScreenshot.png?raw=true)
