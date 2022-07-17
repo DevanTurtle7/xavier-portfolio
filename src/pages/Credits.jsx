@@ -56,6 +56,7 @@ function Credits(props) {
         <div id="credits-root">
             <Navbar tag={PAGE_TAG} />
             <div className="credits-col">
+                <p className="credit"><b>special thanks to:</b></p>
                 {getCredits()}
             </div>
             <Footer tag={PAGE_TAG} />

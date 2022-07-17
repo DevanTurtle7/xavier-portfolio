@@ -2,6 +2,7 @@
     display: flex;
     flex-flow: column;
     width: fit-content;
+    margin-left: 100px;
 }
 
 .credit, .credit-link, .credit-link:hover {
@@ -17,5 +18,5 @@
     display: flex;
     flex-flow: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: left;
 }
