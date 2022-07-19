@@ -107,9 +107,25 @@ function App(props) {
             } else if (type === "folder") {
                 let content = data.content
                 let description = data.description
+                let currentContent = []
+
+                for (let i = 0; i < content.length; i++) {
+                    const info = content[i]
+                    const currentType = info.type
+
+                    if (currentType === "image" || currentType === "video") {
+                        const fileName = info.filename
+                        const url = IMG_URL + fileName
+
+                        // Save the content to the array
+                        currentContent.push({ url: url, type: currentType })
+                    } else {
+                        currentContent.push({ content: info.content, type: currentType })
+                    }
+                }
 
                 current = {
-                    content: content,
+                    content: currentContent,
                     order: order,
                     type: "folder",
                     description: description,

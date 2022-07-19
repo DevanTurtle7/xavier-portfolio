@@ -69,7 +69,7 @@ function Archive(props) {
     }
 
     const createFolderDisplay = (data, key) => {
-        return (<FolderDisplay />)
+        return (<FolderDisplay data={data} tag={PAGE_TAG} key={key} />)
     }
 
     /**

@@ -430,3 +430,20 @@ img {
 .folder-link {
     text-decoration: underline;
 }
+
+.folder {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    align-items: center;
+}
+
+.folder-col {
+    display: flex;
+    flex-flow: column;
+    max-width: 500px;
+}
+
+.modal-open.scrollable {
+    overflow-y: scroll;
+}

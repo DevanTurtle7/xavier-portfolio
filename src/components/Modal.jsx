@@ -25,6 +25,7 @@ function Modal(props) {
 
     const getClassNames = () => {
         let classNames = "modal-view"
+        let scrollable = props.scrollable === true
 
         if (props.open) {
             html.style.overflow = 'hidden';
@@ -32,6 +33,10 @@ function Modal(props) {
         } else {
             html.style.overflow = 'visible';
             classNames += " modal-closed"
+        }
+
+        if (scrollable) {
+            classNames += ' scrollable'
         }
 
         return classNames
