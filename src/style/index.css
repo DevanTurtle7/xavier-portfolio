@@ -93,7 +93,7 @@ img {
     right: 30px;
 }
 
-.menu-link, .menu-link:visited, .navigation-link, .navigation-link:visited {
+.menu-link, .menu-link:visited, .navigation-link, .navigation-link:visited, .folder-link, .folder-link:visited {
     color: var(--bs-body-color);
     font-size: 16px;
     transition: color .3s;
@@ -405,13 +405,14 @@ img {
 }
 
 /* FOR MOBILE: Override the default blue color on hover to not change */
-.menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover, .navigation-link:hover {
+.menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover, .navigation-link:hover, .folder-link:hover {
     color: var(--bs-body-color)
 }
 
 @media (hover: hover) {
-    .menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover, .navigation-link:hover {
-        color: rgba(150, 150, 150, 1)
+    .menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover, .navigation-link:hover, .folder-link:hover {
+        color: rgba(150, 150, 150, 1);
+        cursor: pointer;
     }
 
     .clickable:hover {
@@ -424,4 +425,8 @@ img {
     height: 200px;
     margin: 0px;
     white-space: pre-wrap;
+}
+
+.folder-link {
+    text-decoration: underline;
 }

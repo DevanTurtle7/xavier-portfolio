@@ -104,6 +104,16 @@ function App(props) {
                     size: size,
                     link: data.link
                 }
+            } else if (type === "folder") {
+                let content = data.content
+                let description = data.description
+
+                current = {
+                    content: content,
+                    order: order,
+                    type: "folder",
+                    description: description,
+                }
             } else {
                 console.log("Invalid type: " + type)
             }
