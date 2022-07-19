@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from "./Modal";
+import VideoDisplay from "./VideoDisplay";
 
 function FolderDisplay(props) {
     const [modalOpen, setModalOpen] = useState(false)
@@ -17,7 +18,7 @@ function FolderDisplay(props) {
     }
 
     const createVideoDisplay = (data) => {
-        return (<video src={data.url} />)
+        return (<VideoDisplay url={data.url}/>)
     }
 
     const createTextDisplay = (data) => {

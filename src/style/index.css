@@ -159,16 +159,6 @@ img {
     margin-bottom: 26px;
 }
 
-@media (max-device-width: 800px) {
-    .media-display, .text-display.art {
-        width: 60vw;
-    }
-
-    .media-display.art, .text-display.art {
-        width: 90vw;
-    }
-}
-
 .media-display-left {
     margin-left: 0px;
 }
@@ -436,14 +426,26 @@ img {
     flex-flow: column;
     width: 100%;
     align-items: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
 }
 
 .folder-col {
     display: flex;
     flex-flow: column;
-    max-width: 500px;
+    width: 40vw;
 }
 
 .modal-open.scrollable {
     overflow-y: scroll;
+}
+
+@media (max-device-width: 800px) {
+    .media-display {
+        width: 60vw;
+    }
+
+    .media-display.art, .text-display.art, .folder-col {
+        width: 90vw;
+    }
 }
