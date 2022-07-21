@@ -8,6 +8,7 @@ function FolderRowWrapper(props) {
     const toggle = () => setDropdownOpen(!dropdownOpen)
 
     const onMove = (index) => props.onMove(props.index, index)
+    const onRemove = () => props.onRemove()
 
     const getDropdownItems = () => {
         let dropdownItems = []
@@ -37,7 +38,7 @@ function FolderRowWrapper(props) {
                     {getDropdownItems()}
                 </DropdownMenu>
             </Dropdown>
-            <Button color="danger">
+            <Button color="danger" onClick={onRemove}>
                 <MdDelete/>
             </Button>
         </div>

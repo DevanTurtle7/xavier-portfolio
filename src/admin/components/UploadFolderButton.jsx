@@ -29,6 +29,20 @@ function UploadFolderButton(props) {
         setItems(newItems)
     }
 
+    const removeItem = (index) => {
+        let newItems = []
+
+        for (let i = 0; i < items.length - 1; i++) {
+            if (i < index) {
+                newItems.push(items[i])
+            } else {
+                newItems.push(items[i + 1])
+            }
+        }
+
+        setItems(newItems)
+    }
+
     const setItem = (index, item) => {
         let newItems = []
 
@@ -93,7 +107,6 @@ function UploadFolderButton(props) {
 
     const textChanged = (index, text) => {
         let current = items[index]
-        console.log(current)
 
         let newItem = {
             type: "text",
@@ -113,7 +126,13 @@ function UploadFolderButton(props) {
             let newRow;
 
             if (current.type === "media" || current.type === "video" || current.type === "image") {
-                newRow = (<MediaRow current={current} index={i} />)
+                newRow = (
+                    <MediaRow
+                        current={current}
+                        index={i}
+
+                    />
+                )
             } else if (current.type === "text") {
                 newRow = (
                     <TextRow
@@ -126,7 +145,16 @@ function UploadFolderButton(props) {
                 )
             }
 
-            rows.push(<FolderRowWrapper numItems={numItems} index={i} onMove={onMove}>{newRow}</FolderRowWrapper>)
+            rows.push(
+                <FolderRowWrapper
+                    numItems={numItems}
+                    index={i}
+                    onMove={onMove}
+                    onRemove={() => { removeItem(i) }}
+                >
+                    {newRow}
+                </FolderRowWrapper>
+            )
         }
 
         return rows
