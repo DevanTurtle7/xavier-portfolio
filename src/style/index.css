@@ -141,7 +141,7 @@ img {
 }
 
 .text-display {
-    margin-top: 32px;
+    margin-top: 8px;
     margin-bottom: 32px;
     white-space: pre-wrap;
     width: fit-content;
@@ -421,6 +421,11 @@ img {
     text-decoration: underline;
 }
 
+.folder-link-container {
+    margin-top: 8px;
+    margin-bottom: 32px;
+}
+
 .folder {
     display: flex;
     flex-flow: column;
@@ -448,4 +453,9 @@ img {
     .media-display.art, .text-display.art, .folder-col {
         width: 90vw;
     }
+}
+
+.folder-img, .folder-video {
+    margin-top: 8px;
+    margin-bottom: 32px;
 }

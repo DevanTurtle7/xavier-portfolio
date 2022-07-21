@@ -15,15 +15,19 @@ function FolderDisplay(props) {
     }
 
     const createImageDisplay = (data) => {
-        return (<img src={data.url} />)
+        return (<img src={data.url} className="folder-img" />)
     }
 
     const createVideoDisplay = (data) => {
-        return (<VideoDisplay url={data.url}/>)
+        return (
+            <div className="folder-video">
+                <VideoDisplay url={data.url} />
+            </div>
+        )
     }
 
     const createTextDisplay = (data) => {
-        return (<TextDisplay data={data} tag={props.tag + "-folder"}/>)
+        return (<TextDisplay data={data} tag={props.tag + "-folder"} />)
     }
 
     const getDisplays = () => {
@@ -53,7 +57,9 @@ function FolderDisplay(props) {
 
     return (
         <>
-            <a onClick={onClick} className="folder-link">{props.data.description}</a>
+        <div className="folder-link-container">
+            <a onClick={onClick} className={"folder-link " + props.tag}>{props.data.description}</a>
+        </div>
 
             <Modal open={modalOpen} onClose={onClose} scrollable>
                 <div className="folder">
