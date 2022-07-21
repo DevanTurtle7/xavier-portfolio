@@ -16,4 +16,17 @@
     min-height: 70px;
     display: flex;
     flex-flow: row;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.folder-item-control-col {
+    display: flex;
+    flex-flow: column;
+    justify-content: start;
+    padding-right: 10px;
+}
+
+.folder-text-row {
+    width: 100%;
 }

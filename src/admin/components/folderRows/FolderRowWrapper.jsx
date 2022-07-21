@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
+import { MdDelete } from "react-icons/md";
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from "reactstrap";
 
 function FolderRowWrapper(props) {
     const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -27,6 +28,7 @@ function FolderRowWrapper(props) {
 
     return (
         <div className="folder-item-row">
+        <div className="folder-item-control-col">
             <Dropdown isOpen={dropdownOpen} toggle={toggle} className="pb-1">
                 <DropdownToggle caret color="primary">
                     {props.index + 1}
@@ -35,6 +37,10 @@ function FolderRowWrapper(props) {
                     {getDropdownItems()}
                 </DropdownMenu>
             </Dropdown>
+            <Button color="danger">
+                <MdDelete/>
+            </Button>
+        </div>
             {props.children}
         </div>
     )
