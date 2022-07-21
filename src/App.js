@@ -119,8 +119,8 @@ function App(props) {
 
                         // Save the content to the array
                         currentContent.push({ url: url, type: currentType })
-                    } else {
-                        currentContent.push({ content: info.content, type: currentType })
+                    } else if (currentType === "text") {
+                        currentContent.push({ content: info.content, type: currentType, size: info.size })
                     }
                 }
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from "./Modal";
+import TextDisplay from "./TextDisplay";
 import VideoDisplay from "./VideoDisplay";
 
 function FolderDisplay(props) {
@@ -22,7 +23,7 @@ function FolderDisplay(props) {
     }
 
     const createTextDisplay = (data) => {
-        return (<></>)
+        return (<TextDisplay data={data} tag={props.tag + "-folder"}/>)
     }
 
     const getDisplays = () => {
@@ -52,7 +53,7 @@ function FolderDisplay(props) {
 
     return (
         <>
-            <a onClick={onClick} className="folder-link">Folder</a>
+            <a onClick={onClick} className="folder-link">{props.data.description}</a>
 
             <Modal open={modalOpen} onClose={onClose} scrollable>
                 <div className="folder">

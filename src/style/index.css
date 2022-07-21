@@ -141,7 +141,7 @@ img {
 }
 
 .text-display {
-    margin-top: 8px;
+    margin-top: 32px;
     margin-bottom: 32px;
     white-space: pre-wrap;
     width: fit-content;
