@@ -135,13 +135,12 @@ function UploadFolderButton(props) {
             let newRow;
 
             if (current.type === "media" || current.type === "video" || current.type === "image") {
-
                 newRow = (
                     <MediaRow
                         current={current}
                         index={i}
                         fileChanged={fileChanged}
-                        key={current.file === null ? i : current.file.name}
+                        key={i}
                     />
                 )
             } else if (current.type === "text") {
@@ -151,7 +150,7 @@ function UploadFolderButton(props) {
                         index={i}
                         sizeChanged={textSizeChanged}
                         textChanged={textChanged}
-                        key={current.text}
+                        key={i}
                     />
                 )
             }

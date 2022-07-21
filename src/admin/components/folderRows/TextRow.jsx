@@ -18,7 +18,7 @@ function TextRow(props) {
             </FormGroup>
             <FormGroup>
                 <Label>Text</Label>
-                <Input type="textarea" placeholder="Enter text" onChange={textChanged} value={props.current.text} invalid={props.current.content === ""}/>
+                <Input type="textarea" placeholder="Enter text" onChange={textChanged} value={props.current.content} invalid={props.current.content === ""}/>
                 <FormFeedback>Text cannot be empty</FormFeedback>
             </FormGroup>
         </div>
