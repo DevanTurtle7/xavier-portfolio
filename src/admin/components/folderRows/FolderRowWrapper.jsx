@@ -6,6 +6,8 @@ function FolderRowWrapper(props) {
 
     const toggle = () => setDropdownOpen(!dropdownOpen)
 
+    const onMove = (index) => props.onMove(props.index, index)
+
     const getDropdownItems = () => {
         let dropdownItems = []
 
@@ -13,7 +15,7 @@ function FolderRowWrapper(props) {
             dropdownItems.push(
                 <DropdownItem
                     active={i === props.index}
-                    onClick={() => { }}
+                    onClick={() => { onMove(i) }}
                     value={i}
                     key={i}>
                     {i + 1}

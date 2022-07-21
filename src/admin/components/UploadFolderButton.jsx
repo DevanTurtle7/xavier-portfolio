@@ -37,6 +37,34 @@ function UploadFolderButton(props) {
         }
     }
 
+    const onMove = (prevIndex, newIndex) => {
+        if (prevIndex !== newIndex) {
+            let newItems = []
+
+            for (let i = 0; i < items.length; i++) {
+                let current = items[i]
+
+                if (i !== prevIndex) {
+
+                    if (i === newIndex) {
+                        if (prevIndex < newIndex) {
+                            newItems.push(current)
+                            newItems.push(items[prevIndex])
+                        } else {
+                            newItems.push(items[prevIndex])
+                            newItems.push(current)
+                        }
+                    } else {
+                        newItems.push(current)
+                    }
+                }
+
+            }
+
+            setItems(newItems)
+        }
+    }
+
     const getItemRows = () => {
         let rows = []
         let numItems = items.length
@@ -46,12 +74,12 @@ function UploadFolderButton(props) {
             let newRow;
 
             if (current.type === "media" || current.type === "video" || current.type === "image") {
-                newRow = (<MediaRow current={current}/>)
+                newRow = (<MediaRow current={current} />)
             } else if (current.type === "text") {
-                newRow = (<TextRow current={current}/>)
+                newRow = (<TextRow current={current} />)
             }
 
-            rows.push(<FolderRowWrapper numItems={numItems} index={i}>{newRow}</FolderRowWrapper>)
+            rows.push(<FolderRowWrapper numItems={numItems} index={i} onMove={onMove}>{newRow}</FolderRowWrapper>)
         }
 
         return rows
