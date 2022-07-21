@@ -11,6 +11,7 @@ import MediaDisplay from './MediaDisplay';
 import CollectionDropdown from './CollectionDropdown';
 import TextDisplay from './TextDisplay';
 import UploadTextButton from './UploadTextButton';
+import UploadFolderButton from './UploadFolderButton';
 import AWS from 'aws-sdk'
 
 const S3_BUCKET = 'xavier-portfolio';
@@ -147,7 +148,7 @@ class ArtList extends Component {
             accessKeyId: this.props.awsAccessKey,
             secretAccessKey: this.props.awsSecretKey
         })
-    
+
         const myBucket = new AWS.S3({
             params: { Bucket: S3_BUCKET },
             region: REGION,
@@ -186,12 +187,19 @@ class ArtList extends Component {
             }
         }
 
+        const getFolderButton = () => {
+            if (this.props.collection === "other") {
+                return (<UploadFolderButton />)
+            }
+        }
+
         return (
             <Col>
                 <Col className="py-3 px-2">
                     <Row>
-                        <UploadButton db={this.db} onUpload={this.onUpdate} collection={this.props.collection} bucket={this.getAWSBucket()}/>
+                        <UploadButton db={this.db} onUpload={this.onUpdate} collection={this.props.collection} bucket={this.getAWSBucket()} />
                         <UploadTextButton db={this.db} onUpload={this.onUpdate} collection={this.props.collection} />
+                        {getFolderButton()}
                         <CollectionDropdown
                             callback={this.collectionChanged}
                             collections={this.props.collections}

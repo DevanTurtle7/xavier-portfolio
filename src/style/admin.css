@@ -1,0 +1,19 @@
+
+.folder-add-row {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.folder-add-button-row {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.folder-item-row {
+    min-height: 70px;
+    display: flex;
+    flex-flow: row;
+}
