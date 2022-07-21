@@ -29,19 +29,19 @@ function FolderRowWrapper(props) {
 
     return (
         <div className="folder-item-row">
-        <div className="folder-item-control-col">
-            <Dropdown isOpen={dropdownOpen} toggle={toggle} className="pb-1">
-                <DropdownToggle caret color="primary">
-                    {props.index + 1}
-                </DropdownToggle>
-                <DropdownMenu className="carousel-dropdown">
-                    {getDropdownItems()}
-                </DropdownMenu>
-            </Dropdown>
-            <Button color="danger" onClick={onRemove}>
-                <MdDelete/>
-            </Button>
-        </div>
+            <div className="folder-item-control-col">
+                <Dropdown isOpen={dropdownOpen} toggle={toggle} className="pb-1">
+                    <DropdownToggle caret color="primary">
+                        {props.index + 1}
+                    </DropdownToggle>
+                    <DropdownMenu className="carousel-dropdown">
+                        {getDropdownItems()}
+                    </DropdownMenu>
+                </Dropdown>
+                <Button color="danger" onClick={onRemove}>
+                    <MdDelete />
+                </Button>
+            </div>
             {props.children}
         </div>
     )

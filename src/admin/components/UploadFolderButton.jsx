@@ -59,7 +59,7 @@ function UploadFolderButton(props) {
 
     const onAdd = (type) => {
         if (type === "media") {
-            addItem({ type: "media", filename: "" })
+            addItem({ type: "media", file: null })
         } else if (type === "text") {
             addItem({ type: "text", content: "", size: 16 })
         }
@@ -117,6 +117,15 @@ function UploadFolderButton(props) {
         setItem(index, newItem)
     }
 
+    const fileChanged = (index, file, type) => {
+        let current = {
+            file: file,
+            type: type
+        }
+
+        setItem(index, current)
+    }
+
     const getItemRows = () => {
         let rows = []
         let numItems = items.length
@@ -126,11 +135,13 @@ function UploadFolderButton(props) {
             let newRow;
 
             if (current.type === "media" || current.type === "video" || current.type === "image") {
+
                 newRow = (
                     <MediaRow
                         current={current}
                         index={i}
-
+                        fileChanged={fileChanged}
+                        key={current.file === null ? i : current.file.name}
                     />
                 )
             } else if (current.type === "text") {
@@ -140,7 +151,7 @@ function UploadFolderButton(props) {
                         index={i}
                         sizeChanged={textSizeChanged}
                         textChanged={textChanged}
-
+                        key={current.text}
                     />
                 )
             }
@@ -159,6 +170,8 @@ function UploadFolderButton(props) {
 
         return rows
     }
+
+    console.log(items)
 
     return (
         <>
