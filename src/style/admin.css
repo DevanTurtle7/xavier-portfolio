@@ -30,3 +30,8 @@
 .folder-text-row {
     width: 100%;
 }
+
+.text-size-row {
+    display: flex;
+    flex-flow: row;
+}

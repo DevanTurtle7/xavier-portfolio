@@ -29,6 +29,20 @@ function UploadFolderButton(props) {
         setItems(newItems)
     }
 
+    const setItem = (index, item) => {
+        let newItems = []
+
+        for (let i = 0; i < items.length; i++) {
+            if (i !== index) {
+                newItems.push(items[i])
+            } else {
+                newItems.push(item)
+            }
+        }
+
+        setItems(newItems)
+    }
+
     const onAdd = (type) => {
         if (type === "media") {
             addItem({ type: "media", filename: "" })
@@ -65,6 +79,31 @@ function UploadFolderButton(props) {
         }
     }
 
+    const textSizeChanged = (index, size) => {
+        let current = items[index]
+
+        let newItem = {
+            type: "text",
+            content: current.content,
+            size: size
+        }
+
+        setItem(index, newItem)
+    }
+
+    const textChanged = (index, text) => {
+        let current = items[index]
+        console.log(current)
+
+        let newItem = {
+            type: "text",
+            content: text,
+            size: current.size
+        }
+
+        setItem(index, newItem)
+    }
+
     const getItemRows = () => {
         let rows = []
         let numItems = items.length
@@ -74,9 +113,17 @@ function UploadFolderButton(props) {
             let newRow;
 
             if (current.type === "media" || current.type === "video" || current.type === "image") {
-                newRow = (<MediaRow current={current} />)
+                newRow = (<MediaRow current={current} index={i} />)
             } else if (current.type === "text") {
-                newRow = (<TextRow current={current} />)
+                newRow = (
+                    <TextRow
+                        current={current}
+                        index={i}
+                        sizeChanged={textSizeChanged}
+                        textChanged={textChanged}
+
+                    />
+                )
             }
 
             rows.push(<FolderRowWrapper numItems={numItems} index={i} onMove={onMove}>{newRow}</FolderRowWrapper>)
