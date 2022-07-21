@@ -1,4 +1,4 @@
-import { FormGroup, Input, Label } from "reactstrap"
+import { FormFeedback, FormGroup, Input, Label } from "reactstrap"
 
 function TextRow(props) {
 
@@ -18,7 +18,8 @@ function TextRow(props) {
             </FormGroup>
             <FormGroup>
                 <Label>Text</Label>
-                <Input type="textarea" placeholder="Enter text" onChange={textChanged} />
+                <Input type="textarea" placeholder="Enter text" onChange={textChanged} invalid={props.current.content === ""}/>
+                <FormFeedback>Text cannot be empty</FormFeedback>
             </FormGroup>
         </div>
     )
