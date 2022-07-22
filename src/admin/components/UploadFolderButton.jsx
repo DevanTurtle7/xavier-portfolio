@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { MdFolder } from "react-icons/md";
+import { MdFolder, MdStayCurrentPortrait } from "react-icons/md";
 import { Button, FormGroup, Modal, ModalBody, ModalFooter, ModalHeader, Label, Input, FormFeedback } from "reactstrap";
 import AddRow from "./folderRows/AddRow";
 import MediaRow from "./folderRows/MediaRow";
 import TextRow from "./folderRows/TextRow";
 import FolderRowWrapper from "./folderRows/FolderRowWrapper";
+import { collection, getDoc, doc, addDoc, updateDoc, increment } from "firebase/firestore";
 
 function UploadFolderButton(props) {
     const [modalOpen, setModalOpen] = useState(false)
@@ -12,12 +13,93 @@ function UploadFolderButton(props) {
     const [validUpdate, setValidUpdate] = useState(true)
     const [items, setItems] = useState([])
     const [folderName, setFolderName] = useState("")
+    const [uploading, setUploading] = useState(false)
 
-    const openModal = () => setModalOpen(true)
     const toggleModal = () => setModalOpen(!modalOpen)
 
-    const upload = () => {
+    const openModal = () => {
+        setModalOpen(true)
+        setItems([])
+        setFolderName("")
+        setUploading(false)
+        setValidUpdate(true)
+    }
 
+    const upload = async () => {
+        if (!uploading) {
+            setUploading(true)
+
+            const db = props.db
+            const collectionRef = collection(db, props.collection)
+            const countRef = doc(db, "counts", props.collection)
+            let countSnap = await getDoc(countRef)
+            let size = countSnap.data().count
+            let content = []
+
+            for (let i = 0; i < items.length; i++) {
+                const current = items[i]
+                const type = current.type
+
+                if (type === "image" || type === "video") {
+                    const file = current.file
+                    let tokens = file.name.split(".")
+                    let numTokens = tokens.length
+                    let suffix = tokens[numTokens - 1]
+                    let time = new Date().getTime()
+                    let name = ""
+
+                    for (let i = 0; i < numTokens - 1; i++) {
+                        name += tokens[i]
+                    }
+
+                    name += "_" + time + "." + suffix
+
+                    let typeTokens = file.type.split("/")
+                    let fileType = typeTokens[0]
+
+                    const params = {
+                        ACL: 'public-read',
+                        Key: name,
+                        ContentType: file.type,
+                        Body: file,
+                    }
+
+                    let bucket = props.bucket
+                    let putObjectPromise = bucket.putObject(params).on('httpUploadProgress', (evt) => {
+                        //setProgress(Math.round((evt.loaded / evt.total) * 100))
+                    }).promise()
+
+                    putObjectPromise.then((data) => {
+                        console.log(data)
+                        console.log('success!')
+                    }).catch((err) => {
+                        console.log(err)
+                        alert("There was an error while uploading")
+                        setUploading(false)
+                    })
+
+                    content.push({ filename: name, type: fileType })
+                } else if (type === "text") {
+                    content.push({ content: current.content, size: current.size, type: "text" })
+                }
+            }
+
+            const docRef = await addDoc(collectionRef, {
+                order: size,
+                content: content,
+                type: "folder",
+                description: folderName
+            })
+
+            await updateDoc(countRef, {
+                count: increment(1)
+            })
+
+            console.log("Document written with ID: ", docRef.id);
+            setUploading(false)
+            setModalOpen(false)
+            props.onUpload()
+        }
     }
 
     const addItem = (item) => {
@@ -182,7 +264,6 @@ function UploadFolderButton(props) {
 
     useEffect(() => {
         if (validUpdate) {
-            console.log('updating valid')
             let isValid = true;
 
             if (folderName.length === 0 || items.length === 0) {
@@ -192,8 +273,6 @@ function UploadFolderButton(props) {
             for (let i = 0; i < items.length; i++) {
                 const current = items[i]
                 const type = current.type
-
-                console.log(type)
 
                 switch (type) {
                     case "media":
@@ -218,13 +297,10 @@ function UploadFolderButton(props) {
                 if (!isValid) { break }
             }
 
-            console.log('valid: ' + isValid)
             setValidUpdate(false)
             setValid(isValid)
         }
     }, [validUpdate, setValidUpdate, valid, setValid])
-
-    console.log(items)
 
     return (
         <>
@@ -250,7 +326,7 @@ function UploadFolderButton(props) {
                 </ModalBody>
                 <ModalFooter>
                     <div className="upload-add-row">
-                        <Button onClick={upload} color="primary" disabled={!valid}>Upload</Button>
+                        <Button onClick={upload} color="primary" disabled={!valid && !uploading}>Upload</Button>
                     </div>
                 </ModalFooter>
             </Modal>

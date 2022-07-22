@@ -189,7 +189,7 @@ class ArtList extends Component {
 
         const getFolderButton = () => {
             if (this.props.collection === "other") {
-                return (<UploadFolderButton />)
+                return (<UploadFolderButton db={this.db} collection={this.props.collection} bucket={this.getAWSBucket()} onUpload={this.onUpdate} />)
             }
         }
 

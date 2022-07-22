@@ -53,8 +53,6 @@ function FolderDisplay(props) {
         return displays
     }
 
-    console.log(props.data)
-
     return (
         <>
         <div className="folder-link-container">
