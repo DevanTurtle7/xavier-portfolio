@@ -50,7 +50,7 @@ function UniversalDeleteButton(props) {
                             console.log('there was an error')
                             console.log(err)
                         } else {
-                            cosole.log('Successfully deleted from bucket')
+                            console.log('Successfully deleted from bucket')
                             console.log(data)
                         }
                     })
