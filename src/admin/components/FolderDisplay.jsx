@@ -5,7 +5,7 @@ import UniversalDeleteButton from "./UniversalDeleteButton"
 
 function FolderDisplay(props) {
 
-    const onUpdate = () => props.onUpdate
+    const onUpdate = () => props.onUpdate()
 
     return (
         <Col xs={12} sm={6} md={4} lg={3} xl={2}>

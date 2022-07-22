@@ -74,6 +74,7 @@ function UniversalDeleteButton(props) {
 
         props.onDelete()
         setDeleting(false)
+        closeModal()
     }
 
     return (
