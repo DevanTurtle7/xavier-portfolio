@@ -26,7 +26,6 @@ function UploadButton(props) {
     }
 
     const validFile = () => {
-        console.log(files)
         if (files.length === 0) {
             return true
         } else {
