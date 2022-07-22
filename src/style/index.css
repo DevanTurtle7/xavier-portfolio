@@ -8,7 +8,7 @@ body {
     transition: background-color .5s;
 }
 
-h1, p, .menu-link, a, .navigation-link {
+h1, p, .menu-link, a, .navigation-link, button {
     /*
   font-family: 'Source Code Pro', monospace;
   */
@@ -43,7 +43,7 @@ img {
 ::selection {
     color: var(--bs-body-bg);
     background: var(--bs-body-color);
-    -webkit-appearance:none;
+    -webkit-appearance: none;
 }
 
 .modal-view {
@@ -93,7 +93,7 @@ img {
     right: 30px;
 }
 
-.menu-link, .menu-link:visited, .navigation-link, .navigation-link:visited {
+.menu-link, .menu-link:visited, .navigation-link, .navigation-link:visited, .folder-link, .folder-link:visited {
     color: var(--bs-body-color);
     font-size: 16px;
     transition: color .3s;
@@ -151,22 +151,12 @@ img {
     width: 60vw;
 }
 
-.text-display.archive p{
+.text-display.archive p {
     width: fit-content;
 }
 
 .media-display.archive {
     margin-bottom: 26px;
-}
-
-@media (max-device-width: 800px) {
-    .media-display, .text-display.art {
-        width: 60vw;
-    }
-
-    .media-display.art, .text-display.art {
-        width: 90vw;
-    }
 }
 
 .media-display-left {
@@ -405,13 +395,14 @@ img {
 }
 
 /* FOR MOBILE: Override the default blue color on hover to not change */
-.menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover, .navigation-link:hover {
+.menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover, .navigation-link:hover, .folder-link:hover {
     color: var(--bs-body-color)
 }
 
 @media (hover: hover) {
-    .menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover, .navigation-link:hover {
-        color: rgba(150, 150, 150, 1)
+    .menu-link:hover, .icon-btn:hover, .email:hover, .asterisk:hover, .navigation-link:hover, .folder-link:hover {
+        color: rgba(150, 150, 150, 1);
+        cursor: pointer;
     }
 
     .clickable:hover {
@@ -424,4 +415,53 @@ img {
     height: 200px;
     margin: 0px;
     white-space: pre-wrap;
+}
+
+.folder-link {
+    text-decoration: underline;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: inherit;
+}
+
+.folder-link-container {
+    margin-top: 8px;
+    margin-bottom: 32px;
+}
+
+.folder {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    align-items: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.folder-col {
+    display: flex;
+    flex-flow: column;
+    width: 40vw;
+}
+
+.modal-open.scrollable {
+    overflow-y: scroll;
+}
+
+@media (max-device-width: 800px) {
+    .media-display {
+        width: 60vw;
+    }
+
+    .media-display.art, .text-display.art, .folder-col {
+        width: 90vw;
+    }
+}
+
+.folder-img, .folder-video {
+    margin-top: 8px;
+    margin-bottom: 32px;
 }

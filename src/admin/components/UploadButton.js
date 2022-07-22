@@ -26,7 +26,7 @@ function UploadButton(props) {
     }
 
     const validFile = () => {
-        if (files === []) {
+        if (files.length === 0) {
             return true
         } else {
             for (let i = 0; i < files.length; i++) {
@@ -52,7 +52,7 @@ function UploadButton(props) {
     }
 
     const openModal = () => {
-        setFiles(...[])
+        setFiles([])
         setUploading(false)
         setProgress(0)
         setDescription("")

@@ -14,6 +14,7 @@ import MediaDisplay from '../components/MediaDisplay';
 import Navbar from '../components/Navbar';
 import TextDisplay from '../components/TextDisplay';
 import Footer from '../components/Footer';
+import FolderDisplay from '../components/FolderDisplay';
 
 const BG_COLOR = "#fff"
 const TEXT_COLOR = "#000"
@@ -64,6 +65,10 @@ function Art(props) {
         />)
     }
 
+    const createFolderDisplay = (data, key) => {
+        return (<FolderDisplay data={data} tag={PAGE_TAG} key={key} />)
+    }
+
     /**
      * Creates all of the displays on the page
      * 
@@ -84,6 +89,8 @@ function Art(props) {
                 displays.push(createMediaDisplay(current, key))
             } else if (type === "text") {
                 displays.push(createTextDisplay(current, key))
+            } else if (type === "folder") {
+                displays.push(createFolderDisplay(current, key))
             }
         }
 

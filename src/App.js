@@ -104,6 +104,33 @@ function App(props) {
                     size: size,
                     link: data.link
                 }
+            } else if (type === "folder") {
+                console.log(data)
+                let content = data.content
+                let description = data.description
+                let currentContent = []
+
+                for (let i = 0; i < content.length; i++) {
+                    const info = content[i]
+                    const currentType = info.type
+
+                    if (currentType === "image" || currentType === "video") {
+                        const fileName = info.filename
+                        const url = IMG_URL + fileName
+
+                        // Save the content to the array
+                        currentContent.push({ url: url, type: currentType })
+                    } else if (currentType === "text") {
+                        currentContent.push({ content: info.content, type: currentType, size: info.size })
+                    }
+                }
+
+                current = {
+                    content: currentContent,
+                    order: order,
+                    type: "folder",
+                    description: description,
+                }
             } else {
                 console.log("Invalid type: " + type)
             }

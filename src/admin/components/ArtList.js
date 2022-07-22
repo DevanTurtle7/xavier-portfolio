@@ -11,7 +11,9 @@ import MediaDisplay from './MediaDisplay';
 import CollectionDropdown from './CollectionDropdown';
 import TextDisplay from './TextDisplay';
 import UploadTextButton from './UploadTextButton';
+import UploadFolderButton from './UploadFolderButton';
 import AWS from 'aws-sdk'
+import FolderDisplay from './FolderDisplay';
 
 const S3_BUCKET = 'xavier-portfolio';
 const REGION = 'us-east-2';
@@ -75,6 +77,33 @@ class ArtList extends Component {
                     type: "text",
                     size: size,
                     link: data.link
+                }
+            } else if (type === "folder") {
+                let content = data.content
+                let description = data.description
+                let currentContent = []
+
+                for (let i = 0; i < content.length; i++) {
+                    const info = content[i]
+                    const currentType = info.type
+
+                    if (currentType === "image" || currentType === "video") {
+                        const fileName = info.filename
+                        const url = IMG_URL + fileName
+
+                        // Save the content to the array
+                        currentContent.push({ url: url, type: currentType })
+                    } else if (currentType === "text") {
+                        currentContent.push({ content: info.content, type: currentType, size: info.size })
+                    }
+                }
+
+                current = {
+                    content: currentContent,
+                    order: order,
+                    type: "folder",
+                    description: description,
+                    docId: doc.id
                 }
             } else {
                 console.log("Invalid type: " + type)
@@ -147,7 +176,7 @@ class ArtList extends Component {
             accessKeyId: this.props.awsAccessKey,
             secretAccessKey: this.props.awsSecretKey
         })
-    
+
         const myBucket = new AWS.S3({
             params: { Bucket: S3_BUCKET },
             region: REGION,
@@ -183,6 +212,22 @@ class ArtList extends Component {
                     collection={this.props.collection}
                     key={current.docId + i.toString()}
                 />)
+            } else if (type === "folder") {
+                displays.push(<FolderDisplay
+                    docId={current.docId}
+                    db={this.db}
+                    bucket={this.getAWSBucket()}
+                    collection={this.props.collection}
+                    folderName={current.description}
+                    onUpdate={this.onUpdate}
+                    key={current.docId + i.toString()}
+                />)
+            }
+        }
+
+        const getFolderButton = () => {
+            if (this.props.collection === "other") {
+                return (<UploadFolderButton db={this.db} collection={this.props.collection} bucket={this.getAWSBucket()} onUpload={this.onUpdate} />)
             }
         }
 
@@ -190,8 +235,9 @@ class ArtList extends Component {
             <Col>
                 <Col className="py-3 px-2">
                     <Row>
-                        <UploadButton db={this.db} onUpload={this.onUpdate} collection={this.props.collection} bucket={this.getAWSBucket()}/>
+                        <UploadButton db={this.db} onUpload={this.onUpdate} collection={this.props.collection} bucket={this.getAWSBucket()} />
                         <UploadTextButton db={this.db} onUpload={this.onUpdate} collection={this.props.collection} />
+                        {getFolderButton()}
                         <CollectionDropdown
                             callback={this.collectionChanged}
                             collections={this.props.collections}
