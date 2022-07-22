@@ -13,6 +13,7 @@ import TextDisplay from './TextDisplay';
 import UploadTextButton from './UploadTextButton';
 import UploadFolderButton from './UploadFolderButton';
 import AWS from 'aws-sdk'
+import FolderDisplay from './FolderDisplay';
 
 const S3_BUCKET = 'xavier-portfolio';
 const REGION = 'us-east-2';
@@ -76,6 +77,32 @@ class ArtList extends Component {
                     type: "text",
                     size: size,
                     link: data.link
+                }
+            } else if (type === "folder") {
+                let content = data.content
+                let description = data.description
+                let currentContent = []
+
+                for (let i = 0; i < content.length; i++) {
+                    const info = content[i]
+                    const currentType = info.type
+
+                    if (currentType === "image" || currentType === "video") {
+                        const fileName = info.filename
+                        const url = IMG_URL + fileName
+
+                        // Save the content to the array
+                        currentContent.push({ url: url, type: currentType })
+                    } else if (currentType === "text") {
+                        currentContent.push({ content: info.content, type: currentType, size: info.size })
+                    }
+                }
+
+                current = {
+                    content: currentContent,
+                    order: order,
+                    type: "folder",
+                    description: description,
                 }
             } else {
                 console.log("Invalid type: " + type)
@@ -182,6 +209,11 @@ class ArtList extends Component {
                     onUpdate={this.onUpdate}
                     db={this.db}
                     collection={this.props.collection}
+                    key={current.docId + i.toString()}
+                />)
+            } else if (type === "folder") {
+                displays.push(<FolderDisplay
+                    folderName={current.description}
                     key={current.docId + i.toString()}
                 />)
             }

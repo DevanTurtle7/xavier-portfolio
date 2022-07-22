@@ -105,6 +105,7 @@ function App(props) {
                     link: data.link
                 }
             } else if (type === "folder") {
+                console.log(data)
                 let content = data.content
                 let description = data.description
                 let currentContent = []

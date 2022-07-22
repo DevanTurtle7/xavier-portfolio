@@ -45,3 +45,7 @@
 .folder-item-preview video, .folder-item-preview img {
     height: 200px;
 }
+
+.admin-folder-display-body {
+    height: 200px;
+}
