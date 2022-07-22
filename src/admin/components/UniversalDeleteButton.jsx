@@ -35,21 +35,25 @@ function UniversalDeleteButton(props) {
             console.log(content)
 
             for (let i = 0; i < content.length; i++) {
-                const filename = currentDoc.content[i].filename
+                let current = currentDoc.content[i]
 
-                let params = {
-                    Bucket: 'xavier-portfolio',
-                    Key: filename
-                }
+                if (current.type === "image" || current.type === "video") {
+                    const filename = current.filename
 
-                bucket.deleteObject(params, (err, data) => {
-                    if (err) {
-                        console.log('there was an error')
-                        console.log(err)
-                    } else {
-                        console.log('data')
+                    let params = {
+                        Bucket: 'xavier-portfolio',
+                        Key: filename
                     }
-                })
+
+                    bucket.deleteObject(params, (err, data) => {
+                        if (err) {
+                            console.log('there was an error')
+                            console.log(err)
+                        } else {
+                            console.log('data')
+                        }
+                    })
+                }
             }
         }
 
