@@ -44,7 +44,8 @@ class DeleteButton extends Component {
                     console.log('there was an error')
                     console.log(err)
                 } else {
-                    console.log('data')
+                    cosole.log('Successfully deleted from bucket')
+                    console.log(data)
                 }
             })
         }
