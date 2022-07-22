@@ -38,7 +38,7 @@ function MediaRow(props) {
 
         if (type === "image") {
             preview = (
-                <img src={file}/>
+                <img src={file} alt="preview"/>
             )
         } else if (type === "video") {
             preview = (

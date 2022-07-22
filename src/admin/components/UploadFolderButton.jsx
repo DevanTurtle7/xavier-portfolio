@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MdFolder, MdStayCurrentPortrait } from "react-icons/md";
+import { MdFolder } from "react-icons/md";
 import { Button, FormGroup, Modal, ModalBody, ModalFooter, ModalHeader, Label, Input, FormFeedback } from "reactstrap";
 import AddRow from "./folderRows/AddRow";
 import MediaRow from "./folderRows/MediaRow";
@@ -301,7 +301,7 @@ function UploadFolderButton(props) {
             setValidUpdate(false)
             setValid(isValid)
         }
-    }, [validUpdate, setValidUpdate, valid, setValid])
+    }, [validUpdate, setValidUpdate, valid, setValid, folderName.length, items])
 
     return (
         <>

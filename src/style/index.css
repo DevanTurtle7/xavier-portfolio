@@ -8,7 +8,7 @@ body {
     transition: background-color .5s;
 }
 
-h1, p, .menu-link, a, .navigation-link {
+h1, p, .menu-link, a, .navigation-link, button {
     /*
   font-family: 'Source Code Pro', monospace;
   */
@@ -43,7 +43,7 @@ img {
 ::selection {
     color: var(--bs-body-bg);
     background: var(--bs-body-color);
-    -webkit-appearance:none;
+    -webkit-appearance: none;
 }
 
 .modal-view {
@@ -151,7 +151,7 @@ img {
     width: 60vw;
 }
 
-.text-display.archive p{
+.text-display.archive p {
     width: fit-content;
 }
 
@@ -419,6 +419,12 @@ img {
 
 .folder-link {
     text-decoration: underline;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: inherit;
 }
 
 .folder-link-container {

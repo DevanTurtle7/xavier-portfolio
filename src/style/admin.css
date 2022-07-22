@@ -23,7 +23,7 @@
 .folder-item-control-col {
     display: flex;
     flex-flow: column;
-    justify-content: start;
+    justify-content: flex-start;
     padding-right: 10px;
 }
 
