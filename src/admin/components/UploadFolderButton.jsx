@@ -29,6 +29,7 @@ function UploadFolderButton(props) {
 
         newItems.push(item)
         setItems(newItems)
+        setValidUpdate(true)
     }
 
     const removeItem = (index) => {
@@ -43,6 +44,7 @@ function UploadFolderButton(props) {
         }
 
         setItems(newItems)
+        setValidUpdate(true)
     }
 
     const setItem = (index, item) => {
@@ -57,6 +59,7 @@ function UploadFolderButton(props) {
         }
 
         setItems(newItems)
+        setValidUpdate(true)
     }
 
     const onAdd = (type) => {
@@ -105,7 +108,6 @@ function UploadFolderButton(props) {
         }
 
         setItem(index, newItem)
-        setValidUpdate(true)
     }
 
     const textChanged = (index, text) => {
@@ -118,7 +120,6 @@ function UploadFolderButton(props) {
         }
 
         setItem(index, newItem)
-        setValidUpdate(true)
     }
 
     const fileChanged = (index, file, type) => {
@@ -128,7 +129,6 @@ function UploadFolderButton(props) {
         }
 
         setItem(index, current)
-        setValidUpdate(true)
     }
 
     const folderNameChanged = (e) => {
@@ -180,24 +180,12 @@ function UploadFolderButton(props) {
         return rows
     }
 
-    const validMedia = (object) => {
-
-    }
-
-    const validText = (object) => {
-
-    }
-
-    const validFolder = (object) => {
-
-    }
-
     useEffect(() => {
         if (validUpdate) {
             console.log('updating valid')
             let isValid = true;
 
-            if (folderName.length === 0) {
+            if (folderName.length === 0 || items.length === 0) {
                 isValid = false
             }
 
@@ -205,18 +193,26 @@ function UploadFolderButton(props) {
                 const current = items[i]
                 const type = current.type
 
+                console.log(type)
+
                 switch (type) {
                     case "media":
                         isValid = false;
+                        break;
                     case "text":
                         if (current.size <= 0 || current.content.length === 0) {
                             isValid = false
                         }
+                        break;
                     case "image":
                     case "video":
                         if (current.file === null) {
                             isValid = false
                         }
+                        break;
+                    default:
+                        isValid = false;
+                        break;
                 }
 
                 if (!isValid) { break }
