@@ -14,7 +14,8 @@ function TextRow(props) {
         <div className="folder-text-row">
             <FormGroup>
                 <Label>Font size (px)</Label>
-                <Input type="number" value={props.current.size} min={1} onChange={sizeChanged} />
+                <Input type="number" value={props.current.size} min={1} onChange={sizeChanged} invalid={props.current.size <= 0}/>
+                <FormFeedback>Font size must be greater than 0</FormFeedback>
             </FormGroup>
             <FormGroup>
                 <Label>Text</Label>

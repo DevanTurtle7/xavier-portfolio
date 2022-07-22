@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdFolder } from "react-icons/md";
-import { Button, FormGroup, Modal, ModalBody, ModalFooter, ModalHeader, Label, Input } from "reactstrap";
+import { Button, FormGroup, Modal, ModalBody, ModalFooter, ModalHeader, Label, Input, FormFeedback } from "reactstrap";
 import AddRow from "./folderRows/AddRow";
 import MediaRow from "./folderRows/MediaRow";
 import TextRow from "./folderRows/TextRow";
@@ -9,7 +9,9 @@ import FolderRowWrapper from "./folderRows/FolderRowWrapper";
 function UploadFolderButton(props) {
     const [modalOpen, setModalOpen] = useState(false)
     const [valid, setValid] = useState(false)
+    const [validUpdate, setValidUpdate] = useState(true)
     const [items, setItems] = useState([])
+    const [folderName, setFolderName] = useState("")
 
     const openModal = () => setModalOpen(true)
     const toggleModal = () => setModalOpen(!modalOpen)
@@ -103,6 +105,7 @@ function UploadFolderButton(props) {
         }
 
         setItem(index, newItem)
+        setValidUpdate(true)
     }
 
     const textChanged = (index, text) => {
@@ -115,6 +118,7 @@ function UploadFolderButton(props) {
         }
 
         setItem(index, newItem)
+        setValidUpdate(true)
     }
 
     const fileChanged = (index, file, type) => {
@@ -124,6 +128,12 @@ function UploadFolderButton(props) {
         }
 
         setItem(index, current)
+        setValidUpdate(true)
+    }
+
+    const folderNameChanged = (e) => {
+        setFolderName(e.target.value)
+        setValidUpdate(true)
     }
 
     const getItemRows = () => {
@@ -170,6 +180,54 @@ function UploadFolderButton(props) {
         return rows
     }
 
+    const validMedia = (object) => {
+
+    }
+
+    const validText = (object) => {
+
+    }
+
+    const validFolder = (object) => {
+
+    }
+
+    useEffect(() => {
+        if (validUpdate) {
+            console.log('updating valid')
+            let isValid = true;
+
+            if (folderName.length === 0) {
+                isValid = false
+            }
+
+            for (let i = 0; i < items.length; i++) {
+                const current = items[i]
+                const type = current.type
+
+                switch (type) {
+                    case "media":
+                        isValid = false;
+                    case "text":
+                        if (current.size <= 0 || current.content.length === 0) {
+                            isValid = false
+                        }
+                    case "image":
+                    case "video":
+                        if (current.file === null) {
+                            isValid = false
+                        }
+                }
+
+                if (!isValid) { break }
+            }
+
+            console.log('valid: ' + isValid)
+            setValidUpdate(false)
+            setValid(isValid)
+        }
+    }, [validUpdate, setValidUpdate, valid, setValid])
+
     console.log(items)
 
     return (
@@ -186,7 +244,8 @@ function UploadFolderButton(props) {
                 <ModalBody>
                     <FormGroup>
                         <Label>Folder name</Label>
-                        <Input type="text" placeholder="Enter folder name" />
+                        <Input type="text" placeholder="Enter folder name" onChange={folderNameChanged} invalid={folderName.length === 0} />
+                        <FormFeedback>Folder must have a name</FormFeedback>
                     </FormGroup>
                     <FormGroup>
                         {getItemRows()}
