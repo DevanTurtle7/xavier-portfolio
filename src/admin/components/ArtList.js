@@ -103,6 +103,7 @@ class ArtList extends Component {
                     order: order,
                     type: "folder",
                     description: description,
+                    docId: doc.id
                 }
             } else {
                 console.log("Invalid type: " + type)
@@ -213,7 +214,12 @@ class ArtList extends Component {
                 />)
             } else if (type === "folder") {
                 displays.push(<FolderDisplay
+                    docId={current.docId}
+                    db={this.db}
+                    bucket={this.getAWSBucket()}
+                    collection={this.props.collection}
                     folderName={current.description}
+                    onUpdate={this.onUpdate}
                     key={current.docId + i.toString()}
                 />)
             }
