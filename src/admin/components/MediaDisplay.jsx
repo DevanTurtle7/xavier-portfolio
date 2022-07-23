@@ -7,7 +7,6 @@ import {
     Row
 } from 'reactstrap';
 import EditButton from './EditButton';
-import DeleteButton from './DeleteButton';
 import UniversalDeleteButton from './UniversalDeleteButton';
 
 class MediaDisplay extends Component {

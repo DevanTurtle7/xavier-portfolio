@@ -1,6 +1,4 @@
 import { Col, Card, CardBody, Row, CardFooter, Button } from "reactstrap"
-import DeleteButton from "./DeleteButton"
-import EditButton from "./EditButton"
 import UniversalDeleteButton from "./UniversalDeleteButton"
 
 function FolderDisplay(props) {
