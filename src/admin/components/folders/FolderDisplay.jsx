@@ -1,5 +1,5 @@
-import { Col, Card, CardBody, Row, CardFooter, Button } from "reactstrap"
-import UniversalDeleteButton from "./UniversalDeleteButton"
+import { Col, Card, CardBody, CardFooter, Button } from "reactstrap"
+import UniversalDeleteButton from "../UniversalDeleteButton"
 
 function FolderDisplay(props) {
 

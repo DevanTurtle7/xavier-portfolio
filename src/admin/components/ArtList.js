@@ -4,16 +4,16 @@ import {
     Col,
     Row,
 } from 'reactstrap';
-import UploadButton from './UploadButton';
+import UploadButton from './media/UploadButton';
 import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import { MdRefresh } from "react-icons/md"
-import MediaDisplay from './MediaDisplay';
+import MediaDisplay from './media/MediaDisplay';
 import CollectionDropdown from './CollectionDropdown';
-import TextDisplay from './TextDisplay';
-import UploadTextButton from './UploadTextButton';
-import UploadFolderButton from './UploadFolderButton';
+import TextDisplay from './text/TextDisplay';
+import UploadTextButton from './text/UploadTextButton';
+import UploadFolderButton from './folders/UploadFolderButton';
 import AWS from 'aws-sdk'
-import FolderDisplay from './FolderDisplay';
+import FolderDisplay from './folders/FolderDisplay';
 
 const S3_BUCKET = 'xavier-portfolio';
 const REGION = 'us-east-2';

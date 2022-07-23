@@ -7,7 +7,7 @@ import {
     Row
 } from 'reactstrap';
 import TextEditButton from './TextEditButton';
-import UniversalDeleteButton from './UniversalDeleteButton';
+import UniversalDeleteButton from '../UniversalDeleteButton';
 
 class TextDisplay extends Component {
     constructor(props) {
