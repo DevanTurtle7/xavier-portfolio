@@ -253,6 +253,7 @@ function UploadFolderButton(props) {
                     index={i}
                     onMove={onMove}
                     onRemove={() => { removeItem(i) }}
+                    canDelete
                     key={i}
                 >
                     {newRow}

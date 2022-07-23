@@ -38,9 +38,11 @@ function FolderRowWrapper(props) {
                         {getDropdownItems()}
                     </DropdownMenu>
                 </Dropdown>
-                <Button color="danger" onClick={onRemove}>
-                    <MdDelete />
-                </Button>
+                {props.canDelete === true ?
+                    <Button color="danger" onClick={onRemove}>
+                        <MdDelete />
+                    </Button> : <></>
+                }
             </div>
             {props.children}
         </div>

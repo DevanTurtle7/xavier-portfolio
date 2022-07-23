@@ -219,6 +219,7 @@ class ArtList extends Component {
                     bucket={this.getAWSBucket()}
                     collection={this.props.collection}
                     folderName={current.description}
+                    content={current.content}
                     onUpdate={this.onUpdate}
                     key={current.docId + i.toString()}
                 />)

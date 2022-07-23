@@ -1,7 +1,6 @@
 import { FormFeedback, FormGroup, Input } from "reactstrap";
 
 function MediaRow(props) {
-
     const handleFileInput = (e) => {
         let file = e.target.files[0]
         let tokens = file.type.split("/")
@@ -32,20 +31,23 @@ function MediaRow(props) {
 
     const getDisplay = () => {
         const current = props.current
+        console.log(current)
         const type = current.type
-        const file = URL.createObjectURL(props.current.file)
+        const file = props.uploaded ?
+            current.url :
+            URL.createObjectURL(current.file)
         let preview;
 
         if (type === "image") {
             preview = (
-                <img src={file} alt="preview"/>
+                <img src={file} alt="preview" />
             )
         } else if (type === "video") {
             preview = (
                 <video controls controlsList="nodownload" preload="metadata">
-                {/* Start timestamp at 0.001 seconds to render thumbnail */}
-                <source src={file + "#t=0.001"} />
-            </video>
+                    {/* Start timestamp at 0.001 seconds to render thumbnail */}
+                    <source src={file + "#t=0.001"} />
+                </video>
             )
         }
 
