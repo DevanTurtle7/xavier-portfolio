@@ -24,7 +24,6 @@ class TextDisplay extends Component {
         let data = this.props.data
         let content = data.content
         let docId = data.docId
-        let order = data.order
 
         return (
             <Col xs={12} sm={6} md={4} lg={3} xl={2}>

@@ -1,4 +1,4 @@
-import { Component, Fragment, useState } from 'react';
+import { useState } from 'react';
 import {
     Button,
     Modal,

@@ -24,7 +24,6 @@ class MediaDisplay extends Component {
         let data = this.props.data
         let content = data.content
         let docId = data.docId
-        let order = data.order
         let first = content[0]
         let type = first.type
         let url = first.url
