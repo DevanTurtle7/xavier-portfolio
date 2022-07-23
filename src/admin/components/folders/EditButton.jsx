@@ -10,6 +10,24 @@ import { collection, getDoc, doc, addDoc, updateDoc, increment } from "firebase/
 function EditButton(props) {
     const [modalOpen, setModalOpen] = useState(false)
     const [items, setItems] = useState([])
+    const [valid, setValid] = useState(false)
+
+    useEffect(() => {
+        let isValid = true;
+
+        for (let i = 0; i < items.length; i++) {
+            const current = items[i]
+
+            if (current.type === "text") {
+                if (current.content.length === 0 || current.size <= 0) {
+                    isValid = false;
+                    break;
+                }
+            }
+        }
+
+        setValid(isValid)
+    })
 
     const toggleModal = () => setModalOpen(!modalOpen)
 
@@ -40,7 +58,6 @@ function EditButton(props) {
     }
 
     const setItem = (index, item) => {
-        console.log(index, item)
         let newItems = []
 
         for (let i = 0; i < items.length; i++) {
@@ -51,7 +68,6 @@ function EditButton(props) {
             }
         }
 
-        console.log(newItems)
         setItems(newItems)
     }
 
@@ -140,7 +156,7 @@ function EditButton(props) {
                 </ModalBody>
                 <ModalFooter>
                     <div className="upload-add-row">
-                        <Button onClick={() => { }} color="primary" disabled={true}>Save</Button>
+                        <Button onClick={() => { }} color="primary" disabled={!valid}>Save</Button>
                     </div>
                 </ModalFooter>
             </Modal>
