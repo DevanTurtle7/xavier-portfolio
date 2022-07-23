@@ -30,6 +30,7 @@ function EditButton(props) {
     })
 
     const toggleModal = () => setModalOpen(!modalOpen)
+    const closeModal = () => setModalOpen(false)
 
     const openModal = () => {
         let newItems = []
@@ -96,7 +97,30 @@ function EditButton(props) {
     }
 
     const onMove = (prevIndex, newIndex) => {
+        if (prevIndex !== newIndex) {
+            let newItems = []
 
+            for (let i = 0; i < items.length; i++) {
+                let current = items[i]
+
+                if (i !== prevIndex) {
+                    if (i === newIndex) {
+                        if (prevIndex < newIndex) {
+                            newItems.push(current)
+                            newItems.push(items[prevIndex])
+                        } else {
+                            newItems.push(items[prevIndex])
+                            newItems.push(current)
+                        }
+                    } else {
+                        newItems.push(current)
+                    }
+                }
+
+            }
+
+            setItems(newItems)
+        }
     }
 
     const getItemRows = () => {
@@ -143,6 +167,10 @@ function EditButton(props) {
         return rows
     }
 
+    const save = () => {
+
+    }
+
     return (
         <>
             <Button color="primary" className="mx-2" onClick={openModal}>Edit</Button>
@@ -156,7 +184,8 @@ function EditButton(props) {
                 </ModalBody>
                 <ModalFooter>
                     <div className="upload-add-row">
-                        <Button onClick={() => { }} color="primary" disabled={!valid}>Save</Button>
+                        <Button onClick={closeModal} className="me-2">Cancel</Button>
+                        <Button onClick={save} color="primary" disabled={!valid}>Save</Button>
                     </div>
                 </ModalFooter>
             </Modal>
