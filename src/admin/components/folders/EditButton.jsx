@@ -180,6 +180,13 @@ function EditButton(props) {
                     Edit Folder
                 </ModalHeader>
                 <ModalBody>
+                    <FormGroup>
+                        <Label>Order</Label>
+                        <Input type="number" defaultValue={0} onChange={() => { }} invalid={false} />
+                        <FormFeedback>
+                            Order must be between 0 and {props.mediaCount - 1}
+                        </FormFeedback>
+                    </FormGroup>
                     {getItemRows()}
                 </ModalBody>
                 <ModalFooter>

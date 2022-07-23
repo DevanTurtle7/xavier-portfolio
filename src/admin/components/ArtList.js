@@ -221,6 +221,7 @@ class ArtList extends Component {
                     folderName={current.description}
                     content={current.content}
                     onUpdate={this.onUpdate}
+                    mediaCount={this.state.mediaCount}
                     key={current.docId + i.toString()}
                 />)
             }
