@@ -8,6 +8,7 @@ import {
 } from 'reactstrap';
 import TextEditButton from './TextEditButton';
 import TextDeleteButton from './TextDeleteButton';
+import UniversalDeleteButton from './UniversalDeleteButton';
 
 class TextDisplay extends Component {
     constructor(props) {
@@ -42,12 +43,11 @@ class TextDisplay extends Component {
                             db={this.db}
                             collection={this.props.collection}
                         />
-                        <TextDeleteButton
+                        <UniversalDeleteButton
                             docId={docId}
-                            order={order}
-                            onDelete={this.updateData}
                             db={this.db}
                             collection={this.props.collection}
+                            onDelete={this.updateData}
                         />
                     </CardFooter>
                 </Card>

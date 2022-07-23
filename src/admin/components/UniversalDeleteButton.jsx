@@ -29,7 +29,7 @@ function UniversalDeleteButton(props) {
         const type = currentDoc.type
         const order = currentDoc.order
 
-        if (type !== "text") {
+        if (type !== "text" && bucket !== null && bucket !== undefined) {
             console.log(currentDoc)
             const content = currentDoc.content
             console.log(content)
