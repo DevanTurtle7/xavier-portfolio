@@ -31,7 +31,6 @@ function MediaRow(props) {
 
     const getDisplay = () => {
         const current = props.current
-        console.log(current)
         const type = current.type
         const file = props.uploaded ?
             current.url :

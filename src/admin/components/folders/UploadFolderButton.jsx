@@ -160,7 +160,6 @@ function UploadFolderButton(props) {
                 let current = items[i]
 
                 if (i !== prevIndex) {
-
                     if (i === newIndex) {
                         if (prevIndex < newIndex) {
                             newItems.push(current)

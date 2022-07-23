@@ -9,13 +9,82 @@ import { collection, getDoc, doc, addDoc, updateDoc, increment } from "firebase/
 
 function EditButton(props) {
     const [modalOpen, setModalOpen] = useState(false)
+    const [items, setItems] = useState([])
 
-    const openModal = () => setModalOpen(true)
     const toggleModal = () => setModalOpen(!modalOpen)
+
+    const openModal = () => {
+        let newItems = []
+
+        for (let i = 0; i < props.content.length; i++) {
+            const current = props.content[i]
+            const type = current.type
+
+            if (type === "image" || type === "video") {
+                newItems.push({
+                    type: type,
+                    url: current.url
+                })
+            } else if (type === "text") {
+                newItems.push({
+                    content: current.content,
+                    type: type,
+                    size: current.size
+                })
+            }
+        }
+
+        setItems(newItems)
+        console.log(newItems)
+        setModalOpen(true)
+    }
+
+    const setItem = (index, item) => {
+        console.log(index, item)
+        let newItems = []
+
+        for (let i = 0; i < items.length; i++) {
+            if (i !== index) {
+                newItems.push(items[i])
+            } else {
+                newItems.push(item)
+            }
+        }
+
+        console.log(newItems)
+        setItems(newItems)
+    }
+
+    const textSizeChanged = (index, size) => {
+        let current = items[index]
+
+        let newItem = {
+            type: "text",
+            content: current.content,
+            size: size
+        }
+
+        setItem(index, newItem)
+    }
+
+    const textChanged = (index, text) => {
+        let current = items[index]
+
+        let newItem = {
+            type: "text",
+            content: text,
+            size: current.size
+        }
+
+        setItem(index, newItem)
+    }
+
+    const onMove = (prevIndex, newIndex) => {
+
+    }
 
     const getItemRows = () => {
         let rows = []
-        const items = props.content
         let numItems = items.length
 
         for (let i = 0; i < numItems; i++) {
@@ -36,6 +105,8 @@ function EditButton(props) {
                     <TextRow
                         current={current}
                         index={i}
+                        sizeChanged={textSizeChanged}
+                        textChanged={textChanged}
                         key={i}
                     />
                 )
@@ -45,6 +116,7 @@ function EditButton(props) {
                 <FolderRowWrapper
                     numItems={numItems}
                     index={i}
+                    onMove={onMove}
                     key={i}
                 >
                     {newRow}
@@ -64,7 +136,7 @@ function EditButton(props) {
                     Edit Folder
                 </ModalHeader>
                 <ModalBody>
-                {getItemRows()}
+                    {getItemRows()}
                 </ModalBody>
                 <ModalFooter>
                     <div className="upload-add-row">
