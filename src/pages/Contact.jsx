@@ -39,7 +39,7 @@ function Contact(props) {
                     xaviersylviajackson@gmail.com
                 </a>
                 <div className="instagram-row">
-                    <a href="https://www.instagram.com/sjpencils/" target="_blank" rel="noreferrer">
+                    <a href="https://www.instagram.com/xaeviior/" target="_blank" rel="noreferrer">
                         <IconButton className="instagram-button">
                             <AiOutlineInstagram />
                         </IconButton>
