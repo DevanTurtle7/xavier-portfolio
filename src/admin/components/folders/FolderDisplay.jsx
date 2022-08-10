@@ -23,6 +23,8 @@ function FolderDisplay(props) {
                         onUpdate={onUpdate}
                         content={props.content}
                         mediaCount={props.mediaCount}
+                        folderName={props.folderName}
+                        order={props.order}
                     />
                     <UniversalDeleteButton
                         docId={props.docId}

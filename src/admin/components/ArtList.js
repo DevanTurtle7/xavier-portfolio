@@ -92,7 +92,7 @@ class ArtList extends Component {
                         const url = IMG_URL + fileName
 
                         // Save the content to the array
-                        currentContent.push({ url: url, type: currentType })
+                        currentContent.push({ url: url, type: currentType, filename: fileName})
                     } else if (currentType === "text") {
                         currentContent.push({ content: info.content, type: currentType, size: info.size })
                     }
@@ -220,6 +220,7 @@ class ArtList extends Component {
                     collection={this.props.collection}
                     folderName={current.description}
                     content={current.content}
+                    order={current.order}
                     onUpdate={this.onUpdate}
                     mediaCount={this.state.mediaCount}
                     key={current.docId + i.toString()}
