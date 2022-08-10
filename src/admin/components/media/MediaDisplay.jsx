@@ -7,7 +7,7 @@ import {
     Row
 } from 'reactstrap';
 import EditButton from './EditButton';
-import DeleteButton from './DeleteButton';
+import UniversalDeleteButton from '../UniversalDeleteButton';
 
 class MediaDisplay extends Component {
     constructor(props) {
@@ -24,7 +24,6 @@ class MediaDisplay extends Component {
         let data = this.props.data
         let content = data.content
         let docId = data.docId
-        let order = data.order
         let first = content[0]
         let type = first.type
         let url = first.url
@@ -55,14 +54,12 @@ class MediaDisplay extends Component {
                             db={this.db}
                             collection={this.props.collection}
                         />
-                        <DeleteButton
-                            files={content}
+                        <UniversalDeleteButton
                             docId={docId}
-                            order={order}
-                            onDelete={this.updateData}
                             db={this.db}
                             bucket={this.props.bucket}
                             collection={this.props.collection}
+                            onDelete={this.updateData}
                         />
                     </CardFooter>
                 </Card>

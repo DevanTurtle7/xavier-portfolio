@@ -160,7 +160,6 @@ function UploadFolderButton(props) {
                 let current = items[i]
 
                 if (i !== prevIndex) {
-
                     if (i === newIndex) {
                         if (prevIndex < newIndex) {
                             newItems.push(current)
@@ -253,6 +252,7 @@ function UploadFolderButton(props) {
                     index={i}
                     onMove={onMove}
                     onRemove={() => { removeItem(i) }}
+                    canDelete
                     key={i}
                 >
                     {newRow}

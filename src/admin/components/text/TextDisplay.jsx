@@ -7,7 +7,7 @@ import {
     Row
 } from 'reactstrap';
 import TextEditButton from './TextEditButton';
-import TextDeleteButton from './TextDeleteButton';
+import UniversalDeleteButton from '../UniversalDeleteButton';
 
 class TextDisplay extends Component {
     constructor(props) {
@@ -24,7 +24,6 @@ class TextDisplay extends Component {
         let data = this.props.data
         let content = data.content
         let docId = data.docId
-        let order = data.order
 
         return (
             <Col xs={12} sm={6} md={4} lg={3} xl={2}>
@@ -42,12 +41,11 @@ class TextDisplay extends Component {
                             db={this.db}
                             collection={this.props.collection}
                         />
-                        <TextDeleteButton
+                        <UniversalDeleteButton
                             docId={docId}
-                            order={order}
-                            onDelete={this.updateData}
                             db={this.db}
                             collection={this.props.collection}
+                            onDelete={this.updateData}
                         />
                     </CardFooter>
                 </Card>

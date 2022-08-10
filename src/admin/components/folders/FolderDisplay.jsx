@@ -1,7 +1,6 @@
-import { Col, Card, CardBody, Row, CardFooter, Button } from "reactstrap"
-import DeleteButton from "./DeleteButton"
+import { Col, Card, CardBody, CardFooter, Button } from "reactstrap"
 import EditButton from "./EditButton"
-import UniversalDeleteButton from "./UniversalDeleteButton"
+import UniversalDeleteButton from "../UniversalDeleteButton"
 
 function FolderDisplay(props) {
 
@@ -11,15 +10,22 @@ function FolderDisplay(props) {
         <Col xs={12} sm={6} md={4} lg={3} xl={2}>
             <Card className="mb-4">
                 <CardBody>
-                <div className="admin-folder-display-body">
+                    <div className="admin-folder-display-body">
                         <p><b>Folder</b></p>
                         <p>{props.folderName}</p>
-                </div>
+                    </div>
                 </CardBody>
                 <CardFooter>
-                    <Button>
-                        Edit
-                    </Button>
+                    <EditButton
+                        docId={props.docId}
+                        db={props.db}
+                        collection={props.collection}
+                        onUpdate={onUpdate}
+                        content={props.content}
+                        mediaCount={props.mediaCount}
+                        folderName={props.folderName}
+                        order={props.order}
+                    />
                     <UniversalDeleteButton
                         docId={props.docId}
                         db={props.db}
