@@ -46,6 +46,7 @@ function App(props) {
     const dispatch = useDispatch()
 
     dispatch(fetchMedia({db: db, collectionName: 'art'}))
+    dispatch(fetchMedia({db: db, collectionName: 'other'}))
 
     return (
         <Router>

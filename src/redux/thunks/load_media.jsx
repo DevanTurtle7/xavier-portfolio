@@ -122,6 +122,6 @@ export const fetchMedia = createAsyncThunk(
 
     console.log("Data retrieved");
     console.log(media);
-    return media;
+    return { collection: collectionName, media };
   }
 );

@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import media_slice from "./slices/media_slice";
+import archive_slice from "./slices/archive_slice";
+import art_slice from "./slices/art_slice";
 
 export default configureStore({
     reducer: {
-        media: media_slice 
+        art: art_slice,
+        archive: archive_slice
     }
 })
