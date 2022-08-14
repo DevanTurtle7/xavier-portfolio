@@ -77,6 +77,8 @@ function Archive(props) {
         return [...displaysAccumulator, createTextDisplay(current, key)];
       } else if (type === 'folder') {
         return [...displaysAccumulator, createFolderDisplay(current, key)];
+      } else {
+        return [...displaysAccumulator]
       }
     }, []);
 

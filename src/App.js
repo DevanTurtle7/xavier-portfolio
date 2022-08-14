@@ -7,7 +7,6 @@
  * @author Devan Kavalchek
  */
 
-import { useCallback, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { initializeApp } from 'firebase/app';

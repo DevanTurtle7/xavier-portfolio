@@ -7,7 +7,7 @@
  * @author Devan Kavalchek
  */
 
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Col } from 'reactstrap';
 
 import MediaDisplay from '../components/MediaDisplay';
@@ -76,6 +76,8 @@ function Art(props) {
         return [...displaysAccumulator, createTextDisplay(current, key)];
       } else if (type === 'folder') {
         return [...displaysAccumulator, createFolderDisplay(current, key)];
+      } else {
+        return [...displaysAccumulator]
       }
     }, []);
 
