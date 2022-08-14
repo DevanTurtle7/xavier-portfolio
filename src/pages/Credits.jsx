@@ -1,8 +1,8 @@
 import '../style/credits.css';
 
 import { useEffect, useState } from "react"
-import Footer from "../components/Footer"
-import Navbar from "../components/Navbar"
+import Footer from "../shared/components/Footer"
+import Navbar from "../shared/components/Navbar"
 
 const BG_COLOR = "#000"
 const TEXT_COLOR = "#fff"

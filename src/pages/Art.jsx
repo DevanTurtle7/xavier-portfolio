@@ -10,11 +10,11 @@
 import { Fragment, useEffect } from 'react';
 import { Col } from 'reactstrap';
 
-import MediaDisplay from '../components/MediaDisplay';
-import Navbar from '../components/Navbar';
-import TextDisplay from '../components/TextDisplay';
-import Footer from '../components/Footer';
-import FolderDisplay from '../components/FolderDisplay';
+import MediaDisplay from '../shared/components/MediaDisplay';
+import Navbar from '../shared/components/Navbar';
+import TextDisplay from '../shared/components/TextDisplay';
+import Footer from '../shared/components/Footer';
+import FolderDisplay from '../shared/components/FolderDisplay';
 import { useSelector } from 'react-redux';
 import { artSelector } from '../redux/selectors/art_selector';
 
@@ -77,7 +77,7 @@ function Art(props) {
       } else if (type === 'folder') {
         return [...displaysAccumulator, createFolderDisplay(current, key)];
       } else {
-        return [...displaysAccumulator]
+        return [...displaysAccumulator];
       }
     }, []);
 

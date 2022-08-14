@@ -12,11 +12,11 @@ import '../style/archive.css';
 
 import { Fragment, useEffect } from 'react';
 
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import MediaDisplay from '../components/MediaDisplay';
-import TextDisplay from '../components/TextDisplay';
-import FolderDisplay from '../components/FolderDisplay';
+import Navbar from '../shared/components/Navbar';
+import Footer from '../shared/components/Footer';
+import MediaDisplay from '../shared/components/MediaDisplay';
+import TextDisplay from '../shared/components/TextDisplay';
+import FolderDisplay from '../shared/components/FolderDisplay';
 import { useSelector } from 'react-redux';
 import { archiveSelector } from '../redux/selectors/archive_selector';
 
@@ -78,7 +78,7 @@ function Archive(props) {
       } else if (type === 'folder') {
         return [...displaysAccumulator, createFolderDisplay(current, key)];
       } else {
-        return [...displaysAccumulator]
+        return [...displaysAccumulator];
       }
     }, []);
 
