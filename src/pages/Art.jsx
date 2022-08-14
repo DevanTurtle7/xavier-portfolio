@@ -15,9 +15,8 @@ import Navbar from '../components/Navbar';
 import TextDisplay from '../components/TextDisplay';
 import Footer from '../components/Footer';
 import FolderDisplay from '../components/FolderDisplay';
-import { fetchMedia } from '../redux/thunks/load_media.jsx';
-import { ReactReduxContext, useDispatch, useSelector } from 'react-redux';
-import { mediaSelector } from '../redux/selectors/media_selector';
+import { useSelector } from 'react-redux';
+import { artSelector } from '../redux/selectors/art_selector';
 
 const BG_COLOR = "#fff"
 const TEXT_COLOR = "#000"
@@ -25,9 +24,7 @@ const PAGE_TAG = "art"
 
 function Art(props) {
     const [colorsUpdated, setColorsUpdated] = useState(false)
-    const dispatch = useDispatch();
-    const media = useSelector(mediaSelector)
-        console.log(media)
+    const media = useSelector(artSelector)
 
     useEffect(() => {
         if (!colorsUpdated) {
@@ -82,7 +79,6 @@ function Art(props) {
      */
     const getDisplays = () => {
         const displays = []
-        const media = props.media;
 
         // Iterative over all the media
         for (let i = 0; i < media.length; i++) {

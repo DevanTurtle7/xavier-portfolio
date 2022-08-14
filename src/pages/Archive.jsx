@@ -17,6 +17,8 @@ import Footer from '../components/Footer'
 import MediaDisplay from '../components/MediaDisplay';
 import TextDisplay from '../components/TextDisplay';
 import FolderDisplay from '../components/FolderDisplay';
+import { useSelector } from 'react-redux';
+import { archiveSelector } from '../redux/selectors/archive_selector';
 
 const BG_COLOR = "#000"
 const TEXT_COLOR = "#fff"
@@ -24,7 +26,7 @@ const PAGE_TAG = "archive"
 
 function Archive(props) {
     const [colorsUpdated, setColorsUpdated] = useState(false)
-    const [media, setMedia] = useState([])
+    const media = useSelector(archiveSelector)
 
     useEffect(() => {
         if (!colorsUpdated) {
@@ -33,9 +35,7 @@ function Archive(props) {
             document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
             setColorsUpdated(true)
         }
-
-        setMedia(props.media)
-    }, [colorsUpdated, props.media, media])
+    }, [colorsUpdated])
 
     /**
      * Creates a media display
@@ -79,7 +79,6 @@ function Archive(props) {
      */
     const getDisplays = () => {
         const displays = []
-        const media = props.media
 
         // Iterate over all the media
         for (let i = 0; i < media.length; i++) {

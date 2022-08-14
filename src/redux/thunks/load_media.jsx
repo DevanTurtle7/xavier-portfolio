@@ -59,7 +59,6 @@ export const fetchMedia = createAsyncThunk(
           link: data.link,
         };
       } else if (type === "folder") {
-        console.log(data);
         let content = data.content;
         let description = data.description;
         let currentContent = [];
@@ -121,7 +120,6 @@ export const fetchMedia = createAsyncThunk(
     });
 
     console.log("Data retrieved");
-    console.log(media);
     return { collection: collectionName, media };
   }
 );
