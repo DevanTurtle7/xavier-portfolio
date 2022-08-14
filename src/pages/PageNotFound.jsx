@@ -2,7 +2,7 @@ import "../style/PageNotFound.css"
 
 import { Fragment, useState, useEffect } from "react"
 import { MetaTags } from "react-meta-tags"
-import BlackoutTitle from "../components/BlackoutTitle"
+import BlackoutTitle from "../shared/components/BlackoutTitle"
 
 const ARTIST_NAME = "xavier sylvia-jackson"
 

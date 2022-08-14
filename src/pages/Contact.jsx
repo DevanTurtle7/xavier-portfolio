@@ -9,10 +9,10 @@
 
 import { AiOutlineInstagram } from "react-icons/ai"
 
-import IconButton from '../components/IconButton';
-import Navbar from '../components/Navbar'
+import IconButton from '../shared/components/IconButton';
+import Navbar from '../shared/components/Navbar'
 import { useEffect, useState } from 'react';
-import Footer from '../components/Footer';
+import Footer from '../shared/components/Footer';
 
 const BG_COLOR = "#000"
 const TEXT_COLOR = "#fff"
