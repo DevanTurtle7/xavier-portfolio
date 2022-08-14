@@ -1,262 +1,154 @@
-import { Component } from 'react';
-import {
-    Button,
-    Col,
-    Row,
-} from 'reactstrap';
+import { Button, Col, Row } from 'reactstrap';
 import UploadButton from './media/UploadButton';
-import { collection, getDocs, getDoc, doc } from "firebase/firestore";
-import { MdRefresh } from "react-icons/md"
+import { MdRefresh } from 'react-icons/md';
 import MediaDisplay from './media/MediaDisplay';
 import CollectionDropdown from './CollectionDropdown';
 import TextDisplay from './text/TextDisplay';
 import UploadTextButton from './text/UploadTextButton';
 import UploadFolderButton from './folders/UploadFolderButton';
-import AWS from 'aws-sdk'
+import AWS from 'aws-sdk';
 import FolderDisplay from './folders/FolderDisplay';
+import { useDispatch, useSelector } from 'react-redux';
+import { artSelector } from '../../redux/selectors/art_selector';
+import { archiveSelector } from '../../redux/selectors/archive_selector';
+import { fetchMedia } from '../../redux/thunks/load_media';
 
 const S3_BUCKET = 'xavier-portfolio';
 const REGION = 'us-east-2';
-const IMG_URL = "https://xavier-portfolio.s3.us-east-2.amazonaws.com/";
 
-class ArtList extends Component {
-    constructor(props) {
-        super(props)
+function ArtList(props) {
+  const artMedia = useSelector(artSelector);
+  const archiveMedia = useSelector(archiveSelector);
+  const dispatch = useDispatch();
+  const db = props.db;
 
-        this.state = {
-            files: [],
-            mediaCount: 0,
-        }
+  const getMedia = () => {
+    const collection = props.collection;
 
-        this.db = this.props.db
+    if (collection === 'art') {
+      return artMedia;
+    } else if (collection === 'other') {
+      return archiveMedia;
+    } else {
+      console.error(`Unknown collection: ${collection}`);
+      return [];
     }
+  };
 
-    getData = async () => {
-        console.log("Retrieving data...")
-        this.setState({ files: [] })
-        const querySnapshot = await getDocs(collection(this.db, this.props.collection));
+  const media = getMedia();
 
-        querySnapshot.forEach(async (doc) => {
-            let data = doc.data();
-            let current;
-            let order = data.order;
-            let type = data.type
+  const onUpdate = () => {
+    console.log(props.collection)
+    dispatch(fetchMedia({ db, collectionName: props.collection }));
+  };
 
-            if (type === "media") {
-                let description = data.description;
-                let currentContent = []
-                let content = data.content;
+  const collectionChanged = (collection) => {
+    props.collectionChanged(collection);
+  };
 
-                for (let i = 0; i < content.length; i++) {
-                    let fileInfo = content[i]
-                    let fileName = fileInfo.filename
-                    let fileType = fileInfo.type
-                    let url = IMG_URL + fileName
+  const getAWSBucket = () => {
+    AWS.config.update({
+      accessKeyId: props.awsAccessKey,
+      secretAccessKey: props.awsSecretKey,
+    });
 
-                    currentContent.push({ url: url, type: fileType, filename: fileName })
-                }
+    const myBucket = new AWS.S3({
+      params: { Bucket: S3_BUCKET },
+      region: REGION,
+    });
 
-                current = {
-                    description: description,
-                    order: order,
-                    content: currentContent,
-                    docId: doc.id,
-                    type: "media",
-                    link: data.link
-                }
-            } else if (type === "text") {
-                let content = data.content
-                let size = data.size
+    return myBucket;
+  };
 
-                content = content.replaceAll("$[n]", "\n")
+  let displays = [];
 
-                current = {
-                    content: content,
-                    order: order,
-                    docId: doc.id,
-                    type: "text",
-                    size: size,
-                    link: data.link
-                }
-            } else if (type === "folder") {
-                let content = data.content
-                let description = data.description
-                let currentContent = []
+  for (let i = 0; i < media.length; i++) {
+    let current = media[i];
+    let type = current.type;
 
-                for (let i = 0; i < content.length; i++) {
-                    const info = content[i]
-                    const currentType = info.type
-
-                    if (currentType === "image" || currentType === "video") {
-                        const fileName = info.filename
-                        const url = IMG_URL + fileName
-
-                        // Save the content to the array
-                        currentContent.push({ url: url, type: currentType, filename: fileName})
-                    } else if (currentType === "text") {
-                        currentContent.push({ content: info.content, type: currentType, size: info.size })
-                    }
-                }
-
-                current = {
-                    content: currentContent,
-                    order: order,
-                    type: "folder",
-                    description: description,
-                    docId: doc.id
-                }
-            } else {
-                console.log("Invalid type: " + type)
-                console.log(doc.id)
-            }
-
-            if (current !== undefined) {
-                let files = this.state.files;
-                let mediaCount = files.length;
-
-                if (mediaCount > 0) {
-                    // Insert sorted
-                    let i = 0;
-                    let indexFound = false;
-
-                    while (i < mediaCount && !indexFound) {
-                        let currentOrder = files[i].order
-
-                        if (currentOrder >= order) {
-                            indexFound = true
-                        } else {
-                            i += 1
-                        }
-                    }
-
-                    files.splice(i, 0, current)
-                } else {
-                    files.push(current)
-                }
-
-                this.setState({ files: files })
-            }
-        })
-        console.log("Data retrieved")
+    if (type === 'media') {
+      displays.push(
+        <MediaDisplay
+          data={current}
+          mediaCount={media.length}
+          onUpdate={onUpdate}
+          db={db}
+          collection={props.collection}
+          bucket={getAWSBucket()}
+          key={current.docId + i.toString()}
+        />
+      );
+    } else if (type === 'text') {
+      displays.push(
+        <TextDisplay
+          data={current}
+          mediaCount={media.length}
+          onUpdate={onUpdate}
+          db={db}
+          collection={props.collection}
+          key={current.docId + i.toString()}
+        />
+      );
+    } else if (type === 'folder') {
+      displays.push(
+        <FolderDisplay
+          docId={current.docId}
+          db={db}
+          bucket={getAWSBucket()}
+          collection={props.collection}
+          folderName={current.description}
+          content={current.content}
+          order={current.order}
+          onUpdate={onUpdate}
+          mediaCount={media.length}
+          key={current.docId + i.toString()}
+        />
+      );
     }
+  }
 
-    updateMediaCount = async () => {
-        let countRef = doc(this.db, "counts", this.props.collection)
-        let countSnap = await getDoc(countRef)
-        let size = countSnap.data().count
-        this.setState({ mediaCount: size })
+  const getFolderButton = () => {
+    if (props.collection === 'other') {
+      return (
+        <UploadFolderButton
+          db={db}
+          collection={props.collection}
+          bucket={getAWSBucket()}
+          onUpload={onUpdate}
+        />
+      );
     }
+  };
 
-    componentDidMount() {
-        this.getData();
-        this.updateMediaCount()
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props !== prevProps) {
-            this.updateMediaCount()
-
-            if (this.props.collection !== prevProps.collection) {
-                this.getData()
-            }
-        }
-    }
-
-    onUpdate = () => {
-        this.getData()
-        this.updateMediaCount()
-    }
-
-    collectionChanged = (collection) => {
-        this.props.collectionChanged(collection)
-    }
-
-    getAWSBucket = () => {
-        AWS.config.update({
-            accessKeyId: this.props.awsAccessKey,
-            secretAccessKey: this.props.awsSecretKey
-        })
-
-        const myBucket = new AWS.S3({
-            params: { Bucket: S3_BUCKET },
-            region: REGION,
-        })
-
-        return myBucket
-    }
-
-    render() {
-        let files = this.state.files;
-        let displays = []
-
-        for (let i = 0; i < files.length; i++) {
-            let current = files[i]
-            let type = current.type
-
-            if (type === "media") {
-                displays.push(<MediaDisplay
-                    data={current}
-                    mediaCount={this.state.mediaCount}
-                    onUpdate={this.onUpdate}
-                    db={this.db}
-                    collection={this.props.collection}
-                    bucket={this.getAWSBucket()}
-                    key={current.docId + i.toString()}
-                />)
-            } else if (type === "text") {
-                displays.push(<TextDisplay
-                    data={current}
-                    mediaCount={this.state.mediaCount}
-                    onUpdate={this.onUpdate}
-                    db={this.db}
-                    collection={this.props.collection}
-                    key={current.docId + i.toString()}
-                />)
-            } else if (type === "folder") {
-                displays.push(<FolderDisplay
-                    docId={current.docId}
-                    db={this.db}
-                    bucket={this.getAWSBucket()}
-                    collection={this.props.collection}
-                    folderName={current.description}
-                    content={current.content}
-                    order={current.order}
-                    onUpdate={this.onUpdate}
-                    mediaCount={this.state.mediaCount}
-                    key={current.docId + i.toString()}
-                />)
-            }
-        }
-
-        const getFolderButton = () => {
-            if (this.props.collection === "other") {
-                return (<UploadFolderButton db={this.db} collection={this.props.collection} bucket={this.getAWSBucket()} onUpload={this.onUpdate} />)
-            }
-        }
-
-        return (
-            <Col>
-                <Col className="py-3 px-2">
-                    <Row>
-                        <UploadButton db={this.db} onUpload={this.onUpdate} collection={this.props.collection} bucket={this.getAWSBucket()} />
-                        <UploadTextButton db={this.db} onUpload={this.onUpdate} collection={this.props.collection} />
-                        {getFolderButton()}
-                        <CollectionDropdown
-                            callback={this.collectionChanged}
-                            collections={this.props.collections}
-                            collection={this.props.collection}
-                        />
-                        <Button color="primary" className="fit-content" onClick={this.onUpdate}>
-                            <MdRefresh />
-                        </Button>
-                    </Row>
-                </Col>
-                <Row className="mx-auto">
-                    {displays}
-                </Row>
-            </Col>
-        )
-    }
+  return (
+    <Col>
+      <Col className="py-3 px-2">
+        <Row>
+          <UploadButton
+            db={db}
+            onUpload={onUpdate}
+            collection={props.collection}
+            bucket={getAWSBucket()}
+          />
+          <UploadTextButton
+            db={db}
+            onUpload={onUpdate}
+            collection={props.collection}
+          />
+          {getFolderButton()}
+          <CollectionDropdown
+            callback={collectionChanged}
+            collections={props.collections}
+            collection={props.collection}
+          />
+          <Button color="primary" className="fit-content" onClick={onUpdate}>
+            <MdRefresh />
+          </Button>
+        </Row>
+      </Col>
+      <Row className="mx-auto">{displays}</Row>
+    </Col>
+  );
 }
 
 export default ArtList;
