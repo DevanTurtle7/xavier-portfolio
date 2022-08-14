@@ -6,7 +6,7 @@ import TextDisplay from '../TextDisplay';
 import Footer from '../Footer';
 import FolderDisplay from '../FolderDisplay';
 
-export default function MediaPageWrapper(props) {
+export default function MediaPageTemplate(props) {
     const bgColor = props.bgColor;
     const textColor = props.textColor;
     const pageTag = props.pageTag;
