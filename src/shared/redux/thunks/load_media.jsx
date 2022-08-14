@@ -43,6 +43,7 @@ export const fetchMedia = createAsyncThunk(
           content: currentContent,
           type: "media",
           link: data.link,
+          docId: doc.id,
         };
       } else if (type === "text") {
         let content = data.content;
@@ -57,6 +58,7 @@ export const fetchMedia = createAsyncThunk(
           type: "text",
           size: size,
           link: data.link,
+          docId: doc.id,
         };
       } else if (type === "folder") {
         let content = data.content;
@@ -87,6 +89,7 @@ export const fetchMedia = createAsyncThunk(
           order: order,
           type: "folder",
           description: description,
+          docId: doc.id,
         };
       } else {
         console.log("Invalid type: " + type);
