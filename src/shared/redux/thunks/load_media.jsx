@@ -1,12 +1,12 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getDocs, collection } from "firebase/firestore";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { getDocs, collection } from 'firebase/firestore';
 
-const IMG_URL = "https://xavier-portfolio.s3.us-east-2.amazonaws.com/";
+const IMG_URL = 'https://xavier-portfolio.s3.us-east-2.amazonaws.com/';
 
 export const fetchMedia = createAsyncThunk(
-  "fetchMedia",
+  'fetchMedia',
   async ({ db, collectionName }) => {
-    console.log("Retrieving data...");
+    console.log('Retrieving data...');
 
     // Get all docs from collection
     const querySnapshot = await getDocs(collection(db, collectionName));
@@ -19,7 +19,7 @@ export const fetchMedia = createAsyncThunk(
       const order = data.order;
       let current;
 
-      if (type === "media") {
+      if (type === 'media') {
         const description = data.description;
         const currentContent = [];
         const content = data.content;
@@ -41,26 +41,26 @@ export const fetchMedia = createAsyncThunk(
           description: description,
           order: order,
           content: currentContent,
-          type: "media",
+          type: 'media',
           link: data.link,
           docId: doc.id,
         };
-      } else if (type === "text") {
+      } else if (type === 'text') {
         let content = data.content;
         const size = data.size;
 
-        content = content.replaceAll("$[n]", "\n");
+        content = content.replaceAll('$[n]', '\n');
 
         // Create a JSON object from this document
         current = {
           content: content,
           order: order,
-          type: "text",
+          type: 'text',
           size: size,
           link: data.link,
           docId: doc.id,
         };
-      } else if (type === "folder") {
+      } else if (type === 'folder') {
         let content = data.content;
         let description = data.description;
         let currentContent = [];
@@ -69,13 +69,13 @@ export const fetchMedia = createAsyncThunk(
           const info = content[i];
           const currentType = info.type;
 
-          if (currentType === "image" || currentType === "video") {
+          if (currentType === 'image' || currentType === 'video') {
             const fileName = info.filename;
             const url = IMG_URL + fileName;
 
             // Save the content to the array
             currentContent.push({ url: url, type: currentType });
-          } else if (currentType === "text") {
+          } else if (currentType === 'text') {
             currentContent.push({
               content: info.content,
               type: currentType,
@@ -87,12 +87,12 @@ export const fetchMedia = createAsyncThunk(
         current = {
           content: currentContent,
           order: order,
-          type: "folder",
+          type: 'folder',
           description: description,
           docId: doc.id,
         };
       } else {
-        console.log("Invalid type: " + type);
+        console.log('Invalid type: ' + type);
       }
 
       if (current !== undefined) {
@@ -122,7 +122,7 @@ export const fetchMedia = createAsyncThunk(
       }
     });
 
-    console.log("Data retrieved");
+    console.log('Data retrieved');
     return { collection: collectionName, media };
   }
 );
