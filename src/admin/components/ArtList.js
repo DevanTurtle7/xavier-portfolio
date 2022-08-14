@@ -9,9 +9,9 @@ import UploadFolderButton from './folders/UploadFolderButton';
 import AWS from 'aws-sdk';
 import FolderDisplay from './folders/FolderDisplay';
 import { useDispatch, useSelector } from 'react-redux';
-import { artSelector } from '../../redux/selectors/art_selector';
-import { archiveSelector } from '../../redux/selectors/archive_selector';
-import { fetchMedia } from '../../redux/thunks/load_media';
+import { artSelector } from '../../shared/redux/selectors/art_selector';
+import { archiveSelector } from '../../shared/redux/selectors/archive_selector';
+import { fetchMedia } from '../../shared/redux/thunks/load_media';
 
 const S3_BUCKET = 'xavier-portfolio';
 const REGION = 'us-east-2';

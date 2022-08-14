@@ -16,7 +16,7 @@ import TextDisplay from '../shared/components/TextDisplay';
 import Footer from '../shared/components/Footer';
 import FolderDisplay from '../shared/components/FolderDisplay';
 import { useSelector } from 'react-redux';
-import { artSelector } from '../redux/selectors/art_selector';
+import { artSelector } from '../shared/redux/selectors/art_selector';
 
 const BG_COLOR = '#fff';
 const TEXT_COLOR = '#000';
@@ -82,11 +82,13 @@ function Art(props) {
     }, []);
 
   return (
-    <Fragment>
+    <>
       <Navbar tag={PAGE_TAG} bgColor={BG_COLOR} />
-      <Col className={PAGE_TAG}>{getDisplays()}</Col>
+      <div id={PAGE_TAG}>
+        <div id="displays">{getDisplays()}</div>
+      </div>
       <Footer tag={PAGE_TAG} />
-    </Fragment>
+    </>
   );
 }
 

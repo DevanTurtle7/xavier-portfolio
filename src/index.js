@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./style/index.css";
 import "./style/admin.css";
 import App from "./App";
-import store from "./redux/store.jsx";
+import store from "./shared/redux/store.jsx";
 import { Provider } from "react-redux";
 
 ReactDOM.render(

@@ -20,7 +20,7 @@ import Credits from './pages/Credits';
 import Admin from './admin/Admin';
 import PageNotFound from './pages/PageNotFound';
 import { useDispatch } from 'react-redux';
-import { fetchMedia } from './redux/thunks/load_media';
+import { fetchMedia } from './shared/redux/thunks/load_media';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA1O3ZZUuxv0-PGJPZI9UffooMkAHdyjZw',

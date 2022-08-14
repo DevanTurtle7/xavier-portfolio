@@ -18,7 +18,7 @@ import MediaDisplay from '../shared/components/MediaDisplay';
 import TextDisplay from '../shared/components/TextDisplay';
 import FolderDisplay from '../shared/components/FolderDisplay';
 import { useSelector } from 'react-redux';
-import { archiveSelector } from '../redux/selectors/archive_selector';
+import { archiveSelector } from '../shared/redux/selectors/archive_selector';
 
 const BG_COLOR = '#000';
 const TEXT_COLOR = '#fff';
@@ -83,13 +83,13 @@ function Archive(props) {
     }, []);
 
   return (
-    <Fragment>
+    <>
       <Navbar tag={PAGE_TAG} bgColor={BG_COLOR} />
       <div id={PAGE_TAG}>
         <div id="displays">{getDisplays()}</div>
       </div>
       <Footer tag={PAGE_TAG} />
-    </Fragment>
+    </>
   );
 }
 
