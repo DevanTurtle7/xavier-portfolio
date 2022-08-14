@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getDocs, collection } from 'firebase/firestore';
+import { getDocs, collection, query, orderBy } from 'firebase/firestore';
 
 const IMG_URL = 'https://xavier-portfolio.s3.us-east-2.amazonaws.com/';
 
@@ -9,7 +9,8 @@ export const fetchMedia = createAsyncThunk(
     console.log('Retrieving data...');
 
     // Get all docs from collection
-    const querySnapshot = await getDocs(collection(db, collectionName));
+    const q = query(collection(db, collectionName), orderBy('order'));
+    const querySnapshot = await getDocs(q)
     const media = [];
 
     // Iterate over all of the documents in the collection
