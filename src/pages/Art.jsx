@@ -7,8 +7,7 @@
  * @author Devan Kavalchek
  */
 
-import { Fragment, useEffect } from 'react';
-import { Col } from 'reactstrap';
+import { useEffect } from 'react';
 
 import MediaDisplay from '../shared/components/MediaDisplay';
 import Navbar from '../shared/components/Navbar';

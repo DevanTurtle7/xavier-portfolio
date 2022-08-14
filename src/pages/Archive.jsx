@@ -10,7 +10,7 @@
 
 import '../style/archive.css';
 
-import { Fragment, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import Navbar from '../shared/components/Navbar';
 import Footer from '../shared/components/Footer';

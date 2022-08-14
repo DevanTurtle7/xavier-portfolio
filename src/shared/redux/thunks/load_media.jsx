@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getDocs, collection, Firestore } from "firebase/firestore";
+import { getDocs, collection } from "firebase/firestore";
 
 const IMG_URL = "https://xavier-portfolio.s3.us-east-2.amazonaws.com/";
 
