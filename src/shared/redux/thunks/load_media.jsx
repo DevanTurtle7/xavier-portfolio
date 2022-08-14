@@ -48,9 +48,12 @@ export const fetchMedia = createAsyncThunk(
                       } else if (type === 'text') {
                         return [...contentAccumulator, current];
                       } else {
-                        console.log('Invalid type: ' + type);
+                        console.log('Invalid folder child type: ' + type);
                         return [...contentAccumulator];
                       }
+                    } else {
+                      console.log('Invalid type: ' + type);
+                      return [...contentAccumulator];
                     }
                   }, []),
           },
