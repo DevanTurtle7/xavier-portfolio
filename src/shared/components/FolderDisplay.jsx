@@ -4,71 +4,45 @@ import TextDisplay from "./TextDisplay";
 import VideoDisplay from "./VideoDisplay";
 
 function FolderDisplay(props) {
-    const [modalOpen, setModalOpen] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
 
-    const onClick = () => {
-        setModalOpen(!modalOpen)
-    }
+  const onClick = () => setModalOpen(!modalOpen)
+  const onClose = () => setModalOpen(false)
 
-    const onClose = () => {
-        setModalOpen(false)
-    }
+  return (
+    <>
+      <div className="folder-link-container">
+        <button onClick={onClick} className={"folder-link " + props.tag}>{props.data.description}</button>
+      </div>
 
-    const createImageDisplay = (data) => {
-        return (<img src={data.url} className="folder-img" alt="ART" />)
-    }
+      <Modal open={modalOpen} onClose={onClose} scrollable>
+        <div className="folder">
+          <div className="folder-col">
+            {
+              props.data.content.reduce((displaysAccumulator, current, i) => {
+                const type = current.type
+                const key = current.docId + i.toString();
 
-    const createVideoDisplay = (data) => {
-        return (
-            <div className="folder-video">
-                <VideoDisplay url={data.url} />
-            </div>
-        )
-    }
-
-    const createTextDisplay = (data) => {
-        return (<TextDisplay data={data} tag={props.tag + "-folder"} />)
-    }
-
-    const getDisplays = () => {
-        const displays = []
-        const content = props.data.content;
-
-        // Iterative over all the media
-        for (let i = 0; i < content.length; i++) {
-            const current = content[i]
-            const type = current.type
-
-            // Create a display
-            if (type === "image") {
-                displays.push(createImageDisplay(current))
-            } else if (type === "video") {
-                displays.push(createVideoDisplay(current))
-            } else if (type === "text") {
-                displays.push(createTextDisplay(current))
-            }
-        }
-
-        // Return all displays
-        return displays
-    }
-
-    return (
-        <>
-            <div className="folder-link-container">
-                <button onClick={onClick} className={"folder-link " + props.tag}>{props.data.description}</button>
-
-            </div>
-
-            <Modal open={modalOpen} onClose={onClose} scrollable>
-                <div className="folder">
-                    <div className="folder-col">
-                        {getDisplays()}
+                if (type === "image") {
+                  return [...displaysAccumulator, (<img src={current.url} className="folder-img" alt="ART" key={key} />)]
+                } else if (type === "video") {
+                  return [...displaysAccumulator, (
+                    <div className="folder-video">
+                      <VideoDisplay url={current.url} key={key} />
                     </div>
-                </div>
-            </Modal>
-        </>
-    )
+                  )]
+                } else if (type === "text") {
+                  return [...displaysAccumulator, (<TextDisplay data={current} tag={props.tag + "-folder"} key={key} />)]
+                } else {
+                  return [...displaysAccumulator]
+                }
+              }, [])
+            }
+          </div>
+        </div>
+      </Modal>
+    </>
+  )
 }
 
 export default FolderDisplay;
