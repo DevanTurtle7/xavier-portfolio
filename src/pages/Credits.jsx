@@ -12,23 +12,6 @@ const PAGE_TAG = 'credits';
 
 function Credits(props) {
   const [colorsUpdated, setColorsUpdated] = useState(false);
-  const names = {
-    'Lisa - Jean Sylvia': '',
-    'Clarence Taylor': '',
-    'Donna Suza': '',
-    'Cecil Hickman': '',
-    'Aidan Smith': '',
-    'Nate Briggs': 'https://linktr.ee/harboringartist',
-    'Dashiell Tidrick': '',
-    'Simon Burgess ': '',
-    'Kai Gyorki': '',
-    'Devan Kavalchek': 'https://kavalchek.dev/',
-    'Anthony Mastromatteo': 'http://www.mastromatteo.art/',
-    'Alex Infield': '',
-    'Alec Samperi': '',
-    'Baran Shafiey': '',
-  };
-
   const credits = useSelector(creditsSelector);
 
   useEffect(() => {
