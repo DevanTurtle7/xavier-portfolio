@@ -32,6 +32,17 @@ export default function EditCreditsButton(props) {
     setCredits(creditsClone);
   };
 
+  const removeCredit = (index) =>
+    setCredits(
+      credits.reduce(
+        (creditsAccumulator, credit, i) =>
+          i === index
+            ? [...creditsAccumulator]
+            : [...creditsAccumulator, credit],
+        []
+      )
+    );
+
   const nameChanged = (e, index) =>
     setCredits(
       credits.map(({name, link}, i) => {
@@ -115,6 +126,7 @@ export default function EditCreditsButton(props) {
               index={i}
               numItems={credits.length}
               onMove={onMove}
+              onRemove={removeCredit}
               nameChanged={nameChanged}
               linkChanged={linkChanged}
               key={i + '_row'}

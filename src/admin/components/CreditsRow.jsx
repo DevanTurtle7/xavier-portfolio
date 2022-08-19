@@ -7,6 +7,10 @@ export default function CreditsRow(props) {
       numItems={props.numItems}
       index={props.index}
       onMove={props.onMove}
+      onRemove={() => {
+        props.onRemove(props.index);
+      }}
+      canDelete
     >
       <Row>
         <Col>
