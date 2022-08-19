@@ -109,23 +109,10 @@ function ArtList(props) {
     }
   }
 
-  const getFolderButton = () => {
-    if (props.collection === 'other') {
-      return (
-        <UploadFolderButton
-          db={db}
-          collection={props.collection}
-          bucket={getAWSBucket()}
-          onUpload={onUpdate}
-        />
-      );
-    }
-  };
-
   return (
     <Col>
       <Col className='py-3 px-2'>
-        <Row>
+        <Row className='ms-1 gy-2'>
           <EditCreditsButton db={db} onUpdate={onUpdate} />
           <UploadButton
             db={db}
@@ -138,13 +125,24 @@ function ArtList(props) {
             onUpload={onUpdate}
             collection={props.collection}
           />
-          {getFolderButton()}
+          {props.collection === 'other' && (
+            <UploadFolderButton
+              db={db}
+              collection={props.collection}
+              bucket={getAWSBucket()}
+              onUpload={onUpdate}
+            />
+          )}
           <CollectionDropdown
             callback={collectionChanged}
             collections={props.collections}
             collection={props.collection}
           />
-          <Button color='primary' className='fit-content' onClick={onUpdate}>
+          <Button
+            color='primary'
+            className='fit-content ms-2'
+            onClick={onUpdate}
+          >
             <MdRefresh />
           </Button>
         </Row>

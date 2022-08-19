@@ -109,7 +109,7 @@ export default function EditCreditsButton(props) {
 
   return (
     <>
-      <Button onClick={openModal} color='primary' className='fit-content ms-3'>
+      <Button onClick={openModal} color='primary' className='fit-content ms-2'>
         <MdModeEdit className='me-1 mb-1' />
         Edit Credits
       </Button>
