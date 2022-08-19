@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { MdFolder } from "react-icons/md";
+import {useEffect, useState} from 'react';
+import {MdFolder} from 'react-icons/md';
 import {
   Button,
   FormGroup,
@@ -10,11 +10,11 @@ import {
   Label,
   Input,
   FormFeedback,
-} from "reactstrap";
-import AddRow from "./folderRows/AddRow";
-import MediaRow from "./folderRows/MediaRow";
-import TextRow from "./folderRows/TextRow";
-import FolderRowWrapper from "./folderRows/FolderRowWrapper";
+} from 'reactstrap';
+import AddRow from './folderRows/AddRow';
+import MediaRow from './folderRows/MediaRow';
+import TextRow from './folderRows/TextRow';
+import FolderRowWrapper from './folderRows/FolderRowWrapper';
 import {
   collection,
   getDoc,
@@ -24,13 +24,13 @@ import {
   increment,
   getDocs,
   setDoc,
-} from "firebase/firestore";
+} from 'firebase/firestore';
 
 function EditButton(props) {
   const [modalOpen, setModalOpen] = useState(false);
   const [items, setItems] = useState([]);
   const [valid, setValid] = useState(false);
-  const [folderName, setFolderName] = useState("");
+  const [folderName, setFolderName] = useState('');
   const [order, setOrder] = useState(0);
   const [saving, setSaving] = useState(false);
 
@@ -40,7 +40,7 @@ function EditButton(props) {
     for (let i = 0; i < items.length; i++) {
       const current = items[i];
 
-      if (current.type === "text") {
+      if (current.type === 'text') {
         if (current.content.length === 0 || current.size <= 0) {
           isValid = false;
           break;
@@ -61,13 +61,13 @@ function EditButton(props) {
       const current = props.content[i];
       const type = current.type;
 
-      if (type === "image" || type === "video") {
+      if (type === 'image' || type === 'video') {
         newItems.push({
           type: type,
           filename: current.filename,
           url: current.url,
         });
-      } else if (type === "text") {
+      } else if (type === 'text') {
         newItems.push({
           content: current.content,
           type: type,
@@ -100,7 +100,7 @@ function EditButton(props) {
     let current = items[index];
 
     let newItem = {
-      type: "text",
+      type: 'text',
       content: current.content,
       size: size,
     };
@@ -112,7 +112,7 @@ function EditButton(props) {
     let current = items[index];
 
     let newItem = {
-      type: "text",
+      type: 'text',
       content: text,
       size: current.size,
     };
@@ -155,12 +155,12 @@ function EditButton(props) {
       let newRow;
 
       if (
-        current.type === "media" ||
-        current.type === "video" ||
-        current.type === "image"
+        current.type === 'media' ||
+        current.type === 'video' ||
+        current.type === 'image'
       ) {
         newRow = <MediaRow current={current} index={i} uploaded key={i} />;
-      } else if (current.type === "text") {
+      } else if (current.type === 'text') {
         newRow = (
           <TextRow
             current={current}
@@ -230,9 +230,9 @@ function EditButton(props) {
           const reducedItems = items.reduce((itemsAccumulator, item) => {
             const itemType = item.type;
 
-            if (itemType === "text") {
+            if (itemType === 'text') {
               return [...itemsAccumulator, item];
-            } else if (itemType === "video" || itemType === "image") {
+            } else if (itemType === 'video' || itemType === 'image') {
               return [
                 ...itemsAccumulator,
                 {
@@ -250,7 +250,7 @@ function EditButton(props) {
               description: folderName,
               content: reducedItems,
             },
-            { merge: true }
+            {merge: true}
           ).then(() => {
             setSaving(false);
             closeModal();
@@ -262,18 +262,18 @@ function EditButton(props) {
 
   return (
     <>
-      <Button color="primary" className="mx-2" onClick={openModal}>
+      <Button color='primary' className='mx-2' onClick={openModal}>
         Edit
       </Button>
 
-      <Modal isOpen={modalOpen}>
+      <Modal isOpen={modalOpen} size='lg'>
         <ModalHeader toggle={toggleModal}>Edit Folder</ModalHeader>
         <ModalBody>
           <FormGroup>
             <Label>Folder Name</Label>
             <Input
-              type="text"
-              placeholder="Enter folder name"
+              type='text'
+              placeholder='Enter folder name'
               value={folderName}
               onChange={folderNameChanged}
               invalid={!validFolderName()}
@@ -284,7 +284,7 @@ function EditButton(props) {
           <FormGroup>
             <Label>Order</Label>
             <Input
-              type="number"
+              type='number'
               value={order}
               onChange={orderChanged}
               invalid={!validOrder()}
@@ -296,11 +296,11 @@ function EditButton(props) {
           {getItemRows()}
         </ModalBody>
         <ModalFooter>
-          <div className="upload-add-row">
-            <Button onClick={closeModal} className="me-2">
+          <div className='upload-add-row'>
+            <Button onClick={closeModal} className='me-2'>
               Cancel
             </Button>
-            <Button onClick={save} color="primary" disabled={!valid}>
+            <Button onClick={save} color='primary' disabled={!valid}>
               Save
             </Button>
           </div>

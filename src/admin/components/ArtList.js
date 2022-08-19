@@ -13,7 +13,7 @@ import {artSelector} from '../../shared/redux/selectors/art_selector';
 import {archiveSelector} from '../../shared/redux/selectors/archive_selector';
 import {fetchMedia} from '../../shared/redux/thunks/fetch_media';
 import {fetchCredits} from '../../shared/redux/thunks/fetch_credits';
-import EditCreditsButton from './EditCreditsButton';
+import EditCreditsButton from './credits/EditCreditsButton';
 
 const S3_BUCKET = 'xavier-portfolio';
 const REGION = 'us-east-2';

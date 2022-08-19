@@ -160,7 +160,7 @@ function UploadButton(props) {
         Upload Media
       </Button>
 
-      <Modal isOpen={modalOpen}>
+      <Modal isOpen={modalOpen} size='lg'>
         <ModalHeader toggle={toggleModal}>Upload Media</ModalHeader>
         <ModalBody>
           <FormGroup>

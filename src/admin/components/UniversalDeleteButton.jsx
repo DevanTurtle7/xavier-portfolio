@@ -88,7 +88,7 @@ function UniversalDeleteButton(props) {
       <Button color='danger' className='mx-2' onClick={openModal}>
         Delete
       </Button>
-      <Modal isOpen={modalOpen}>
+      <Modal isOpen={modalOpen} size='lg'>
         <ModalHeader toggle={toggleModal}>Are you sure?</ModalHeader>
         <ModalBody>
           <Button

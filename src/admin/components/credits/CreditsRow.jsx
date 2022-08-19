@@ -1,5 +1,5 @@
 import {Input, Row, Col, FormGroup, FormFeedback} from 'reactstrap';
-import FolderRowWrapper from './folders/folderRows/FolderRowWrapper';
+import FolderRowWrapper from '../folders/folderRows/FolderRowWrapper';
 
 export default function CreditsRow(props) {
   return (

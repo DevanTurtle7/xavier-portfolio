@@ -1,10 +1,9 @@
-import {doc, getDoc, setDoc} from 'firebase/firestore';
+import {doc, setDoc} from 'firebase/firestore';
 import {useState} from 'react';
 import {MdModeEdit} from 'react-icons/md';
 import {useSelector} from 'react-redux';
 import {
   Button,
-  Input,
   Modal,
   ModalBody,
   ModalFooter,
@@ -12,7 +11,7 @@ import {
   Row,
   Col,
 } from 'reactstrap';
-import {creditsSelector} from '../../shared/redux/selectors/credits_selector';
+import {creditsSelector} from '../../../shared/redux/selectors/credits_selector';
 import CreditsRow from './CreditsRow';
 
 export default function EditCreditsButton(props) {
@@ -115,7 +114,7 @@ export default function EditCreditsButton(props) {
         Edit Credits
       </Button>
 
-      <Modal isOpen={isOpen}>
+      <Modal isOpen={isOpen} size='lg'>
         <ModalHeader toggle={toggle}>Edit Credits</ModalHeader>
         <ModalBody>
           <Row>
