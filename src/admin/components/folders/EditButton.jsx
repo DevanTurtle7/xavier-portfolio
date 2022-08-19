@@ -24,7 +24,6 @@ function EditButton(props) {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    console.log(1);
     let isValid = true;
 
     for (let i = 0; i < items.length; i++) {

@@ -40,7 +40,6 @@ function ArtList(props) {
   const media = getMedia();
 
   const onUpdate = () => {
-    console.log(props.collection);
     dispatch(fetchMedia({db, collectionName: props.collection}));
     dispatch(fetchCredits(db));
   };
