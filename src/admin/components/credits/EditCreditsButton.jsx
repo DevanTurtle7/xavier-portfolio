@@ -138,8 +138,8 @@ export default function EditCreditsButton(props) {
               key={i + '_row'}
             />
           ))}
-          <Button onClick={addCredit} color='primary'>
-            Add
+          <Button onClick={addCredit} color='primary' className='mt-4'>
+            Add Credit
           </Button>
         </ModalBody>
         <ModalFooter>
