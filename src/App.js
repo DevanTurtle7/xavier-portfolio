@@ -7,11 +7,11 @@
  * @author Devan Kavalchek
  */
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import {initializeApp} from 'firebase/app';
+import {getAuth} from 'firebase/auth';
+import {getFirestore} from 'firebase/firestore';
 
 import Art from './pages/Art';
 import Archive from './pages/Archive';
@@ -19,8 +19,8 @@ import Contact from './pages/Contact';
 import Credits from './pages/Credits';
 import Admin from './admin/Admin';
 import PageNotFound from './pages/PageNotFound';
-import { useDispatch } from 'react-redux';
-import { fetchMedia } from './shared/redux/thunks/load_media';
+import {useDispatch} from 'react-redux';
+import {fetchMedia} from './shared/redux/thunks/load_media';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA1O3ZZUuxv0-PGJPZI9UffooMkAHdyjZw',
@@ -39,19 +39,19 @@ const auth = getAuth();
 
 function App(props) {
   const dispatch = useDispatch();
-  dispatch(fetchMedia({ db: db, collectionName: 'art' }));
-  dispatch(fetchMedia({ db: db, collectionName: 'other' }));
+  dispatch(fetchMedia({db: db, collectionName: 'art'}));
+  dispatch(fetchMedia({db: db, collectionName: 'other'}));
 
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<Art />} />
-        <Route exact path="/art" element={<Art />} />
-        <Route exact path="/contact" element={<Contact />} />
-        <Route exact path="/credits" element={<Credits />} />
-        <Route exact path="/archive" element={<Archive />} />
-        <Route exact path="/admin" element={<Admin db={db} auth={auth} />} />
-        <Route path="*" element={<PageNotFound />} />
+        <Route exact path='/' element={<Art />} />
+        <Route exact path='/art' element={<Art />} />
+        <Route exact path='/contact' element={<Contact />} />
+        <Route exact path='/credits' element={<Credits />} />
+        <Route exact path='/archive' element={<Archive />} />
+        <Route exact path='/admin' element={<Admin db={db} auth={auth} />} />
+        <Route path='*' element={<PageNotFound />} />
       </Routes>
     </Router>
   );

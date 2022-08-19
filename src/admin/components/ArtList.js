@@ -1,6 +1,6 @@
-import { Button, Col, Row } from 'reactstrap';
+import {Button, Col, Row} from 'reactstrap';
 import UploadButton from './media/UploadButton';
-import { MdRefresh } from 'react-icons/md';
+import {MdRefresh} from 'react-icons/md';
 import MediaDisplay from './media/MediaDisplay';
 import CollectionDropdown from './CollectionDropdown';
 import TextDisplay from './text/TextDisplay';
@@ -8,10 +8,11 @@ import UploadTextButton from './text/UploadTextButton';
 import UploadFolderButton from './folders/UploadFolderButton';
 import AWS from 'aws-sdk';
 import FolderDisplay from './folders/FolderDisplay';
-import { useDispatch, useSelector } from 'react-redux';
-import { artSelector } from '../../shared/redux/selectors/art_selector';
-import { archiveSelector } from '../../shared/redux/selectors/archive_selector';
-import { fetchMedia } from '../../shared/redux/thunks/load_media';
+import {useDispatch, useSelector} from 'react-redux';
+import {artSelector} from '../../shared/redux/selectors/art_selector';
+import {archiveSelector} from '../../shared/redux/selectors/archive_selector';
+import {fetchMedia} from '../../shared/redux/thunks/load_media';
+import EditCreditsButton from './EditCreditsButton';
 
 const S3_BUCKET = 'xavier-portfolio';
 const REGION = 'us-east-2';
@@ -38,8 +39,8 @@ function ArtList(props) {
   const media = getMedia();
 
   const onUpdate = () => {
-    console.log(props.collection)
-    dispatch(fetchMedia({ db, collectionName: props.collection }));
+    console.log(props.collection);
+    dispatch(fetchMedia({db, collectionName: props.collection}));
   };
 
   const collectionChanged = (collection) => {
@@ -53,7 +54,7 @@ function ArtList(props) {
     });
 
     const myBucket = new AWS.S3({
-      params: { Bucket: S3_BUCKET },
+      params: {Bucket: S3_BUCKET},
       region: REGION,
     });
 
@@ -122,8 +123,9 @@ function ArtList(props) {
 
   return (
     <Col>
-      <Col className="py-3 px-2">
+      <Col className='py-3 px-2'>
         <Row>
+          <EditCreditsButton db={db} />
           <UploadButton
             db={db}
             onUpload={onUpdate}
@@ -141,12 +143,12 @@ function ArtList(props) {
             collections={props.collections}
             collection={props.collection}
           />
-          <Button color="primary" className="fit-content" onClick={onUpdate}>
+          <Button color='primary' className='fit-content' onClick={onUpdate}>
             <MdRefresh />
           </Button>
         </Row>
       </Col>
-      <Row className="mx-auto">{displays}</Row>
+      <Row className='mx-auto'>{displays}</Row>
     </Col>
   );
 }
