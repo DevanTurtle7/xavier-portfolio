@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import {
   Button,
   FormGroup,
@@ -18,12 +18,21 @@ import {collection, doc, updateDoc, getDocs, setDoc} from 'firebase/firestore';
 function EditButton(props) {
   const [modalOpen, setModalOpen] = useState(false);
   const [items, setItems] = useState([]);
-  const [valid, setValid] = useState(false);
   const [folderName, setFolderName] = useState('');
   const [order, setOrder] = useState(0);
   const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
+  const validFolderName = useCallback(
+    () => folderName.length > 0,
+    [folderName]
+  );
+
+  const validOrder = useCallback(
+    () => order.length !== 0 && order >= 0 && order < props.mediaCount,
+    [order, props.mediaCount]
+  );
+
+  const valid = useMemo(() => {
     let isValid = true;
 
     for (let i = 0; i < items.length; i++) {
@@ -37,8 +46,8 @@ function EditButton(props) {
       }
     }
 
-    setValid(isValid && validFolderName() && validOrder());
-  }, [folderName, items]);
+    return isValid && validFolderName() && validOrder();
+  }, [validFolderName, validOrder, items]);
 
   const toggleModal = () => setModalOpen(!modalOpen);
   const closeModal = () => setModalOpen(false);
@@ -178,10 +187,6 @@ function EditButton(props) {
   const orderChanged = (e) => {
     setOrder(parseInt(e.target.value));
   };
-
-  const validFolderName = () => folderName.length > 0;
-  const validOrder = () =>
-    order.length !== 0 && order >= 0 && order < props.mediaCount;
 
   const save = () => {
     if (!saving && valid) {
