@@ -1,67 +1,73 @@
 import '../style/credits.css';
 
-import { useEffect, useState } from "react"
-import Footer from "../shared/components/Footer"
-import Navbar from "../shared/components/Navbar"
+import {useEffect, useState} from 'react';
+import Footer from '../shared/components/Footer';
+import Navbar from '../shared/components/Navbar';
+import {useSelector} from 'react-redux';
+import {creditsSelector} from '../shared/redux/selectors/credits_selector';
 
-const BG_COLOR = "#000"
-const TEXT_COLOR = "#fff"
-const PAGE_TAG = "credits"
+const BG_COLOR = '#000';
+const TEXT_COLOR = '#fff';
+const PAGE_TAG = 'credits';
 
 function Credits(props) {
-    const [colorsUpdated, setColorsUpdated] = useState(false)
-    const names = {
-        "Lisa - Jean Sylvia": "",
-        "Clarence Taylor": "",
-        "Donna Suza": "",
-        "Cecil Hickman": "",
-        "Aidan Smith": "",
-        "Nate Briggs": "https://linktr.ee/harboringartist",
-        "Dashiell Tidrick": "",
-        "Simon Burgess ": "",
-        "Kai Gyorki": "",
-        "Devan Kavalchek": "https://kavalchek.dev/",
-        "Anthony Mastromatteo": "http://www.mastromatteo.art/",
-        "Alex Infield": "",
-        "Alec Samperi": "",
-        "Baran Shafiey": "",
+  const [colorsUpdated, setColorsUpdated] = useState(false);
+  const names = {
+    'Lisa - Jean Sylvia': '',
+    'Clarence Taylor': '',
+    'Donna Suza': '',
+    'Cecil Hickman': '',
+    'Aidan Smith': '',
+    'Nate Briggs': 'https://linktr.ee/harboringartist',
+    'Dashiell Tidrick': '',
+    'Simon Burgess ': '',
+    'Kai Gyorki': '',
+    'Devan Kavalchek': 'https://kavalchek.dev/',
+    'Anthony Mastromatteo': 'http://www.mastromatteo.art/',
+    'Alex Infield': '',
+    'Alec Samperi': '',
+    'Baran Shafiey': '',
+  };
+
+  const credits = useSelector(creditsSelector);
+
+  useEffect(() => {
+    if (!colorsUpdated) {
+      // Set theme colors
+      document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
+      document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
+      setColorsUpdated(true);
     }
+  }, [colorsUpdated]);
 
-    useEffect(() => {
-        if (!colorsUpdated) {
-            // Set theme colors
-            document.documentElement.style.setProperty('--bs-body-bg', BG_COLOR);
-            document.documentElement.style.setProperty('--bs-body-color', TEXT_COLOR);
-            setColorsUpdated(true)
-        }
-    }, [colorsUpdated])
-
-    const getCredits = () => {
-        const elements = []
-
-        for (var name in names) {
-            var link = names[name];
-
-            if (link !== "") {
-                elements.push(<a href={link} className="credit-link" target="_blank" rel="noreferrer">{name}</a>)
-            } else {
-                elements.push(<p className="credit">{name}</p>)
-            }
-        }
-
-        return elements;
-    }
-
-    return (
-        <div id="credits-root">
-            <Navbar tag={PAGE_TAG} />
-            <div className="credits-col">
-                <p className="credit"><b>special thanks to:</b></p>
-                {getCredits()}
-            </div>
-            <Footer tag={PAGE_TAG} />
-        </div>
-    )
+  return (
+    <div id='credits-root'>
+      <Navbar tag={PAGE_TAG} />
+      <div className='credits-col'>
+        <p className='credit'>
+          <b>special thanks to:</b>
+        </p>
+        {credits.map((credit, i) =>
+          credit.link === '' ? (
+            <p className='credit' key={i}>
+              {credit.name}
+            </p>
+          ) : (
+            <a
+              href={credit.link}
+              className='credit-link'
+              target='_blank'
+              rel='noreferrer'
+              key={i}
+            >
+              {credit.name}
+            </a>
+          )
+        )}
+      </div>
+      <Footer tag={PAGE_TAG} />
+    </div>
+  );
 }
 
 export default Credits;
