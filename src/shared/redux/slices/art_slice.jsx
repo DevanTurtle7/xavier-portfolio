@@ -1,12 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { fetchMedia } from '../thunks/load_media';
+import {createSlice} from '@reduxjs/toolkit';
+import {fetchMedia} from '../thunks/fetch_media';
 
 const artSlice = createSlice({
   name: 'art',
   initialState: [],
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchMedia.fulfilled, (state, { payload }) => {
+    builder.addCase(fetchMedia.fulfilled, (state, {payload}) => {
       if (payload.collection === 'art') {
         return payload.media;
       }

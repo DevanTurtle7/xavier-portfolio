@@ -11,7 +11,7 @@ import FolderDisplay from './folders/FolderDisplay';
 import {useDispatch, useSelector} from 'react-redux';
 import {artSelector} from '../../shared/redux/selectors/art_selector';
 import {archiveSelector} from '../../shared/redux/selectors/archive_selector';
-import {fetchMedia} from '../../shared/redux/thunks/load_media';
+import {fetchMedia} from '../../shared/redux/thunks/fetch_media';
 import EditCreditsButton from './EditCreditsButton';
 
 const S3_BUCKET = 'xavier-portfolio';

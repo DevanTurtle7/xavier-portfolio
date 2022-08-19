@@ -20,7 +20,8 @@ import Credits from './pages/Credits';
 import Admin from './admin/Admin';
 import PageNotFound from './pages/PageNotFound';
 import {useDispatch} from 'react-redux';
-import {fetchMedia} from './shared/redux/thunks/load_media';
+import {fetchMedia} from './shared/redux/thunks/fetch_media';
+import {fetchCredits} from './shared/redux/thunks/fetch_credits';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA1O3ZZUuxv0-PGJPZI9UffooMkAHdyjZw',
@@ -41,6 +42,7 @@ function App(props) {
   const dispatch = useDispatch();
   dispatch(fetchMedia({db: db, collectionName: 'art'}));
   dispatch(fetchMedia({db: db, collectionName: 'other'}));
+  dispatch(fetchCredits(db));
 
   return (
     <Router>
