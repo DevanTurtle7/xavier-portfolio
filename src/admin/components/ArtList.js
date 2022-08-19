@@ -12,6 +12,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {artSelector} from '../../shared/redux/selectors/art_selector';
 import {archiveSelector} from '../../shared/redux/selectors/archive_selector';
 import {fetchMedia} from '../../shared/redux/thunks/fetch_media';
+import {fetchCredits} from '../../shared/redux/thunks/fetch_credits';
 import EditCreditsButton from './EditCreditsButton';
 
 const S3_BUCKET = 'xavier-portfolio';
@@ -41,6 +42,7 @@ function ArtList(props) {
   const onUpdate = () => {
     console.log(props.collection);
     dispatch(fetchMedia({db, collectionName: props.collection}));
+    dispatch(fetchCredits(db));
   };
 
   const collectionChanged = (collection) => {
@@ -125,7 +127,7 @@ function ArtList(props) {
     <Col>
       <Col className='py-3 px-2'>
         <Row>
-          <EditCreditsButton db={db} />
+          <EditCreditsButton db={db} onUpdate={onUpdate} />
           <UploadButton
             db={db}
             onUpload={onUpdate}

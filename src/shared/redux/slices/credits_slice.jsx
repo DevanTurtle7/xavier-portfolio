@@ -7,7 +7,6 @@ const creditsSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder.addCase(fetchCredits.fulfilled, (state, {payload}) => {
-      console.log(payload);
       return payload;
     });
     builder.addCase(fetchCredits.rejected, (state, action) => {

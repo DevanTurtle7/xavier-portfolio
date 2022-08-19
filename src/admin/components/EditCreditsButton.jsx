@@ -1,3 +1,4 @@
+import {doc, getDoc, setDoc} from 'firebase/firestore';
 import {useState} from 'react';
 import {MdModeEdit} from 'react-icons/md';
 import {useSelector} from 'react-redux';
@@ -99,7 +100,13 @@ export default function EditCreditsButton(props) {
     return valid;
   };
 
-  const onSave = () => {};
+  const onSave = async () => {
+    const creditsDoc = doc(props.db, 'credits', 'credits');
+    setDoc(creditsDoc, {credits: credits}).then(() => {
+      closeModal();
+      props.onUpdate();
+    });
+  };
 
   return (
     <>
