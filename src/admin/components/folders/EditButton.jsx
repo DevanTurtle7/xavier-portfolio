@@ -1,4 +1,4 @@
-import {useCallback, useMemo, useState} from 'react';
+import {useMemo, useState} from 'react';
 import {
   Button,
   FormGroup,
@@ -22,12 +22,9 @@ function EditButton(props) {
   const [order, setOrder] = useState(0);
   const [saving, setSaving] = useState(false);
 
-  const validFolderName = useCallback(
-    () => folderName.length > 0,
-    [folderName]
-  );
+  const validFolderName = useMemo(() => folderName.length > 0, [folderName]);
 
-  const validOrder = useCallback(
+  const validOrder = useMemo(
     () => order.length !== 0 && order >= 0 && order < props.mediaCount,
     [order, props.mediaCount]
   );
@@ -46,7 +43,7 @@ function EditButton(props) {
       }
     }
 
-    return isValid && validFolderName() && validOrder();
+    return isValid && validFolderName && validOrder;
   }, [validFolderName, validOrder, items]);
 
   const toggleModal = () => setModalOpen(!modalOpen);
@@ -272,7 +269,7 @@ function EditButton(props) {
               placeholder='Enter folder name'
               value={folderName}
               onChange={folderNameChanged}
-              invalid={!validFolderName()}
+              invalid={!validFolderName}
             />
             <FormFeedback>Folder name cannot be empty</FormFeedback>
           </FormGroup>
@@ -283,7 +280,7 @@ function EditButton(props) {
               type='number'
               value={order}
               onChange={orderChanged}
-              invalid={!validOrder()}
+              invalid={!validOrder}
             />
             <FormFeedback>
               Order must be between 0 and {props.mediaCount - 1}
