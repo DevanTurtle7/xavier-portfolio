@@ -118,7 +118,6 @@ class Admin extends Component {
 
   collectionChanged = (collection) => {
     this.setState({collection: collection});
-    console.log(collection);
   };
 
   render() {
