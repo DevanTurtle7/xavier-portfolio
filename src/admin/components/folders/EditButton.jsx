@@ -1,5 +1,4 @@
 import {useEffect, useState} from 'react';
-import {MdFolder} from 'react-icons/md';
 import {
   Button,
   FormGroup,
@@ -11,20 +10,10 @@ import {
   Input,
   FormFeedback,
 } from 'reactstrap';
-import AddRow from './folderRows/AddRow';
 import MediaRow from './folderRows/MediaRow';
 import TextRow from './folderRows/TextRow';
 import FolderRowWrapper from './folderRows/FolderRowWrapper';
-import {
-  collection,
-  getDoc,
-  doc,
-  addDoc,
-  updateDoc,
-  increment,
-  getDocs,
-  setDoc,
-} from 'firebase/firestore';
+import {collection, doc, updateDoc, getDocs, setDoc} from 'firebase/firestore';
 
 function EditButton(props) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -35,6 +24,7 @@ function EditButton(props) {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    console.log(1);
     let isValid = true;
 
     for (let i = 0; i < items.length; i++) {
@@ -49,7 +39,7 @@ function EditButton(props) {
     }
 
     setValid(isValid && validFolderName() && validOrder());
-  });
+  }, [folderName, items]);
 
   const toggleModal = () => setModalOpen(!modalOpen);
   const closeModal = () => setModalOpen(false);
@@ -240,6 +230,8 @@ function EditButton(props) {
                   filename: item.filename,
                 },
               ];
+            } else {
+              return [...itemsAccumulator];
             }
           }, []);
 
