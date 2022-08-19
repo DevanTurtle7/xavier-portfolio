@@ -1,4 +1,4 @@
-import {Input, Row, Col} from 'reactstrap';
+import {Input, Row, Col, FormGroup, FormFeedback} from 'reactstrap';
 import FolderRowWrapper from './folders/folderRows/FolderRowWrapper';
 
 export default function CreditsRow(props) {
@@ -10,13 +10,17 @@ export default function CreditsRow(props) {
     >
       <Row>
         <Col>
-          <Input
-            type='text'
-            value={props.name}
-            onChange={(e) => {
-              props.nameChanged(e, props.index);
-            }}
-          />
+          <FormGroup>
+            <Input
+              type='text'
+              value={props.name}
+              onChange={(e) => {
+                props.nameChanged(e, props.index);
+              }}
+              invalid={props.name.length === 0}
+            />
+            <FormFeedback>Name cannot be empty</FormFeedback>
+          </FormGroup>
         </Col>
         <Col>
           <Input

@@ -34,23 +34,61 @@ export default function EditCreditsButton(props) {
 
   const nameChanged = (e, index) =>
     setCredits(
-      credits.map((credit, i) => {
+      credits.map(({name, link}, i) => {
         return {
-          name: i === index ? e.target.value : credit.name,
-          link: credit.link,
+          name: i === index ? e.target.value : name,
+          link: link,
         };
       })
     );
 
   const linkChanged = (e, index) =>
     setCredits(
-      credits.map((credit, i) => {
+      credits.map(({name, link}, i) => {
         return {
-          name: credit.name,
-          link: i === index ? e.target.value : credit.link,
+          name: name,
+          link: i === index ? e.target.value : link,
         };
       })
     );
+
+  const onMove = (prevIndex, newIndex) => {
+    const newCredits = [];
+
+    for (let i = 0; i < credits.length; i++) {
+      let current = credits[i];
+
+      if (i !== prevIndex) {
+        if (i === newIndex) {
+          if (prevIndex < newIndex) {
+            newCredits.push(current);
+            newCredits.push(credits[prevIndex]);
+          } else {
+            newCredits.push(credits[prevIndex]);
+            newCredits.push(current);
+          }
+        } else {
+          newCredits.push(current);
+        }
+      }
+    }
+
+    setCredits(newCredits);
+  };
+
+  const validCredits = () => {
+    let valid = true;
+
+    credits.forEach(({name}) => {
+      if (name.length === 0) {
+        valid = false;
+      }
+    });
+
+    return valid;
+  };
+
+  const onSave = () => {};
 
   return (
     <>
@@ -76,7 +114,7 @@ export default function EditCreditsButton(props) {
               link={credit.link}
               index={i}
               numItems={credits.length}
-              onMove={() => {}}
+              onMove={onMove}
               nameChanged={nameChanged}
               linkChanged={linkChanged}
               key={i + '_row'}
@@ -90,7 +128,7 @@ export default function EditCreditsButton(props) {
           <Button onClick={closeModal} color='secondary'>
             Cancel
           </Button>
-          <Button onClick={() => {}} color='primary'>
+          <Button onClick={onSave} color='primary' disabled={!validCredits()}>
             Save
           </Button>
         </ModalFooter>
