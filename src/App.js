@@ -40,8 +40,8 @@ const auth = getAuth();
 
 function App(props) {
   const dispatch = useDispatch();
-  dispatch(fetchMedia({db: db, collectionName: 'art'}));
-  dispatch(fetchMedia({db: db, collectionName: 'other'}));
+  dispatch(fetchMedia({db, collectionName: 'art'}));
+  dispatch(fetchMedia({db, collectionName: 'other'}));
   dispatch(fetchCredits(db));
 
   return (

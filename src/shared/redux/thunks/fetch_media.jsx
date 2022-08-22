@@ -1,7 +1,8 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {getDocs, collection, query, orderBy} from 'firebase/firestore';
 
-const IMG_URL = 'https://xavier-portfolio.s3.us-east-2.amazonaws.com/';
+const BUCKET_NAME = 'xsj-portfolio';
+const IMG_URL = `https://${BUCKET_NAME}.s3.amazonaws.com/`;
 
 export const fetchMedia = createAsyncThunk(
   'fetchMedia',

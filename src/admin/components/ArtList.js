@@ -15,8 +15,8 @@ import {fetchMedia} from '../../shared/redux/thunks/fetch_media';
 import {fetchCredits} from '../../shared/redux/thunks/fetch_credits';
 import EditCreditsButton from './credits/EditCreditsButton';
 
-const S3_BUCKET = 'xavier-portfolio';
-const REGION = 'us-east-2';
+const S3_BUCKET = 'xsj-portfolio';
+const REGION = 'us-east-1';
 
 function ArtList(props) {
   const artMedia = useSelector(artSelector);
