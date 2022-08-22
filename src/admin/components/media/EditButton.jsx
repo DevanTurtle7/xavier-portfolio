@@ -66,18 +66,14 @@ class EditButton extends Component {
 
     let docId = this.props.data.docId;
     let docRef = doc(this.db, this.props.collection, docId);
-    let content = this.state.content;
-
-    for (let i = 0; i < content.length; i++) {
-      let current = content[i];
-      content[i] = {filename: current.filename, type: current.type};
-    }
-
-    let link = this.state.link;
-
-    if (link === undefined) {
-      link = '';
-    }
+    let link = this.state.link ?? '';
+    let content = this.state.content.reduce(
+      (contentAccumulator, current) => [
+        ...contentAccumulator,
+        {filename: current.filename, type: current.type},
+      ],
+      []
+    );
 
     await setDoc(
       docRef,
