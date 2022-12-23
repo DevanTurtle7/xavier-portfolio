@@ -188,7 +188,11 @@ function UploadButton(props) {
         </ModalBody>
         <ModalFooter>
           <div className='upload-footer-row'>
-            <Button onClick={upload} color='primary' disabled={uploading}>
+            <Button
+              onClick={upload}
+              color='primary'
+              disabled={uploading || files.length === 0}
+            >
               Upload
             </Button>
             <p className='my-auto' hidden={!uploading}>

@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import {Dropdown, DropdownToggle, DropdownItem, DropdownMenu} from 'reactstrap';
 
-class ArtList extends Component {
+class CollectionDropdown extends Component {
   constructor(props) {
     super(props);
 
@@ -56,4 +56,4 @@ class ArtList extends Component {
   }
 }
 
-export default ArtList;
+export default CollectionDropdown;
