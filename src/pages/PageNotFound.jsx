@@ -4,7 +4,7 @@ import { Fragment, useState, useEffect } from "react"
 import { MetaTags } from "react-meta-tags"
 import BlackoutTitle from "../shared/components/BlackoutTitle"
 
-const ARTIST_NAME = "xavier sylvia-jackson"
+const ARTIST_NAME = "artist name"
 
 const BG_COLOR = "#000"
 const TEXT_COLOR = "#fff"

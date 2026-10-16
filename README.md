@@ -1,10 +1,10 @@
 # xavier-portfolio
 
-A portfolio for artist Xavier Sylvia-Jackson.
+A portfolio for an artist.
 
-Designed by Xavier Sylvia-Jackson. Built by Devan Kavalchek.
+Built by Devan Kavalchek.
 
-Live at https://xaviersylviajackson.com
+Live at https://example.com
 
 ## Technologies
 

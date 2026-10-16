@@ -17,7 +17,7 @@ import Blackout from './Blackout';
 import BlackoutTitle from './BlackoutTitle';
 import NavLink from './NavLink';
 
-const ARTIST_NAME = "xavier sylvia-jackson"
+const ARTIST_NAME = "artist name"
 
 function Navbar(props) {
     return (

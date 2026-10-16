@@ -35,8 +35,8 @@ function Contact(props) {
             <Navbar tag={PAGE_TAG} bgColor={BG_COLOR} />
             
             <div className="contact-container">
-                <a className="email" href="mailto: xaviersylviajackson@gmail.com">
-                    xaviersylviajackson@gmail.com
+                <a className="email" href="mailto: artist@example.com">
+                    artist@example.com
                 </a>
                 <div className="instagram-row">
                     <a href="https://www.instagram.com/xaeviior/" target="_blank" rel="noreferrer">
